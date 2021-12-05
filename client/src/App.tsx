@@ -2,7 +2,7 @@
 import { useMoralis } from 'react-moralis'
 
 // Components
-import Dashboard from './components/Dashboard'
+import Dashboard from './components/Dashboard/Dashboard'
 import Landing from './components/Landing'
 
 // React
