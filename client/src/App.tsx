@@ -1,19 +1,25 @@
-import { useMoralis } from "react-moralis";
-import { AuthenticateButton, LogoutButton } from "./components/Auth";
+// Moralis
+import { useMoralis } from 'react-moralis'
+
+// Components
+import Dashboard from './components/Dashboard'
+import Landing from './components/Landing'
+
+// React
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
-  const { authenticate, isAuthenticated, user } = useMoralis();
+  const { isAuthenticated } = useMoralis()
 
   if (!isAuthenticated) {
-    return <AuthenticateButton />;
+    return <Landing />
   }
   return (
-    <div>
-      {/* @ts-ignore */}
-      <h1>Welcome {user.get("username")}</h1>
-      <LogoutButton />
-    </div>
-  );
+    <Routes>
+      <Route path='/dashboard' element={<Dashboard />}></Route>
+      <Route path='/' element={<Landing />}></Route>
+    </Routes>
+  )
 }
 
-export default App;
+export default App
