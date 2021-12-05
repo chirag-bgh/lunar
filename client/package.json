@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.4.2",
     "moralis": "^0.0.147",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -13,9 +14,9 @@
     "web3": "^1.6.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -35,6 +36,9 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.37",
-    "@types/react-dom": "^17.0.11"
+    "@types/react-dom": "^17.0.11",
+    "autoprefixer": "^9.8.8",
+    "postcss": "^7.0.39",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
   }
 }

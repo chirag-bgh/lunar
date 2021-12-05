@@ -4,6 +4,7 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 import { MoralisProvider } from 'react-moralis'
 import { BrowserRouter as Router } from 'react-router-dom'
+import './index.css'
 
 ReactDOM.render(
   <React.StrictMode>
