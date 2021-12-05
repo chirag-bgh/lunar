@@ -2,7 +2,7 @@ import { BsCash, BsArchive, IoReload, BiDollar } from 'react-icons/all'
 
 const Sidebar = () => {
   return (
-    <div className='w-1/5 h-full shadow-sidebar flex flex-col justify-start items-center gap-4'>
+    <div className='w-1/5 h-full shadow-sidebar flex flex-col justify-start items-center gap-6'>
       <UserAccount />
       <Balance />
       <Overview />
@@ -23,7 +23,7 @@ const UserAccount = () => {
         />
       </div>
       <div className='flex justify-center items-start flex-col h-full max-w-3/4 truncate'>
-        <h2 className='text-white text-2xl font-display font-bold'>Dashboard</h2>
+        <h2 className='text-2xl font-bold'>Dashboard</h2>
         <p className=' text-gray-400 text-sm font-display'>
           0x335301C43a5319fd890
         </p>
@@ -35,8 +35,8 @@ const UserAccount = () => {
 const Balance = () => {
   return (
     <div className='w-5/6 h-24 rounded-lg bg-dark flex flex-col justify-center items-center'>
-      <p className='text-white font-display text-md'>Balance</p>
-      <h2 className='text-white text-3xl font-display font-semibold'>1 ETH</h2>
+      <p className='text-md'>Balance</p>
+      <h2 className='text-3xl font-semibold'>1 ETH</h2>
     </div>
   )
 }
@@ -49,19 +49,19 @@ const Overview = () => {
       </div>
       <div className=' h-1/5 w-full flex justify-start items-center gap-3'>
         <BsCash className='text-white text-xl ml-3' />
-        <p className='text-white text-lg'>Transactions</p>
+        <p className='text-lg'>Transactions</p>
       </div>
       <div className=' h-1/5 w-full flex justify-start items-center gap-3'>
         <BsArchive className='text-white text-xl ml-3' />
-        <p className='text-white text-lg'>Products</p>
+        <p className='text-lg'>Products</p>
       </div>
       <div className=' h-1/5 w-full flex justify-start items-center gap-3'>
         <IoReload className='text-white text-xl ml-3' />
-        <p className='text-white text-lg'>Subscription Plans</p>
+        <p className='text-lg'>Subscription Plans</p>
       </div>
       <div className=' h-1/5 w-full flex justify-start items-center gap-3'>
         <BiDollar className='text-white text-xl ml-3' />
-        <p className='text-white text-lg'>Payouts</p>
+        <p className='text-lg'>Payouts</p>
       </div>
     </div>
   )
