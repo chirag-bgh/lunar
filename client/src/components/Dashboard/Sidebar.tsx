@@ -14,7 +14,7 @@ export default Sidebar
 
 const UserAccount = () => {
   return (
-    <div className='w-5/6 h-16 flex justify-start items-center gap-4'>
+    <div className='w-5/6 h-16 pt-4 flex justify-start items-center gap-4'>
       <div className='h-full flex justify-center items-center'>
         <img
           src='/images/profile_pic.png'
@@ -22,9 +22,9 @@ const UserAccount = () => {
           className='w-10 h-10'
         />
       </div>
-      <div className='flex justify-center items-center flex-col h-full max-w-3/4 truncate'>
-        <h2 className='text-white text-3xl'>Dashboard</h2>
-        <p className='text-white text-sm font-extralight'>
+      <div className='flex justify-center items-start flex-col h-full max-w-3/4 truncate'>
+        <h2 className='text-white text-2xl font-display font-bold'>Dashboard</h2>
+        <p className=' text-gray-400 text-sm font-display'>
           0x335301C43a5319fd890
         </p>
       </div>
@@ -35,15 +35,15 @@ const UserAccount = () => {
 const Balance = () => {
   return (
     <div className='w-5/6 h-24 rounded-lg bg-dark flex flex-col justify-center items-center'>
-      <p className='text-white text-md'>Balance</p>
-      <h2 className='text-white text-3xl font-semibold'>1 ETH</h2>
+      <p className='text-white font-display text-md'>Balance</p>
+      <h2 className='text-white text-3xl font-display font-semibold'>1 ETH</h2>
     </div>
   )
 }
 
 const Overview = () => {
   return (
-    <div className='w-5/6 h-60 rounded-lg bg-dark flex flex-col justify-start items-center'>
+    <div className='w-5/6 h-60 rounded-lg bg-dark flex flex-col justify-start items-center font-display'>
       <div className='h-1/5 w-full bg-primary rounded-t-lg flex justify-center items-center'>
         <p className='text-black text-lg font-medium'>Overview</p>
       </div>
