@@ -9,8 +9,8 @@ import './index.css'
 ReactDOM.render(
   <React.StrictMode>
     <MoralisProvider
-      appId='ARxr0E5hRWDujMYRNcDfTLM0IqSommIwJJnEKCN9'
-      serverUrl='https://o5k1a60laisv.usemoralis.com:2053/server'
+      appId="94Z3kVU7K2MSTh3UfwIGOp1iI8akUAvzglgCHcoa"
+      serverUrl="https://tzgfgdv3kgu6.usemoralis.com:2053/server"
     >
       <Router>
         <App />
