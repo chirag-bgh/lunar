@@ -1,6 +1,7 @@
 // Components
 import Billing from './Billing'
 import Subscriptions from './Subscriptions'
+import Chart from './Chart.jsx'
 
 // Icons
 import { BsCalendarEvent } from 'react-icons/all'
@@ -27,6 +28,8 @@ const Overview = () => {
       ) : (
         <Subscriptions />
       )}
+      {/* Chart will come here  */}
+      <Chart className=" bg-dark mt-3 rounded-lg"/>
     </div>
   )
 }
