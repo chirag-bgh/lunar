@@ -1,8 +1,10 @@
-import { BsCash, BsArchive, IoReload, BiDollar } from 'react-icons/all'
+import { BsFileText, BsCash, BsArchive, IoReload, BiDollar } from 'react-icons/all'
+import {useState} from "react";
+import { setSyntheticLeadingComments } from 'typescript';
 
 const Sidebar = () => {
   return (
-    <div className='w-1/5 h-full shadow-sidebar flex flex-col justify-start items-center gap-6'>
+    <div className='w-72 h-full shadow-sidebar flex flex-col justify-start items-center gap-6'>
       <UserAccount />
       <Balance />
       <Overview />
@@ -14,7 +16,7 @@ export default Sidebar
 
 const UserAccount = () => {
   return (
-    <div className='w-5/6 h-16 pt-4 flex justify-start items-center gap-4'>
+    <div className='h-16 pt-4 flex justify-start items-center gap-4'>
       <div className='h-full flex justify-center items-center'>
         <img
           src='/images/profile_pic.png'
@@ -42,26 +44,31 @@ const Balance = () => {
 }
 
 const Overview = () => {
+
+  
+  let [selected, setSelected] = useState(1)
+
   return (
-    <div className='w-5/6 h-60 rounded-lg bg-dark flex flex-col justify-start items-center font-display'>
-      <div className='h-1/5 w-full bg-primary rounded-t-lg flex justify-center items-center'>
-        <p className='text-black text-lg font-medium'>Overview</p>
+    <div className='w-5/6 h-60 rounded-lg bg-dark flex flex-col justify-start items-center font-display cursor-pointer'>
+      <div id="1" onClick={()=>setSelected(1)} className={'h-1/5 w-full rounded-t-lg flex justify-start items-center gap-3 transition-all '+(selected === 1 ? " bg-primary text-dark gap-11 " : " text-white" )}>
+        <BsFileText className='text-current text-xl ml-3'/>
+        <p className='text-lg text-current font-medium'>Overview</p>
       </div>
-      <div className=' h-1/5 w-full flex justify-start items-center gap-3'>
-        <BsCash className='text-white text-xl ml-3' />
-        <p className='text-lg'>Transactions</p>
+      <div  id="2" onClick={()=>setSelected(2)} className={' h-1/5 w-full flex justify-start items-center gap-3 transition-all '+(selected === 2 ? " bg-primary text-dark  gap-11" : " text-white" )}>
+        <BsCash className='text-current text-xl ml-3' />
+        <p className='text-current text-lg'>Transactions</p>
       </div>
-      <div className=' h-1/5 w-full flex justify-start items-center gap-3'>
-        <BsArchive className='text-white text-xl ml-3' />
-        <p className='text-lg'>Products</p>
+      <div  id="3" onClick={()=>setSelected(3)} className={' h-1/5 w-full flex justify-start items-center gap-3 transition-all '+(selected === 3 ? " bg-primary text-dark  gap-11" : " text-white"  )}>
+        <BsArchive className='text-current text-xl ml-3' />
+        <p className='text-current text-lg'>Products</p>
       </div>
-      <div className=' h-1/5 w-full flex justify-start items-center gap-3'>
-        <IoReload className='text-white text-xl ml-3' />
-        <p className='text-lg'>Subscription Plans</p>
+      <div  id="4"onClick={()=>setSelected(4)}  className={' h-1/5 w-full flex justify-start items-center gap-3 transition-all '+(selected === 4 ? " bg-primary text-dark gap-5" : " text-white" )}>
+        <IoReload className='text-current text-xl ml-3' />
+        <p className='text-current text-lg'>Subscription Plans</p>
       </div>
-      <div className=' h-1/5 w-full flex justify-start items-center gap-3'>
-        <BiDollar className='text-white text-xl ml-3' />
-        <p className='text-lg'>Payouts</p>
+      <div  id="5"onClick={()=>setSelected(5)}  className={' h-1/5 w-full flex rounded-b-lg justify-start items-center gap-3 transition-all '+(selected === 5 ? " bg-primary text-dark  gap-11" : " text-white" )}>
+        <BiDollar className='text-current text-xl ml-3' />
+        <p className='text-current text-lg'>Payouts</p>
       </div>
     </div>
   )
