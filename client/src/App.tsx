@@ -25,7 +25,7 @@ function App() {
      enableWeb3()
   }
 
-  console.log(isWeb3Enabled)
+   console.log("hello")
 
   return (
     <div>
@@ -33,7 +33,8 @@ function App() {
       <h1>Welcome {user.get("ethAddress")}</h1>
       <LogoutButton />
       <TransferButton amount={10} address="0x479327C7658AeBFa9F777B1B79D9353C7387e266" />
-      <DisplayTransaction />
+     <DisplayTransaction />
+  
       <Routes>
       <Route path='/dashboard' element={<Dashboard />}></Route>
       <Route path='/' element={<Landing />}></Route>
@@ -41,7 +42,6 @@ function App() {
     </div>
   );
     
-  )
 }
 
 export default App
