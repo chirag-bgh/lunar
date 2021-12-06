@@ -21,3 +21,7 @@ h2 {
 .underline {
   text-decoration: underline solid #87f1ff !important;
 }
+
+th {
+  padding: 0.7rem;
+}

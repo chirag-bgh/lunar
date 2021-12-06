@@ -73,7 +73,7 @@ const TabItem = ({
       } items-center text-white text-lg font-display`}
     >
       <div></div>
-      <p>{tab}</p>
+      <p className='text-base'>{tab}</p>
       <div
         className={`${
           selected ? 'auto' : 'hidden'
