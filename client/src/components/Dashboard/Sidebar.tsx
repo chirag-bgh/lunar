@@ -1,3 +1,4 @@
+// Icons
 import {
   BsFileText,
   BsCash,
@@ -5,11 +6,14 @@ import {
   IoReload,
   BiDollar,
 } from 'react-icons/all'
-import { useState } from 'react'
 
-const Sidebar = () => {
-  const [selectedTab, setSelectedTab] = useState('Overview')
-
+const Sidebar = ({
+  selectedTab,
+  setSelectedTab,
+}: {
+  selectedTab: string
+  setSelectedTab: (arg: string) => void
+}) => {
   return (
     <div className='w-80 h-full shadow-sidebar flex flex-col justify-start items-center gap-6'>
       <UserAccount />
