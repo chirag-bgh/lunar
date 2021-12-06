@@ -2,7 +2,7 @@ import { BsCash, BsArchive, IoReload, BiDollar } from 'react-icons/all'
 
 const Sidebar = () => {
   return (
-    <div className='w-1/5 h-full shadow-sidebar flex flex-col justify-start items-center gap-6'>
+    <div className='w-80 h-full shadow-sidebar flex flex-col justify-start items-center gap-6'>
       <UserAccount />
       <Balance />
       <Overview />
