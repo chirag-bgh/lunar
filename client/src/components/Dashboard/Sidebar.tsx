@@ -1,14 +1,15 @@
-import { BsFileText, BsCash, BsArchive, IoReload, BiDollar } from 'react-icons/all'
-import {useState} from "react";
-import { setSyntheticLeadingComments } from 'typescript';
+import {
+  BsFileText,
+  BsCash,
+  BsArchive,
+  IoReload,
+  BiDollar,
+} from 'react-icons/all'
+import { useState } from 'react'
 
 const Sidebar = () => {
   return (
-<<<<<<< HEAD
     <div className='w-80 h-full shadow-sidebar flex flex-col justify-start items-center gap-6'>
-=======
-    <div className='w-72 h-full shadow-sidebar flex flex-col justify-start items-center gap-6'>
->>>>>>> 708ecf4f0a90e038bb1b3ff3d0837789e82e94fc
       <UserAccount />
       <Balance />
       <Overview />
@@ -48,29 +49,62 @@ const Balance = () => {
 }
 
 const Overview = () => {
-
-  
   let [selected, setSelected] = useState(1)
 
   return (
     <div className='w-5/6 h-60 rounded-lg bg-dark flex flex-col justify-start items-center font-display cursor-pointer'>
-      <div id="1" onClick={()=>setSelected(1)} className={'h-1/5 w-full rounded-t-lg flex justify-start items-center gap-3 transition-all '+(selected === 1 ? " bg-primary text-dark gap-11 " : " text-white" )}>
-        <BsFileText className='text-current text-xl ml-3'/>
+      <div
+        id='1'
+        onClick={() => setSelected(1)}
+        className={
+          'h-1/5 w-full rounded-t-lg flex justify-start items-center gap-3 transition-all ' +
+          (selected === 1 ? ' bg-primary text-dark gap-11 ' : ' text-white')
+        }
+      >
+        <BsFileText className='text-current text-xl ml-3' />
         <p className='text-lg text-current font-medium'>Overview</p>
       </div>
-      <div  id="2" onClick={()=>setSelected(2)} className={' h-1/5 w-full flex justify-start items-center gap-3 transition-all '+(selected === 2 ? " bg-primary text-dark  gap-11" : " text-white" )}>
+      <div
+        id='2'
+        onClick={() => setSelected(2)}
+        className={
+          ' h-1/5 w-full flex justify-start items-center gap-3 transition-all ' +
+          (selected === 2 ? ' bg-primary text-dark  gap-11' : ' text-white')
+        }
+      >
         <BsCash className='text-current text-xl ml-3' />
         <p className='text-current text-lg'>Transactions</p>
       </div>
-      <div  id="3" onClick={()=>setSelected(3)} className={' h-1/5 w-full flex justify-start items-center gap-3 transition-all '+(selected === 3 ? " bg-primary text-dark  gap-11" : " text-white"  )}>
+      <div
+        id='3'
+        onClick={() => setSelected(3)}
+        className={
+          ' h-1/5 w-full flex justify-start items-center gap-3 transition-all ' +
+          (selected === 3 ? ' bg-primary text-dark  gap-11' : ' text-white')
+        }
+      >
         <BsArchive className='text-current text-xl ml-3' />
         <p className='text-current text-lg'>Products</p>
       </div>
-      <div  id="4"onClick={()=>setSelected(4)}  className={' h-1/5 w-full flex justify-start items-center gap-3 transition-all '+(selected === 4 ? " bg-primary text-dark gap-5" : " text-white" )}>
+      <div
+        id='4'
+        onClick={() => setSelected(4)}
+        className={
+          ' h-1/5 w-full flex justify-start items-center gap-3 transition-all ' +
+          (selected === 4 ? ' bg-primary text-dark gap-5' : ' text-white')
+        }
+      >
         <IoReload className='text-current text-xl ml-3' />
         <p className='text-current text-lg'>Subscription Plans</p>
       </div>
-      <div  id="5"onClick={()=>setSelected(5)}  className={' h-1/5 w-full flex rounded-b-lg justify-start items-center gap-3 transition-all '+(selected === 5 ? " bg-primary text-dark  gap-11" : " text-white" )}>
+      <div
+        id='5'
+        onClick={() => setSelected(5)}
+        className={
+          ' h-1/5 w-full flex rounded-b-lg justify-start items-center gap-3 transition-all ' +
+          (selected === 5 ? ' bg-primary text-dark  gap-11' : ' text-white')
+        }
+      >
         <BiDollar className='text-current text-xl ml-3' />
         <p className='text-current text-lg'>Payouts</p>
       </div>
