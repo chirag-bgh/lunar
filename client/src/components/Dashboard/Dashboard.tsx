@@ -1,11 +1,13 @@
 // Components
 import Sidebar from './Sidebar'
+import Billing from './Billing'
+import Subscriptions from './Subscriptions'
 
 // Icons
 import { IoMdMoon, BsCalendarEvent } from 'react-icons/all'
 
 // Hooks
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 const Dashboard = () => {
   const [selectedTab, setSelectedTab] = useState('Billing')
@@ -24,6 +26,11 @@ const Dashboard = () => {
           </div>
         </div>
         <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+        {selectedTab === 'Billing' ? (
+          <Billing revenue={1} transactions={34} />
+        ) : (
+          <Subscriptions />
+        )}
       </div>
     </div>
   )
@@ -48,7 +55,7 @@ const Tabs = ({
   setSelectedTab: (arg: string) => void
 }) => {
   return (
-    <div className='mt-8 flex justify-start items-center gap-2'>
+    <div className='my-8 flex justify-start items-center gap-2'>
       <TabItem
         tab='Billing'
         selected={selectedTab === 'Billing' ? true : false}
