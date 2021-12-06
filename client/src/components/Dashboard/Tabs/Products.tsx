@@ -1,8 +1,19 @@
+
+
+
+import {CreateProduct,FetchProduct} from "./../../../components/Products";
+
+
 const Products = () => {
+
+
   return (
     <div className='w-full'>
       <div className='w-full flex flex-col justify-between items-start'>
         <h2 className='text-3xl underline font-medium'>Products</h2>
+        <div className='w-16 h-full rounded-sm bg-primary flex justify-center items-center'>
+         <CreateProduct name='Raghav' price = {10}/>
+        </div>
       </div>
       <div className='flex h-8 justify-end items-between gap-1 mt-12'>
         <input
@@ -22,7 +33,7 @@ const Products = () => {
           <th>Category</th>
         </tr>
         <tr className='h-80'>
-          <td></td>
+          <td><FetchProduct /></td>
         </tr>
       </table>
     </div>
