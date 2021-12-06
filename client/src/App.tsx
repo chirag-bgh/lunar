@@ -1,9 +1,10 @@
 import { useMoralis } from "react-moralis";
 import { AuthenticateButton, LogoutButton } from "./components/Auth";
-import { TransferButton,FetchUser } from "./components/transfer";
+import { TransferButton,DisplayTransaction } from "./components/transfer";
+
 
 function App() {
-  const { web3, enableWeb3, isWeb3Enabled, isWeb3EnableLoading, web3EnableError, isAuthenticated, user } = useMoralis();
+  const { enableWeb3, isWeb3Enabled, isAuthenticated, user } = useMoralis();
 
   if (!isAuthenticated) {
     return <AuthenticateButton />;
@@ -20,8 +21,8 @@ function App() {
       {/* @ts-ignore */}
       <h1>Welcome {user.get("ethAddress")}</h1>
       <LogoutButton />
-      <TransferButton amount={10} address="0x0864C60C56e8Ff8Bdd8F1d03Fb817D2A6664e52E" />
-      <FetchUser />
+      <TransferButton amount={10} address="0x479327C7658AeBFa9F777B1B79D9353C7387e266" />
+      <DisplayTransaction />
     </div>
   );
 }
