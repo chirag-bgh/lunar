@@ -20,8 +20,8 @@ const Sidebar = ({
       <Balance />
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
       {/* Sign Out Button */}
-      <div className=" bg-red-500 mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center">
-        <h1 className="font-semibold font-display text-md">Sign Out</h1>
+      <div className=' bg-red-500 mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'>
+        <h1 className='font-semibold font-display text-md'>Sign Out</h1>
       </div>
     </div>
   )
