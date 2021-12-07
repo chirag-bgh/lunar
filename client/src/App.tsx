@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard/Dashboard'
 import Landing from './components/Landing'
 import Login from './components/Auth/Login'
 import Signup from './components/Auth/Signup'
+import Landingv2 from './components/Landingv2'
 
 // React
 import { Routes, Route } from 'react-router-dom'
@@ -35,6 +36,7 @@ function App() {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/' element={<Landing />}></Route>
+        {/* <Route path='/' element={<Landingv2 />}></Route> */}
       </Routes>
     </div>
   )
