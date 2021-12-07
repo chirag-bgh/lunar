@@ -23,19 +23,7 @@ const Products = () => {
         </div>
       </div>
 
-      <table className='text-white bg-dark w-full mt-5 rounded-lg'>
-        <tr className='border-gray-500 border-b-2'>
-          <th>Product</th>
-          <th>ID</th>
-          <th>Price</th>
-          <th>Category</th>
-        </tr>
-        <tr className='h-80'>
-          <td>
-            <FetchProduct />
-          </td>
-        </tr>
-      </table>
+      <FetchProduct />
     </div>
   )
 }
