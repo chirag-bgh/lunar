@@ -123,12 +123,13 @@ const FetchProduct = () => {
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
       <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
       {sortedRows.map((product) => {
+        let newDate = new Date(product.createdAt)
         return (
           <tr key={product.objectId}>
             <td>{product.name}</td>
             <td>{product.user.objectId}</td>
             <td>{product.price} ETH</td>
-            <td>{product.createdAt}</td>
+            <td>{newDate.toString()}</td>
           </tr>
         )
       })}
