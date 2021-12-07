@@ -17,7 +17,7 @@ const Transfer = ({amount,address}:{amount:number, address:string}) => {
   )
   let json = JSON.stringify(data, null, 2)
     return (<div>
-      <button onClick={() => Transfer({amount = 10,address = 'Hi'})}>Transfer</button>
+      <button onClick={Transfer({10,'Hi'})}>Transfer</button>
     </div>)
   }
 
