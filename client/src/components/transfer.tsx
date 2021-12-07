@@ -1,43 +1,29 @@
 import { useWeb3Transfer,useMoralis,useMoralisQuery } from "react-moralis";
 import Moralis from "moralis";
 
-const TransferButton = ({amount,address}:{amount:number, address:string}) => {
+const Transfer = ({amount,address}:{amount:number, address:string}) => {
     const {fetch} = useWeb3Transfer({
       amount: Moralis.Units.ETH(amount),
       receiver: address,
       type: "native",
     });
     
+    return (fetch())
+  }
+
+  const TransferButton = ({objectID}:{objectID:string}) => {
+    const { data } = useMoralisQuery('Products', (query) =>
+    query.equalTo('objectID', objectID)
+  )
+  let json = JSON.stringify(data, null, 2)
     return (<div>
-      <button onClick={() => fetch()}>Transfer</button>
+      <button onClick={Transfer({10,'Hi'})}>Transfer</button>
     </div>)
   }
 
-
-
-const FetchUser = () => {
-
-const { refetchUserData, isUserUpdating, userError, user } = useMoralis();
-
-return (
-  <div>
-    {userError && <p>{userError.message}</p>}
-    
-    <pre>
-      {JSON.stringify(user)}
-    </pre>
-
-    <button onClick={() => refetchUserData()} disabled={isUserUpdating}>
-      Refetch user data
-    </button>
-  </div>
-)
-}
-
-
   
   const DisplayTransaction = () => {
-    const { refetchUserData, user } = useMoralis();
+    const { user } = useMoralis();
     const userAddress = user!.get("ethAddress");
     console.log('DisplayTransaction')
 
@@ -68,4 +54,4 @@ return <pre>{JSON.stringify(data, null, 2)}</pre>;
 
 
 
-export { TransferButton,FetchUser,DisplayTransaction };
+export { Transfer,DisplayTransaction };

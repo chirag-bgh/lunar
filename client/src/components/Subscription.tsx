@@ -2,7 +2,7 @@ import { useNewMoralisObject, useMoralis, useMoralisQuery } from 'react-moralis'
 // import Moralis from 'moralis'
 
 // Classes
-import ProductClass from './ProductClass'
+import SubscriptionClass from './SubscriptionClass'
 
 // Hooks
 import { useCallback, useMemo, useState } from 'react'
@@ -17,6 +17,7 @@ interface TableData {
   product: string
   id: string
   price: number
+  recurrence: string
   createdAt: Date
 }
 
@@ -30,19 +31,19 @@ enum SortingType {
   Descending,
 }
 
-const CreateProduct = ({ name, price }: { price: number; name: string }) => {
-  const { isSaving, error, save } = useNewMoralisObject('Products')
+const CreateSubscription = ({ name, price,recurrence }: { price: number; name: string;recurrence:string }) => {
+  const { isSaving, error, save } = useNewMoralisObject('Subscription')
   const { user } = useMoralis()
   return (
     <div>
       {error}
-      <button onClick={() => save({ name, price, user })} disabled={isSaving}>
-        Create Product
+      <button onClick={() => save({ name, price, user,recurrence })} disabled={isSaving}>
+        Create Subscription
       </button>
     </div>
   )
 }
-const FetchProduct = () => {
+const FetchSubscription = () => {
   const { user } = useMoralis()
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
@@ -78,13 +79,13 @@ const FetchProduct = () => {
     [sortConfig]
   )
 
-  const { data } = useMoralisQuery('Products', (query) =>
+  const { data } = useMoralisQuery('Subscription', (query) =>
     query.equalTo('user', user)
   )
 
   let json = JSON.stringify(data, null, 2)
 
-  const products: ProductClass[] = JSON.parse(json)
+  const products: SubscriptionClass[] = JSON.parse(json)
 
   const sortedRows = useMemo(() => {
     //Set up default ordering
@@ -129,8 +130,8 @@ const FetchProduct = () => {
             <td>{product.name}</td>
             <td>{product.objectId}</td>
             <td>{product.price} ETH</td>
+            <td>{product.recurrence}</td>
             <td>{newDate.toString()}</td>
-            <td><button>Hi</button></td>
           </tr>
         )
       })}
@@ -138,7 +139,7 @@ const FetchProduct = () => {
   )
 }
 
-export { CreateProduct, FetchProduct }
+export { CreateSubscription, FetchSubscription }
 
 interface SortableHeaderProps {
   sortBy: (string: keyof TableData) => void
@@ -147,11 +148,11 @@ interface SortableHeaderProps {
 
 const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
   const tableColumn = [
-    { label: 'Product', property: 'product' as keyof TableData },
+    { label: 'Subscription', property: 'product' as keyof TableData },
     { label: 'ID', property: 'id' as keyof TableData },
     { label: 'Price', property: 'price' as keyof TableData },
+    { label: 'Recurrence', property: 'recurrence' as keyof TableData },
     { label: 'Created At', property: 'createdAt' as keyof TableData },
-    { label: 'Purchase', property: 'createdAt' as keyof TableData },
   ]
 
   const getSortDirection = (property: keyof TableData) => {
