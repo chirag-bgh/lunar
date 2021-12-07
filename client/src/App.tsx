@@ -11,27 +11,16 @@ import Signup from './components/Auth/Signup'
 import { Routes, Route } from 'react-router-dom'
 
 function App() {
-<<<<<<< HEAD
   const { enableWeb3, isWeb3Enabled, isAuthenticated, user } = useMoralis();
 // Moralis
    console.log("Is Authenticated: " + isAuthenticated)
-=======
-  const { enableWeb3, isWeb3Enabled, isAuthenticated } = useMoralis()
-  // Moralis
-  console.log(isAuthenticated)
->>>>>>> 6035dfbd9558037e6e5e4d3e72ab55392ad80e9b
   if (!isAuthenticated) {
     return <Landing />
   }
 
-<<<<<<< HEAD
   console.log("Web3: " + isAuthenticated)
   if(!isWeb3Enabled){
      enableWeb3()
-=======
-  if (!isWeb3Enabled) {
-    enableWeb3()
->>>>>>> 6035dfbd9558037e6e5e4d3e72ab55392ad80e9b
   }
 
   // {/* @ts-ignore */}
