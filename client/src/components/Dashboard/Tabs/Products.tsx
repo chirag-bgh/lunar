@@ -9,7 +9,7 @@ const Products = () => {
 
       <div className='flex h-8 justify-between items-between gap-1 mt-12'>
         <div className='px-5 h-full rounded-sm bg-primary flex justify-center items-center'>
-          <CreateProduct name='Raghav' price={10} />
+          <CreateProduct name='Pranav' price={1} />
         </div>
         <div className='flex justify-center items-center'>
           <input
