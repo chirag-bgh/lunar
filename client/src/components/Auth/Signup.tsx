@@ -8,7 +8,7 @@ const Signup = () => {
       style={{ backgroundImage: 'url(/images/moon_bg.png)' }}
       className='w-screen h-screen bg-moon bg-center bg-no-repeat bg-cover flex justify-center items-center'
     >
-      <div className='w-5/12 h-3/4 rounded-2xl bg-background flex flex-col justify-between items-center'>
+      <div className='w-5/12 h-3/4 rounded-2xl bg-background flex flex-col justify-between items-center shadow-login'>
         <div className='flex justify-between items-center w-full mt-3'>
           <Link to='/'>
             <BsArrowLeftShort className='text-4xl text-white ml-3 cursor-pointer' />
