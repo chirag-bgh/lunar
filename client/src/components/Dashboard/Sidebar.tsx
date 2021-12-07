@@ -15,7 +15,7 @@ const Sidebar = ({
   setSelectedTab: (arg: string) => void
 }) => {
   return (
-    <div className='w-80 h-full shadow-sidebar flex flex-col justify-start items-center gap-6'>
+    <div className='w-80 h-screen shadow-sidebar flex flex-col justify-start items-center gap-6'>
       <UserAccount />
       <Balance />
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
@@ -37,7 +37,7 @@ const Tabs = ({
   setSelectedTab: (arg: string) => void
 }) => {
   return (
-    <div className='w-5/6 h-60 rounded-lg bg-dark flex flex-col justify-start items-center font-display cursor-pointer'>
+    <div className='w-5/6 h-60 rounded-lg bg-dark flex flex-col justify-start items-center font-display cursor-pointer transition ease-in-out'>
       <Tab
         tab='Overview'
         icon={<BsFileText className='text-current text-xl' />}
