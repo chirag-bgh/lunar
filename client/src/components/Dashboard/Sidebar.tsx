@@ -1,3 +1,5 @@
+import { useMoralis } from 'react-moralis'
+
 // Icons
 import {
   BsFileText,
@@ -14,11 +16,17 @@ const Sidebar = ({
   selectedTab: string
   setSelectedTab: (arg: string) => void
 }) => {
+  const { logout, isAuthenticating } = useMoralis();
+
   return (
-    <div className='w-80 h-full shadow-sidebar flex flex-col justify-start items-center gap-6'>
+    <div className='w-80 h-screen shadow-sidebar flex flex-col justify-start items-center gap-6'>
       <UserAccount />
       <Balance />
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+      {/* Sign Out Button */}
+      <div className=' bg-red-500 mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'>
+        <h1 className='font-semibold font-display text-md' onClick={()=>logout().then(() => {alert("Wallet Disconnected")})}>Sign Out</h1>
+      </div>
     </div>
   )
 }
@@ -33,7 +41,7 @@ const Tabs = ({
   setSelectedTab: (arg: string) => void
 }) => {
   return (
-    <div className='w-5/6 h-60 rounded-lg bg-dark flex flex-col justify-start items-center font-display cursor-pointer'>
+    <div className='w-5/6 h-60 rounded-lg bg-dark flex flex-col justify-start items-center font-display cursor-pointer transition ease-in-out'>
       <Tab
         tab='Overview'
         icon={<BsFileText className='text-current text-xl' />}
@@ -102,7 +110,15 @@ const Tab = ({
   )
 }
 
+const truncate = (phrase:string, n:number) => {
+  return (phrase.length > n) ? phrase.substr(0, n-1) + '...' : phrase;
+};
+
 const UserAccount = () => {
+
+  const {user} = useMoralis();
+
+
   return (
     <div className='h-16 pt-4 flex justify-start items-center gap-4'>
       <div className='h-full flex justify-center items-center'>
@@ -115,7 +131,7 @@ const UserAccount = () => {
       <div className='flex justify-center items-start flex-col h-full max-w-3/4 truncate'>
         <h2 className='text-2xl font-bold'>Dashboard</h2>
         <p className=' text-gray-400 text-sm font-display'>
-          0x335301C43a5319fd890
+        {truncate(user.attributes.ethAddress, 19)}
         </p>
       </div>
     </div>

@@ -35,7 +35,7 @@ const Dashboard = () => {
   return (
     <div className='w-screen h-screen bg-background flex justify-center items-center'>
       <Sidebar selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-      <div className='w-4/5 h-full flex flex-col justify-start items-start px-10'>
+      <div className='w-4/5 h-full flex flex-col justify-start items-start px-10 overflow-y-auto'>
         <Logo />
         <GetTab selectedTab={selectedTab} />
       </div>

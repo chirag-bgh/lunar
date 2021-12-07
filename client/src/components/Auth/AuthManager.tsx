@@ -12,4 +12,5 @@ const LogoutButton = () => {
   return <button onClick={() => logout()}>Logout</button>;
 };
 
-export { AuthenticateButton, LogoutButton };
+
+export { AuthenticateButton, LogoutButton};
