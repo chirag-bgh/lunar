@@ -26,7 +26,7 @@ const Payouts = () => {
 
 const Card = ({address, balance, selected}:{address:string, balance:number, selected:boolean}) => {
   return (
-      <div className={"p-1 mt-4 w-48 h-64 bg-dark flex flex-col justify-around text-center rounded-lg cursor-pointer" + (selected ? " outline-primary" : "")}>
+      <div className={"p-1 mt-4 w-48 h-64 bg-dark flex flex-col justify-around text-center rounded-lg cursor-pointer transition-all" + (selected ? " outline-primary" : "")}>
         <img className=" h-20" src={metamask} alt="" />
         <h1>Your Metamask wallet</h1>
         <h3 className="  text-gray-400 text-sm font-display -mt-8">{address}</h3>
