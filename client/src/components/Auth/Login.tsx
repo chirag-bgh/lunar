@@ -1,5 +1,5 @@
 // Icons
-import { IoMdMoon } from 'react-icons/all'
+import { IoMdMoon, BsArrowLeftShort } from 'react-icons/all'
 
 // Components
 import { Link } from 'react-router-dom'
@@ -11,12 +11,18 @@ const Login = () => {
       className='w-screen h-screen bg-moon bg-center bg-no-repeat bg-cover flex justify-center items-center'
     >
       <div className='w-5/12 h-3/4 rounded-2xl bg-background flex flex-col justify-between items-center'>
-        <div className='flex justify-center items-center gap-1 mt-5'>
-          <IoMdMoon className='text-2xl text-primary' />
-          <p className='text-2xl text-primary font-medium'>lunar</p>
+        <div className='flex justify-between items-center w-full mt-3'>
+          <Link to='/'>
+            <BsArrowLeftShort className='text-4xl text-white ml-3 cursor-pointer' />
+          </Link>
+          <div className='flex justify-center items-center gap-1'>
+            <IoMdMoon className='text-2xl text-primary' />
+            <p className='text-2xl text-primary font-medium'>lunar</p>
+          </div>
+          <BsArrowLeftShort className='text-4xl text-background mr-3' />
         </div>
-        <div className='flex flex-col justiy-center items-center gap-3'>
-          <h1 className='text-3xl w-60 flex items-center justify-start mb-10'>
+        <div className='flex flex-col justiy-center items-center gap-3 mb-10'>
+          <h1 className='text-3xl w-60 flex items-center justify-start mb-5'>
             Log In
           </h1>
           <div className='flex flex-col justify-center items-start'>
