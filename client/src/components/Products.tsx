@@ -52,7 +52,7 @@ const FetchProduct = () => {
           <tr>
             <td>{product.name}</td>
             <td>{product.user.authData.moralisEth.id}</td>
-            <td>{product.price}</td>
+            <td>{product.price} ETH</td>
             <td>{product.createdAt}</td>
           </tr>
         )
