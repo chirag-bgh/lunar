@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { AuthenticateButton } from "../components/Auth";
+import { AuthenticateButton } from './Auth/AuthManager'
 
 const Landing = () => {
   return (
