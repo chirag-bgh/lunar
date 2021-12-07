@@ -1,31 +1,17 @@
+import metamask from '../../../assets/metamask.svg';
+
 const Payouts = () => {
   return (
     <div className='w-full'>
-      <div className='w-full flex flex-col justify-between items-start'>
-        <h2 className='text-3xl underline font-medium'>Payouts</h2>
+      <div className='flex flex-col justify-between items-start'>
+        <h2 className='text-3xl underline font-medium'>Wallets</h2>
       </div>
-      <div className='flex h-8 justify-end items-between gap-1 mt-12'>
-        <input
-          className='h-full w-72 bg-dark rounded-sm text-white pl-2 outline-none text-sm'
-          type='text'
-          placeholder='Search by product, ID, or subscribers'
-        />
-        <div className='w-16 h-full rounded-sm bg-primary flex justify-center items-center'>
-          Search
-        </div>
+      <div className="Card w-48 h-64 bg-dark flex-col space-between rounded-lg stroke-primary">
+        <img src={metamask} alt="" />
+        <h1>Your Metamask wallet</h1>
+        <h3>0x335301C43a5319fd890</h3>
+        <h1>2.4 ETH</h1>
       </div>
-      <table className='text-white bg-dark w-full mt-5 rounded-lg'>
-        <tr className='border-gray-500 border-b-2'>
-          <th>Product</th>
-          <th>ID</th>
-          <th>Price</th>
-          <th>Recurring Interval</th>
-          <th>Subscribers</th>
-        </tr>
-        <tr className='h-80'>
-          <td></td>
-        </tr>
-      </table>
     </div>
   )
 }
