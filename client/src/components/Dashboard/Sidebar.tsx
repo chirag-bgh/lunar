@@ -110,7 +110,15 @@ const Tab = ({
   )
 }
 
+const truncate = (phrase:string, n:number) => {
+  return (phrase.length > n) ? phrase.substr(0, n-1) + '...' : phrase;
+};
+
 const UserAccount = () => {
+
+  const {user} = useMoralis();
+
+
   return (
     <div className='h-16 pt-4 flex justify-start items-center gap-4'>
       <div className='h-full flex justify-center items-center'>
@@ -123,7 +131,7 @@ const UserAccount = () => {
       <div className='flex justify-center items-start flex-col h-full max-w-3/4 truncate'>
         <h2 className='text-2xl font-bold'>Dashboard</h2>
         <p className=' text-gray-400 text-sm font-display'>
-          0x335301C43a5319fd890
+        {truncate(user.attributes.ethAddress, 19)}
         </p>
       </div>
     </div>
