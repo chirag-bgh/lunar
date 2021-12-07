@@ -1,10 +1,8 @@
 // Icons
 import { IoMdMoon } from 'react-icons/all'
-
-// Components
 import { Link } from 'react-router-dom'
 
-const Login = () => {
+const Signup = () => {
   return (
     <div
       style={{ backgroundImage: 'url(/images/moon_bg.png)' }}
@@ -15,10 +13,19 @@ const Login = () => {
           <IoMdMoon className='text-2xl text-primary' />
           <p className='text-2xl text-primary font-medium'>lunar</p>
         </div>
-        <div className='flex flex-col justiy-center items-center gap-3'>
-          <h1 className='text-3xl w-60 flex items-center justify-start mb-10'>
-            Log In
+        <div className='flex flex-col justiy-center items-center gap-3 mb-10'>
+          <h1 className='text-2xl w-60 flex items-center justify-start mb-5'>
+            Create an Account
           </h1>
+          <div className='flex flex-col justify-center items-start'>
+            <p className='text-gray-400'>Name</p>
+            <input
+              className='rounded-md bg-dark w-60 pl-2 text-white outline-none h-7'
+              type='text'
+              name='Name'
+              id='name'
+            />
+          </div>
           <div className='flex flex-col justify-center items-start'>
             <p className='text-gray-400'>Email</p>
             <input
@@ -37,13 +44,22 @@ const Login = () => {
               id='password'
             />
           </div>
+          <div className='flex flex-col justify-center items-start'>
+            <p className='text-gray-400'>Confirm Password</p>
+            <input
+              className='rounded-md bg-dark w-60 pl-2 text-white outline-none h-7'
+              type='password'
+              name='confirmpassword'
+              id='confirmpassword'
+            />
+          </div>
           <div className='w-60 bg-primary h-9 flex justify-center items-center rounded-md font-semibold mt-5'>
-            Log In
+            Sign me up!
           </div>
           <p>or</p>
-          <Link to='/signup'>
+          <Link to='/login'>
             <div className='text-primary font-display cursor-pointer'>
-              Create an account
+              Log in
             </div>
           </Link>
         </div>
@@ -53,4 +69,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Signup

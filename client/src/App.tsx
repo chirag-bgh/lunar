@@ -1,18 +1,17 @@
 import { useMoralis } from 'react-moralis'
-import { AuthenticateButton, LogoutButton } from './components/Auth/AuthManager'
-import { TransferButton, DisplayTransaction } from './components/transfer'
+// import { TransferButton, DisplayTransaction } from './components/transfer'
 
 // Components
 import Dashboard from './components/Dashboard/Dashboard'
 import Landing from './components/Landing'
 import Login from './components/Auth/Login'
+import Signup from './components/Auth/Signup'
 
 // React
 import { Routes, Route } from 'react-router-dom'
-import { useState } from 'react'
 
 function App() {
-  const { enableWeb3, isWeb3Enabled, isAuthenticated, user } = useMoralis()
+  const { enableWeb3, isWeb3Enabled, isAuthenticated } = useMoralis()
   // Moralis
   console.log(isAuthenticated)
   if (!isAuthenticated) {
@@ -34,6 +33,7 @@ function App() {
       <Routes>
         <Route path='/dashboard' element={<Dashboard />}></Route>
         <Route path='/login' element={<Login />}></Route>
+        <Route path='/signup' element={<Signup />}></Route>
         <Route path='/' element={<Landing />}></Route>
       </Routes>
     </div>
