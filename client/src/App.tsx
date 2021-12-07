@@ -16,12 +16,12 @@ import { useState } from 'react'
 function App() {
   const { enableWeb3, isWeb3Enabled, isAuthenticated, user } = useMoralis();
 // Moralis
-   console.log(isAuthenticated)
+   console.log("Is Authenticated: " + isAuthenticated)
   if (!isAuthenticated) {
     return <Landing />
   }
 
-
+  console.log("Web3: " + isAuthenticated)
   if(!isWeb3Enabled){
      enableWeb3()
   }
