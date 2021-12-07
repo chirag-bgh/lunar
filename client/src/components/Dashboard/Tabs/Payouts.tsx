@@ -49,12 +49,12 @@ const Payouts = () => {
             <td></td>
             </tr>
       </table>
-      <div className="bg-primary p-5 mt-2 flex justify-center items-center w-32 h-12 gap-1 rounded-lg">
+      <div className="bg-primary p-5 mt-2 flex justify-center items-center w-32 h-12 gap-1 rounded-lg cursor-pointer">
         <h1 className="text-dark font-display font-semibold">Invoice</h1>
         <BsFillArrowDownCircleFill className='text-dark text-xl'/>
       </div>
     <div className="flex mt-7 mb-7 justify-center items-center">
-      <h1 className="text-dark font-display font-semibold">Need help? Contact us at <span className="text-bold text-primary cursor-pointer">teamlunar@protonmail.com</span></h1>
+      <h1 className="text-white font-display font-semibold">Need help? Contact us at <span className="text-bold text-primary cursor-pointer">teamlunar@protonmail.com</span></h1>
     </div>
       
     </div>

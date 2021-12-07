@@ -1,3 +1,5 @@
+import { useMoralis } from 'react-moralis'
+
 // Icons
 import {
   BsFileText,
@@ -14,6 +16,8 @@ const Sidebar = ({
   selectedTab: string
   setSelectedTab: (arg: string) => void
 }) => {
+  const { logout, isAuthenticating } = useMoralis();
+
   return (
     <div className='w-80 h-screen shadow-sidebar flex flex-col justify-start items-center gap-6'>
       <UserAccount />
@@ -21,7 +25,7 @@ const Sidebar = ({
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
       {/* Sign Out Button */}
       <div className=' bg-red-500 mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'>
-        <h1 className='font-semibold font-display text-md'>Sign Out</h1>
+        <h1 className='font-semibold font-display text-md' onClick={()=>logout().then(() => {alert("Wallet Disconnected")})}>Sign Out</h1>
       </div>
     </div>
   )
