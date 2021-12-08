@@ -14,15 +14,15 @@ import { Routes, Route } from 'react-router-dom'
 function App() {
   const { enableWeb3, isWeb3Enabled, isAuthenticated, user } = useMoralis();
   
-  console.log("Web3: " + isAuthenticated)
-  if(!isWeb3Enabled){
-     enableWeb3()
-  }
-// Moralis
-   console.log("Is Authenticated: " + isAuthenticated)
-  if (!isAuthenticated) {
-    return <Landing />
-  }
+//   console.log("Web3: " + isAuthenticated)
+//   if(!isWeb3Enabled){
+//      enableWeb3()
+//   }
+// // Moralis
+//    console.log("Is Authenticated: " + isAuthenticated)
+//   if (!isAuthenticated) {
+//     return <Landing />
+//   }
 
   
 

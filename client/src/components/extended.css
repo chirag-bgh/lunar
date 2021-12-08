@@ -2,7 +2,14 @@
     background: linear-gradient(148.68deg, rgba(255, 255, 255, 0.37) -84.95%, rgba(255, 255, 255, 0) 87.71%);
     -webkit-backdrop-filter: blur(40px);
      backdrop-filter: blur(40px);
+     animation-name: float-up, floating;
+     animation-delay: 1000ms, 2000ms;
+     animation-duration: 1000ms, 3500ms;
+     animation-timing-function: ease-in-out, ease-in-out;
+     animation-iteration-count: 1, infinite;
+
 }
+
 
 .overlay{
     mix-blend-mode: overlay;
@@ -13,4 +20,17 @@
 .screen {
     mix-blend-mode: screen;
     border-radius: 14px;
+}
+
+@keyframes float-up {
+    /* 0% { transform: translate(0,  300px); opacity: 0%; }
+    100%   { transform: translate(0, 0px); opacity:100%}    */
+    0% { transform: scale(0); opacity: 0%; }
+    100%   { transform: scale(1); opacity:100%}   
+}
+
+@keyframes floating {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 15px); }
+    100%   { transform: translate(0, -0px); }   
 }

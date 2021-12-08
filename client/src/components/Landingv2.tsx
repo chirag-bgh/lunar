@@ -22,7 +22,7 @@ const Landingv2 = () => {
                 <img src={background} alt="background" className="screen mt-56 w-6/12"/>
             </div>
             {/* TODO: Fix card alignment issues on smaller width screens */}
-            <Card imageSrc={shoe2} price={0.04212} classname=" bottom-0 right-1 mr-44 mb-44"/>
+            <Card imageSrc={shoe2} price={0.04212} classname="bottom-0 right-1 mr-44 mb-44"/>
             <Card imageSrc={xbox} price={0.03734} classname="bottom-0 left-1 ml-52 mb-64"/>
         </section>
     )
