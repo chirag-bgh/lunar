@@ -5,6 +5,7 @@ import Transactions from './Tabs/Transactions'
 import Products from './Tabs/Products'
 import Subscriptions from './Tabs/Subscriptions'
 import Payouts from './Tabs/Payouts'
+import Customers from './Tabs/Customers'
 
 // Icons
 import { IoMdMoon } from 'react-icons/all'
@@ -31,6 +32,8 @@ const Dashboard = ({ openModal }: { openModal: () => void }) => {
         return <Products openModal={openModal} />
       case 'Subscription Plans':
         return <Subscriptions />
+      case 'Customers':
+        return <Customers />
       case 'Payouts':
         return <Payouts />
       default:
