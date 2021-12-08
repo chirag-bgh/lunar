@@ -158,12 +158,17 @@ const Balance = () => {
   const { fetch, data, error, isLoading } = useMoralisWeb3ApiCall(Web3Api.account.getNativeBalance, {
     address: user.get('managed_account_pub'),
   });
+  let x = "-"
   console.log(data)
+  if(data !== null){
+    x = data.balance
+  }
+
   return (
     <div className='w-5/6 h-24 rounded-lg bg-dark flex flex-col justify-center items-center'>
       <button onClick={() => fetch()}>Refetch</button>
       <p className='text-md'>Balance</p>
-      <h2 className='text-3xl font-semibold'><pre>{JSON.stringify(data, null, 2)}</pre></h2>
+      <h2 className='text-3xl font-semibold'><pre>{x}</pre></h2>
     </div>
   )
 

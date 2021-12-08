@@ -20,7 +20,7 @@ const UserChecker = () => {
 
   console.log('User',user.get('managed_account_priv'))
 
-  return <div>hi</div>
+  return <div></div>
 
 };
 
