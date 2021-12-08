@@ -4,26 +4,50 @@ import Moralis from 'moralis'
 // Classes
 import ProductClass from '../classes/ProductClass'
 
-export const TransferButton = ({ objectId }: { objectId: string }) => {
-  const { data } = useMoralisQuery('Products', (query) =>
+export const TransferProduct = ({ objectId }: { objectId: string }) => {
+  const { data, error, isLoading } = useMoralisQuery('Products', (query) =>
     query.equalTo('objectId', objectId)
   )
+
+  if (error) {
+    return <span>🤯</span>
+  }
+
+  if (isLoading) {
+    return <span>🙄</span>
+  }
 
   let json = JSON.stringify(data, null, 2)
 
   const product: ProductClass = JSON.parse(json)[0]
+  console.log('product: ', product)
+
+  return <TransferButton product={product} />
+}
+
+const TransferButton = ({ product }: { product: ProductClass }) => {
+  const { fetch, error, isFetching } = useWeb3Transfer({
+    amount:
+      product !== undefined
+        ? Moralis.Units.ETH(product.price)
+        : Moralis.Units.ETH(0),
+    receiver: product !== undefined ? product.user.ethAddress : '0x0',
+    type: 'native',
+  })
 
   return (
     <div>
-      <div
+      {error && <h1>Error: {error}</h1>}
+      <button
+        disabled={isFetching}
         onClick={() => {
           console.log('product: ', product)
-          Transfer({ amount: product.price, address: product.user.ethAddress })
+          fetch()
         }}
         className='h-7 text-sm bg-primary rounded-sm text-black font-display px-2 flex justify-center items-center cursor-pointer'
       >
         Transfer
-      </div>
+      </button>
     </div>
   )
 }

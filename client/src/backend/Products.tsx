@@ -2,7 +2,7 @@
 import { useNewMoralisObject, useMoralis, useMoralisQuery } from 'react-moralis'
 
 // Components
-import { TransferButton } from './transfer'
+import { TransferProduct } from './transfer'
 
 // Classes
 import ProductClass from '../classes/ProductClass'
@@ -135,7 +135,7 @@ const FetchProduct = () => {
             <td>{product.price} ETH</td>
             <td>{newDate.toString()}</td>
             <td>
-              <TransferButton objectId={product.objectId} />
+              <TransferProduct objectId={product.objectId} />
             </td>
           </tr>
         )
