@@ -18,6 +18,7 @@ interface TableData {
   id: string
   price: number
   createdAt: Date
+  purchaseButton: JSX.Element
 }
 
 interface SortingConfiguration {
@@ -130,7 +131,16 @@ const FetchProduct = () => {
             <td>{product.objectId}</td>
             <td>{product.price} ETH</td>
             <td>{newDate.toString()}</td>
-            <td><button>Hi</button></td>
+            <td>
+              <div
+                onClick={() => {
+                  // Purchase Product
+                }}
+                className='h-7 text-sm bg-primary rounded-sm text-black font-display px-2 flex justify-center items-center cursor-pointer'
+              >
+                Purchase
+              </div>
+            </td>
           </tr>
         )
       })}
@@ -151,7 +161,7 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
     { label: 'ID', property: 'id' as keyof TableData },
     { label: 'Price', property: 'price' as keyof TableData },
     { label: 'Created At', property: 'createdAt' as keyof TableData },
-    { label: 'Purchase', property: 'createdAt' as keyof TableData },
+    { label: 'Purchase', property: 'purchaseButton' as keyof TableData },
   ]
 
   const getSortDirection = (property: keyof TableData) => {
@@ -159,14 +169,13 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
       (sortConfig) => sortConfig.propertyName === property
     )
     return config ? (
-      // config.propertyName === 'price' || config.propertyName === 'createdAt' ? (
-      config.sortType === SortingType.Descending ? (
+      config.propertyName === 'purchaseButton' ? null : config.sortType ===
+        SortingType.Descending ? (
         <MdArrowDropDown className='text-white text-2xl' />
       ) : (
         <MdArrowDropUp className='text-white text-2xl' />
       )
-    ) : // ) : null
-    null
+    ) : null
   }
 
   return (

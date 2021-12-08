@@ -31,13 +31,24 @@ enum SortingType {
   Descending,
 }
 
-const CreateSubscription = ({ name, price,recurrence }: { price: number; name: string;recurrence:string }) => {
+const CreateSubscription = ({
+  name,
+  price,
+  recurrence,
+}: {
+  price: number
+  name: string
+  recurrence: string
+}) => {
   const { isSaving, error, save } = useNewMoralisObject('Subscription')
   const { user } = useMoralis()
   return (
     <div>
       {error}
-      <button onClick={() => save({ name, price, user,recurrence })} disabled={isSaving}>
+      <button
+        onClick={() => save({ name, price, user, recurrence })}
+        disabled={isSaving}
+      >
         Create Subscription
       </button>
     </div>
@@ -85,11 +96,11 @@ const FetchSubscription = () => {
 
   let json = JSON.stringify(data, null, 2)
 
-  const products: SubscriptionClass[] = JSON.parse(json)
+  const subsriptions: SubscriptionClass[] = JSON.parse(json)
 
   const sortedRows = useMemo(() => {
     //Set up default ordering
-    let sorted = linq.from(products).orderBy(() => 1)
+    let sorted = linq.from(subsriptions).orderBy(() => 1)
 
     //Loop through the queue
     sortConfig.forEach((sortConfig) => {
@@ -113,24 +124,23 @@ const FetchSubscription = () => {
           )
           .thenByDescending((dataRow: any) => dataRow[propertyName])
         console.log('sorted array: ', sorted.toArray())
-        // }
       }
     })
 
     return sorted.toArray()
-  }, [sortConfig, products])
+  }, [sortConfig, subsriptions])
 
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
       <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
-      {sortedRows.map((product) => {
-        let newDate = new Date(product.createdAt)
+      {sortedRows.map((subscription) => {
+        let newDate = new Date(subscription.createdAt)
         return (
-          <tr key={product.objectId}>
-            <td>{product.name}</td>
-            <td>{product.objectId}</td>
-            <td>{product.price} ETH</td>
-            <td>{product.recurrence}</td>
+          <tr key={subscription.objectId}>
+            <td>{subscription.name}</td>
+            <td>{subscription.objectId}</td>
+            <td>{subscription.price} ETH</td>
+            <td>{subscription.recurrence}</td>
             <td>{newDate.toString()}</td>
           </tr>
         )
@@ -160,14 +170,12 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
       (sortConfig) => sortConfig.propertyName === property
     )
     return config ? (
-      // config.propertyName === 'price' || config.propertyName === 'createdAt' ? (
       config.sortType === SortingType.Descending ? (
         <MdArrowDropDown className='text-white text-2xl' />
       ) : (
         <MdArrowDropUp className='text-white text-2xl' />
       )
-    ) : // ) : null
-    null
+    ) : null
   }
 
   return (

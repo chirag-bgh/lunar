@@ -1,4 +1,4 @@
-import { CreateProduct, FetchProduct } from './../../../components/Products'
+import { CreateProduct, FetchProduct } from '../../../backend/Products/Products'
 
 const Products = () => {
   return (
