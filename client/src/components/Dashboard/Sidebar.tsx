@@ -162,6 +162,7 @@ const Balance = () => {
   const Web3Api = useMoralisWeb3Api()
 
   const [balance, setBalance] = useState('-')
+  const [fetched, setFetched] = useState(false)
 
   const { fetch, data, error, isLoading } = useMoralisWeb3ApiCall(
     Web3Api.account.getNativeBalance,
@@ -175,7 +176,10 @@ const Balance = () => {
     if (data !== null) {
       setBalance(data.balance)
     }
-    fetch()
+    if (!fetched) {
+      fetch()
+      setFetched(true)
+    }
   }, [data, fetch])
 
   return (
