@@ -12,6 +12,8 @@ export interface User {
   authData: AuthData
   createdAt: Date
   updatedAt: Date
+  managed_account_pub: string
+  managed_account_priv: string
   accounts: string[]
   ethAddress: string
   ACL: ACL

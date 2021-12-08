@@ -1,4 +1,4 @@
-import { useMoralis } from 'react-moralis'
+import { useMoralis,useMoralisWeb3Api,useMoralisWeb3ApiCall } from 'react-moralis'
 
 // Icons
 import {
@@ -146,10 +146,19 @@ const UserAccount = () => {
 }
 
 const Balance = () => {
+  const {user} = useMoralis()
+  const Web3Api = useMoralisWeb3Api()
+  const { fetch, data, error, isLoading } = useMoralisWeb3ApiCall(Web3Api.account.getNativeBalance, {
+    address: user.get('managed_account_pub'),
+  });
+  console.log(data)
   return (
     <div className='w-5/6 h-24 rounded-lg bg-dark flex flex-col justify-center items-center'>
+      <button onClick={() => fetch()}>Refetch</button>
       <p className='text-md'>Balance</p>
-      <h2 className='text-3xl font-semibold'>1 ETH</h2>
+      <h2 className='text-3xl font-semibold'><pre>{JSON.stringify(data, null, 2)}</pre></h2>
     </div>
   )
+
+
 }

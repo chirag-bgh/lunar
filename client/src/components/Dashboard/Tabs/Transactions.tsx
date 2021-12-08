@@ -1,3 +1,5 @@
+import { DisplayTransaction } from '../../../backend/transaction'
+
 const Transactions = () => {
   return (
     <div className='w-full'>

@@ -31,7 +31,7 @@ const TransferButton = ({ product }: { product: ProductClass }) => {
       product !== undefined
         ? Moralis.Units.ETH(product.price)
         : Moralis.Units.ETH(0),
-    receiver: product !== undefined ? product.user.ethAddress : '0x0',
+    receiver: product !== undefined ? product.user.managed_account_pub : '0x0',
     type: 'native',
   })
 
