@@ -34,14 +34,29 @@ enum SortingType {
   Descending,
 }
 
-const CreateProduct = ({ name, price }: { price: number; name: string }) => {
+const CreateProduct = ({
+  name,
+  price,
+  closeModal,
+}: {
+  price: number
+  name: string
+  closeModal: () => void
+}) => {
   const { isSaving, error, save } = useNewMoralisObject('Products')
   const { user } = useMoralis()
   return (
     <div>
       {error}
-      <button onClick={() => save({ name, price, user })} disabled={isSaving}>
-        Create Product
+      <button
+        onClick={() => {
+          closeModal()
+          save({ name, price, user })
+        }}
+        disabled={isSaving}
+        className='px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer'
+      >
+        Add
       </button>
     </div>
   )

@@ -1,6 +1,6 @@
 import { CreateProduct, FetchProduct } from '../../../backend/Products'
 
-const Products = () => {
+const Products = ({ openModal }: { openModal: () => void }) => {
   return (
     <div className='w-full'>
       <div className='w-full flex flex-col justify-between items-start'>
@@ -8,8 +8,14 @@ const Products = () => {
       </div>
 
       <div className='flex h-8 justify-between items-between gap-1 mt-12'>
-        <div className='px-5 h-full rounded-sm bg-primary flex justify-center items-center'>
-          <CreateProduct name='Shoes' price={0.4} />
+        <div
+          onClick={() => {
+            openModal()
+          }}
+          className='px-5 h-full rounded-sm bg-primary flex justify-center items-center cursor-pointer'
+        >
+          {/* <CreateProduct name='Shoes' price={0.4} /> */}
+          Create Product
         </div>
         <div className='flex justify-center items-center'>
           <input
