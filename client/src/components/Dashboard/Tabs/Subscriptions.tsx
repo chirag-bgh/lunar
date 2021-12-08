@@ -1,7 +1,7 @@
 import {
   CreateSubscription,
   FetchSubscription,
-} from '../../../backend/Subscriptions/Subscription'
+} from '../../../backend/Subscription'
 
 const Subscriptions = () => {
   return (

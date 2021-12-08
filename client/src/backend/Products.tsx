@@ -1,8 +1,11 @@
+// Moralis
 import { useNewMoralisObject, useMoralis, useMoralisQuery } from 'react-moralis'
-// import Moralis from 'moralis'
+
+// Components
+import { TransferProduct } from './transfer'
 
 // Classes
-import SubscriptionClass from './SubscriptionClass'
+import ProductClass from '../classes/ProductClass'
 
 // Hooks
 import { useCallback, useMemo, useState } from 'react'
@@ -17,8 +20,8 @@ interface TableData {
   product: string
   id: string
   price: number
-  recurrence: string
   createdAt: Date
+  purchaseButton: JSX.Element
 }
 
 interface SortingConfiguration {
@@ -31,30 +34,19 @@ enum SortingType {
   Descending,
 }
 
-const CreateSubscription = ({
-  name,
-  price,
-  recurrence,
-}: {
-  price: number
-  name: string
-  recurrence: string
-}) => {
-  const { isSaving, error, save } = useNewMoralisObject('Subscription')
+const CreateProduct = ({ name, price }: { price: number; name: string }) => {
+  const { isSaving, error, save } = useNewMoralisObject('Products')
   const { user } = useMoralis()
   return (
     <div>
       {error}
-      <button
-        onClick={() => save({ name, price, user, recurrence })}
-        disabled={isSaving}
-      >
-        Create Subscription
+      <button onClick={() => save({ name, price, user })} disabled={isSaving}>
+        Create Product
       </button>
     </div>
   )
 }
-const FetchSubscription = () => {
+const FetchProduct = () => {
   const { user } = useMoralis()
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
@@ -90,17 +82,17 @@ const FetchSubscription = () => {
     [sortConfig]
   )
 
-  const { data } = useMoralisQuery('Subscription', (query) =>
+  const { data } = useMoralisQuery('Products', (query) =>
     query.equalTo('user', user)
   )
 
   let json = JSON.stringify(data, null, 2)
 
-  const subsriptions: SubscriptionClass[] = JSON.parse(json)
+  const products: ProductClass[] = JSON.parse(json)
 
   const sortedRows = useMemo(() => {
     //Set up default ordering
-    let sorted = linq.from(subsriptions).orderBy(() => 1)
+    let sorted = linq.from(products).orderBy(() => 1)
 
     //Loop through the queue
     sortConfig.forEach((sortConfig) => {
@@ -124,24 +116,27 @@ const FetchSubscription = () => {
           )
           .thenByDescending((dataRow: any) => dataRow[propertyName])
         console.log('sorted array: ', sorted.toArray())
+        // }
       }
     })
 
     return sorted.toArray()
-  }, [sortConfig, subsriptions])
+  }, [sortConfig, products])
 
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
       <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
-      {sortedRows.map((subscription) => {
-        let newDate = new Date(subscription.createdAt)
+      {sortedRows.map((product) => {
+        let newDate = new Date(product.createdAt)
         return (
-          <tr key={subscription.objectId}>
-            <td>{subscription.name}</td>
-            <td>{subscription.objectId}</td>
-            <td>{subscription.price} ETH</td>
-            <td>{subscription.recurrence}</td>
+          <tr key={product.objectId}>
+            <td>{product.name}</td>
+            <td>{product.objectId}</td>
+            <td>{product.price} ETH</td>
             <td>{newDate.toString()}</td>
+            <td>
+              <TransferProduct objectId={product.objectId} />
+            </td>
           </tr>
         )
       })}
@@ -149,7 +144,7 @@ const FetchSubscription = () => {
   )
 }
 
-export { CreateSubscription, FetchSubscription }
+export { CreateProduct, FetchProduct }
 
 interface SortableHeaderProps {
   sortBy: (string: keyof TableData) => void
@@ -158,11 +153,11 @@ interface SortableHeaderProps {
 
 const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
   const tableColumn = [
-    { label: 'Subscription', property: 'product' as keyof TableData },
+    { label: 'Product', property: 'product' as keyof TableData },
     { label: 'ID', property: 'id' as keyof TableData },
     { label: 'Price', property: 'price' as keyof TableData },
-    { label: 'Recurrence', property: 'recurrence' as keyof TableData },
     { label: 'Created At', property: 'createdAt' as keyof TableData },
+    { label: 'Purchase', property: 'purchaseButton' as keyof TableData },
   ]
 
   const getSortDirection = (property: keyof TableData) => {
@@ -170,7 +165,8 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
       (sortConfig) => sortConfig.propertyName === property
     )
     return config ? (
-      config.sortType === SortingType.Descending ? (
+      config.propertyName === 'purchaseButton' ? null : config.sortType ===
+        SortingType.Descending ? (
         <MdArrowDropDown className='text-white text-2xl' />
       ) : (
         <MdArrowDropUp className='text-white text-2xl' />
