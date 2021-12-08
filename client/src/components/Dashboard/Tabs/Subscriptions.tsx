@@ -1,4 +1,7 @@
-import { CreateSubscription, FetchSubscription } from './../../../components/Subscription'
+import {
+  CreateSubscription,
+  FetchSubscription,
+} from '../../../backend/Subscriptions/Subscription'
 
 const Subscriptions = () => {
   return (
@@ -23,8 +26,6 @@ const Subscriptions = () => {
       </div>
 
       <FetchSubscription />
-      
-    
     </div>
   )
 }
