@@ -7,6 +7,7 @@ import {
   BsArchive,
   IoReload,
   BiDollar,
+  BsPersonFill
 } from 'react-icons/all'
 
 const Sidebar = ({
@@ -72,6 +73,12 @@ const Tabs = ({
       <Tab
         tab='Subscription Plans'
         icon={<IoReload className='text-current text-xl' />}
+        selectedTab={selectedTab}
+        setSelectedTab={setSelectedTab}
+      />
+      <Tab
+        tab='Customers'
+        icon={<BsPersonFill className='text-current text-xl' />}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
