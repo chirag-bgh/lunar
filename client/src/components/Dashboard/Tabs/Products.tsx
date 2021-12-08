@@ -1,6 +1,9 @@
-import { CreateProduct, FetchProduct } from '../../../backend/Products'
+import { useState } from 'react'
+import { FetchProduct } from '../../../backend/Products'
 
 const Products = ({ openModal }: { openModal: () => void }) => {
+  const [query, setQuery] = useState('')
+
   return (
     <div className='w-full'>
       <div className='w-full flex flex-col justify-between items-start'>
@@ -14,7 +17,6 @@ const Products = ({ openModal }: { openModal: () => void }) => {
           }}
           className='px-5 h-full rounded-sm bg-primary flex justify-center items-center cursor-pointer'
         >
-          {/* <CreateProduct name='Shoes' price={0.4} /> */}
           Create Product
         </div>
         <div className='flex justify-center items-center'>
@@ -22,6 +24,8 @@ const Products = ({ openModal }: { openModal: () => void }) => {
             className='h-full w-72 bg-dark rounded-sm text-white pl-2 outline-none text-sm'
             type='text'
             placeholder='Search by product, ID, or subscribers'
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
           />
           <div className='w-16 h-full rounded-sm bg-primary flex justify-center items-center'>
             Search
@@ -29,7 +33,7 @@ const Products = ({ openModal }: { openModal: () => void }) => {
         </div>
       </div>
 
-      <FetchProduct />
+      <FetchProduct query={query} />
     </div>
   )
 }
