@@ -20,7 +20,6 @@ export const TransferProduct = ({ objectId }: { objectId: string }) => {
   let json = JSON.stringify(data, null, 2)
 
   const product: ProductClass = JSON.parse(json)[0]
-  console.log('product: ', product)
 
   return <TransferButton product={product} />
 }

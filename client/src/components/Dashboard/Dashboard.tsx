@@ -5,6 +5,7 @@ import Transactions from './Tabs/Transactions'
 import Products from './Tabs/Products'
 import Subscriptions from './Tabs/Subscriptions'
 import Payouts from './Tabs/Payouts'
+import Customers from './Tabs/Customers'
 
 // Icons
 import { IoMdMoon } from 'react-icons/all'
@@ -12,19 +13,27 @@ import { IoMdMoon } from 'react-icons/all'
 // Hooks
 import { useState } from 'react'
 
-const Dashboard = () => {
+const Dashboard = ({ openModal }: { openModal: () => void }) => {
   const [selectedTab, setSelectedTab] = useState('Overview')
 
-  function GetTab({ selectedTab }: { selectedTab: string }) {
+  function GetTab({
+    selectedTab,
+    openModal,
+  }: {
+    selectedTab: string
+    openModal: () => void
+  }) {
     switch (selectedTab) {
       case 'Overview':
         return <Overview />
       case 'Transactions':
         return <Transactions />
       case 'Products':
-        return <Products />
+        return <Products openModal={openModal} />
       case 'Subscription Plans':
         return <Subscriptions />
+      case 'Customers':
+        return <Customers />
       case 'Payouts':
         return <Payouts />
       default:
@@ -37,7 +46,7 @@ const Dashboard = () => {
       <Sidebar selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
       <div className='w-4/5 h-full flex flex-col justify-start items-start px-10 overflow-y-auto'>
         <Logo />
-        <GetTab selectedTab={selectedTab} />
+        <GetTab selectedTab={selectedTab} openModal={openModal} />
       </div>
     </div>
   )

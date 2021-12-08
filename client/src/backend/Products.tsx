@@ -34,19 +34,34 @@ enum SortingType {
   Descending,
 }
 
-const CreateProduct = ({ name, price }: { price: number; name: string }) => {
+const CreateProduct = ({
+  name,
+  price,
+  closeModal,
+}: {
+  price: number
+  name: string
+  closeModal: () => void
+}) => {
   const { isSaving, error, save } = useNewMoralisObject('Products')
   const { user } = useMoralis()
   return (
     <div>
       {error}
-      <button onClick={() => save({ name, price, user })} disabled={isSaving}>
-        Create Product
+      <button
+        onClick={() => {
+          closeModal()
+          save({ name, price, user })
+        }}
+        disabled={isSaving}
+        className='px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer'
+      >
+        Add
       </button>
     </div>
   )
 }
-const FetchProduct = () => {
+const FetchProduct = ({ query }: { query: string }) => {
   const { user } = useMoralis()
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
@@ -107,21 +122,46 @@ const FetchProduct = () => {
         sorted = sorted
           .thenBy((dataRow: any) => (dataRow[propertyName] === null ? -1 : 1))
           .thenBy((dataRow: any) => dataRow[propertyName])
-
-        console.log('sorted array: ', sorted.toArray())
       } else {
         sorted = sorted
           .thenByDescending((dataRow: any) =>
             dataRow[propertyName] === null ? -1 : 1
           )
           .thenByDescending((dataRow: any) => dataRow[propertyName])
-        console.log('sorted array: ', sorted.toArray())
-        // }
       }
     })
 
-    return sorted.toArray()
-  }, [sortConfig, products])
+    let names = products.map((a) => a.name)
+
+    console.log('names', names)
+
+    let filteredNames = names
+      .sort()
+      .filter((txt: string) => txt.indexOf(query) !== -1)
+
+    console.log('filteredNames', filteredNames)
+
+    if (filteredNames.length === 0) {
+      return []
+    }
+
+    let sortedArray = sorted.toArray()
+
+    for (let i = 0; i < sortedArray.length; i++) {
+      const dataRow = sortedArray[i]
+      const name = dataRow.name
+      for (let j = 0; j < filteredNames.length; j++) {
+        let filteredName = filteredNames[j]
+        if (!name.startsWith(filteredName) && query !== '') {
+          sortedArray.splice(i, 1)
+          i--
+          break
+        }
+      }
+    }
+
+    return sortedArray
+  }, [sortConfig, products, query])
 
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
@@ -134,7 +174,7 @@ const FetchProduct = () => {
             <td>{product.objectId}</td>
             <td>{product.price} ETH</td>
             <td>{newDate.toString()}</td>
-            <td>
+            <td className='flex justify-center items-center'>
               <TransferProduct objectId={product.objectId} />
             </td>
           </tr>
