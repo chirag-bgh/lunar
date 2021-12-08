@@ -26,7 +26,7 @@ const Transactions = () => {
           <th>Date</th>
         </tr>
         <tr className='h-80'>
-          <td></td>
+          <td><DisplayTransaction /></td>
         </tr>
       </table>
     </div>

@@ -2,12 +2,10 @@ import { useMoralis,useMoralisQuery } from "react-moralis";
 
 export const DisplayTransaction = () => {
     const { user } = useMoralis();
-    const userAddress = user!.get("managed_account_pub");
-    console.log('DisplayTransaction')
-
+    const userAddress = user.get("managed_account_pub");
     const { data, error, isLoading } = useMoralisQuery("EthTransactions", query =>
     query
-      .equalTo("to_address", userAddress)
+      .equalTo("to_address", userAddress.toLowerCase())
       );
 
 if (error) {
