@@ -45,8 +45,8 @@ function App() {
         ></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
-        <Route path='/' element={<Landing />}></Route>
-        {/* <Route path='/' element={<Landingv2 />}></Route> */}
+        {/* <Route path='/' element={<Landing />}></Route> */}
+        <Route path='/' element={<Landingv2 />}></Route>
       </Routes>
       <ProductModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
     </div>

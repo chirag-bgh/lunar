@@ -3,7 +3,11 @@ import { useMoralis } from 'react-moralis'
 const AuthenticateButton = () => {
   const { authenticate } = useMoralis()
 
-  return <button onClick={() => authenticate()}>Authenticate</button>
+  return (
+    <button className='cursor-pointer' onClick={() => authenticate()}>
+      Authenticate
+    </button>
+  )
 }
 
 const UserChecker = () => {
