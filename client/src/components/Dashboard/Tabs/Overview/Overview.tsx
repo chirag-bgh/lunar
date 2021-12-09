@@ -10,7 +10,7 @@ import { BsCalendarEvent } from 'react-icons/all'
 import { useState } from 'react'
 
 const Overview = () => {
-  const [selectedTab, setSelectedTab] = useState('Billing')
+  const [selectedTab, setSelectedTab] = useState('Products')
 
   return (
     <div className='w-full'>
@@ -23,7 +23,7 @@ const Overview = () => {
         </div>
       </div>
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-      {selectedTab === 'Billing' ? (
+      {selectedTab === 'Products' ? (
         <Billing revenue={1} transactions={34} />
       ) : (
         <Subscriptions />
@@ -46,8 +46,8 @@ const Tabs = ({
   return (
     <div className='my-8 flex justify-start items-center gap-2'>
       <TabItem
-        tab='Billing'
-        selected={selectedTab === 'Billing' ? true : false}
+        tab='Products'
+        selected={selectedTab === 'Products' ? true : false}
         setSelectedTab={setSelectedTab}
       />
       <TabItem
