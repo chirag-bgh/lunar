@@ -8,7 +8,7 @@ import { TransferProduct } from './transfer'
 import ProductClass from '../classes/ProductClass'
 
 // Hooks
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 // Icons
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/all'
@@ -70,6 +70,10 @@ const FetchProduct = ({ query }: { query: string }) => {
     { propertyName: 'price', sortType: SortingType.Ascending },
   ])
 
+  useEffect(() => {
+    console.log('sort config: ', sortConfig)
+  }, [sortConfig])
+
   const sortBy = useCallback(
     (propertyName: keyof TableData) => {
       let pendingChange = [...sortConfig]
@@ -93,6 +97,10 @@ const FetchProduct = ({ query }: { query: string }) => {
           ...pendingChange,
           { propertyName: propertyName, sortType: SortingType.Descending },
         ]
+      }
+
+      if (pendingChange.length > 1) {
+        pendingChange.splice(0, 1)
       }
       updateSortConfig([...pendingChange])
     },
