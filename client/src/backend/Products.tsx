@@ -178,7 +178,12 @@ const FetchProduct = ({ query }: { query: string }) => {
             <td>{product.recurrence}</td>
             <td>{newDate.toString()}</td>
             <td className='flex justify-center items-center'>
-              <TransferProduct objectId={product.objectId} />
+              <TransferProduct
+                objectId={product.objectId}
+                recurrence={product.recurrence}
+                price={product.price}
+                name={product.name}
+              />
             </td>
           </tr>
         )

@@ -1,10 +1,25 @@
-import { useWeb3Transfer, useMoralis, useMoralisQuery,useNewMoralisObject } from 'react-moralis'
+import {
+  useWeb3Transfer,
+  useMoralis,
+  useMoralisQuery,
+  useNewMoralisObject,
+} from 'react-moralis'
 import Moralis from 'moralis'
 import { useEffect, useState } from 'react'
 // Classes
 import ProductClass from '../classes/ProductClass'
 
-export const TransferProduct = ({ objectId }: { objectId: string }) => {
+export const TransferProduct = ({
+  objectId,
+  recurrence,
+  price,
+  name,
+}: {
+  objectId: string
+  recurrence: string
+  price: number
+  name: string
+}) => {
   const { data, error, isLoading } = useMoralisQuery('Products', (query) =>
     query.equalTo('objectId', objectId)
   )
@@ -21,33 +36,59 @@ export const TransferProduct = ({ objectId }: { objectId: string }) => {
 
   const product: ProductClass = JSON.parse(json)[0]
 
-  return <TransferButton product={product} />
+  return (
+    <TransferButton
+      product={product}
+      recurrence={recurrence}
+      price={price}
+      name={name}
+    />
+  )
 }
 
-const TransferButton = ({ product }: { product: ProductClass }) => {
-  const {user} = useMoralis()
+const TransferButton = ({
+  product,
+  recurrence,
+  price,
+  name,
+}: {
+  product: ProductClass
+  recurrence: string
+  price: number
+  name: string
+}) => {
+  const { user } = useMoralis()
   const { fetch, error, isFetching } = useWeb3Transfer({
-    amount: 
+    amount:
       product !== undefined
         ? Moralis.Units.ETH(product.price)
         : Moralis.Units.ETH(0),
-    receiver: 
-        product !== undefined ? product.user.managed_account_pub : '0x0',
+    receiver: product !== undefined ? product.user.managed_account_pub : '0x0',
     type: 'native',
   })
   const [fetched, setFetched] = useState(false)
   const [called, setcalled] = useState(false)
   const { isSaving, save } = useNewMoralisObject('Subscription')
-  if(called){
-  if (!fetched){
-  if (product !== undefined){
-  if (product.recurrence !== 'One time'){
-    let x = save({product: product.objectId,status: true,user:user})
-    if (!isSaving){
-        setFetched(true)
-    } 
-    console.log('x: ',x)
-  }}}}
+  if (called) {
+    if (!fetched) {
+      if (product !== undefined) {
+        if (product.recurrence !== 'One time') {
+          let x = save({
+            product: product.objectId,
+            status: true,
+            user: user,
+            recurrence: recurrence,
+            price: price,
+            name: name,
+          })
+          if (!isSaving) {
+            setFetched(true)
+          }
+          console.log('x: ', x)
+        }
+      }
+    }
+  }
 
   return (
     <div>
@@ -56,7 +97,7 @@ const TransferButton = ({ product }: { product: ProductClass }) => {
         disabled={isFetching}
         onClick={() => {
           console.log('product: ', product)
-          fetch() 
+          fetch()
           setcalled(true)
         }}
         className='h-7 text-sm bg-primary rounded-sm text-black font-display px-2 flex justify-center items-center cursor-pointer'
@@ -69,17 +110,15 @@ const TransferButton = ({ product }: { product: ProductClass }) => {
 
 const Invoice = ({ subscription }: { subscription: object }) => {
   const { isSaving, save } = useNewMoralisObject('Invoices')
-  
-
 }
 
-const Subscription = ({ data,product }: { data:object,product:ProductClass }) => {
-  
-  
-
-}
-
-
+const Subscription = ({
+  data,
+  product,
+}: {
+  data: object
+  product: ProductClass
+}) => {}
 
 const Transfer = ({ amount, address }: { amount: number; address: string }) => {
   const { fetch } = useWeb3Transfer({
