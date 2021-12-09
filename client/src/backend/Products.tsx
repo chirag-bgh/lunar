@@ -175,6 +175,7 @@ const FetchProduct = ({ query }: { query: string }) => {
             <td>{product.name}</td>
             <td>{product.objectId}</td>
             <td>{product.price} ETH</td>
+            <td>{product.recurrence}</td>
             <td>{newDate.toString()}</td>
             <td className='flex justify-center items-center'>
               <TransferProduct objectId={product.objectId} />
@@ -198,6 +199,7 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
     { label: 'Product', property: 'product' as keyof TableData },
     { label: 'ID', property: 'id' as keyof TableData },
     { label: 'Price', property: 'price' as keyof TableData },
+    { label: 'Recurrence', property: 'recurrence' as keyof TableData },
     { label: 'Created At', property: 'createdAt' as keyof TableData },
     { label: 'Purchase', property: 'purchaseButton' as keyof TableData },
   ]

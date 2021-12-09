@@ -1,6 +1,6 @@
 import { useWeb3Transfer, useMoralis, useMoralisQuery,useNewMoralisObject } from 'react-moralis'
 import Moralis from 'moralis'
-
+import { useEffect, useState } from 'react'
 // Classes
 import ProductClass from '../classes/ProductClass'
 
@@ -21,10 +21,11 @@ export const TransferProduct = ({ objectId }: { objectId: string }) => {
 
   const product: ProductClass = JSON.parse(json)[0]
 
-  return <TransferButton product={product} data={data} />
+  return <TransferButton product={product} />
 }
 
-const TransferButton = ({ product, data }: { product: ProductClass, data:object }) => {
+const TransferButton = ({ product }: { product: ProductClass }) => {
+  const {user} = useMoralis()
   const { fetch, error, isFetching } = useWeb3Transfer({
     amount: 
       product !== undefined
@@ -34,14 +35,19 @@ const TransferButton = ({ product, data }: { product: ProductClass, data:object 
         product !== undefined ? product.user.managed_account_pub : '0x0',
     type: 'native',
   })
-  const { save } = useNewMoralisObject('Subscription')
+  const [fetched, setFetched] = useState(false)
+  const [called, setcalled] = useState(false)
+  const { isSaving, save } = useNewMoralisObject('Subscription')
+  if(called){
+  if (!fetched){
+  if (product !== undefined){
   if (product.recurrence !== 'One time'){
-    
-    let status = true
-    save({data, status})
-    
-  }
-  
+    let x = save({product: product.objectId,status: true,user:user})
+    if (!isSaving){
+        setFetched(true)
+    } 
+    console.log('x: ',x)
+  }}}}
 
   return (
     <div>
@@ -50,7 +56,8 @@ const TransferButton = ({ product, data }: { product: ProductClass, data:object 
         disabled={isFetching}
         onClick={() => {
           console.log('product: ', product)
-          fetch()
+          fetch() 
+          setcalled(true)
         }}
         className='h-7 text-sm bg-primary rounded-sm text-black font-display px-2 flex justify-center items-center cursor-pointer'
       >
@@ -60,10 +67,19 @@ const TransferButton = ({ product, data }: { product: ProductClass, data:object 
   )
 }
 
-const Invoice = () => {
+const Invoice = ({ subscription }: { subscription: object }) => {
   const { isSaving, save } = useNewMoralisObject('Invoices')
+  
 
 }
+
+const Subscription = ({ data,product }: { data:object,product:ProductClass }) => {
+  
+  
+
+}
+
+
 
 const Transfer = ({ amount, address }: { amount: number; address: string }) => {
   const { fetch } = useWeb3Transfer({

@@ -161,7 +161,7 @@ const Balance = () => {
   const { user,web3 } = useMoralis()
   const Web3Api = useMoralisWeb3Api()
 
-  const [balance, setBalance] = useState('-')
+  const [balance, setBalance] = useState('Loading')
   const [fetched, setFetched] = useState(false)
 
   const { fetch, data, error, isLoading } = useMoralisWeb3ApiCall(
@@ -175,7 +175,7 @@ const Balance = () => {
   useEffect(() => {
     console.log('data: ', data)
     if (data !== null) {
-      setBalance(web3.utils.fromWei(data.balance))
+      setBalance(web3.utils.fromWei(data.balance)+' ETH')
     }
     if (!fetched) {
       fetch()
@@ -187,7 +187,7 @@ const Balance = () => {
     <div className='w-5/6 h-24 rounded-lg bg-dark flex flex-col justify-center items-center'>
       <p className='text-md'>Balance</p>
       <h2 className='text-3xl font-semibold'>
-        <pre>{balance} ETH</pre>
+        <pre>{balance}</pre>
       </h2>
     </div>
   )
