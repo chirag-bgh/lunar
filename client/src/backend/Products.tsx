@@ -37,10 +37,12 @@ enum SortingType {
 const CreateProduct = ({
   name,
   price,
+  recurrence,
   closeModal,
 }: {
   price: number
   name: string
+  recurrence: string
   closeModal: () => void
 }) => {
   const { isSaving, error, save } = useNewMoralisObject('Products')
@@ -51,7 +53,7 @@ const CreateProduct = ({
       <button
         onClick={() => {
           closeModal()
-          save({ name, price, user })
+          save({ name, price, recurrence, user })
         }}
         disabled={isSaving}
         className='px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer'

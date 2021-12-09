@@ -36,6 +36,7 @@ const ProductModal = ({
 }) => {
   const [name, setName] = useState('')
   const [price, setPrice] = useState(0.0)
+  const [recurrence, setRecurrence] = useState('One time')
 
   const dropdownOptions = [
     'One time', 'Monthly', 'Quarterly', 'Yearly'
@@ -84,9 +85,9 @@ const ProductModal = ({
         </div>     
         <div className="flex justify-center items-center gap-2">
           <p className='font-medium text-sm'>RECURRENCE</p>
-          <Dropdown menuClassName="single-select h-20" options={dropdownOptions} onChange={() => {}} value={defaultOption} placeholder="Select an option" />
+          <Dropdown menuClassName="single-select h-20" options={dropdownOptions} onChange={(e) => {setRecurrence(e.value)}} value={defaultOption} placeholder="Select an option" />
         </div>
-        <CreateProduct name={name} price={price} closeModal={closeModal} />
+        <CreateProduct name={name} price={price} recurrence={recurrence} closeModal={closeModal} />
       </div>
     </ReactModal>
   )
