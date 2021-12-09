@@ -1,33 +1,33 @@
-import { useMoralis } from "react-moralis";
+import { useMoralis } from 'react-moralis'
 
 const AuthenticateButton = () => {
-  const { authenticate } = useMoralis();
+  const { authenticate } = useMoralis()
 
   return (
-    <button className="cursor-pointer" onClick={() => authenticate()}>
+    <button className='cursor-pointer' onClick={() => authenticate()}>
       Authenticate
     </button>
-  );
-};
+  )
+}
 
 const UserChecker = () => {
-  const { user, setUserData, web3 } = useMoralis();
+  const { user, setUserData, web3 } = useMoralis()
 
-  if (user.get("managed_account_priv") == undefined) {
-    let x = web3.eth.accounts.create();
+  if (user.get('managed_account_priv') === undefined) {
+    let x = web3.eth.accounts.create()
     setUserData({
       managed_account_pub: x.address,
       managed_account_priv: x.privateKey,
-    });
+    })
   }
 
-  return <div></div>;
-};
+  return <div></div>
+}
 
 const LogoutButton = () => {
-  const { logout } = useMoralis();
+  const { logout } = useMoralis()
 
-  return <button onClick={() => logout()}>Logout</button>;
-};
+  return <button onClick={() => logout()}>Logout</button>
+}
 
-export { AuthenticateButton, UserChecker, LogoutButton };
+export { AuthenticateButton, UserChecker, LogoutButton }
