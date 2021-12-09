@@ -1,4 +1,4 @@
-import { useWeb3Transfer, useMoralis, useMoralisQuery } from 'react-moralis'
+import { useWeb3Transfer, useMoralis, useMoralisQuery,useNewMoralisObject } from 'react-moralis'
 import Moralis from 'moralis'
 
 // Classes
@@ -21,10 +21,10 @@ export const TransferProduct = ({ objectId }: { objectId: string }) => {
 
   const product: ProductClass = JSON.parse(json)[0]
 
-  return <TransferButton product={product} />
+  return <TransferButton product={product} data={data} />
 }
 
-const TransferButton = ({ product }: { product: ProductClass }) => {
+const TransferButton = ({ product, data }: { product: ProductClass, data:object }) => {
   const { fetch, error, isFetching } = useWeb3Transfer({
     amount: 
       product !== undefined
@@ -34,6 +34,14 @@ const TransferButton = ({ product }: { product: ProductClass }) => {
         product !== undefined ? product.user.managed_account_pub : '0x0',
     type: 'native',
   })
+  const { save } = useNewMoralisObject('Subscription')
+  if (product.recurrence !== 'One time'){
+    
+    let status = true
+    save({data, status})
+    
+  }
+  
 
   return (
     <div>
@@ -50,6 +58,11 @@ const TransferButton = ({ product }: { product: ProductClass }) => {
       </button>
     </div>
   )
+}
+
+const Invoice = () => {
+  const { isSaving, save } = useNewMoralisObject('Invoices')
+
 }
 
 const Transfer = ({ amount, address }: { amount: number; address: string }) => {
