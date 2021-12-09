@@ -135,13 +135,9 @@ const FetchProduct = ({ query }: { query: string }) => {
 
     let names = products.map((a) => a.name)
 
-    console.log('names', names)
-
     let filteredNames = names
       .sort()
       .filter((txt: string) => txt.indexOf(query) !== -1)
-
-    console.log('filteredNames', filteredNames)
 
     if (filteredNames.length === 0) {
       return []

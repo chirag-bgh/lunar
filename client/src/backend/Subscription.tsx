@@ -116,14 +116,12 @@ const FetchSubscription = () => {
           .thenBy((dataRow: any) => (dataRow[propertyName] === null ? -1 : 1))
           .thenBy((dataRow: any) => dataRow[propertyName])
 
-        console.log('sorted array: ', sorted.toArray())
       } else {
         sorted = sorted
           .thenByDescending((dataRow: any) =>
             dataRow[propertyName] === null ? -1 : 1
           )
           .thenByDescending((dataRow: any) => dataRow[propertyName])
-        console.log('sorted array: ', sorted.toArray())
       }
     })
 
