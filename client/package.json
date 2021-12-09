@@ -6,6 +6,7 @@
     "@craco/craco": "^6.4.2",
     "@material-ui/core": "^4.12.3",
     "@walletconnect/web3-provider": "^1.6.6",
+    "gsap": "^3.8.0",
     "linq": "^4.0.0",
     "moralis": "^0.0.147",
     "react": "^17.0.2",

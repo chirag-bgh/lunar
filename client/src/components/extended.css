@@ -1,0 +1,31 @@
+@import url('https://rsms.me/inter/inter.css');
+
+body{
+    perspective: 1000px;
+}
+
+.card{
+    transform-style: preserve-3d;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(148.68deg, rgba(255, 255, 255, 0.37) -84.95%, rgba(255, 255, 255, 0) 87.71%);
+    -webkit-backdrop-filter: blur(40px);
+     /* backdrop-filter: blur(40px); */
+
+}
+
+.image{
+  z-index: 2;
+  transition: all 0.75s ease-out;
+  filter: drop-shadow(5px 5px 5px #222);
+}
+
+.overlay{
+    mix-blend-mode: overlay;
+    filter: drop-shadow(0px 16px 14px rgba(0, 0, 0, 0.15));
+
+}
+
+.screen {
+    mix-blend-mode: screen;
+    border-radius: 14px;
+}

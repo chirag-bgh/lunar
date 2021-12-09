@@ -7,38 +7,36 @@ import Landing from './components/Landing'
 import Login from './components/Auth/Login'
 import Signup from './components/Auth/Signup'
 import ProductModal from './components/ProductModal'
+import Landingv2 from './components/Landingv2'
 
 // React
 import { Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
 
 function App() {
-  const { enableWeb3, isWeb3Enabled, isAuthenticated } = useMoralis()
-
-  const [modalIsOpen, setIsOpen] = useState(false)
-
-  function openModal() {
-    setIsOpen(true)
-  }
-
-  console.log('Web3: ' + isAuthenticated)
-  if (!isWeb3Enabled) {
-    enableWeb3()
-  }
-
-  // Moralis
-  console.log('Is Authenticated: ' + isAuthenticated)
-  if (!isAuthenticated) {
-    return <Landing />
-  }
+//   const { enableWeb3, isWeb3Enabled, isAuthenticated, user } = useMoralis();
+  
+//   console.log("Web3: " + isAuthenticated)
+//   if(!isWeb3Enabled){
+//      enableWeb3()
+//   }
+// // Moralis
+//    console.log("Is Authenticated: " + isAuthenticated)
+//   if (!isAuthenticated) {
+//     return <Landing />
+//   }
 
   // {/* @ts-ignore */}
   // <h1>Welcome {user.get("ethAddress")}</h1>
   //<LogoutButton />
   //<TransferButton amount={10} address="0x479327C7658AeBFa9F777B1B79D9353C7387e266" />
   //<DisplayTransaction />
-
+  const [modalIsOpen, setIsOpen] = useState(false)
+  function openModal() {
+    setIsOpen(true)
+  }
   return (
+
     <div style={modalIsOpen ? { filter: 'brightness(0.5) blur(5px)' } : null}>
       <Routes>
         <Route
@@ -48,6 +46,7 @@ function App() {
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/' element={<Landing />}></Route>
+        {/* <Route path='/' element={<Landingv2 />}></Route> */}
       </Routes>
       <ProductModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
     </div>
