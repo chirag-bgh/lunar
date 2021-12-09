@@ -29,9 +29,8 @@ const Payouts = () => {
         <h2 className='text-3xl underline font-medium'>Payouts</h2>
       </div>
 
-      <div className="flex flex-col justify-center items-center mt-5 w-60 h-36 bg-dark rounded-lg cursor-pointer hover:shadow-primary transition-shadow ease-in-out">
-        <h1 className="mb-auto mt-4">Withdraw</h1>
-        <h1 className="text-6xl mb-10 text-primary font-semibold ">1 ETH</h1>
+      <div className="flex flex-col justify-center items-center mt-5 w-60 h-30 bg-dark rounded-lg cursor-pointer hover:shadow-primary transition-shadow ease-in-out">
+        <h1 className="text-3xl mb-10 text-primary text-center font-semibold ">Withdraw</h1>
       </div>
       
 

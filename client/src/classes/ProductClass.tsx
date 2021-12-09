@@ -1,6 +1,7 @@
 export default interface ProductClass {
   name: string
   price: number
+  recurrence: string
   user: User
   createdAt: Date
   updatedAt: Date
@@ -12,6 +13,8 @@ export interface User {
   authData: AuthData
   createdAt: Date
   updatedAt: Date
+  managed_account_pub: string
+  managed_account_priv: string
   accounts: string[]
   ethAddress: string
   ACL: ACL

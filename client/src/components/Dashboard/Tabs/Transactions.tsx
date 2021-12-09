@@ -1,3 +1,5 @@
+import { DisplayTransaction } from '../../../backend/transaction'
+
 const Transactions = () => {
   return (
     <div className='w-full'>
@@ -24,7 +26,7 @@ const Transactions = () => {
           <th>Date</th>
         </tr>
         <tr className='h-80'>
-          <td></td>
+          <td><DisplayTransaction /></td>
         </tr>
       </table>
     </div>

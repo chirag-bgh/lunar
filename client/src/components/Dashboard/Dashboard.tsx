@@ -6,6 +6,7 @@ import Products from './Tabs/Products'
 import Subscriptions from './Tabs/Subscriptions'
 import Payouts from './Tabs/Payouts'
 import Customers from './Tabs/Customers'
+import { UserChecker } from '../Auth/AuthManager'
 
 // Icons
 import { IoMdMoon } from 'react-icons/all'
@@ -43,6 +44,7 @@ const Dashboard = ({ openModal }: { openModal: () => void }) => {
 
   return (
     <div className='w-screen h-screen bg-background flex justify-center items-center'>
+      <UserChecker />
       <Sidebar selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
       <div className='w-4/5 h-full flex flex-col justify-start items-start px-10 overflow-y-auto'>
         <Logo />
