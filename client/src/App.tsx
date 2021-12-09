@@ -3,7 +3,7 @@ import { useMoralis } from 'react-moralis'
 
 // Components
 import Dashboard from './components/Dashboard/Dashboard'
-import Landing from './components/Landing'
+// import Landing from './components/Landing'
 import Login from './components/Auth/Login'
 import Signup from './components/Auth/Signup'
 import ProductModal from './components/ProductModal'
@@ -25,8 +25,8 @@ function App() {
   // // Moralis
   console.log('Is Authenticated: ' + isAuthenticated)
   if (!isAuthenticated) {
-    // return <Landingv2 />
-    return <Landing/>
+    return <Landingv2 />
+    // return <Landing/>
   }
 
   // {/* @ts-ignore */}
@@ -46,8 +46,8 @@ function App() {
         ></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
-        <Route path='/' element={<Landing />}></Route>
-        {/* <Route path='/' element={<Landingv2 />}></Route> */}
+        {/* <Route path='/' element={<Landing />}></Route> */}
+        <Route path='/' element={<Landingv2 />}></Route>
       </Routes>
       <ProductModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
     </div>

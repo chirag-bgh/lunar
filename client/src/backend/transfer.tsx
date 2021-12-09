@@ -60,17 +60,6 @@ const TransferButton = ({
   name: string
 }) => {
   const { user } = useMoralis()
-  // const {
-  //   fetch: fetch1,
-  //   data,
-  //   isLoading,
-  //} = useMoralisCloudFunction(
-  //   "helloworld",
-  //   { user: user, product: product, status: true },
-  //   { autoFetch: false }
-  // );
-  // console.log("Cloud: ", data);
-  // console.log("isloading ", isLoading);
   const { fetch, error, isFetching } = useWeb3Transfer({
     amount:
       product !== undefined
@@ -87,13 +76,16 @@ const TransferButton = ({
     let x = undefined
     let counter = 0
     if (called) {
+      console.log('hello')
       if (!fetched) {
+        console.log('hello2')
         setFetched(true)
         if (product !== undefined) {
+          console.log('hello3')
           if (product.recurrence !== 'One time') {
             if (x === undefined) {
               x = null
-              console.log('hello')
+              console.log('hello4')
               let y = fetch({
                 onSuccess: () =>
                   (x = save({
@@ -123,11 +115,8 @@ const TransferButton = ({
       <button
         disabled={isFetching}
         onClick={() => {
+          console.log('Transferring')
           setcalled(true)
-          //  fetch1({
-          //   onSuccess: () => console.log("Worked"),
-          //   onError: (error) => console.log("Raghav: ", error),
-          //  });
         }}
         className='h-7 text-sm bg-primary rounded-sm text-black font-display px-2 flex justify-center items-center cursor-pointer'
       >
