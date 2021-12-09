@@ -13,18 +13,13 @@ const AuthenticateButton = () => {
 const UserChecker = () => {
   const { user, setUserData, web3 } = useMoralis()
 
-  let x = web3.eth.accounts.create()
-
   if (user.get('managed_account_priv') === undefined) {
+    let x = web3.eth.accounts.create()
     setUserData({
       managed_account_pub: x.address,
       managed_account_priv: x.privateKey,
     })
-  } else {
-    // console.log('bitch')
   }
-
-  console.log('User', user.get('managed_account_priv'))
 
   return <div></div>
 }
