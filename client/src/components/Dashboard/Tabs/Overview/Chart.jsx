@@ -1,5 +1,8 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { GetRevenue } from '../../../../backend/ChartsLogic';
+import {ChartLogic} from '../../../../backend/ChartsLogic.tsx'
+
 
 const data = [
   {
@@ -46,7 +49,16 @@ const data = [
   },
 ];
 
-const ChartExample = (props) => (
+const ChartExample = (props) => {
+
+ const [revenue, setRevenue] = useState('')
+  
+useEffect(()=>{
+  const data = GetRevenue
+  setRevenue(data)
+})
+
+return (
       <ResponsiveContainer width="100%" height="70%">
         <LineChart
         className={props.className}
@@ -68,7 +80,8 @@ const ChartExample = (props) => (
           <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
         </LineChart>
       </ResponsiveContainer>
-    );
+);
+        }
 
 
 export default ChartExample
