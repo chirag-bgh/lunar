@@ -158,36 +158,39 @@ const UserAccount = () => {
 }
 
 const Balance = () => {
-  const { user,web3 } = useMoralis()
+  const { user, web3 } = useMoralis()
   const Web3Api = useMoralisWeb3Api()
 
   const [balance, setBalance] = useState('Loading')
   const [fetched, setFetched] = useState(false)
 
-  const { fetch, data, error, isLoading } = useMoralisWeb3ApiCall(
+  const { fetch, data } = useMoralisWeb3ApiCall(
     Web3Api.account.getNativeBalance,
     {
       address: user.get('managed_account_pub'),
-      chain:'ropsten',
+      chain: 'ropsten',
     }
   )
 
   useEffect(() => {
     console.log('data: ', data)
     if (data !== null) {
-      setBalance(web3.utils.fromWei(data.balance)+' ETH')
+      setBalance(web3.utils.fromWei(data.balance))
     }
     if (!fetched) {
       fetch()
       setFetched(true)
     }
-  }, [data, fetch])
+  }, [data, fetch, fetched, web3.utils])
 
   return (
     <div className='w-5/6 h-24 rounded-lg bg-dark flex flex-col justify-center items-center'>
       <p className='text-md'>Balance</p>
       <h2 className='text-3xl font-semibold'>
-        <pre>{balance}</pre>
+        <div className='flex justify-center items-center gap-2'>
+          <pre id='balance'>{balance}</pre>
+          <span>ETH</span>
+        </div>
       </h2>
     </div>
   )
