@@ -1,4 +1,8 @@
-import { useMoralis,useMoralisWeb3Api,useMoralisWeb3ApiCall } from 'react-moralis'
+import {
+  useMoralis,
+  useMoralisWeb3Api,
+  useMoralisWeb3ApiCall,
+} from 'react-moralis'
 
 // Icons
 import {
@@ -7,8 +11,9 @@ import {
   BsArchive,
   IoReload,
   BiDollar,
-  BsPersonFill
+  BsPersonFill,
 } from 'react-icons/all'
+import { useEffect, useState } from 'react'
 
 const Sidebar = ({
   selectedTab,
@@ -153,24 +158,36 @@ const UserAccount = () => {
 }
 
 const Balance = () => {
-  const {user} = useMoralis()
+  const { user } = useMoralis()
   const Web3Api = useMoralisWeb3Api()
-  const { fetch, data, error, isLoading } = useMoralisWeb3ApiCall(Web3Api.account.getNativeBalance, {
-    address: user.get('managed_account_pub'),
-  });
-  let x = "-"
-  console.log(data)
-  if(data !== null){
-    x = data.balance
-  }
+
+  const [balance, setBalance] = useState('-')
+  const [fetched, setFetched] = useState(false)
+
+  const { fetch, data, error, isLoading } = useMoralisWeb3ApiCall(
+    Web3Api.account.getNativeBalance,
+    {
+      address: user.get('managed_account_pub'),
+    }
+  )
+
+  useEffect(() => {
+    console.log('data: ', data)
+    if (data !== null) {
+      setBalance(data.balance)
+    }
+    if (!fetched) {
+      fetch()
+      setFetched(true)
+    }
+  }, [data, fetch])
 
   return (
     <div className='w-5/6 h-24 rounded-lg bg-dark flex flex-col justify-center items-center'>
-      <button onClick={() => fetch()}>Refetch</button>
       <p className='text-md'>Balance</p>
-      <h2 className='text-3xl font-semibold'><pre>{x}</pre></h2>
+      <h2 className='text-3xl font-semibold'>
+        <pre>{balance}</pre>
+      </h2>
     </div>
   )
-
-
 }

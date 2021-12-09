@@ -2,6 +2,10 @@
 import { useState } from 'react'
 import ReactModal from 'react-modal'
 
+// Dropdown
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+
 // Components
 import { CreateProduct } from '../backend/Products'
 
@@ -13,7 +17,7 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    height: '32%',
+    height: '36%',
     backgroundColor: '#1E1E1F',
     width: '30%',
   },
@@ -32,6 +36,12 @@ const ProductModal = ({
 }) => {
   const [name, setName] = useState('')
   const [price, setPrice] = useState(0.0)
+
+  const dropdownOptions = [
+    'One time', 'Monthly', 'Quarterly', 'Yearly'
+  ];
+
+  const defaultOption = dropdownOptions[0];
 
   function closeModal() {
     setIsOpen(false)
@@ -71,6 +81,10 @@ const ProductModal = ({
               onChange={(event) => setPrice(parseFloat(event.target.value))}
             />
           </div>
+        </div>     
+        <div className="flex justify-center items-center gap-2">
+          <p className='font-medium text-sm'>RECURRENCE</p>
+          <Dropdown menuClassName="single-select h-20" options={dropdownOptions} onChange={() => {}} value={defaultOption} placeholder="Select an option" />
         </div>
         <CreateProduct name={name} price={price} closeModal={closeModal} />
       </div>
