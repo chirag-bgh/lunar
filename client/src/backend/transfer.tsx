@@ -11,7 +11,17 @@ import { useEffect, useState } from "react";
 // Classes
 import ProductClass from "../classes/ProductClass";
 
-export const TransferProduct = ({ objectId }: { objectId: string }) => {
+export const TransferProduct = ({
+  objectId,
+  recurrence,
+  price,
+  name,
+}: {
+  objectId: string;
+  recurrence: string;
+  price: number;
+  name: string;
+}) => {
   const { data, error, isLoading } = useMoralisQuery("Products", (query) =>
     query.equalTo("objectId", objectId)
   );
@@ -28,10 +38,27 @@ export const TransferProduct = ({ objectId }: { objectId: string }) => {
 
   const product: ProductClass = JSON.parse(json)[0];
 
-  return <TransferButton product={product} />;
+  return (
+    <TransferButton
+      product={product}
+      recurrence={recurrence}
+      price={price}
+      name={name}
+    />
+  );
 };
 
-const TransferButton = ({ product }: { product: ProductClass }) => {
+const TransferButton = ({
+  product,
+  recurrence,
+  price,
+  name,
+}: {
+  product: ProductClass;
+  recurrence: string;
+  price: number;
+  name: string;
+}) => {
   const { user } = useMoralis();
   // const {
   //   fetch: fetch1,
@@ -73,6 +100,9 @@ const TransferButton = ({ product }: { product: ProductClass }) => {
                     product: product.objectId,
                     status: true,
                     user: user,
+                    recurrence: recurrence,
+                    price: price,
+                    name: name,
                   })),
                 onError: (error) => console.log(error),
               });
