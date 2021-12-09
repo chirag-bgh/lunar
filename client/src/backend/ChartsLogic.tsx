@@ -5,18 +5,27 @@ import {
     useMoralisQuery,
 } from "react-moralis";
 
+import { useState } from "react";
+
 const GetRevenue = () => {
+    
+    // const [productPrices, setProductPrices] = useState('')
+    
+    var allProductPrices = []
     const { user } = useMoralis();
-    const { data } = useMoralisQuery("  ", (query) =>
-        query.equalTo("user", user)
+    let  { data } = useMoralisQuery("Products", (query) =>
+    query.equalTo("user", user));
+    const data2 = JSON.parse(JSON.stringify(data, null, 2))
+    const listItems = data2.map((d, index) =>
+        allProductPrices.push({
+            name: index, 
+            uv: d.price,
+        })
     );
-    let json = JSON.stringify(data, null, 2);
-    return (
-        // <p>{JSON.parse(json)}</p>
-        <p>asdlkfjhasldkfjh</p>
-    );
+    console.log(allProductPrices);
+    
 
 }
 
 
-export {GetRevenue};
+export default GetRevenue;

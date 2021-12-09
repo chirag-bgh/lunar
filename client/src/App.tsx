@@ -1,9 +1,9 @@
 import { useMoralis } from 'react-moralis'
-import { TransferButton, DisplayTransaction } from './components/transfer'
+// import { TransferButton, DisplayTransaction } from './components/transfer'
 
 // Components
 import Dashboard from './components/Dashboard/Dashboard'
-// import Landing from './components/Landing'
+import Landing from './components/Landing'
 import Login from './components/Auth/Login'
 import Signup from './components/Auth/Signup'
 import ProductModal from './components/ProductModal'
@@ -14,7 +14,7 @@ import { Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
 
 function App() {
-  const { enableWeb3, isWeb3Enabled, isAuthenticated } = useMoralis()
+  const { enableWeb3, isWeb3Enabled, isAuthenticated, user } = useMoralis()
 
   const [modalIsOpen, setIsOpen] = useState(false)
 
@@ -25,7 +25,8 @@ function App() {
   // // Moralis
   console.log('Is Authenticated: ' + isAuthenticated)
   if (!isAuthenticated) {
-    return <Landingv2 />
+    // return <Landingv2 />
+    return <Landing/>
   }
 
   // {/* @ts-ignore */}

@@ -1,70 +1,50 @@
+// Moralis
+import {
+  useNewMoralisObject,
+  useMoralis,
+  useMoralisQuery,
+} from "react-moralis";
+
+
+
 import React, { PureComponent, useEffect, useState } from 'react';
+import { MdOutlineHdrOffSelect } from 'react-icons/md';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { GetRevenue } from '../../../../backend/ChartsLogic';
-import {ChartLogic} from '../../../../backend/ChartsLogic.tsx'
+// import { GetRevenue } from '../../../../backend/ChartsLogic';
+// import {ChartLogic} from '../../../../backend/ChartsLogic.tsx'
 
-
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-  
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-  
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-  
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-  
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-  
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-  
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-  
-  },
-];
 
 const ChartExample = (props) => {
 
- const [revenue, setRevenue] = useState('')
+  var allProductPrices = []
+  const { user } = useMoralis();
+  let  { data } = useMoralisQuery("Products", (query) =>
+  query.equalTo("user", user)
+  .equalTo("recurrence", "One time")
+  .ascending("createdAt"));
+  const processed_data = JSON.parse(JSON.stringify(data, null, 2))
   
-useEffect(()=>{
-  const data = GetRevenue
-  setRevenue(data)
-})
+  const listItems = processed_data.map((d, index) =>{
+    var timeStr = d.createdAt;
+    var date = new Date(timeStr);
+    var day = date.getDate();
+    var year = date.getFullYear();
+    var month = date.getMonth()+1;
+    var dateStr = month+"/"+day+"/"+year;
+      allProductPrices.push({
+          name: dateStr, 
+          uv: d.price,
+      });}
+  );
+  // console.log(allProductPrices[0]);
 
 return (
-      <ResponsiveContainer width="100%" height="70%">
+    <ResponsiveContainer width="100%" height="70%">
         <LineChart
         className={props.className}
           width={500}
           height={300}
-          data={data}
+          data={allProductPrices}
           margin={{
             top: 5,
             right: 30,
