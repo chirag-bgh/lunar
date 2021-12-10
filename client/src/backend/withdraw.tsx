@@ -109,7 +109,6 @@ export const Withdraw = ({
               })
         }else{
           setIsBroke(true)
-          console.log("broke ass fuck")
         }}
       }
       >
