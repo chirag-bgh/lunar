@@ -13,6 +13,7 @@ import {
   IoReload,
   BiDollar,
   BsPersonFill,
+  RiSettingsFill
 } from "react-icons/all";
 import { useEffect, useState } from "react";
 
@@ -94,6 +95,12 @@ const Tabs = ({
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
+      <Tab
+        tab="Settings"
+        icon={<RiSettingsFill className="text-current text-xl" />}
+        selectedTab={selectedTab}
+        setSelectedTab={setSelectedTab}
+      />
     </div>
   );
 };
@@ -113,12 +120,12 @@ const Tab = ({
     <div
       onClick={() => setSelectedTab(tab)}
       className={
-        "h-1/5 w-full flex items-center gap-3 px-3 transition-all " +
+        "h-2/5 w-full flex items-center gap-3 px-3 transition-all " +
         (selectedTab === tab
           ? `bg-primary text-dark justify-center ${
               tab === "Overview"
                 ? "rounded-t-lg"
-                : tab === "Payouts"
+                : tab === "Settings"
                 ? "rounded-b-lg"
                 : "rounded-none"
             }`
