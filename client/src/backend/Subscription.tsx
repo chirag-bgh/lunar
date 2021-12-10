@@ -54,7 +54,7 @@ const CreateSubscription = ({
     </div>
   )
 }
-const FetchSubscription = () => {
+const FetchSubscription = ({ query }: { query: string }) => {
   const { user } = useMoralis()
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
@@ -84,6 +84,10 @@ const FetchSubscription = () => {
           ...pendingChange,
           { propertyName: propertyName, sortType: SortingType.Descending },
         ]
+      }
+
+      if (pendingChange.length > 1) {
+        pendingChange.splice(0, 1)
       }
       updateSortConfig([...pendingChange])
     },
@@ -115,7 +119,6 @@ const FetchSubscription = () => {
         sorted = sorted
           .thenBy((dataRow: any) => (dataRow[propertyName] === null ? -1 : 1))
           .thenBy((dataRow: any) => dataRow[propertyName])
-
       } else {
         sorted = sorted
           .thenByDescending((dataRow: any) =>
@@ -125,8 +128,37 @@ const FetchSubscription = () => {
       }
     })
 
-    return sorted.toArray()
-  }, [sortConfig, subsriptions])
+    let names = subsriptions.map((a) => a.name)
+
+    // console.log("names", names);
+
+    let filteredNames = names
+      .sort()
+      .filter((txt: string) => txt.indexOf(query) !== -1)
+
+    // console.log("filteredNames", filteredNames);
+
+    if (filteredNames.length === 0) {
+      return []
+    }
+
+    let sortedArray = sorted.toArray()
+
+    for (let i = 0; i < sortedArray.length; i++) {
+      const dataRow = sortedArray[i]
+      const name = dataRow.name
+      for (let j = 0; j < filteredNames.length; j++) {
+        let filteredName = filteredNames[j]
+        if (!name.startsWith(filteredName) && query !== '') {
+          sortedArray.splice(i, 1)
+          i--
+          break
+        }
+      }
+    }
+
+    return sortedArray
+  }, [sortConfig, subsriptions, query])
 
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
