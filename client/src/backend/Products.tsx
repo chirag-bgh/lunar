@@ -109,6 +109,7 @@ const CreateProduct = ({
             recurrence,
             user,
             managed_account: user.get("managed_account_pub"),
+            callback_url: user.get("callbackURL"),
           });
         }}
         disabled={isSaving}
