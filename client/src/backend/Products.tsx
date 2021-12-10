@@ -242,14 +242,6 @@ const FetchProduct = ({ query }: { query: string }) => {
             <td>{product.price} MATIC</td>
             <td>{product.recurrence}</td>
             <td>{newDate.toString()}</td>
-            <td className="flex justify-center items-center h-full">
-              <TransferProduct
-                objectId={product.objectId}
-                recurrence={product.recurrence}
-                price={product.price}
-                name={product.name}
-              />
-            </td>
             <td>
               <DeleteProduct objectId={product.objectId} />
             </td>
@@ -259,6 +251,8 @@ const FetchProduct = ({ query }: { query: string }) => {
     </table>
   );
 };
+
+//           <td className="flex justify-center items-center h-full"><TransferProduct objectId={product.objectId}recurrence={product.recurrence}price={product.price} name={product.name} /> </td>
 
 export { CreateProduct, FetchProduct };
 
@@ -274,7 +268,7 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
     { label: "Price", property: "price" as keyof TableData },
     { label: "Recurrence", property: "recurrence" as keyof TableData },
     { label: "Created At", property: "createdAt" as keyof TableData },
-    { label: "Purchase", property: "purchaseButton" as keyof TableData },
+    //  { label: "Purchase", property: "purchaseButton" as keyof TableData },
     { label: "Remove", property: "removeButton" as keyof TableData },
   ];
 
