@@ -6,7 +6,7 @@ import {
   // useMoralisCloudFunction,
 } from 'react-moralis'
 import Moralis from 'moralis'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 // Spinner
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
@@ -64,7 +64,7 @@ const TransferButton = ({
   name: string
 }) => {
   const { user } = useMoralis()
-  const { fetch, error, isFetching, data } = useWeb3Transfer({
+  const { fetch, isFetching, data } = useWeb3Transfer({
     amount:
       product !== undefined
         ? Moralis.Units.ETH(product.price)
@@ -78,116 +78,6 @@ const TransferButton = ({
   const { save: subscription } = useNewMoralisObject('Subscription')
   const { save: transaction } = useNewMoralisObject('Transactions')
   const { save: customer } = useNewMoralisObject('Customer')
-
-  // useEffect(() => {
-  //   let x = undefined
-  //   let counter = 0
-  //   if (called) {
-  //     if (!fetched) {
-  //       setFetched(true)
-  //       if (product !== undefined) {
-  //         if (product.recurrence !== 'One time') {
-  //           if (x === undefined) {
-  //             x = null
-  //             let y = fetch({
-  //               onSuccess: () => {
-  //                 console.log('fetched')
-  //                 let cust_id = null
-  //                 x = subscription({
-  //                   product: product.objectId,
-  //                   status: true,
-  //                   user: user,
-  //                   recurrence: recurrence,
-  //                   price: price,
-  //                   name: name,
-  //                 })
-  //                 console.log('data: ', data)
-  //                 customer({
-  //                   User: product.user.objectId,
-  //                   Type: 'Subscription',
-  //                 }).then((res) => {
-  //                   console.log(res.id)
-  //                   cust_id = res.id
-  //                   let z = transaction({
-  //                     product: product.objectId,
-  //                     status: true,
-  //                     amount: price,
-  //                     to_address: product.user.managed_account_pub,
-  //                     from_address: '0x0',
-  //                     Type: 'Subscribed',
-  //                     user: product.user.objectId,
-  //                     customerid: cust_id,
-  //                   })
-  //                   setcalled(false)
-  //                   console.log('x: ', x)
-  //                   console.log('y: ', y)
-  //                   console.log('z: ', z)
-  //                 })
-  //               },
-  //               onError: (error) => console.log('error', error),
-  //             })
-  //               .then((res) => {
-  //                 console.log('res: ', res)
-  //               })
-  //               .catch((err) => {
-  //                 console.log('err', err)
-  //               })
-  //             counter = counter + 1
-  //             console.log('counter: ', counter)
-  //           }
-  //         } else {
-  //           fetch({
-  //             onSuccess: () => {
-  //               let cust_id = null
-  //               console.log('data: ', data)
-  //               // @ts-ignore
-  //               customer({
-  //                 User: product.user.objectId,
-  //                 Type: 'Product Purchase',
-  //               }).then((res) => {
-  //                 console.log(res.id)
-  //                 cust_id = res.id
-  //                 transaction({
-  //                   product: product.objectId,
-  //                   status: true,
-  //                   amount: price,
-  //                   to_address: product.user.managed_account_pub,
-  //                   from_address: '0x0',
-  //                   Type: 'Product Purchase',
-  //                   user: product.user.objectId,
-  //                   customerid: cust_id,
-  //                 })
-  //                 setcalled(false)
-  //                 // console.log('y: ', y)
-  //                 // console.log('z: ', z)
-  //               })
-  //             },
-  //             onError: (error) => console.log('error', error),
-  //           })
-  //             .then((res) => {
-  //               console.log('res: ', res)
-  //             })
-  //             .catch((err) => {
-  //               console.log('err', err)
-  //             })
-  //         }
-  //       }
-  //     }
-  //   }
-  // }, [
-  //   called,
-  //   fetched,
-  //   product,
-  //   recurrence,
-  //   price,
-  //   name,
-  //   user,
-  //   fetch,
-  //   subscription,
-  //   customer,
-  //   data,
-  //   transaction,
-  // ])
 
   async function transferPayment() {
     let x = undefined
