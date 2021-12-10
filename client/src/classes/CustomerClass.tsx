@@ -6,4 +6,5 @@ export interface CustomerClass {
   createdAt: Date
   updatedAt: Date
   objectId: string
+  email_address: string
 }
