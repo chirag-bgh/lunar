@@ -11,10 +11,11 @@ import ProductClass from '../classes/ProductClass'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 // Icons
-import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/all'
+import { FaTrash, MdArrowDropDown, MdArrowDropUp } from 'react-icons/all'
 
 // Sorting Library
 import linq from 'linq'
+import Loader from 'react-loader-spinner'
 
 interface TableData {
   product: string
@@ -22,6 +23,7 @@ interface TableData {
   price: number
   createdAt: Date
   purchaseButton: JSX.Element
+  removeButton: JSX.Element
 }
 
 interface SortingConfiguration {
@@ -35,8 +37,46 @@ enum SortingType {
 }
 
 const DeleteProduct = ({ objectId }: { objectId: string }) => {
+  const [destroy, setDestroy] = useState(false)
+
   const { data } = useMoralisQuery('Products', (query) =>
     query.equalTo('objectId', objectId)
+  )
+
+  useEffect(() => {
+    if (destroy) {
+      if (data !== undefined) {
+        console.log('data: ', data)
+
+        // Destroy Object
+        if (data[0] !== undefined) {
+          data[0].destroy().then(() => {
+            setDestroy(false)
+          })
+        }
+      }
+    }
+  }, [destroy, data])
+
+  return (
+    <div>
+      <button
+        onClick={() => {
+          console.log('Removing Product')
+          setDestroy(true)
+        }}
+        className='h-7 text-sm rounded-sm text-black font-display px-2 flex justify-center items-center cursor-pointer'
+        style={{ marginLeft: '25%' }}
+      >
+        {!destroy ? (
+          <FaTrash className='text-red-500' />
+        ) : (
+          <div className='flex justify-center items-center'>
+            <Loader type='Puff' color='#87F1FF' height={20} width={30} />
+          </div>
+        )}
+      </button>
+    </div>
   )
 }
 
@@ -191,13 +231,16 @@ const FetchProduct = ({ query }: { query: string }) => {
             <td>{product.price} MATIC</td>
             <td>{product.recurrence}</td>
             <td>{newDate.toString()}</td>
-            <td className='flex justify-center items-center'>
+            <td className='flex justify-center items-center h-full'>
               <TransferProduct
                 objectId={product.objectId}
                 recurrence={product.recurrence}
                 price={product.price}
                 name={product.name}
               />
+            </td>
+            <td>
+              <DeleteProduct objectId={product.objectId} />
             </td>
           </tr>
         )
@@ -221,6 +264,7 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
     { label: 'Recurrence', property: 'recurrence' as keyof TableData },
     { label: 'Created At', property: 'createdAt' as keyof TableData },
     { label: 'Purchase', property: 'purchaseButton' as keyof TableData },
+    { label: 'Remove', property: 'removeButton' as keyof TableData },
   ]
 
   const getSortDirection = (property: keyof TableData) => {
