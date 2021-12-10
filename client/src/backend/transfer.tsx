@@ -70,7 +70,13 @@ const TransferButton = ({
   })
   const [fetched, setFetched] = useState(false)
   const [called, setcalled] = useState(false)
-  const { save } = useNewMoralisObject('Subscription')
+  let moralisObjectType=''
+  if (recurrence !== "One time"){
+    moralisObjectType="Subscription"
+  }else{
+    moralisObjectType="Product"
+  }
+  const { save } =  useNewMoralisObject(moralisObjectType)
 
   useEffect(() => {
     let x = undefined
@@ -82,7 +88,7 @@ const TransferButton = ({
         setFetched(true)
         if (product !== undefined) {
           console.log('hello3')
-          if (product.recurrence !== 'One time') {
+          // if (product.recurrence !== 'One time') {
             if (x === undefined) {
               x = null
               console.log('hello4')
@@ -103,7 +109,7 @@ const TransferButton = ({
               counter = counter + 1
               console.log('counter: ', counter)
             }
-          }
+          // }
         }
       }
     }
