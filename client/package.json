@@ -7,6 +7,8 @@
     "@ethereumjs/tx": "^3.4.0",
     "@material-ui/core": "^4.12.3",
     "@walletconnect/web3-provider": "^1.6.6",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^10.0.0",
     "gsap": "^3.8.0",
     "linq": "^4.0.0",
     "moralis": "^0.0.147",
