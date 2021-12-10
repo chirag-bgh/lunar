@@ -2,7 +2,7 @@ import {
   useMoralis,
   useMoralisWeb3Api,
   useMoralisWeb3ApiCall,
-} from "react-moralis";
+} from 'react-moralis'
 
 // Icons
 import {
@@ -12,31 +12,31 @@ import {
   IoReload,
   BiDollar,
   BsPersonFill,
-  RiSettingsFill
-} from "react-icons/all";
-import { useEffect, useState } from "react";
+  RiSettingsFill,
+} from 'react-icons/all'
+import { useEffect, useState } from 'react'
 
 const Sidebar = ({
   selectedTab,
   setSelectedTab,
 }: {
-  selectedTab: string;
-  setSelectedTab: (arg: string) => void;
+  selectedTab: string
+  setSelectedTab: (arg: string) => void
 }) => {
-  const { logout } = useMoralis();
+  const { logout } = useMoralis()
 
   return (
-    <div className="w-80 h-screen shadow-sidebar flex flex-col justify-start items-center gap-6">
+    <div className='w-80 h-screen shadow-sidebar flex flex-col justify-start items-center gap-6'>
       <UserAccount />
       <Balance />
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
       {/* Sign Out Button */}
-      <div className=" bg-red-500 mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center">
+      <div className=' bg-red-500 mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'>
         <h1
-          className="font-semibold font-display text-md"
+          className='font-semibold font-display text-md'
           onClick={() =>
             logout().then(() => {
-              alert("Wallet Disconnected");
+              alert('Wallet Disconnected')
             })
           }
         >
@@ -44,65 +44,65 @@ const Sidebar = ({
         </h1>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar
 
 const Tabs = ({
   selectedTab,
   setSelectedTab,
 }: {
-  selectedTab: string;
-  setSelectedTab: (arg: string) => void;
+  selectedTab: string
+  setSelectedTab: (arg: string) => void
 }) => {
   return (
-    <div className="w-5/6 h-60 rounded-lg bg-dark flex flex-col justify-start items-center font-display cursor-pointer transition ease-in-out">
+    <div className='w-5/6 h-72 rounded-lg bg-dark flex flex-col justify-start items-center font-display cursor-pointer transition ease-in-out'>
       <Tab
-        tab="Overview"
-        icon={<BsFileText className="text-current text-xl" />}
+        tab='Overview'
+        icon={<BsFileText className='text-current text-xl' />}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
       <Tab
-        tab="Transactions"
-        icon={<BsCash className="text-current text-xl" />}
+        tab='Transactions'
+        icon={<BsCash className='text-current text-xl' />}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
       <Tab
-        tab="Products"
-        icon={<BsArchive className="text-current text-xl" />}
+        tab='Products'
+        icon={<BsArchive className='text-current text-xl' />}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
       <Tab
-        tab="Subscription Plans"
-        icon={<IoReload className="text-current text-xl" />}
+        tab='Subscription Plans'
+        icon={<IoReload className='text-current text-xl' />}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
       <Tab
-        tab="Customers"
-        icon={<BsPersonFill className="text-current text-xl" />}
+        tab='Customers'
+        icon={<BsPersonFill className='text-current text-xl' />}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
       <Tab
-        tab="Payouts"
-        icon={<BiDollar className="text-current text-xl" />}
+        tab='Payouts'
+        icon={<BiDollar className='text-current text-xl' />}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
       <Tab
-        tab="Settings"
-        icon={<RiSettingsFill className="text-current text-xl" />}
+        tab='Settings'
+        icon={<RiSettingsFill className='text-current text-xl' />}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
     </div>
-  );
-};
+  )
+}
 
 const Tab = ({
   tab,
@@ -110,95 +110,95 @@ const Tab = ({
   selectedTab,
   setSelectedTab,
 }: {
-  tab: string;
-  icon: any;
-  selectedTab: string;
-  setSelectedTab: (arg: string) => void;
+  tab: string
+  icon: any
+  selectedTab: string
+  setSelectedTab: (arg: string) => void
 }) => {
   return (
     <div
       onClick={() => setSelectedTab(tab)}
       className={
-        "h-2/5 w-full flex items-center gap-3 px-3 transition-all " +
+        'h-2/5 w-full flex items-center gap-3 px-3 transition-all ' +
         (selectedTab === tab
           ? `bg-primary text-dark justify-center ${
-              tab === "Overview"
-                ? "rounded-t-lg"
-                : tab === "Settings"
-                ? "rounded-b-lg"
-                : "rounded-none"
+              tab === 'Overview'
+                ? 'rounded-t-lg'
+                : tab === 'Settings'
+                ? 'rounded-b-lg'
+                : 'rounded-none'
             }`
-          : "text-white")
+          : 'text-white')
       }
     >
       {icon}
-      <p className="text-lg text-current font-medium ">{tab}</p>
+      <p className='text-lg text-current font-medium '>{tab}</p>
       <div></div>
     </div>
-  );
-};
+  )
+}
 
 const truncate = (phrase: string, n: number) => {
-  return phrase.length > n ? phrase.substr(0, n - 1) + "..." : phrase;
-};
+  return phrase.length > n ? phrase.substr(0, n - 1) + '...' : phrase
+}
 
 const UserAccount = () => {
-  const { user } = useMoralis();
+  const { user } = useMoralis()
 
   return (
-    <div className="h-16 pt-4 flex justify-start items-center gap-4">
-      <div className="h-full flex justify-center items-center">
+    <div className='h-16 pt-4 flex justify-start items-center gap-4'>
+      <div className='h-full flex justify-center items-center'>
         <img
           src={`https://avatars.dicebear.com/api/jdenticon/${user.attributes.ethAddress}.svg`}
-          alt="Profile"
-          className="w-10 h-10"
+          alt='Profile'
+          className='w-10 h-10'
         />
       </div>
-      <div className="flex justify-center items-start flex-col h-full max-w-3/4 truncate">
-        <h2 className="text-2xl font-bold">Dashboard</h2>
-        <p className=" text-gray-400 text-sm font-display">
+      <div className='flex justify-center items-start flex-col h-full max-w-3/4 truncate'>
+        <h2 className='text-2xl font-bold'>Dashboard</h2>
+        <p className=' text-gray-400 text-sm font-display'>
           {truncate(user.attributes.ethAddress, 19)}
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
 const Balance = () => {
-  const { user, web3 } = useMoralis();
-  const Web3Api = useMoralisWeb3Api();
+  const { user, web3 } = useMoralis()
+  const Web3Api = useMoralisWeb3Api()
 
-  const [balance, setBalance] = useState("Loading");
-  const [fetched, setFetched] = useState(false);
+  const [balance, setBalance] = useState('Loading')
+  const [fetched, setFetched] = useState(false)
 
   const { fetch, data } = useMoralisWeb3ApiCall(
     Web3Api.account.getNativeBalance,
     {
-      address: user.get("managed_account_pub"),
-      chain: "mumbai",
+      address: user.get('managed_account_pub'),
+      chain: 'mumbai',
     }
-  );
+  )
 
   useEffect(() => {
     if (data !== null) {
-      setBalance(web3.utils.fromWei(data.balance));
+      setBalance(web3.utils.fromWei(data.balance))
     }
     if (!fetched) {
-      let y = fetch();
-      console.log(y);
-      setFetched(true);
+      let y = fetch()
+      console.log(y)
+      setFetched(true)
     }
-  }, [data, fetch, fetched, web3.utils]);
+  }, [data, fetch, fetched, web3.utils])
 
   return (
-    <div className="w-5/6 h-24 rounded-lg bg-dark flex flex-col justify-center items-center">
-      <p className="text-md">Balance</p>
-      <h2 className="text-3xl font-semibold">
-        <div className="flex justify-center items-center gap-2">
-          <pre id="balance">{balance}</pre>
+    <div className='w-5/6 h-24 rounded-lg bg-dark flex flex-col justify-center items-center'>
+      <p className='text-md'>Balance</p>
+      <h2 className='text-3xl font-semibold'>
+        <div className='flex justify-center items-center gap-2'>
+          <pre id='balance'>{balance}</pre>
           <span>MATIC</span>
         </div>
       </h2>
     </div>
-  );
-};
+  )
+}
