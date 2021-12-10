@@ -31,15 +31,7 @@ enum SortingType {
   Descending,
 }
 
-export const Withdraw = ({
-  amount,
-  address,
-  sender,
-}: {
-  amount: number
-  address: string
-  sender: string
-}) => {
+export const Withdraw = () => {
   const { user, web3, isWeb3Enabled, isWeb3EnableLoading, web3EnableError } =
     useMoralis()
 

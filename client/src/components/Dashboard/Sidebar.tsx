@@ -57,7 +57,7 @@ const Tabs = ({
   setSelectedTab: (arg: string) => void
 }) => {
   return (
-    <div className='w-5/6 h-72 rounded-lg bg-dark flex flex-col justify-start items-center font-display cursor-pointer transition ease-in-out'>
+    <div className='w-5/6 h-80 rounded-lg bg-dark flex flex-col justify-start items-center font-display cursor-pointer transition ease-in-out'>
       <Tab
         tab='Overview'
         icon={<BsFileText className='text-current text-xl' />}

@@ -8,6 +8,10 @@ import {
 import Moralis from 'moralis'
 import { useEffect, useState } from 'react'
 
+// Spinner
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+import Loader from 'react-loader-spinner'
+
 // Classes
 import ProductClass from '../classes/ProductClass'
 
@@ -113,6 +117,7 @@ const TransferButton = ({
                       user: product.user.objectId,
                       customerid: cust_id,
                     })
+                    setcalled(false)
                     console.log('x: ', x)
                     console.log('y: ', y)
                     console.log('z: ', z)
@@ -145,6 +150,7 @@ const TransferButton = ({
                     user: product.user.objectId,
                     customerid: cust_id,
                   })
+                  setcalled(false)
                   console.log('y: ', y)
                   console.log('z: ', z)
                 })
@@ -181,7 +187,14 @@ const TransferButton = ({
         }}
         className='h-7 text-sm bg-primary rounded-sm text-black font-display px-2 flex justify-center items-center cursor-pointer'
       >
-        Transfer
+        {!called ? (
+          <span>Transfer</span>
+        ) : (
+          <div className='flex justify-center items-center '>
+            <span>Transferring </span>
+            <Loader type='Puff' color='black' height={20} width={30} />
+          </div>
+        )}
       </button>
     </div>
   )

@@ -62,7 +62,7 @@ const Payouts = () => {
         <h2 className='text-3xl underline font-medium'>Payouts</h2>
       </div>
 
-      <Withdraw amount={0} address='' sender='' />
+      <Withdraw />
 
       <div className='flex flex-col mt-12 justify-between items-start'>
         <h2 className='text-3xl underline font-medium'>Past Withdrawals</h2>
