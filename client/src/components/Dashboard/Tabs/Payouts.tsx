@@ -107,7 +107,7 @@ const Card = ({
       <h3 className="  text-gray-400 text-sm font-display -mt-8 truncate">
         {address}
       </h3>
-      <h1 className="text-3xl font-semibold">{balance} ETH</h1>
+      <h1 className="text-3xl font-semibold">{balance} MATIC</h1>
     </div>
   );
 };

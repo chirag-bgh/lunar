@@ -1,19 +1,19 @@
-import { useWeb3Transfer } from 'react-moralis'
-import Moralis from 'moralis'
+import { useWeb3Transfer } from "react-moralis";
+import Moralis from "moralis";
 
 // {amount,address}:{amount:number, address:string}
 
 const Transfer = () => {
-  let amount = 10
-  let address = 'hi'
+  let amount = 10;
+  let address = "hi";
   const { fetch } = useWeb3Transfer({
     amount: Moralis.Units.ETH(amount),
     receiver: address,
-    type: 'native',
-  })
+    type: "native",
+  });
 
-  return fetch()
-}
+  return fetch();
+};
 
 // const TransferButton = ({ objectID }: { objectID: string }) => {
 //   const { data } = useMoralisQuery("Products", (query) =>
@@ -27,4 +27,4 @@ const Transfer = () => {
 //   );
 // };
 
-export { Transfer }
+export { Transfer };

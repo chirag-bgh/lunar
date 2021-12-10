@@ -219,7 +219,7 @@ export const FetchWithdrawals = () => {
             <td>{withdrawal.objectId}</td>
             <td>{withdrawal.ethAddress}</td>
             <td>
-              {web3.utils.fromWei(withdrawal.balance.toString(), "ether")} ETH
+              {web3.utils.fromWei(withdrawal.balance.toString(), "ether")} MATIC
             </td>
             <td>{newDate.toString()}</td>
           </tr>
