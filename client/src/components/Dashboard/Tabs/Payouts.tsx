@@ -1,7 +1,7 @@
 import metamask from '../../../assets/metamask.svg'
 import { BsFillArrowDownCircleFill } from 'react-icons/all'
 import { useState } from 'react'
-import { Withdraw } from '../../../backend/withdraw'
+import { FetchWithdrawals, Withdraw } from '../../../backend/withdraw'
 
 const Payouts = () => {
   const [selected, setSelected] = useState('0x335301C43a5319fd890')
@@ -41,7 +41,7 @@ const Payouts = () => {
       <div className='flex flex-col mt-12 justify-between items-start'>
         <h2 className='text-3xl underline font-medium'>Past Withdrawals</h2>
       </div>
-      <table className='text-white bg-dark w-full mt-5 rounded-lg'>
+      {/* <table className='text-white bg-dark w-full mt-5 rounded-lg'>
         <tr className='border-gray-500 border-b-2'>
           <th>ID</th>
           <th>Address</th>
@@ -51,7 +51,8 @@ const Payouts = () => {
         <tr className='h-80'>
           <td></td>
         </tr>
-      </table>
+      </table> */}
+      <FetchWithdrawals />
       <div className='bg-primary p-5 mt-2 flex justify-center items-center w-32 h-12 gap-1 rounded-lg cursor-pointer'>
         <h1 className='text-dark font-display font-semibold'>Invoice</h1>
         <BsFillArrowDownCircleFill className='text-dark text-xl' />
