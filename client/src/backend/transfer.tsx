@@ -68,9 +68,11 @@ const TransferButton = ({
     receiver: product !== undefined ? product.user.managed_account_pub : "0x0",
     type: "native",
   });
+
   const [fetched, setFetched] = useState(false);
   const [called, setcalled] = useState(false);
   const { save: subscription } = useNewMoralisObject("Subscription");
+  const { save: transaction } = useNewMoralisObject("Transactions");
 
   useEffect(() => {
     let x = undefined;
