@@ -11,6 +11,7 @@ import linq from 'linq'
 interface TableData {
   objectId: string
   Type: string
+  email_address: string
   createdAt: Date
 }
 
@@ -106,6 +107,7 @@ export const FetchCustomer = () => {
           <tr key={customer.objectId}>
             <td>{customer.objectId}</td>
             <td>{customer.Type}</td>
+            <td>{customer.email_address}</td>
             <td>{newDate.toString()}</td>
           </tr>
         )
@@ -123,6 +125,7 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
   const tableColumn = [
     { label: 'ID', property: 'objectId' as keyof TableData },
     { label: 'Type', property: 'type' as keyof TableData },
+    { label: 'Email', property: 'email_address' as keyof TableData },
     { label: 'Created At', property: 'createdAt' as keyof TableData },
   ]
 
