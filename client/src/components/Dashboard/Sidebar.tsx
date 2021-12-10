@@ -4,7 +4,6 @@ import {
   useMoralisWeb3ApiCall,
 } from "react-moralis";
 
-
 // Icons
 import {
   BsFileText,
@@ -139,7 +138,6 @@ const truncate = (phrase: string, n: number) => {
 const UserAccount = () => {
   const { user } = useMoralis();
 
-
   return (
     <div className="h-16 pt-4 flex justify-start items-center gap-4">
       <div className="h-full flex justify-center items-center">
@@ -179,7 +177,8 @@ const Balance = () => {
       setBalance(web3.utils.fromWei(data.balance));
     }
     if (!fetched) {
-      fetch();
+      let y = fetch();
+      console.log(y);
       setFetched(true);
     }
   }, [data, fetch, fetched, web3.utils]);
