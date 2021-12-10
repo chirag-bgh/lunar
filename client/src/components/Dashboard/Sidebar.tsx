@@ -188,7 +188,7 @@ const Balance = () => {
       <h2 className="text-3xl font-semibold">
         <div className="flex justify-center items-center gap-2">
           <pre id="balance">{balance}</pre>
-          <span>ETH</span>
+          <span>MATIC</span>
         </div>
       </h2>
     </div>
