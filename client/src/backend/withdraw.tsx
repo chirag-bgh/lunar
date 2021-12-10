@@ -1,6 +1,6 @@
 
 
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState,useEffect } from 'react'
 import { useMoralis, useMoralisQuery, useNewMoralisObject } from 'react-moralis'
 
 // Sorting Library
@@ -48,6 +48,9 @@ export const Withdraw = ({
 
   const { error, save } = useNewMoralisObject('Withdrawals')
   const [loadingWithdrawal, setIsLoadingWithdrawal] = useState(false)
+  const [isBroke, setIsBroke] = useState(false)
+
+  
 
   if (!isWeb3Enabled) {
     return <h1>Web3 not enabled for some reason</h1>
@@ -60,6 +63,7 @@ export const Withdraw = ({
       {web3EnableError && <h1>{web3EnableError}</h1>}
       {error && <h1>{error}</h1>}
       <button
+    
         className='text-3xl py-5 text-white text-center font-semibold flex justify-center items-center w-full h-full font-display'
         disabled={isWeb3EnableLoading}
         onClick={async () => {
@@ -74,34 +78,40 @@ export const Withdraw = ({
 
           let valueToBeSent: any = balance - txFee
 
-          console.log('balance: ', balance)
-          console.log('account address: ', accountAddress)
-          console.log('eth address: ', ethAddress)
-          console.log('privateKeyOG: ', privateKeyOG)
-          console.log('gasPrice: ', gasPrice)
-          console.log('valueToBeSent: ', valueToBeSent)
-          console.log('FINAL: ', valueToBeSent + txFee)
+          if (valueToBeSent > 0){
+            setIsBroke(false)
+            console.log('balance: ', balance)
+            console.log('account address: ', accountAddress)
+            console.log('eth address: ', ethAddress)
+            console.log('privateKeyOG: ', privateKeyOG)
+            console.log('gasPrice: ', gasPrice)
+            console.log('valueToBeSent: ', valueToBeSent)
+            console.log('FINAL: ', valueToBeSent + txFee)
 
-          const txParams = {
-            to: ethAddress,
-            gas: web3.utils.toHex(gasPrice * 21000),
-            gasPrice: web3.utils.toHex(gasPrice),
-            gasLimit: web3.utils.toHex('21000'),
-            value: web3.utils.toHex(valueToBeSent),
-          }
-          var account = web3.eth.accounts.wallet.add(privateKeyOG)
+            const txParams = {
+              to: ethAddress,
+              gas: web3.utils.toHex(gasPrice * 21000),
+              gasPrice: web3.utils.toHex(gasPrice),
+              gasLimit: web3.utils.toHex('21000'),
+              value: web3.utils.toHex(valueToBeSent),
+            }
+            var account = web3.eth.accounts.wallet.add(privateKeyOG)
 
-          let signedTx = account.signTransaction(txParams)
+            let signedTx = account.signTransaction(txParams)
 
-          setIsLoadingWithdrawal(true)
-          web3.eth
-            .sendSignedTransaction((await signedTx).rawTransaction)
-            .then(() => {
-              setIsLoadingWithdrawal(false)
-              console.log('Successfully Withdrew', balance, ' WEI')
-              save({ ethAddress, balance, user })
-            })
+            setIsLoadingWithdrawal(true)
+            web3.eth
+              .sendSignedTransaction((await signedTx).rawTransaction)
+              .then(() => {
+                setIsLoadingWithdrawal(false)
+                console.log('Successfully Withdrew', balance, ' WEI')
+                save({ ethAddress, balance, user })
+              })
+        }else{
+          setIsBroke(true)
+          console.log("broke ass fuck")
         }}
+      }
       >
         Withdraw
       </button>
@@ -114,6 +124,7 @@ export const Withdraw = ({
         width={30}
       />
       </div>
+      <h1 className={!isBroke ? 'hidden' : 'pb-2 text-red-500'}>Cannot withdraw if balance is 0</h1>
     </div>
   )
 }
