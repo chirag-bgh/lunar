@@ -8,14 +8,15 @@ import Login from './components/Auth/Login'
 import Signup from './components/Auth/Signup'
 import ProductModal from './components/ProductModal'
 import Landingv2 from './components/Landingv2'
-import Landing from './components/Landing'
 
 // React
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 
 function App() {
   const { enableWeb3, isWeb3Enabled, isAuthenticated } = useMoralis()
+
+  let location = useLocation()
 
   const [modalIsOpen, setIsOpen] = useState(false)
 
@@ -26,7 +27,7 @@ function App() {
   // // Moralis
   console.log('Is Authenticated: ' + isAuthenticated)
   if (!isAuthenticated) {
-    return <Landing />
+    return <Landingv2 />
   }
 
   function openModal() {
@@ -41,8 +42,16 @@ function App() {
         ></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
-        {/* <Route path='/' element={<Landing />}></Route> */}
-        <Route path='/' element={<Landingv2 />}></Route>
+        <Route
+          path='/'
+          element={
+            isAuthenticated ? (
+              <Navigate to='/dashboard' state={{ from: location }} />
+            ) : (
+              <Landingv2 />
+            )
+          }
+        ></Route>
       </Routes>
       <ProductModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
     </div>
