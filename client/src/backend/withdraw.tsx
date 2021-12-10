@@ -1,4 +1,4 @@
-import { useMoralis } from 'react-moralis'
+import { useMoralis, useNewMoralisObject } from 'react-moralis'
 
 export const Withdraw = ({
   amount,
@@ -12,6 +12,8 @@ export const Withdraw = ({
   const { user, web3, isWeb3Enabled, isWeb3EnableLoading, web3EnableError } =
     useMoralis()
 
+  const { error, save } = useNewMoralisObject('Withdrawals')
+
   if (!isWeb3Enabled) {
     return <h1>Web3 not enabled for some reason</h1>
   }
@@ -19,6 +21,7 @@ export const Withdraw = ({
   return (
     <div className='flex flex-col justify-center items-center mt-5 w-60 h-30 bg-dark rounded-lg cursor-pointer hover:shadow-primary transition-shadow ease-in-out'>
       {web3EnableError && <h1>{web3EnableError}</h1>}
+      {error && <h1>{error}</h1>}
       <button
         className='text-3xl py-5 text-primary text-center font-semibold flex justify-center items-center w-full h-full font-display'
         disabled={isWeb3EnableLoading}
@@ -55,7 +58,10 @@ export const Withdraw = ({
 
           web3.eth
             .sendSignedTransaction((await signedTx).rawTransaction)
-            .then(console.log)
+            .then(() => {
+              console.log('Successfully Withdrew', balance, ' WEI')
+              save({ ethAddress, balance, user })
+            })
         }}
       >
         Withdraw
