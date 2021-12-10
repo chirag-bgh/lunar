@@ -21,7 +21,7 @@ const Payouts = () => {
     Web3Api.account.getNativeBalance,
     {
       address: address,
-      chain: "ropsten",
+      chain: "mumbai",
     }
   );
 
