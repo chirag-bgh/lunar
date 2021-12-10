@@ -2,7 +2,7 @@ export default interface User {
   username: string
   authData: AuthData
   managed_account_pub: string
-  managed_account_priv: string
+  encryptedKey: string
   createdAt: Date
   updatedAt: Date
   accounts: string[]
