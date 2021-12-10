@@ -99,6 +99,7 @@ const TransferButton = ({
                   console.log("data: ", data);
                   let t = customer({
                     User: product.user.objectId,
+                    Type: "Subscription",
                   }).then((res) => {
                     console.log(res.id);
                     cust_id = res.id;
@@ -123,6 +124,32 @@ const TransferButton = ({
               console.log("counter: ", counter);
             }
           } else {
+            let y = fetch({
+              onSuccess: () => {
+                let cust_id = null;
+                console.log("data: ", data);
+                let t = customer({
+                  User: product.user.objectId,
+                  Type: "Product Purchase",
+                }).then((res) => {
+                  console.log(res.id);
+                  cust_id = res.id;
+                  let z = transaction({
+                    product: product.objectId,
+                    status: true,
+                    amount: price,
+                    to_address: product.user.managed_account_pub,
+                    from_address: "0x0",
+                    Type: "Product Purchase",
+                    user: product.user.objectId,
+                    customerid: cust_id,
+                  });
+                  console.log("y: ", y);
+                  console.log("z: ", z);
+                });
+              },
+              onError: (error) => console.log(error),
+            });
           }
         }
       }
