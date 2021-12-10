@@ -60,7 +60,7 @@ const TransferButton = ({
   name: string;
 }) => {
   const { user } = useMoralis();
-  const { fetch, error, isFetching } = useWeb3Transfer({
+  const { fetch, error, isFetching, data } = useWeb3Transfer({
     amount:
       product !== undefined
         ? Moralis.Units.ETH(product.price)
@@ -73,23 +73,21 @@ const TransferButton = ({
   const [called, setcalled] = useState(false);
   const { save: subscription } = useNewMoralisObject("Subscription");
   const { save: transaction } = useNewMoralisObject("Transactions");
+  const { save: customer } = useNewMoralisObject("Customer");
 
   useEffect(() => {
     let x = undefined;
     let counter = 0;
     if (called) {
-      console.log("hello");
       if (!fetched) {
-        console.log("hello2");
         setFetched(true);
         if (product !== undefined) {
-          console.log("hello3");
           if (product.recurrence !== "One time") {
             if (x == undefined) {
               x = null;
-              console.log("hello4");
               let y = fetch({
                 onSuccess: () => {
+                  let cust_id = null;
                   x = subscription({
                     product: product.objectId,
                     status: true,
@@ -98,12 +96,29 @@ const TransferButton = ({
                     price: price,
                     name: name,
                   });
-                  console.log("Helo");
+                  console.log("data: ", data);
+                  let t = customer({
+                    User: product.user.objectId,
+                  }).then((res) => {
+                    console.log(res.id);
+                    cust_id = res.id;
+                    let z = transaction({
+                      product: product.objectId,
+                      status: true,
+                      amount: price,
+                      to_address: product.user.managed_account_pub,
+                      from_address: "0x0",
+                      Type: "Subscribed",
+                      user: product.user.objectId,
+                      customerid: cust_id,
+                    });
+                    console.log("x: ", x);
+                    console.log("y: ", y);
+                    console.log("z: ", z);
+                  });
                 },
                 onError: (error) => console.log(error),
               });
-              console.log("x: ", x);
-              console.log("y: ", y);
               counter = counter + 1;
               console.log("counter: ", counter);
             }
