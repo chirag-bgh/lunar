@@ -1,15 +1,15 @@
 // Modal
-import { useState } from "react";
-import { useMoralis } from "react-moralis";
+// import { useState } from "react";
+import { useMoralis } from 'react-moralis'
 
-export const Setting_backend = ({
+export const SettingBackend = ({
   callback,
   webhook,
 }: {
-  callback: string;
-  webhook: string;
+  callback: string
+  webhook: string
 }) => {
-  const { user, setUserData } = useMoralis();
+  const { user, setUserData } = useMoralis()
 
   return (
     <button
@@ -17,12 +17,12 @@ export const Setting_backend = ({
         setUserData({
           callbackURL: callback,
           webhookURL: webhook,
-        });
-        console.log("User: ", user);
+        })
+        console.log('User: ', user)
       }}
-      className="px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer"
+      className='px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer'
     >
       Set Configuration
     </button>
-  );
-};
+  )
+}
