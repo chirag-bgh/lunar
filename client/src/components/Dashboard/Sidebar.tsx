@@ -4,6 +4,7 @@ import {
   useMoralisWeb3ApiCall,
 } from "react-moralis";
 
+
 // Icons
 import {
   BsFileText,
@@ -138,11 +139,12 @@ const truncate = (phrase: string, n: number) => {
 const UserAccount = () => {
   const { user } = useMoralis();
 
+
   return (
     <div className="h-16 pt-4 flex justify-start items-center gap-4">
       <div className="h-full flex justify-center items-center">
         <img
-          src="/images/profile_pic.png"
+          src={`https://avatars.dicebear.com/api/jdenticon/${user.attributes.ethAddress}.svg`}
           alt="Profile"
           className="w-10 h-10"
         />
