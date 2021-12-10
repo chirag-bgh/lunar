@@ -6,6 +6,7 @@ import Products from './Tabs/Products'
 import Subscriptions from './Tabs/Subscriptions'
 import Payouts from './Tabs/Payouts'
 import Customers from './Tabs/Customers'
+import Settings from './Tabs/Settings'
 import { UserChecker } from '../Auth/AuthManager'
 
 // Icons
@@ -37,6 +38,8 @@ const Dashboard = ({ openModal }: { openModal: () => void }) => {
         return <Customers />
       case 'Payouts':
         return <Payouts />
+      case 'Settings':
+        return <Settings />
       default:
         return <Overview />
     }

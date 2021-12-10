@@ -3,6 +3,28 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #0A0908;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #87F1FF;
+  border-radius: 20px;
+  cursor:pointer;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  box-shadow: 0px 0px 37px 3px rgba(135, 241, 255, 0.41);
+}
+
 p {
   font-family: 'Montserrat';
   color: white;
@@ -30,3 +52,4 @@ td {
   text-align: center;
   padding: 0.7rem;
 }
+
