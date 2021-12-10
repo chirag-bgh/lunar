@@ -1,3 +1,5 @@
+import User from './User'
+
 export default interface SubscriptionClass {
   name: string
   price: number
@@ -6,37 +8,4 @@ export default interface SubscriptionClass {
   createdAt: Date
   updatedAt: Date
   objectId: string
-}
-
-export interface User {
-  username: string
-  authData: AuthData
-  createdAt: Date
-  updatedAt: Date
-  accounts: string[]
-  ethAddress: string
-  ACL: ACL
-  sessionToken: string
-  objectId: string
-  __type: string
-  className: string
-}
-
-export interface ACL {
-  po6X6euCSRyqwuQWYlccvwQz: Po6X6EuCSRyqwuQWYlccvwQz
-}
-
-export interface Po6X6EuCSRyqwuQWYlccvwQz {
-  read: boolean
-  write: boolean
-}
-
-export interface AuthData {
-  moralisEth: MoralisEth
-}
-
-export interface MoralisEth {
-  id: string
-  signature: string
-  data: string
 }
