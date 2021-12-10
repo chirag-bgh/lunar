@@ -110,7 +110,17 @@ const TransferButton = ({
         }
       }
     }
-  }, [called, fetched, product, recurrence, price, name, user, fetch, save]);
+  }, [
+    called,
+    fetched,
+    product,
+    recurrence,
+    price,
+    name,
+    user,
+    fetch,
+    subscription,
+  ]);
 
   return (
     <div>

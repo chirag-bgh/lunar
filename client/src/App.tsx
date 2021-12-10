@@ -4,18 +4,30 @@ import { useMoralis } from "react-moralis";
 // Components
 import Dashboard from "./components/Dashboard/Dashboard";
 // import Landing from './components/Landing'
+<<<<<<< HEAD
 import Login from "./components/Auth/Login";
 import Signup from "./components/Auth/Signup";
 import ProductModal from "./components/ProductModal";
 import Landingv2 from "./components/Landingv2";
 import Landing from "./components/Landing";
+=======
+import Login from './components/Auth/Login'
+import Signup from './components/Auth/Signup'
+import ProductModal from './components/ProductModal'
+import Landingv2 from './components/Landingv2'
+import Landing from './components/Landing'
+>>>>>>> 2681bc4e13f848836e97831cb404d7dccce97bde
 
 // React
 import { Routes, Route } from "react-router-dom";
 import { useState } from "react";
 
 function App() {
+<<<<<<< HEAD
   const { enableWeb3, isWeb3Enabled, isAuthenticated, user } = useMoralis();
+=======
+  const { enableWeb3, isWeb3Enabled, isAuthenticated } = useMoralis()
+>>>>>>> 2681bc4e13f848836e97831cb404d7dccce97bde
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -26,7 +38,11 @@ function App() {
   // // Moralis
   console.log("Is Authenticated: " + isAuthenticated);
   if (!isAuthenticated) {
+<<<<<<< HEAD
     return <Landing />;
+=======
+    return <Landing />
+>>>>>>> 2681bc4e13f848836e97831cb404d7dccce97bde
     // return <Landing/>
   }
 
