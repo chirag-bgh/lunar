@@ -1,6 +1,8 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useMoralis, useMoralisQuery, useNewMoralisObject } from 'react-moralis'
 
+import CryptoJS from 'crypto-js'
+
 // Sorting Library
 import linq from 'linq'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/all'
@@ -52,7 +54,12 @@ export const Withdraw = () => {
         disabled={isWeb3EnableLoading}
         onClick={async () => {
           let accountAddress = user.get('managed_account_pub')
-          let privateKeyOG = user.get('managed_account_priv')
+          let encryptedKey = user.get('encryptedKey')
+          var bytes = CryptoJS.AES.decrypt(
+            encryptedKey,
+            process.env.REACT_APP_PASSWORD
+          )
+          var privateKeyOG = bytes.toString(CryptoJS.enc.Utf8)
           let ethAddress = user.get('ethAddress')
 
           let balance: any = await web3.eth.getBalance(accountAddress)
