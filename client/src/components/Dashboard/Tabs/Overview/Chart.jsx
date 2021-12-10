@@ -18,10 +18,17 @@ const ChartExample = (props) => {
 
   var allProductPrices = []
   const { user } = useMoralis();
-  let  { data } = useMoralisQuery("Products", (query) =>
-  query.equalTo("user", user)
-  .equalTo("recurrence", "One time")
-  .ascending("createdAt"));
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    let  { data } = (props.recurrence === "One time") ? useMoralisQuery("Products", (query) =>
+    query.equalTo("user", user)
+    .equalTo("recurrence", "One time")
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    .ascending("createdAt")) : useMoralisQuery("Products", (query) =>
+    query.equalTo("user", user)
+    .notEqualTo("recurrence", "One time")
+    .ascending("createdAt")) ;
+  
   const processed_data = JSON.parse(JSON.stringify(data, null, 2))
   
   const listItems = processed_data.map((d, index) =>{
