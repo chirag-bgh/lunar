@@ -63,7 +63,13 @@ const CreateProduct = ({
       <button
         onClick={() => {
           closeModal();
-          save({ name, price, recurrence, user });
+          save({
+            name,
+            price,
+            recurrence,
+            user,
+            managed_account: user.get("managed_account_pub"),
+          });
         }}
         disabled={isSaving}
         className="px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer"
