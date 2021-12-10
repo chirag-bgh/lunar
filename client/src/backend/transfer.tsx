@@ -94,7 +94,7 @@ const TransferButton = ({
                 subscription({
                   product: product.objectId,
                   status: true,
-                  user: user,
+                  user: product.user,
                   recurrence: recurrence,
                   price: price,
                   name: name,
