@@ -28,7 +28,7 @@ export const FetchCustomer = () => {
   const { user } = useMoralis()
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
-    { propertyName: 'createdAt', sortType: SortingType.Ascending },
+    { propertyName: 'createdAt', sortType: SortingType.Descending },
   ])
 
   const sortBy = useCallback(
