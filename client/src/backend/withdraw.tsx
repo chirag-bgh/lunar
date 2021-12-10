@@ -1,3 +1,5 @@
+
+
 import { useCallback, useMemo, useState } from 'react'
 import { useMoralis, useMoralisQuery, useNewMoralisObject } from 'react-moralis'
 
@@ -5,6 +7,15 @@ import { useMoralis, useMoralisQuery, useNewMoralisObject } from 'react-moralis'
 import linq from 'linq'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/all'
 import { WithdrawalClass } from '../classes/WithdrawalClass'
+
+
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
+import Loader from "react-loader-spinner";
+
+require("react/package.json"); // react is a peer dependency. 
+
+require("react-dom/package.json"); // react-dom is a peer dependency. 
 
 interface TableData {
   id: string
@@ -36,17 +47,20 @@ export const Withdraw = ({
     useMoralis()
 
   const { error, save } = useNewMoralisObject('Withdrawals')
+  const [loadingWithdrawal, setIsLoadingWithdrawal] = useState(false)
 
   if (!isWeb3Enabled) {
     return <h1>Web3 not enabled for some reason</h1>
   }
 
+  var reactLoaderSpinner = require("react-loader-spinner")
+
   return (
-    <div className='flex flex-col justify-center items-center mt-5 w-60 h-30 bg-dark rounded-lg cursor-pointer hover:shadow-primary transition-shadow ease-in-out'>
+    <div className='flex flex-col justify-center items-center mt-5 w-80 h-30 bg-dark rounded-lg cursor-pointer hover:shadow-primary transition-all ease-in-out'>
       {web3EnableError && <h1>{web3EnableError}</h1>}
       {error && <h1>{error}</h1>}
       <button
-        className='text-3xl py-5 text-primary text-center font-semibold flex justify-center items-center w-full h-full font-display'
+        className='text-3xl py-5 text-white text-center font-semibold flex justify-center items-center w-full h-full font-display'
         disabled={isWeb3EnableLoading}
         onClick={async () => {
           let accountAddress = user.get('managed_account_pub')
@@ -79,9 +93,11 @@ export const Withdraw = ({
 
           let signedTx = account.signTransaction(txParams)
 
+          setIsLoadingWithdrawal(true)
           web3.eth
             .sendSignedTransaction((await signedTx).rawTransaction)
             .then(() => {
+              setIsLoadingWithdrawal(false)
               console.log('Successfully Withdrew', balance, ' WEI')
               save({ ethAddress, balance, user })
             })
@@ -89,6 +105,15 @@ export const Withdraw = ({
       >
         Withdraw
       </button>
+      <div className={"mb-4 flex justify-center items-center transition-all ease-in-out" + (loadingWithdrawal === false ? " hidden" : "")}>
+      <h1 className=' text-primary font-display text-semibold text-sm pr-2'>Withdrawing balance to your wallet</h1>
+      <Loader
+        type="Puff"
+        color="#87F1FF"
+        height={30}
+        width={30}
+      />
+      </div>
     </div>
   )
 }
@@ -190,6 +215,7 @@ export const FetchWithdrawals = () => {
         )
       })}
     </table>
+    
   )
 }
 
