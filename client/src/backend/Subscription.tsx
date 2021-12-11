@@ -50,7 +50,7 @@ const CreateSubscription = ({
     <div>
       {error}
       <button
-        onClick={() => save({ name, price, user, recurrence })}
+        onClick={() => save({ name, price, user: user.get("id"), recurrence })}
         disabled={isSaving}
       >
         Create Subscription

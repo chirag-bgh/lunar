@@ -1,10 +1,14 @@
-import shoe2 from './LandingAssets/shoe2.png'
-import xbox from './LandingAssets/xbox.png'
-import blob1 from './LandingAssets/blob1.svg'
-import blob2 from './LandingAssets/blob2.svg'
-import background from './LandingAssets/background.svg'
-import { IoMdMoon } from 'react-icons/all'
-import { AuthenticateButton } from './Auth/AuthManager'
+import shoe2 from "./LandingAssets/shoe2.png";
+import xbox from "./LandingAssets/xbox.png";
+import blob1 from "./LandingAssets/blob1.svg";
+import blob2 from "./LandingAssets/blob2.svg";
+import {ReactComponent as Logo1} from "./LandingAssets/ad1.svg"
+import {ReactComponent as Logo2} from "./LandingAssets/ad2.svg"
+import {ReactComponent as Logo3} from "./LandingAssets/ad3.svg"
+import {ReactComponent as Logo4} from "./LandingAssets/ad4.svg"
+import background from "./LandingAssets/background.svg";
+import { IoMdMoon, BsArrowLeftShort } from "react-icons/all";
+import { AuthenticateButton } from "./Auth/AuthManager";
 
 import './extended.css'
 
@@ -25,39 +29,14 @@ const Landingv2 = () => {
   //     gsap.to(boxRef.current, { rotation: "+=360" });
   //   });
 
-  useEffect(() => {
-    const card = document.querySelector('.card')
-    const title = document.querySelector('.title')
-    const sneaker = document.querySelector('.image')
-
-    card.addEventListener('mousemove', (e) => {
-      let xAxis = (window.innerWidth / 2 - e.pageX) / 15
-      let yAxis = (window.innerHeight / 2 - e.pageY) / 15
-      card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`
-    })
-    //Animate In
-    card.addEventListener('mouseenter', (e) => {
-      card.style.transition = 'none'
-      //Popout
-      title.style.transform = 'translateZ(100px)'
-      sneaker.style.transform = 'translateZ(100px) rotateZ(-20deg)'
-    })
-    //Animate Out
-    card.addEventListener('mouseleave', (e) => {
-      card.style.transition = 'all 0.5s ease'
-      card.style.transform = `rotateY(0deg) rotateX(0deg)`
-      //Popback
-      title.style.transform = 'translateZ(0px)'
-      sneaker.style.transform = 'translateZ(0px) rotateZ(0deg)'
-    })
-  })
 
   return (
-    <section className='w-screen h-screen bg-dark flex flex-col'>
-      <div className='flex justify-between items-center w-full mt-3 px-7'>
-        <div className='flex justify-center items-center gap-1'>
-          <IoMdMoon className='text-2xl text-white' />
-          <p className='text-2xl font-medium'>lunar</p>
+    <div>
+    <section className="w-screen h-screen bg-dark flex flex-col ">
+      <div className="flex justify-between items-center w-full mt-3 px-7">
+        <div className="flex justify-center items-center gap-1">
+          <IoMdMoon className="text-2xl text-white" />
+          <p className="text-2xl font-medium">lunar</p>
         </div>
         <div className='text-white text-lg cursor-pointer z-10'>
           <AuthenticateButton />
@@ -94,8 +73,47 @@ const Landingv2 = () => {
         classname=' bottom-0 left-1 ml-52 mb-64'
       />
     </section>
-  )
-}
+    <section className="w-screen h-full bg-dark p-12">
+      <h1 className="font-display text-7xl font-bold mb-24">Everything you need to accept cryptocurrency payments</h1>
+      <div className=" flex justify-start items-start flex-wrap gap-12">
+        <div className="w-2/5 flex flex-col">
+            <Logo1 alt="Fast" className="w-12 mb-2"/>
+            <h1 className="h1 font-display font-bold italic text-xl mb-4"> <span className="font-medium not-italic">Get setup: </span> Lightning fast</h1>
+            <p>With lunar, all you need to get setup as a seller is a Metamask wallet. </p>
+            <p>No emails. No spam. Forever.</p>
+        </div>
+        <div className="w-2/5 flex flex-col">
+        <Logo2 alt="Fast" className="w-12 mb-2"/>
+            <h1 className="h1 font-display font-bold  text-xl mb-4">Recurring Payments: Yes, with crypto.</h1>
+            <p>With Smart Invoices, customers can receive notifications to their email whenever their next subscription fee is due. Re-subscribe with the click of a button.</p>
+        </div>
+        <div className="w-2/5 flex flex-col">
+        <Logo3 alt="Fast" className="w-12 mb-2"/>
+          <h1 className="h1 font-display font-bold  text-xl mb-4">Withdrawals to Metamask</h1>
+            <p>Withdraw earnings to your Metamask wallet at minimal GAS fees. It’s that easy. </p>
+        </div>
+        <div className="w-2/5 flex flex-col">
+        <Logo4 alt="Fast" className="w-12 mb-2"/>
+            <h1 className="h1 font-display font-bold  text-xl mb-4">One click deployment: Couldn’t get easier </h1>
+            <p>With every product that you enlist on lunar, you receive an HTTPS endpoint. This re-directs customers directly to our payment portal.</p>
+        </div>
+      </div>
+    </section>
+    <section className="w-screen h-screen bg-white p-12 relative">
+      <h1 className=" absolute font-semibold text-xl text-gray-600 top-1 left-0 m-56">Customer Management</h1>
+      <h1 className=" absolute font-semibold text-xl text-gray-600 bottom-0 left-0 m-32">One-time charges</h1>
+      <h1 className=" absolute font-semibold text-xl text-gray-600 top-0 right-0 m-28">Custom callbacks</h1>
+      <h1 className=" absolute font-semibold text-xl text-gray-600 bottom-0 left-0 m-64">Hosted payment pages</h1>
+      <h1 className=" absolute font-semibold text-xl text-gray-600 top-0 right-0 m-52">Invoicing</h1>
+      <h1 className=" absolute font-semibold text-xl text-gray-600 bottom-0 right-0  m-56">Custom Webhooks</h1>
+      <h1 className=" absolute font-semibold text-xl text-gray-600 top-0 left-1/2  mt-32">Comprehensive Analytics</h1>
+      <div className="flex justify-center items-center w-full h-full">
+        <h1 className=" font-display text-black text-6xl font-bold">And more</h1>
+      </div>
+    </section>
+    </div>
+  );
+};
 
 const Card = ({ imageSrc, price, classname }) => {
   return (
