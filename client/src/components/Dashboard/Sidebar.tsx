@@ -221,6 +221,7 @@ const Balance = ({
               end={Number(balance.split(' MATIC')[0])}
               decimals={2}
               duration={1}
+              suffix=' MATIC'
             />
           </pre>
         </div>
