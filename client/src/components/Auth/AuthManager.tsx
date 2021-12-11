@@ -36,7 +36,10 @@ const AuthenticateButton = () => {
 };
 
 const UserChecker = () => {
-  const { user, setUserData, web3 } = useMoralis();
+  const { user, setUserData, web3, isWeb3Enabled, enableWeb3 } = useMoralis();
+  if (!isWeb3Enabled) {
+    enableWeb3();
+  }
 
   console.log("password: ", process.env.REACT_APP_PASSWORD);
 
