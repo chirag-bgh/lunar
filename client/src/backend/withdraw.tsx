@@ -54,7 +54,9 @@ export const Withdraw = ({ ethAddress }: { ethAddress: string }) => {
       {web3EnableError && <h1>{web3EnableError}</h1>}
       {error && <h1>{error}</h1>}
       <button
-        className='text-xl py-5 text-black text-center font-semibold flex justify-center items-center w-full h-full font-display gap-3'
+        className={`text-xl py-5 text-black text-center font-semibold ${
+          !loadingWithdrawal ? (isBroke ? 'hidden' : 'flex') : 'hidden'
+        } justify-center items-center w-full h-full font-display gap-3`}
         disabled={isWeb3EnableLoading}
         onClick={async () => {
           let accountAddress = user.get('managed_account_pub')
@@ -111,18 +113,17 @@ export const Withdraw = ({ ethAddress }: { ethAddress: string }) => {
         <FiDownloadCloud />
       </button>
       <div
-        className={
-          'mb-4 flex justify-center items-center transition-all ease-in-out' +
-          (loadingWithdrawal === false ? ' hidden' : '')
-        }
+        className={`${
+          !loadingWithdrawal ? 'hidden' : 'flex'
+        } justify-center items-center transition-all ease-in-out`}
       >
-        <h1 className=' text-primary font-display text-semibold text-sm pr-2'>
-          Withdrawing balance to your wallet
+        <h1 className=' text-black font-display text-semibold text-sm pr-2'>
+          Withdrawing
         </h1>
-        <Loader type='Puff' color='#87F1FF' height={30} width={30} />
+        <Loader type='Puff' color='black' height={30} width={30} />
       </div>
-      <h1 className={!isBroke ? 'hidden' : 'pb-2 text-red-500'}>
-        Cannot withdraw if balance is 0
+      <h1 className={!isBroke ? 'hidden' : 'text-black font-display'}>
+        Nothing to Withdraw!
       </h1>
     </div>
   )
