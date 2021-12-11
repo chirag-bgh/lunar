@@ -22,7 +22,14 @@ function App() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [walletModalIsOpen, setWalletModalIsOpen] = useState(false);
 
+<<<<<<< HEAD
+  console.log('Web3: ' + isWeb3Enabled)
+  // if (!isWeb3Enabled) {
+  //   enableWeb3()
+  // }
+=======
   console.log("Web3: " + isWeb3Enabled);
+>>>>>>> 4f6df1ffd53102c7fd6088162fca2155515d07a6
   // // Moralis
   console.log("Is Authenticated: " + isAuthenticated);
   if (!isAuthenticated) {

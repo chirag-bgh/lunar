@@ -11,6 +11,13 @@ const AuthenticateButton = () => {
   const [called, setcalled] = useState(false);
 
   return (
+<<<<<<< HEAD
+    <button className='cursor-pointer md:text-md text-sm font-display' onClick={() => authenticate()}>
+      Authenticate
+    </button>
+  )
+}
+=======
     <div>
       <button
         onClick={() => {
@@ -34,6 +41,7 @@ const AuthenticateButton = () => {
     </div>
   );
 };
+>>>>>>> 4f6df1ffd53102c7fd6088162fca2155515d07a6
 
 const UserChecker = () => {
   const { user, setUserData, web3, isWeb3Enabled, enableWeb3 } = useMoralis();

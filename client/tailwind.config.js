@@ -7,6 +7,9 @@ module.exports = {
       display: ['Montserrat'],
     },
     extend: {
+      width: {
+        '128': '32rem',
+      },
       outline: {
         primary: ['2px solid #87F1FF', '3px'],
       },
