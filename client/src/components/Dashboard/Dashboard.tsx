@@ -45,7 +45,9 @@ const Dashboard = ({
       case 'Customers':
         return <Customers />
       case 'Payouts':
-        return <Payouts openWalletModal={openWalletModal} />
+        return (
+          <Payouts openWalletModal={openWalletModal} setFetched={setFetched} />
+        )
       case 'Settings':
         return <Settings />
       default:
