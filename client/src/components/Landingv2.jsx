@@ -83,32 +83,34 @@ const Landingv2 = () => {
             <p>No emails. No spam. Forever.</p>
         </div>
         <div className="w-2/5 flex flex-col">
-        <Logo2 alt="Fast" className="w-12 mb-2"/>
+        <Logo4 alt="Fast" className="w-12 mb-2"/>
             <h1 className="h1 font-display font-bold  text-xl mb-4">Recurring Payments: Yes, with crypto.</h1>
             <p>With Smart Invoices, customers can receive notifications to their email whenever their next subscription fee is due. Re-subscribe with the click of a button.</p>
         </div>
         <div className="w-2/5 flex flex-col">
-        <Logo3 alt="Fast" className="w-12 mb-2"/>
+        <Logo2 alt="Fast" className="w-12 mb-2"/>
           <h1 className="h1 font-display font-bold  text-xl mb-4">Withdrawals to Metamask</h1>
             <p>Withdraw earnings to your Metamask wallet at minimal GAS fees. It’s that easy. </p>
         </div>
         <div className="w-2/5 flex flex-col">
-        <Logo4 alt="Fast" className="w-12 mb-2"/>
+        <Logo3 alt="Fast" className="w-12 mb-2"/>
             <h1 className="h1 font-display font-bold  text-xl mb-4">One click deployment: Couldn’t get easier </h1>
             <p>With every product that you enlist on lunar, you receive an HTTPS endpoint. This re-directs customers directly to our payment portal.</p>
         </div>
       </div>
     </section>
-    <section className="w-screen h-screen bg-white p-12 relative">
-      <h1 className=" absolute font-semibold text-xl text-gray-600 top-1 left-0 m-56">Customer Management</h1>
-      <h1 className=" absolute font-semibold text-xl text-gray-600 bottom-0 left-0 m-32">One-time charges</h1>
-      <h1 className=" absolute font-semibold text-xl text-gray-600 top-0 right-0 m-28">Custom callbacks</h1>
-      <h1 className=" absolute font-semibold text-xl text-gray-600 bottom-0 left-0 m-64">Hosted payment pages</h1>
-      <h1 className=" absolute font-semibold text-xl text-gray-600 top-0 right-0 m-52">Invoicing</h1>
-      <h1 className=" absolute font-semibold text-xl text-gray-600 bottom-0 right-0  m-56">Custom Webhooks</h1>
-      <h1 className=" absolute font-semibold text-xl text-gray-600 top-0 left-1/2  mt-32">Comprehensive Analytics</h1>
-      <div className="flex justify-center items-center w-full h-full">
-        <h1 className=" font-display text-black text-6xl font-bold">And more</h1>
+    <section className="w-screen h-screen bg-white p-4 relative m-0">
+      <div className="absolute grid grid-cols-3 place-items-center text-center md:gap-24 gap-12 w-screen h-screen">
+        <h1 className="font-semibold md:text-3xl text-xl text-gray-600 pt-12 pl-24">Customer Management</h1>
+        <h1 className="font-semibold md:text-3xl text-xl text-gray-600 ">One-time charges</h1>
+        <h1 className="font-semibold md:text-3xl text-xl text-gray-600 pr-60">Custom callbacks</h1>
+        <h1 className="font-semibold md:text-3xl text-xl text-gray-600">Hosted payment pages</h1>
+        
+        <h1 className=" font-display text-black text-4xl md:text-7xl font-bold">And more</h1>
+
+        <h1 className="font-semibold md:text-3xl text-xl text-gray-600 pt-32">Invoicing</h1>
+        <h1 className="font-semibold md:text-3xl text-xl text-gray-600">Custom Webhooks</h1>
+        <h1 className="font-semibold md:text-3xl text-xl text-gray-600 pl-20">Comprehensive Analytics</h1>
       </div>
     </section>
     </div>
