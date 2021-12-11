@@ -1,5 +1,5 @@
 // Moralis
-// import { useMoralis, useMoralisQuery } from 'react-moralis'
+import { useMoralis, useMoralisQuery } from 'react-moralis'
 
 // import React, { PureComponent, useEffect, useState } from 'react';
 // import { MdOutlineHdrOffSelect } from 'react-icons/md';
@@ -17,56 +17,41 @@ import {
 
 const ChartExample = (props) => {
   var allProductPrices = []
-<<<<<<< HEAD
-  const { user } = useMoralis();
+  const { user } = useMoralis()
 
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    let  { data } = (props.recurrence === "One time") ? useMoralisQuery("Products", (query) =>
-    query.equalTo("user", user)
-    .equalTo("recurrence", "One time")
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    .ascending("createdAt")) : useMoralisQuery("Products", (query) =>
-    query.equalTo("user", user)
-    .notEqualTo("recurrence", "One time")
-    .ascending("createdAt")) ;
-  
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  let { data } =
+    props.recurrence === 'One time'
+      ? // eslint-disable-next-line react-hooks/rules-of-hooks
+        useMoralisQuery('Products', (query) =>
+          query
+            .equalTo('user', user)
+            .equalTo('recurrence', 'One time')
+            // eslint-disable-next-line react-hooks/rules-of-hooks
+            .ascending('createdAt')
+        )
+      : // eslint-disable-next-line react-hooks/rules-of-hooks
+        useMoralisQuery('Products', (query) =>
+          query
+            .equalTo('user', user)
+            .notEqualTo('recurrence', 'One time')
+            .ascending('createdAt')
+        )
+
   const processed_data = JSON.parse(JSON.stringify(data, null, 2))
-  
-  const listItems = processed_data.map((d, index) =>{
-    var timeStr = d.createdAt;
-    var date = new Date(timeStr);
-    var day = date.getDate();
-    var year = date.getFullYear();
-    var month = date.getMonth()+1;
-    var dateStr = month+"/"+day+"/"+year;
-      allProductPrices.push({
-          name: dateStr, 
-          uv: d.price,
-      });}
-  );
-=======
-  // const { user } = useMoralis()
-  // let { data } = useMoralisQuery('Products', (query) =>
-  //   query
-  //     .equalTo('user', user)
-  //     .equalTo('recurrence', 'One time')
-  //     .ascending('createdAt')
-  // )
-  // const processed_data = JSON.parse(JSON.stringify(data, null, 2))
 
-  // const listItems = processed_data.map((d, index) => {
-  //   var timeStr = d.createdAt
-  //   var date = new Date(timeStr)
-  //   var day = date.getDate()
-  //   var year = date.getFullYear()
-  //   var month = date.getMonth() + 1
-  //   var dateStr = month + '/' + day + '/' + year
-  //   allProductPrices.push({
-  //     name: dateStr,
-  //     uv: d.price,
-  //   })
-  // })
->>>>>>> 8992d7b7ea3d9807133fb2828342b61da9e99035
+  const listItems = processed_data.map((d, index) => {
+    var timeStr = d.createdAt
+    var date = new Date(timeStr)
+    var day = date.getDate()
+    var year = date.getFullYear()
+    var month = date.getMonth() + 1
+    var dateStr = month + '/' + day + '/' + year
+    allProductPrices.push({
+      name: dateStr,
+      uv: d.price,
+    })
+  })
   // console.log(allProductPrices[0]);
 
   return (
