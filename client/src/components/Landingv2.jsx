@@ -146,7 +146,7 @@ const Landingv2 = () => {
     </section>
     <section className="w-screen h-full bg-dark p-12  first-trigger">
       <h1 className="font-display text-3xl md:text-7xl font-bold mb-24">Everything you need to accept cryptocurrency payments</h1>
-      <div className=" flex justify-center items-center flex-wrap gap-12">
+      <div className=" flex justify-start items-start flex-wrap gap-12">
         <div className=" fade w-52 flex flex-col">
             <Logo1 alt="Fast" className=" w-12 mb-2"/>
             <h1 className="h1 font-display font-bold italic text-xl mb-4"> <span className="font-medium not-italic">Get setup: </span> Lightning fast</h1>
