@@ -20,7 +20,7 @@ const AuthenticateButton = () => {
           authenticate();
           setcalled(true);
         }}
-        className="px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer"
+        className="px-14 py-1 rounded-sm flex justify-center items-center font-medium font-display cursor-pointer"
       >
         {!called ? (
           <span>Authenticate</span>
