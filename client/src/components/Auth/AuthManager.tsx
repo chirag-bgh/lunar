@@ -1,4 +1,4 @@
-import { useMoralis } from 'react-moralis'
+import { useMoralis, useMoralisQuery } from 'react-moralis'
 import CryptoJS from 'crypto-js'
 import { useState } from 'react'
 
@@ -35,13 +35,29 @@ const AuthenticateButton = () => {
   )
 }
 
-const UserChecker = () => {
+const UserChecker = ({
+  setBalance,
+  setFetched,
+}: {
+  setBalance: (arg: string) => void
+  setFetched: (arg: boolean) => void
+}) => {
   const { user, setUserData, web3, isWeb3Enabled, enableWeb3 } = useMoralis()
+
   if (!isWeb3Enabled) {
     enableWeb3()
   }
 
-  console.log('password: ', process.env.REACT_APP_PASSWORD)
+  useMoralisQuery('PolygonTransactions', (query) => query, [], {
+    live: true,
+    onLiveCreate: (entity, all) => {
+      console.log('Polygon Transaction Edited')
+      setFetched(false)
+      return [...all, entity]
+    },
+  })
+
+  // console.log('password: ', process.env.REACT_APP_PASSWORD)
 
   if (user.get('encryptedKey') === undefined) {
     let x = web3.eth.accounts.create()

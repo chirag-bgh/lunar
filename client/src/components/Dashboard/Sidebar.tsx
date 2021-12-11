@@ -14,21 +14,34 @@ import {
   BsPersonFill,
   RiSettingsFill,
 } from 'react-icons/all'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 const Sidebar = ({
   selectedTab,
   setSelectedTab,
+  balance,
+  setBalance,
+  fetched,
+  setFetched,
 }: {
   selectedTab: string
   setSelectedTab: (arg: string) => void
+  balance: string
+  setBalance: (arg: string) => void
+  fetched: boolean
+  setFetched: (arg: boolean) => void
 }) => {
   const { logout } = useMoralis()
 
   return (
     <div className='w-80 h-screen shadow-sidebar flex flex-col justify-start items-center gap-6'>
       <UserAccount />
-      <Balance />
+      <Balance
+        balance={balance}
+        setBalance={setBalance}
+        fetched={fetched}
+        setFetched={setFetched}
+      />
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
       {/* Sign Out Button */}
       <div className=' bg-red-500 mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'>
@@ -164,12 +177,19 @@ const UserAccount = () => {
   )
 }
 
-const Balance = () => {
+const Balance = ({
+  balance,
+  setBalance,
+  fetched,
+  setFetched,
+}: {
+  balance: string
+  setBalance: (arg: string) => void
+  fetched: boolean
+  setFetched: (arg: boolean) => void
+}) => {
   const { user, web3 } = useMoralis()
   const Web3Api = useMoralisWeb3Api()
-
-  const [balance, setBalance] = useState('Loading..')
-  const [fetched, setFetched] = useState(false)
 
   const { fetch, data } = useMoralisWeb3ApiCall(
     Web3Api.account.getNativeBalance,
@@ -188,7 +208,7 @@ const Balance = () => {
       console.log(y)
       setFetched(true)
     }
-  }, [data, fetch, fetched, web3.utils])
+  }, [data, fetch, fetched, web3.utils, setBalance, setFetched])
 
   return (
     <div className='w-5/6 h-24 rounded-lg bg-dark flex flex-col justify-center items-center'>
