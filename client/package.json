@@ -10,6 +10,7 @@
     "linq": "^4.0.0",
     "moralis": "^0.0.147",
     "react": "^17.0.2",
+    "react-countup": "^6.1.0",
     "react-dom": "^17.0.2",
     "react-dropdown": "^1.9.2",
     "react-icons": "^4.3.1",

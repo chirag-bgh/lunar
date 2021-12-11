@@ -14,7 +14,8 @@ import {
   BsPersonFill,
   RiSettingsFill,
 } from 'react-icons/all'
-import { useEffect } from 'react'
+import CountUp from 'react-countup'
+import React, { useEffect, useRef } from 'react'
 
 const Sidebar = ({
   selectedTab,
@@ -202,22 +203,36 @@ const Balance = ({
   useEffect(() => {
     if (data !== null) {
       setBalance(web3.utils.fromWei(data.balance) + ' MATIC')
+      console.log('balance: ', balance)
     }
     if (!fetched) {
-      let y = fetch()
-      console.log(y)
+      fetch()
       setFetched(true)
     }
-  }, [data, fetch, fetched, web3.utils, setBalance, setFetched])
+  }, [data, fetch, fetched, balance, web3.utils, setBalance, setFetched])
 
   return (
     <div className='w-5/6 h-24 rounded-lg bg-dark flex flex-col justify-center items-center'>
       <p className='text-md'>Balance</p>
       <h2 className='text-3xl font-semibold'>
         <div className='flex justify-center items-center gap-2'>
-          <pre id='balance'>{balance}</pre>
+          <pre id='balance'>
+            <CountUpMemo
+              end={Number(balance.split(' MATIC')[0])}
+              decimals={2}
+              duration={1}
+            />
+          </pre>
         </div>
       </h2>
     </div>
   )
+}
+
+const CountUpMemo = (props) => {
+  const prevValueRef = useRef()
+  useEffect(() => {
+    prevValueRef.current = props.end
+  })
+  return <CountUp start={prevValueRef.current} end={props.end} {...props} />
 }
