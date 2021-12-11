@@ -1,5 +1,3 @@
-
-
 // Components
 import Billing from './Billing'
 import Subscriptions from './Subscriptions'
@@ -9,9 +7,7 @@ import Chart from './Chart.jsx'
 import { BsCalendarEvent } from 'react-icons/all'
 
 // Hooks
-import { useState } from 'react'
-
-
+import { useEffect, useState } from 'react'
 
 const Overview = () => {
   const [selectedTab, setSelectedTab] = useState('Products')
@@ -29,18 +25,17 @@ const Overview = () => {
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
       {selectedTab === 'Products' ? (
         <div>
-            <Billing revenue={1} transactions={34} />
+          <Billing revenue={1000} transactions={34} />
         </div>
-      ) : (<p></p>
+      ) : (
+        <p></p>
       )}
-      <div>
-      </div>
+      <div></div>
       {/* Chart will come here  */}
       {selectedTab === 'Products' ? (
-        
-      <ChartComponent recurrence='One time'/>
-      ):(
-        <ChartComponent recurrence='Not one time'/>
+        <ChartComponent recurrence='One time' />
+      ) : (
+        <ChartComponent recurrence='Not one time' />
       )}
     </div>
   )
@@ -48,11 +43,8 @@ const Overview = () => {
 
 export default Overview
 
-
-export const ChartComponent = ({recurrence}:{recurrence:string}) => {
-  return (
-    <Chart className="bg-dark mt-3 rounded-lg" recurrence={recurrence}/>
-  );
+export const ChartComponent = ({ recurrence }: { recurrence: string }) => {
+  return <Chart className='bg-dark mt-3 rounded-lg' recurrence={recurrence} />
 }
 
 const Tabs = ({
