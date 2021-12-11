@@ -98,14 +98,26 @@ export const Withdraw = ({ ethAddress }: { ethAddress: string }) => {
             };
             var account = web3.eth.accounts.wallet.add(privateKeyOG);
 
-            let signedTx = await account.signTransaction(txParams);
+            console.log("Signing Transaction");
+
+            let signedTx = account.signTransaction(txParams);
+
+            console.log("Succesfully Signed Transaction");
 
             setIsLoadingWithdrawal(true);
-            web3.eth.sendSignedTransaction(signedTx.rawTransaction).then(() => {
-              setIsLoadingWithdrawal(false);
-              console.log("Successfully Withdrew", balance, " WEI");
-              save({ ethAddress, balance, user });
-            });
+
+            console.log("Withdawing Balance");
+
+            web3.eth
+              .sendSignedTransaction((await signedTx).rawTransaction)
+              .then(() => {
+                setIsLoadingWithdrawal(false);
+                console.log("Successfully Withdrew", balance, " WEI");
+                save({ ethAddress, balance, user });
+              })
+              .catch((error) => {
+                console.log("error: ", error);
+              });
           } else {
             setIsBroke(true);
           }
