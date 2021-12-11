@@ -1,5 +1,5 @@
 import metamask from '../../../assets/metamask.svg'
-import { BsFillArrowDownCircleFill } from 'react-icons/all'
+import { BsFillArrowDownCircleFill, HiPlusSm } from 'react-icons/all'
 import { useEffect, useState } from 'react'
 import { FetchWithdrawals, Withdraw } from '../../../backend/withdraw'
 import {
@@ -29,6 +29,7 @@ const Payouts = ({ openWalletModal }: { openWalletModal: () => void }) => {
             return (
               <Card
                 address={accountAdr}
+                ethAddress={address}
                 selected={selected === accountAdr ? true : false}
                 setSelected={setSelected}
               />
@@ -76,17 +77,21 @@ const Payouts = ({ openWalletModal }: { openWalletModal: () => void }) => {
 
 const Card = ({
   address,
+  ethAddress,
   selected,
   setSelected,
 }: {
   address: string
+  ethAddress: string
   selected: boolean
   setSelected: (arg: string) => void
 }) => {
-  const { web3 } = useMoralis()
+  const { user, web3 } = useMoralis()
 
   const [balance, setBalance] = useState('-')
   const [fetched, setFetched] = useState(false)
+
+  const [showRemove, setShowRemove] = useState(false)
 
   const Web3Api = useMoralisWeb3Api()
   const { fetch, data } = useMoralisWeb3ApiCall(
@@ -110,17 +115,51 @@ const Card = ({
   return (
     <div
       onClick={() => setSelected(address)}
+      onMouseOver={() => setShowRemove(true)}
+      onMouseLeave={() => setShowRemove(false)}
       className={
-        'p-1 mt-4 w-48 h-64 bg-dark flex flex-col justify-around text-center rounded-lg cursor-pointer transition-all' +
+        'p-1 mt-4 w-48 h-64 bg-dark flex flex-col justify-between text-center rounded-lg cursor-pointer transition-all' +
         (selected ? ' outline-primary' : '')
       }
     >
-      <img className=' h-20' src={metamask} alt='' />
-      <h1>Your Metamask wallet</h1>
-      <h3 className='text-gray-400 text-sm font-display -mt-5 truncate'>
-        {address}
-      </h3>
-      <h1 className='text-3xl font-semibold'>{balance} MATIC</h1>
+      <div className='flex justify-between items-start'>
+        <div></div>
+        <img
+          className={`h-20 mt-3 ${address === ethAddress ? 'ml-0' : 'ml-7'}`}
+          src={metamask}
+          alt=''
+        />
+        {address === ethAddress ? (
+          <div></div>
+        ) : showRemove ? (
+          <HiPlusSm
+            className='text-primary transform rotate-45 text-3xl'
+            onClick={() => {
+              // Remove wallet
+              let accounts: string[] = user.get('accounts')
+              console.log('accounts: ', accounts)
+
+              const index = accounts.indexOf(address)
+              if (index > -1) {
+                accounts.splice(index, 1)
+              }
+
+              user.save('accounts', accounts)
+              console.log('new accounts: ', accounts)
+            }}
+          />
+        ) : (
+          <HiPlusSm className='text-dark transform rotate-45 text-3xl' />
+        )}
+      </div>
+      <div>
+        <h1>Your Metamask wallet</h1>
+        <h3 className='text-gray-400 text-sm font-display truncate'>
+          {address}
+        </h3>
+      </div>
+
+      <h1 className='text-3xl font-semibold mb-3'>{balance} MATIC</h1>
     </div>
   )
 }
