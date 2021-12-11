@@ -148,15 +148,15 @@ const Landingv2 = () => {
         </div>
         {/* TODO: Fix card alignment issues on smaller width screens */}
         <div className='w-full flex justify-around items-center absolute bottom-0 mb-24'>
-          <Card imageSrc={shoe2} price={0.04212} classname=' hidden md:block' />
-          <Card imageSrc={xbox} price={0.03734} classname=' hidden md:block' />
+          <Card imageSrc={shoe2} price={55.042} classname=' hidden md:block' />
+          <Card imageSrc={xbox} price={64.174} classname=' hidden md:block' />
         </div>
       </section>
-      <section className='w-screen h-full bg-dark p-12 pb-24 first-trigger'>
-        <h1 className='font-display text-3xl md:text-7xl font-bold mb-20 text-center'>
+      <section className='w-screen h-screen bg-dark p-12 pb-24 first-trigger flex flex-col justify-around items-center'>
+        <h1 className='font-display text-3xl md:text-7xl font-bold text-center'>
           Everything you need to accept cryptocurrency payments
         </h1>
-        <div className=' flex justify-center items-center flex-wrap gap-12'>
+        <div className=' flex justify-center items-start flex-wrap gap-12'>
           <div className=' fade w-52 flex flex-col'>
             <Logo1 alt='Fast' className=' w-12 mb-2' />
             <h1 className='h1 font-display font-bold italic text-xl mb-4'>
