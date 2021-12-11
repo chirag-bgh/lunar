@@ -175,6 +175,7 @@ const FetchSubscription = ({ query }: { query: string }) => {
             <td>{subscription.objectId}</td>
             <td>{subscription.price} MATIC</td>
             <td>{subscription.recurrence}</td>
+            <td>{subscription.customerid}</td>
             <td>{newDate.toString()}</td>
           </tr>
         );
@@ -196,6 +197,7 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
     { label: "ID", property: "id" as keyof TableData },
     { label: "Price", property: "price" as keyof TableData },
     { label: "Recurrence", property: "recurrence" as keyof TableData },
+    { label: "CustomerID", property: "CustomerID" as keyof TableData },
     { label: "Created At", property: "createdAt" as keyof TableData },
   ];
 
