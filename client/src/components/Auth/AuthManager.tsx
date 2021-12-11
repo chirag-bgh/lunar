@@ -38,6 +38,8 @@ const UserChecker = () => {
       managed_account_pub: x.address,
       encryptedKey: encryptedKey,
     })
+
+    // withdrawalAddress.addUnique(x.address),
   }
 
   return <div></div>

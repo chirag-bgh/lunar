@@ -33,7 +33,7 @@ enum SortingType {
   Descending,
 }
 
-export const Withdraw = () => {
+export const Withdraw = ({ ethAddress }: { ethAddress: string }) => {
   const { user, web3, isWeb3Enabled, isWeb3EnableLoading, web3EnableError } =
     useMoralis()
 
@@ -60,7 +60,7 @@ export const Withdraw = () => {
             process.env.REACT_APP_PASSWORD
           )
           var privateKeyOG = bytes.toString(CryptoJS.enc.Utf8)
-          let ethAddress = user.get('ethAddress')
+          // let ethAddress = user.get('ethAddress')
 
           let balance: any = await web3.eth.getBalance(accountAddress)
 

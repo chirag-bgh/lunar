@@ -15,7 +15,13 @@ import { IoMdMoon } from 'react-icons/all'
 // Hooks
 import { useState } from 'react'
 
-const Dashboard = ({ openModal }: { openModal: () => void }) => {
+const Dashboard = ({
+  openModal,
+  openWalletModal,
+}: {
+  openModal: () => void
+  openWalletModal: () => void
+}) => {
   const [selectedTab, setSelectedTab] = useState('Overview')
 
   function GetTab({
@@ -37,7 +43,7 @@ const Dashboard = ({ openModal }: { openModal: () => void }) => {
       case 'Customers':
         return <Customers />
       case 'Payouts':
-        return <Payouts />
+        return <Payouts openWalletModal={openWalletModal} />
       case 'Settings':
         return <Settings />
       default:

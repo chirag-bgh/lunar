@@ -12,6 +12,7 @@ export default interface User {
   objectId: string
   __type: string
   className: string
+  withdrawalAddress: string[]
 }
 
 export interface ACL {

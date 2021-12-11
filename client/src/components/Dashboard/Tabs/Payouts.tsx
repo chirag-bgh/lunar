@@ -8,32 +8,14 @@ import {
   useMoralisWeb3Api,
 } from 'react-moralis'
 
-const Payouts = () => {
-  const { user, web3 } = useMoralis()
+const Payouts = ({ openWalletModal }: { openWalletModal: () => void }) => {
+  const { user } = useMoralis()
+
   let address = user.get('ethAddress')
+
   const [selected, setSelected] = useState(address)
 
-  const [balance, setBalance] = useState('-')
-  const [fetched, setFetched] = useState(false)
-  const Web3Api = useMoralisWeb3Api()
-
-  const { fetch, data } = useMoralisWeb3ApiCall(
-    Web3Api.account.getNativeBalance,
-    {
-      address: address,
-      chain: 'mumbai',
-    }
-  )
-
-  useEffect(() => {
-    if (data !== null) {
-      setBalance(web3.utils.fromWei(data.balance))
-    }
-    if (!fetched) {
-      fetch()
-      setFetched(true)
-    }
-  }, [data, fetch, fetched, web3.utils])
+  const accounts: string[] = user.get('accounts')
 
   return (
     <div className='w-full'>
@@ -42,17 +24,23 @@ const Payouts = () => {
       </div>
 
       <div className='flex flex-wrap gap-8 items-center'>
-        <div onClick={() => setSelected(address)}>
-          <Card
-            address={address}
-            balance={balance.substring(0, 5)}
-            selected={selected === address ? true : false}
-          />
+        <div className='flex justify-center items-center gap-10'>
+          {accounts.map((accountAdr) => {
+            return (
+              <Card
+                address={accountAdr}
+                selected={selected === accountAdr ? true : false}
+                setSelected={setSelected}
+              />
+            )
+          })}
         </div>
         <button
-          disabled
-          style={{ filter: 'grayscale(1) brightness(0.3)' }}
-          className='bg-primary rounded-full w-24 h-24 text-7xl font-display flex justify-center items-center cursor-pointer'
+          onClick={() => {
+            openWalletModal()
+            console.log('all accounts: ', accounts)
+          }}
+          className='bg-primary rounded-full w-24 h-24 text-7xl font-display flex justify-center items-center cursor-pointer hover:shadow-primary transition ease-in-out duration-200'
         >
           <h1 className='text-dark'>+</h1>
         </button>
@@ -62,7 +50,7 @@ const Payouts = () => {
         <h2 className='text-3xl underline font-medium'>Payouts</h2>
       </div>
 
-      <Withdraw />
+      <Withdraw ethAddress={selected} />
 
       <div className='flex flex-col mt-12 justify-between items-start'>
         <h2 className='text-3xl underline font-medium'>Past Withdrawals</h2>
@@ -88,15 +76,40 @@ const Payouts = () => {
 
 const Card = ({
   address,
-  balance,
   selected,
+  setSelected,
 }: {
   address: string
-  balance: string
   selected: boolean
+  setSelected: (arg: string) => void
 }) => {
+  const { web3 } = useMoralis()
+
+  const [balance, setBalance] = useState('-')
+  const [fetched, setFetched] = useState(false)
+
+  const Web3Api = useMoralisWeb3Api()
+  const { fetch, data } = useMoralisWeb3ApiCall(
+    Web3Api.account.getNativeBalance,
+    {
+      address: address,
+      chain: 'mumbai',
+    }
+  )
+
+  useEffect(() => {
+    if (data !== null) {
+      setBalance(web3.utils.fromWei(data.balance))
+    }
+    if (!fetched) {
+      fetch()
+      setFetched(true)
+    }
+  }, [data, fetch, fetched, web3.utils])
+
   return (
     <div
+      onClick={() => setSelected(address)}
       className={
         'p-1 mt-4 w-48 h-64 bg-dark flex flex-col justify-around text-center rounded-lg cursor-pointer transition-all' +
         (selected ? ' outline-primary' : '')

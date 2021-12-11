@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard/Dashboard'
 import Login from './components/Auth/Login'
 import Signup from './components/Auth/Signup'
 import ProductModal from './components/ProductModal'
+import WalletModal from './components/WalletModal'
 import Landingv2 from './components/Landingv2'
 
 // React
@@ -19,6 +20,7 @@ function App() {
   let location = useLocation()
 
   const [modalIsOpen, setIsOpen] = useState(false)
+  const [walletModalIsOpen, setWalletModalIsOpen] = useState(false)
 
   console.log('Web3: ' + isWeb3Enabled)
   if (!isWeb3Enabled) {
@@ -33,12 +35,22 @@ function App() {
   function openModal() {
     setIsOpen(true)
   }
+
+  function openWalletModal() {
+    setWalletModalIsOpen(true)
+  }
+
   return (
     <div style={modalIsOpen ? { filter: 'brightness(0.5) blur(5px)' } : null}>
       <Routes>
         <Route
           path='/dashboard'
-          element={<Dashboard openModal={openModal} />}
+          element={
+            <Dashboard
+              openModal={openModal}
+              openWalletModal={openWalletModal}
+            />
+          }
         ></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
@@ -54,6 +66,10 @@ function App() {
         ></Route>
       </Routes>
       <ProductModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
+      <WalletModal
+        walletModalIsOpen={walletModalIsOpen}
+        setWalletModalIsOpen={setWalletModalIsOpen}
+      />
     </div>
   )
 }
