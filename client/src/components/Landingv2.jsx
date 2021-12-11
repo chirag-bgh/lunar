@@ -38,6 +38,7 @@ const Landingv2 = () => {
   gsap.registerPlugin(ScrollTrigger);
 
   useEffect(() => {
+    //CARD ANIMATION
     gsap.fromTo(
       '.fade',
       {
@@ -56,18 +57,8 @@ const Landingv2 = () => {
         }
       }
     );
-    // gsap.timeline({scrollTrigger:{trigger:'.trigger', start:'top top', end: "+=200", markers:true, pin:true}})
-    // .fromTo(
-    //   '.fade-in',
-    //   {
-    //     opacity: 0,
-    //     y: -40
-    //   },
-    //   {
-    //     opacity: 1,
-    //     y: 0,
-    //   }
-    // );
+
+    // ADVANTAGES ANIMATION
     gsap.timeline({
       // yes, we can add it to an entire timeline!
       scrollTrigger: {
@@ -78,16 +69,18 @@ const Landingv2 = () => {
         scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
       }
     }).from(".fade-in", {scale: 0.3, y: 100, opacity:0, autoAlpha: 0, stagger: 0.1});
-    gsap.timeline({
-      // yes, we can add it to an entire timeline!
-      scrollTrigger: {
-        trigger: ".top",
-        pin: true,   // pin the trigger element while active
-        start: "top top", // when the top of the trigger hits the top of the viewport
-        end: "+=300", // end after scrolling 500px beyond the start
-        scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
-      }
-    }).fromTo(".screen", {x:0}, {x:100});
+
+    //BG SCREEN ANIMATION
+    // gsap.timeline({
+    //   // yes, we can add it to an entire timeline!
+    //   scrollTrigger: {
+    //     trigger: ".top",
+    //     pin: true,   // pin the trigger element while active
+    //     start: "top top", // when the top of the trigger hits the top of the viewport
+    //     end: "+=300", // end after scrolling 500px beyond the start
+    //     scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+    //   }
+    // }).fromTo(".screen", {x:0}, {x:100});
 
   
     gsap.fromTo(
@@ -132,7 +125,7 @@ const Landingv2 = () => {
         <img
           src={background}
           alt='background'
-          className='screen mt-56 md:w-1/2 w-128'
+          className='screen mt-56 md:w-1/2 w-128 absolute'
         />
       </div>
       {/* TODO: Fix card alignment issues on smaller width screens */}
@@ -153,7 +146,7 @@ const Landingv2 = () => {
     </section>
     <section className="w-screen h-full bg-dark p-12  first-trigger">
       <h1 className="font-display text-3xl md:text-7xl font-bold mb-24">Everything you need to accept cryptocurrency payments</h1>
-      <div className=" flex justify-start items-start flex-wrap gap-12">
+      <div className=" flex justify-center items-center flex-wrap gap-12">
         <div className=" fade w-52 flex flex-col">
             <Logo1 alt="Fast" className=" w-12 mb-2"/>
             <h1 className="h1 font-display font-bold italic text-xl mb-4"> <span className="font-medium not-italic">Get setup: </span> Lightning fast</h1>
@@ -177,7 +170,7 @@ const Landingv2 = () => {
         </div>
       </div>
     </section>
-    <section className=" trigger h-screen mb-10">
+    <section className="trigger h-screen">
       <div className="absolute grid grid-cols-3 place-items-center text-center md:gap-24 gap-12 w-screen h-screen">
         <h1 className="fade-in font-semibold md:text-2xl text-sm text-gray-600 pl-10 md:pl-0">Customer Management</h1>
         <h1 className="fade-in font-semibold md:text-2xl text-sm text-gray-600 ">One-time charges</h1>

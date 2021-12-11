@@ -32,5 +32,6 @@ html, body{
 .screen {
     mix-blend-mode: screen;
     border-radius: 14px;
-    max-width: none;
+    overflow-x: hidden;
+    padding: 10px;
 }
