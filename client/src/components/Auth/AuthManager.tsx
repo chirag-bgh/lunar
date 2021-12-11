@@ -5,7 +5,7 @@ const AuthenticateButton = () => {
   const { authenticate } = useMoralis()
 
   return (
-    <button className='cursor-pointer' onClick={() => authenticate()}>
+    <button className='cursor-pointer md:text-md text-sm font-display' onClick={() => authenticate()}>
       Authenticate
     </button>
   )

@@ -5,6 +5,7 @@ html, body{
     margin: 0;
     padding: 0;
     width: 100%;
+    overflow-x: hidden;
 }
 
 .card{
@@ -31,4 +32,5 @@ html, body{
 .screen {
     mix-blend-mode: screen;
     border-radius: 14px;
+    max-width: none;
 }
