@@ -12,6 +12,8 @@ import {ReactComponent as Logo4} from "./LandingAssets/ad4.svg"
 import polygon from './LandingAssets/polygon.svg'
 import background from "./LandingAssets/screen.png";
 import { IoMdMoon, BsArrowLeftShort } from "react-icons/all";
+import logo from './LandingAssets/logo.png'
+import logo2 from './LandingAssets/logo2.png'
 import { AuthenticateButton } from "./Auth/AuthManager";
 
 import './extended.css'
@@ -102,8 +104,9 @@ const Landingv2 = () => {
     <section className="top w-screen h-screen bg-dark flex flex-col ">
       <div className="flex justify-between items-center w-full mt-3 px-7">
         <div className="flex justify-center items-center gap-1">
-          <IoMdMoon className="md:text-2xl text-lg text-white" />
-          <p className="md:text-2xl text-md font-medium">lunar</p>
+          {/* <IoMdMoon className="md:text-2xl text-lg text-white" /> */}
+          <img src={logo} className=" hidden md:block w-24 absolute ml-12 pt-2"/>
+          <img src={logo2} className="block md:hidden w-16 absolute ml-6 pt-2"/>
         </div>
         <div className='text-white text-lg cursor-pointer z-10'>
           <AuthenticateButton/>
