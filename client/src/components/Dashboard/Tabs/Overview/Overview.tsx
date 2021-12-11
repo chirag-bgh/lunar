@@ -1,13 +1,12 @@
 // Components
 import Billing from './Billing'
-import Subscriptions from './Subscriptions'
-import ChartExample from './Chart'
 
 // Icons
 import { BsCalendarEvent } from 'react-icons/all'
 
 // Hooks
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { DisplayChart } from '../../../../backend/Analytics'
 
 const Overview = () => {
   const [selectedTab, setSelectedTab] = useState('Products')
@@ -44,8 +43,7 @@ const Overview = () => {
 export default Overview
 
 export const ChartComponent = ({ recurrence }: { recurrence: string }) => {
-  return <ChartExample />
-  // return <div></div>
+  return <DisplayChart />
 }
 
 const Tabs = ({

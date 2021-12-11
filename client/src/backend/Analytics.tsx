@@ -55,19 +55,7 @@ export const GetTransactions = () => {
   return <div>{transactions.length}</div>
 }
 
-const useTransactionCount = (createdAt: Date) => {
-  const { data } = useMoralisQuery('Transactions', (query) =>
-    query.equalTo('createdAt', createdAt)
-  )
-
-  let json = JSON.stringify(data, null, 2)
-
-  const transactions: TransactionClass[] = JSON.parse(json)
-
-  return transactions.length
-}
-
-export const GetData = () => {
+export const DisplayChart = () => {
   const { user } = useMoralis()
 
   const userAddress = user.get('managed_account_pub')
