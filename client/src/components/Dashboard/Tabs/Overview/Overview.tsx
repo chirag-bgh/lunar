@@ -1,7 +1,7 @@
 // Components
 import Billing from './Billing'
 import Subscriptions from './Subscriptions'
-import Chart from './Chart.jsx'
+import ChartExample from './Chart'
 
 // Icons
 import { BsCalendarEvent } from 'react-icons/all'
@@ -44,7 +44,8 @@ const Overview = () => {
 export default Overview
 
 export const ChartComponent = ({ recurrence }: { recurrence: string }) => {
-  return <Chart className='bg-dark mt-3 rounded-lg' recurrence={recurrence} />
+  //   return <ChartExample />
+  return <div></div>
 }
 
 const Tabs = ({
