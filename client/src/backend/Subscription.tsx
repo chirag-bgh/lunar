@@ -23,6 +23,7 @@ interface TableData {
   price: number;
   recurrence: string;
   createdAt: Date;
+  customerID: string;
 }
 
 interface SortingConfiguration {
@@ -99,10 +100,12 @@ const FetchSubscription = ({ query }: { query: string }) => {
   );
 
   const { data } = useMoralisQuery("Subscription", (query) =>
-    query.equalTo("user", user)
+    query.equalTo("user", user.id)
   );
+  console.log("User: ", user.id);
 
   let json = JSON.stringify(data, null, 2);
+  console.log("json: ", json);
 
   const subsriptions: SubscriptionClass[] = JSON.parse(json);
 
@@ -197,7 +200,7 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
     { label: "ID", property: "id" as keyof TableData },
     { label: "Price", property: "price" as keyof TableData },
     { label: "Recurrence", property: "recurrence" as keyof TableData },
-    { label: "CustomerID", property: "CustomerID" as keyof TableData },
+    { label: "CustomerID", property: "customerID" as keyof TableData },
     { label: "Created At", property: "createdAt" as keyof TableData },
   ];
 
