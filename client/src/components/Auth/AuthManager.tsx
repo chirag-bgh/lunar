@@ -1,81 +1,81 @@
-import { useMoralis } from "react-moralis";
-import CryptoJS from "crypto-js";
-import { useState } from "react";
+import { useMoralis } from 'react-moralis'
+import CryptoJS from 'crypto-js'
+import { useState } from 'react'
 
 // Spinner
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import Loader from "react-loader-spinner";
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+import Loader from 'react-loader-spinner'
 
 const AuthenticateButton = () => {
-  const { enableWeb3, isWeb3Enabled, authenticate } = useMoralis();
-  const [called, setcalled] = useState(false);
+  const { enableWeb3, isWeb3Enabled, authenticate } = useMoralis()
+  const [called, setcalled] = useState(false)
 
   return (
     <div>
       <button
         onClick={() => {
           if (!isWeb3Enabled) {
-            enableWeb3();
+            enableWeb3()
           }
-          authenticate();
-          setcalled(true);
+          authenticate()
+          setcalled(true)
         }}
-        className="px-4 py-1 rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-sm md:text-md"
+        className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md'
       >
         {!called ? (
           <span>Authenticate</span>
         ) : (
-          <div className="flex justify-center items-center ">
+          <div className='flex justify-center items-center '>
             <span>Authenticating </span>
-            <Loader type="Puff" color="black" height={20} width={30} />
+            <Loader type='Puff' color='white' height={20} width={30} />
           </div>
         )}
       </button>
     </div>
-  );
-};
+  )
+}
 
 const UserChecker = () => {
-  const { user, setUserData, web3, isWeb3Enabled, enableWeb3 } = useMoralis();
+  const { user, setUserData, web3, isWeb3Enabled, enableWeb3 } = useMoralis()
   if (!isWeb3Enabled) {
-    enableWeb3();
+    enableWeb3()
   }
 
-  console.log("password: ", process.env.REACT_APP_PASSWORD);
+  console.log('password: ', process.env.REACT_APP_PASSWORD)
 
-  if (user.get("encryptedKey") === undefined) {
-    let x = web3.eth.accounts.create();
+  if (user.get('encryptedKey') === undefined) {
+    let x = web3.eth.accounts.create()
 
     let encryptedKey = CryptoJS.AES.encrypt(
       x.privateKey,
       process.env.REACT_APP_PASSWORD
-    ).toString();
-    console.log("private key: ", x.privateKey);
+    ).toString()
+    console.log('private key: ', x.privateKey)
 
-    console.log("encryptedKey: ", encryptedKey);
+    console.log('encryptedKey: ', encryptedKey)
 
     var bytes = CryptoJS.AES.decrypt(
       encryptedKey,
       process.env.REACT_APP_PASSWORD
-    );
-    var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
-    console.log("decryptedData: ", decryptedData);
+    )
+    var decryptedData = bytes.toString(CryptoJS.enc.Utf8)
+    console.log('decryptedData: ', decryptedData)
 
     setUserData({
       managed_account_pub: x.address,
       encryptedKey: encryptedKey,
-    });
+    })
 
     // withdrawalAddress.addUnique(x.address),
   }
 
-  return <div></div>;
-};
+  return <div></div>
+}
 
 const LogoutButton = () => {
-  const { logout } = useMoralis();
+  const { logout } = useMoralis()
 
-  return <button onClick={() => logout()}>Logout</button>;
-};
+  return <button onClick={() => logout()}>Logout</button>
+}
 
-export { AuthenticateButton, UserChecker, LogoutButton };
+export { AuthenticateButton, UserChecker, LogoutButton }
