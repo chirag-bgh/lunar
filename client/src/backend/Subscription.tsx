@@ -102,10 +102,10 @@ const FetchSubscription = ({ query }: { query: string }) => {
   const { data } = useMoralisQuery("Subscription", (query) =>
     query.equalTo("user", user.id)
   );
-  console.log("User: ", user.id);
+  // console.log("User: ", user.id);
 
   let json = JSON.stringify(data, null, 2);
-  console.log("json: ", json);
+  // console.log("json: ", json);
 
   const subsriptions: SubscriptionClass[] = JSON.parse(json);
 
