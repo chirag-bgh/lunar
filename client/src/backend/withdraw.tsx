@@ -5,7 +5,11 @@ import CryptoJS from 'crypto-js'
 
 // Sorting Library
 import linq from 'linq'
-import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/all'
+import {
+  MdArrowDropDown,
+  MdArrowDropUp,
+  FiDownloadCloud,
+} from 'react-icons/all'
 import { WithdrawalClass } from '../classes/WithdrawalClass'
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
@@ -46,11 +50,11 @@ export const Withdraw = ({ ethAddress }: { ethAddress: string }) => {
   }
 
   return (
-    <div className='flex flex-col justify-center items-center mt-5 w-80 h-30 bg-dark rounded-lg cursor-pointer hover:shadow-primary transition-all ease-in-out'>
+    <div className='flex flex-col justify-center items-center bg-primary w-48 h-14 mt-5 rounded-lg cursor-pointer hover:shadow-primary transition-all ease-in-out'>
       {web3EnableError && <h1>{web3EnableError}</h1>}
       {error && <h1>{error}</h1>}
       <button
-        className='text-3xl py-5 text-white text-center font-semibold flex justify-center items-center w-full h-full font-display'
+        className='text-xl py-5 text-black text-center font-semibold flex justify-center items-center w-full h-full font-display gap-3'
         disabled={isWeb3EnableLoading}
         onClick={async () => {
           let accountAddress = user.get('managed_account_pub')
@@ -104,6 +108,7 @@ export const Withdraw = ({ ethAddress }: { ethAddress: string }) => {
         }}
       >
         Withdraw
+        <FiDownloadCloud />
       </button>
       <div
         className={
