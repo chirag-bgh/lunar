@@ -11,13 +11,6 @@ const AuthenticateButton = () => {
   const [called, setcalled] = useState(false);
 
   return (
-<<<<<<< HEAD
-    <button className='cursor-pointer md:text-md text-sm font-display' onClick={() => authenticate()}>
-      Authenticate
-    </button>
-  )
-}
-=======
     <div>
       <button
         onClick={() => {
@@ -27,7 +20,7 @@ const AuthenticateButton = () => {
           authenticate();
           setcalled(true);
         }}
-        className="px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer"
+        className="px-14 py-1 rounded-sm flex justify-center items-center font-medium font-display cursor-pointer"
       >
         {!called ? (
           <span>Authenticate</span>
@@ -41,7 +34,6 @@ const AuthenticateButton = () => {
     </div>
   );
 };
->>>>>>> 4f6df1ffd53102c7fd6088162fca2155515d07a6
 
 const UserChecker = () => {
   const { user, setUserData, web3 } = useMoralis();
