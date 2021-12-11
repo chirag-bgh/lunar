@@ -93,13 +93,13 @@ export const DisplayChart = () => {
 
       if (transactionDate.toString().startsWith(date)) {
         if (transactions[index] !== undefined) {
-          revenue = transactions[index].amount
+          revenue += transactions[index].amount
         }
         transactionCount += 1
       }
     }
 
-    chartData.push({
+    chartData.unshift({
       name: date,
       revenue: revenue,
       transactions: transactionCount,
