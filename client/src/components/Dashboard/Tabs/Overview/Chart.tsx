@@ -1,60 +1,49 @@
 import { useMemo } from 'react'
-import { Chart, AxisOptions } from 'react-charts'
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts'
+import { GetData } from '../../../../backend/Analytics'
 
 const ChartExample = () => {
-  // type DailyStars = {
-  //   date: Date
-  //   stars: number
-  // }
-  // type Series = {
-  //   label: string
-  //   data: DailyStars[]
-  // }
-  // const data: Series[] = [
-  //   {
-  //     label: 'React Charts',
-  //     data: [
-  //       {
-  //         date: new Date(),
-  //         stars: 202123,
-  //       },
-  //       // ...
-  //     ],
-  //   },
-  //   {
-  //     label: 'React Query',
-  //     data: [
-  //       {
-  //         date: new Date(),
-  //         stars: 10234230,
-  //       },
-  //       // ...
-  //     ],
-  //   },
-  // ]
-  // const primaryAxis = useMemo(
-  //   (): AxisOptions<DailyStars> => ({
-  //     getValue: (datum) => datum.date,
-  //   }),
-  //   []
-  // )
-  // const secondaryAxes = useMemo(
-  //   (): AxisOptions<DailyStars>[] => [
-  //     {
-  //       getValue: (datum) => datum.stars,
-  //     },
-  //   ],
-  //   []
-  // )
-  // return (
-  //   <Chart
-  //     options={{
-  //       data,
-  //       primaryAxis,
-  //       secondaryAxes,
-  //     }}
-  //   />
-  // )
+  const data = [
+    {
+      name: 'Page A',
+      uv: 4000,
+    },
+    {
+      name: 'Page B',
+      uv: 3000,
+    },
+    {
+      name: 'Page C',
+      uv: 2000,
+    },
+    {
+      name: 'Page D',
+      uv: 2780,
+    },
+    {
+      name: 'Page E',
+      uv: 1890,
+    },
+    {
+      name: 'Page F',
+      uv: 2390,
+    },
+    {
+      name: 'Page G',
+      uv: 3490,
+    },
+  ]
+
+  return (
+    // <LineChart width={500} height={300} data={data}>
+    //   <XAxis dataKey='name' />
+    //   <YAxis />
+    //   <CartesianGrid stroke='#eee' strokeDasharray='5 5' />
+    //   <Line type='monotone' dataKey='uv' stroke='#8884d8' />
+    //   <Line type='monotone' dataKey='pv' stroke='#82ca9d' />
+    // </LineChart>
+    <GetData />
+  )
 }
 
 export default ChartExample

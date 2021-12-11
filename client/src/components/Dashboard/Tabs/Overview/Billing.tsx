@@ -1,4 +1,4 @@
-import GetRevenue from '../../../../backend/revenue'
+import { GetRevenue, GetTransactions } from '../../../../backend/Analytics'
 
 export interface BillingProps {
   revenue: number
@@ -16,7 +16,9 @@ const Billing = ({ revenue, transactions }: BillingProps) => {
       </div>
       <div className='flex flex-col items-center justify-center w-1/2 h-16 rounded-lg bg-dark'>
         <p className='text-sm font-light leading-5'>TRANSACTIONS</p>
-        <h2 className='text-2xl font-semibold leading-none'>{transactions}</h2>
+        <h2 className='text-2xl font-semibold leading-none'>
+          <GetTransactions />
+        </h2>
       </div>
     </div>
   )

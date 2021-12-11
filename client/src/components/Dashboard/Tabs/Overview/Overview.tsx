@@ -44,8 +44,8 @@ const Overview = () => {
 export default Overview
 
 export const ChartComponent = ({ recurrence }: { recurrence: string }) => {
-  //   return <ChartExample />
-  return <div></div>
+  return <ChartExample />
+  // return <div></div>
 }
 
 const Tabs = ({
