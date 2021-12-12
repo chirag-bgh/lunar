@@ -1,3 +1,8 @@
+<p align="center">
+<h1 align="center">Lunar Pay</h1>
+<h4 align="center">Everything you need to accept cryptocurrency payments</h4>
+
+
 # Lunar Introduction
 
 Let's discover **Lunar in less than 5 minutes**.
