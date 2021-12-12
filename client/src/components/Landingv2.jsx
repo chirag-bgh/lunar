@@ -21,7 +21,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import { useEffect } from 'react'
 
-import { Link } from 'react-router-dom'
 // import React from "react";
 // import {gsap} from "gsap"
 
