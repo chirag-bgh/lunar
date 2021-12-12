@@ -43,6 +43,7 @@ const UserChecker = ({
   setFetched: (arg: boolean) => void
 }) => {
   const { user, setUserData, web3, isWeb3Enabled, enableWeb3 } = useMoralis()
+  // const { switchNetwork, chainId } = useChain()
 
   if (!isWeb3Enabled) {
     enableWeb3()
@@ -56,6 +57,11 @@ const UserChecker = ({
       return [...all, entity]
     },
   })
+
+  // useEffect(() => {
+  //   switchNetwork('0x80001')
+  //   console.log('chainId: ', chainId)
+  // }, [switchNetwork, chainId])
 
   // console.log('password: ', process.env.REACT_APP_PASSWORD)
 
