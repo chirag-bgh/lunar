@@ -23,6 +23,8 @@ const Dashboard = ({
   openWalletModal: () => void
 }) => {
   const [selectedTab, setSelectedTab] = useState('Overview')
+  const [balance, setBalance] = useState('Loading..')
+  const [fetched, setFetched] = useState(false)
 
   function GetTab({
     selectedTab,
@@ -43,7 +45,9 @@ const Dashboard = ({
       case 'Customers':
         return <Customers />
       case 'Payouts':
-        return <Payouts openWalletModal={openWalletModal} />
+        return (
+          <Payouts openWalletModal={openWalletModal} setFetched={setFetched} />
+        )
       case 'Settings':
         return <Settings />
       default:
@@ -53,8 +57,15 @@ const Dashboard = ({
 
   return (
     <div className='w-screen h-screen bg-background flex justify-center items-center'>
-      <UserChecker />
-      <Sidebar selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+      <UserChecker setBalance={setBalance} setFetched={setFetched} />
+      <Sidebar
+        selectedTab={selectedTab}
+        setSelectedTab={setSelectedTab}
+        balance={balance}
+        setBalance={setBalance}
+        fetched={fetched}
+        setFetched={setFetched}
+      />
       <div className='w-4/5 h-full flex flex-col justify-start items-start px-10 overflow-y-auto'>
         <Logo />
         <GetTab selectedTab={selectedTab} openModal={openModal} />

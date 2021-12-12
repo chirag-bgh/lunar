@@ -10,14 +10,14 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #0A0908;
+  background: #0a0908;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #87F1FF;
+  background: #87f1ff;
   border-radius: 20px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 /* Handle on hover */
@@ -52,4 +52,3 @@ td {
   text-align: center;
   padding: 0.7rem;
 }
-
