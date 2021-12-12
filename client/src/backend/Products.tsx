@@ -170,9 +170,17 @@ const FetchProduct = ({ query }: { query: string }) => {
 
   const products: ProductClass[] = JSON.parse(json);
 
+  
+  const copyToClipboard = (id:string) => {
+    navigator.clipboard.writeText("http://app.lunarpay.in/product/"+id);
+    alert("Copied product url: " + "http://app.lunarpay.in/product/"+id);
+  }
+
   const sortedRows = useMemo(() => {
     //Set up default ordering
     let sorted = linq.from(products).orderBy(() => 1);
+
+
 
     //Loop through the queue
     sortConfig.forEach((sortConfig) => {
@@ -234,7 +242,7 @@ const FetchProduct = ({ query }: { query: string }) => {
       {sortedRows.map((product) => {
         let newDate = new Date(product.createdAt);
         return (
-          <tr key={product.objectId}>
+          <tr key={product.objectId} className="cursor-pointer hover:bg-primary hover:text-dark transition-colors" onClick={() => copyToClipboard(product.objectId)}>
             <td>{product.name}</td>
             <td>{product.objectId}</td>
             <td>{product.price} MATIC</td>
