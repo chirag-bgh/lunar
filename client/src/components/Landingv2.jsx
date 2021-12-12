@@ -121,8 +121,20 @@ const Landingv2 = () => {
               alt='Logo2'
             />
           </div>
-          <div className='text-white text-lg cursor-pointer z-10 mr-5'>
-            <AuthenticateButton />
+          <div className='flex justify-center items-center'>
+            <div className='text-white text-lg cursor-pointer z-10 mr-7'>
+              <a
+                href='https://docs.lunarpay.in/docs/intro'
+                target='_blank'
+                rel='noreferrer'
+                className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md'
+              >
+                Docs
+              </a>
+            </div>
+            <div className='text-white text-lg cursor-pointer z-10 mr-5'>
+              <AuthenticateButton />
+            </div>
           </div>
         </div>
         <div className='flex flex-col w-screen h-1/2 justify-center items-center font-display p-4 z-10'>
@@ -131,6 +143,8 @@ const Landingv2 = () => {
           </h1>
           <a
             href='https://docs.lunarpay.in/docs/intro'
+            target='_blank'
+            rel='noreferrer'
             className='bg-primary p-2 rounded-lg mb-44 mt-4 z-10 cursor-pointer'
           >
             <h1 className='text-dark font-bold text-xs md:text-sm px-2 py-1 flex justify-center items-center mt-0.5'>
