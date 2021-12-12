@@ -25,6 +25,7 @@ interface TableData {
   createdAt: Date;
   purchaseButton: JSX.Element;
   removeButton: JSX.Element;
+  //there is no column  no
 }
 
 interface SortingConfiguration {
@@ -170,12 +171,6 @@ const FetchProduct = ({ query }: { query: string }) => {
 
   const products: ProductClass[] = JSON.parse(json);
 
-  
-  const copyToClipboard = (id:string) => {
-    navigator.clipboard.writeText("http://app.lunarpay.in/product/"+id);
-    alert("Copied product url: " + "http://app.lunarpay.in/product/"+id);
-  }
-
   const sortedRows = useMemo(() => {
     //Set up default ordering
     let sorted = linq.from(products).orderBy(() => 1);
@@ -242,7 +237,11 @@ const FetchProduct = ({ query }: { query: string }) => {
       {sortedRows.map((product) => {
         let newDate = new Date(product.createdAt);
         return (
-          <tr key={product.objectId} className="cursor-pointer hover:bg-primary hover:text-dark transition-colors" onClick={() => copyToClipboard(product.objectId)}>
+          // <a href={`https://app.lunarpay.in/product/${product.objectId}`}
+          // className="w-full" //onclick="location.href='pageurl.html';" on the tr element
+          // target='_blank'
+          // rel='noreferrer'>
+          <tr key={product.objectId} className="cursor-pointer hover:bg-primary hover:text-dark transition-colors" onClick={() => window.location.href=`https://app.lunarpay.in/product/${product.objectId}`}>
             <td>{product.name}</td>
             <td>{product.objectId}</td>
             <td>{product.price} MATIC</td>
@@ -252,6 +251,7 @@ const FetchProduct = ({ query }: { query: string }) => {
               <DeleteProduct objectId={product.objectId} />
             </td>
           </tr>
+          // </a>
         );
       })}
     </table>
