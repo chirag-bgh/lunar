@@ -106,8 +106,6 @@ export const DisplayChart = () => {
     })
   }
 
-  // console.log('chartData', chartData)
-
   return (
     <ResponsiveContainer width='100%' height='65%' className='mt-10'>
       <LineChart
@@ -129,10 +127,10 @@ export const DisplayChart = () => {
         <Line
           type='monotone'
           dataKey='revenue'
-          stroke='#8884d8'
+          stroke='#82ca9d'
           activeDot={{ r: 8 }}
         />
-        <Line type='monotone' dataKey='transactions' stroke='#82ca9d' />
+        <Line type='monotone' dataKey='transactions' stroke='#87F1FF' />
       </LineChart>
     </ResponsiveContainer>
   )
