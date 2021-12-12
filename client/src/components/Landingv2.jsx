@@ -52,7 +52,7 @@ const Landingv2 = () => {
         stagger: 0.1,
         scrollTrigger: {
           trigger: document.querySelector('.first-trigger'),
-          start: 'top top',
+          start: 'top center',
           end: 'bottom center',
         },
       }
@@ -244,6 +244,9 @@ const Landingv2 = () => {
           </h1>
           <h1 className='fade-in font-semibold md:text-2xl text-sm text-gray-600'>
             Comprehensive Analytics
+          </h1>
+          <h1 className='fade-in font-semibold md:text-2xl text-sm text-gray-600'>
+            Subscription Management
           </h1>
         </div>
       </section>
