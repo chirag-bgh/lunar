@@ -129,13 +129,14 @@ const Landingv2 = () => {
           <h1 className='text-bold text-3xl md:text-3xl md:mt-12 mt-48 mb-2 text-white align-middle text-center mb-7'>
             Accepting payments with crypto, now easier than ever
           </h1>
-          <Link to='dashboard'>
-            <div className='bg-primary p-2 rounded-lg mb-44 mt-4 z-10 cursor-pointer'>
-              <h1 className='text-dark font-bold text-xs md:text-sm px-2 py-1'>
-                Access public beta
-              </h1>
-            </div>
-          </Link>
+          <a
+            href='https://docs.lunarpay.in/docs/intro'
+            className='bg-primary p-2 rounded-lg mb-44 mt-4 z-10 cursor-pointer'
+          >
+            <h1 className='text-dark font-bold text-xs md:text-sm px-2 py-1 flex justify-center items-center mt-0.5'>
+              Get Started
+            </h1>
+          </a>
         </div>
         <img src={blob1} alt='glow' className='absolute bottom-0 right-1' />
         <img src={blob2} alt='glow' className='absolute top-0 -left-12' />
@@ -152,7 +153,7 @@ const Landingv2 = () => {
           <Card imageSrc={xbox} price={64.174} classname=' hidden md:block' />
         </div>
       </section>
-      <section className='w-screen h-screen bg-dark p-12 pb-24 first-trigger flex flex-col justify-around items-center'>
+      <section className='w-screen h-full bg-dark p-12 pb-24 first-trigger flex flex-col justify-center gap-16 items-center'>
         <h1 className='font-display text-3xl md:text-7xl font-bold text-center'>
           Everything you need to accept cryptocurrency payments
         </h1>
