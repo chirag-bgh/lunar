@@ -11,7 +11,7 @@ import { useCallback, useMemo, useState } from 'react'
 interface TableData {
   product: string
   objectId: string
-  customerId: string
+  email_address: string
   amount: number
   type: string
   createdAt: Date
@@ -164,7 +164,7 @@ export const FetchTransaction = ({ query }: { query: string }) => {
             <td>{transaction.objectId}</td>
             <td>{transaction.amount} MATIC</td>
             <td>{transaction.Type}</td>
-            <td>{transaction.customerid}</td>
+            <td>{transaction.email_address}</td>
             <td>{newDate.toString()}</td>
           </tr>
         )
@@ -184,7 +184,7 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
     { label: 'ID', property: 'objectId' as keyof TableData },
     { label: 'Price', property: 'amount' as keyof TableData },
     { label: 'Type', property: 'type' as keyof TableData },
-    { label: 'Customer ID', property: 'customerId' as keyof TableData },
+    { label: 'Email', property: 'email_address' as keyof TableData },
     { label: 'Created At', property: 'createdAt' as keyof TableData },
   ]
 

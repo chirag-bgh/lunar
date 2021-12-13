@@ -8,7 +8,7 @@ export default interface TransactionClass {
   from_address: string
   Type: string
   user: User
-  customerid: string
+  email_address: string
   createdAt: Date
   updatedAt: Date
   objectId: string

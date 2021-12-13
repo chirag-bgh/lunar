@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 
-import { IoArrowBack, MdArrowDropDown, MdArrowDropUp } from 'react-icons/all'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/all'
 import { useMoralisQuery } from 'react-moralis'
 
 // Sorting Library
