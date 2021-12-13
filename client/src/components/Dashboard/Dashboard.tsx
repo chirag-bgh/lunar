@@ -13,6 +13,7 @@ import { IoMdMoon } from 'react-icons/all'
 
 // Hooks
 import { useState } from 'react'
+import Demographics from './Tabs/Demographics'
 
 const Dashboard = ({
   openModal,
@@ -45,6 +46,8 @@ const Dashboard = ({
         return (
           <Payouts openWalletModal={openWalletModal} setFetched={setFetched} />
         )
+      case 'Demographics':
+        return <Demographics />
       case 'Settings':
         return <Settings />
       default:
