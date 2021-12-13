@@ -110,22 +110,14 @@ const CustomerPage = () => {
         backgroundPosition: '200px 0%',
         transition: 'all 0.5s',
       }}
-      className='w-screen flex-col h-screen bg-moon bg-center bg-no-repeat bg-cover flex justify-between items-center'
+      className='w-screen flex-col h-screen bg-moon bg-center bg-no-repeat bg-cover flex justify-center items-center'
     >
-      <div className='flex justify-start items-center w-5/6 mt-4 '>
-        <IoArrowBack
-          className='text-white text-3xl cursor-pointer z-10'
-          onClick={() => {
-            window.history.back()
-          }}
-        />
-      </div>
       <Logo className='absolute top-0 left-50' />
-      <div className='w-5/6 flex flex-col justify-center items-start'>
-        <h1 className='font-display font-semibold text-2xl'>
+      <div className='w-4/5 flex flex-col justify-center items-center'>
+        <h1 className='font-display font-semibold text-2xl w-full flex justify-start'>
           Customer ID: {customerId}
         </h1>
-        <table className='text-white bg-dark mt-5 rounded-lg'>
+        <table className='text-white bg-dark mt-5 rounded-lg w-full'>
           <tbody>
             <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
             {sortedRows.map((transaction) => {
@@ -143,7 +135,6 @@ const CustomerPage = () => {
           </tbody>
         </table>
       </div>
-      <div></div>
     </div>
   )
 }
