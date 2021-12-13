@@ -108,10 +108,7 @@ export const FetchCustomer = () => {
             key={customer.objectId}
             className='cursor-pointer hover:bg-primary hover:text-dark transition-colors'
             onClick={() =>
-              window.open(
-                `http://lunarpay.in/customer/${customer.objectId}`,
-                '_blank'
-              )
+              window.open(`http://lunarpay.in/customer/${customer.objectId}`)
             }
           >
             <td>{customer.objectId}</td>
