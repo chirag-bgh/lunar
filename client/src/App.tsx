@@ -13,6 +13,7 @@ import Landingv2 from './components/Landingv2'
 // React
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useState } from 'react'
+import CustomerPage from './components/CustomerPage'
 
 function App() {
   const { isWeb3Enabled, isAuthenticated } = useMoralis()
@@ -53,7 +54,8 @@ function App() {
           }
         ></Route>
         <Route path='/login' element={<Login />}></Route>
-        <Route path='/signup' element={<Signup />}></Route>
+        <Route path='/signup' element={<Signup />}></Route>\{' '}
+        <Route path='customer/:id' element={<CustomerPage />} />
         <Route
           path='/'
           element={

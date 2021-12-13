@@ -67,7 +67,7 @@ const Dashboard = ({
         setFetched={setFetched}
       />
       <div className='w-4/5 h-full flex flex-col justify-start items-start px-10 overflow-y-auto'>
-        <Logo />
+        <Logo className='' />
         <GetTab selectedTab={selectedTab} openModal={openModal} />
       </div>
     </div>
@@ -76,9 +76,11 @@ const Dashboard = ({
 
 export default Dashboard
 
-const Logo = () => {
+export const Logo = ({ className }: { className: string }) => {
   return (
-    <div className='w-full flex justify-center items-center my-4'>
+    <div
+      className={`w-full flex justify-center items-center my-4 ${className}`}
+    >
       <IoMdMoon className='text-white text-3xl mr-2' />
       <p className='font-medium text-xl pt-1'>lunar</p>
     </div>

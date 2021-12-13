@@ -104,7 +104,16 @@ export const FetchCustomer = () => {
       {sortedRows.map((customer) => {
         let newDate = new Date(customer.createdAt)
         return (
-          <tr key={customer.objectId}>
+          <tr
+            key={customer.objectId}
+            className='cursor-pointer hover:bg-primary hover:text-dark transition-colors'
+            onClick={() =>
+              window.open(
+                `http://lunarpay.in/customer/${customer.objectId}`,
+                '_blank'
+              )
+            }
+          >
             <td>{customer.objectId}</td>
             <td>{customer.Type}</td>
             <td>{customer.email_address}</td>
