@@ -5,7 +5,6 @@ import Transactions from './Tabs/Transactions'
 import Products from './Tabs/Products'
 import Subscriptions from './Tabs/Subscriptions'
 import Payouts from './Tabs/Payouts'
-import Customers from './Tabs/Customers'
 import Settings from './Tabs/Settings'
 import { UserChecker } from '../Auth/AuthManager'
 
@@ -14,6 +13,7 @@ import { IoMdMoon } from 'react-icons/all'
 
 // Hooks
 import { useState } from 'react'
+import Demographics from './Tabs/Demographics'
 
 const Dashboard = ({
   openModal,
@@ -42,12 +42,12 @@ const Dashboard = ({
         return <Products openModal={openModal} />
       case 'Subscription Plans':
         return <Subscriptions />
-      case 'Customers':
-        return <Customers />
       case 'Payouts':
         return (
           <Payouts openWalletModal={openWalletModal} setFetched={setFetched} />
         )
+      case 'Demographics':
+        return <Demographics />
       case 'Settings':
         return <Settings />
       default:
