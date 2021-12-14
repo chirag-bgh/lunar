@@ -90,7 +90,7 @@ const Demographics = () => {
             }}
             onClick={(item, toggled) => {
               if (toggled) {
-                //console.log(`selecting: ${item.label}`);
+                console.log(`selecting: ${item.label}`);
               } else {
                 console.log(`unselecting: ${item.label}`);
               }
