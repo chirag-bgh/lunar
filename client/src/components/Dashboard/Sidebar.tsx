@@ -11,7 +11,7 @@ import {
   BsArchive,
   IoReload,
   BiDollar,
-  BsPersonFill,
+  BsPeopleFill,
   RiSettingsFill,
 } from 'react-icons/all'
 import CountUp from 'react-countup'
@@ -95,14 +95,14 @@ const Tabs = ({
         setSelectedTab={setSelectedTab}
       />
       <Tab
-        tab='Customers'
-        icon={<BsPersonFill className='text-current text-xl' />}
+        tab='Payouts'
+        icon={<BiDollar className='text-current text-xl' />}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
       <Tab
-        tab='Payouts'
-        icon={<BiDollar className='text-current text-xl' />}
+        tab='Demographics'
+        icon={<BsPeopleFill className='text-current text-xl' />}
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
