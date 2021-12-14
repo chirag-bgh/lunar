@@ -164,7 +164,7 @@ const FetchProduct = ({ query }: { query: string }) => {
   );
 
   const { data } = useMoralisQuery("Products", (query) =>
-    query.equalTo("user", user)
+    query.equalTo("user", user.id)
   );
 
   let json = JSON.stringify(data, null, 2);
