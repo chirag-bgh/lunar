@@ -194,7 +194,7 @@ export const FetchWithdrawals = () => {
   );
 
   const { data } = useMoralisQuery("Withdrawals", (query) =>
-    query.equalTo("user", use.idr)
+    query.equalTo("user", user.id)
   );
 
   let json = JSON.stringify(data, null, 2);
