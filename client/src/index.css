@@ -52,3 +52,9 @@ td {
   text-align: center;
   padding: 0.7rem;
 }
+
+text {
+  fill: white;
+  font-family: 'Montserrat';
+  font-size: 1.8rem;
+}
