@@ -48,7 +48,7 @@ const DeleteProduct = ({ objectId }: { objectId: string }) => {
   useEffect(() => {
     if (destroy) {
       if (data !== undefined) {
-        console.log("data: ", data);
+        //console.log("data: ", data);
 
         // Destroy Object
         if (data[0] !== undefined) {
@@ -64,7 +64,7 @@ const DeleteProduct = ({ objectId }: { objectId: string }) => {
     <div>
       <button
         onClick={() => {
-          console.log("Removing Product");
+          //console.log("Removing Product");
           setDestroy(true);
         }}
         className="h-7 text-sm rounded-sm text-black font-display px-2 flex justify-center items-center cursor-pointer"
@@ -127,7 +127,7 @@ const FetchProduct = ({ query }: { query: string }) => {
   ]);
 
   useEffect(() => {
-    // console.log("sort config: ", sortConfig);
+    // //console.log("sort config: ", sortConfig);
   }, [sortConfig]);
 
   const sortBy = useCallback(

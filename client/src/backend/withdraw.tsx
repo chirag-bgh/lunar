@@ -89,13 +89,13 @@ export const Withdraw = ({
 
           if (valueToBeSent > 0) {
             setIsBroke(false);
-            console.log("balance: ", balance);
-            console.log("account address: ", accountAddress);
-            console.log("eth address: ", ethAddress);
-            console.log("privateKeyOG: ", privateKeyOG);
-            console.log("gasPrice: ", gasPrice);
-            console.log("valueToBeSent: ", valueToBeSent);
-            console.log("FINAL: ", valueToBeSent + txFee);
+            //console.log("balance: ", balance);
+            //console.log("account address: ", accountAddress);
+            //console.log("eth address: ", ethAddress);
+            //console.log("privateKeyOG: ", privateKeyOG);
+            //console.log("gasPrice: ", gasPrice);
+            //console.log("valueToBeSent: ", valueToBeSent);
+            //console.log("FINAL: ", valueToBeSent + txFee);
 
             const txParams = {
               to: ethAddress,
@@ -106,21 +106,21 @@ export const Withdraw = ({
             };
             var account = web3.eth.accounts.wallet.add(privateKeyOG);
 
-            console.log("Signing Transaction");
+            //console.log("Signing Transaction");
 
             let signedTx = account.signTransaction(txParams);
 
-            console.log("Succesfully Signed Transaction");
+            //console.log("Succesfully Signed Transaction");
 
             setIsLoadingWithdrawal(true);
 
-            console.log("Withdawing Balance");
+            //console.log("Withdawing Balance");
 
             web3.eth
               .sendSignedTransaction((await signedTx).rawTransaction)
               .then(() => {
                 setIsLoadingWithdrawal(false);
-                console.log("Successfully Withdrew", balance, " WEI");
+                //console.log("Successfully Withdrew", balance, " WEI");
                 save({ ethAddress, balance, user: user.id });
                 setFetched(false);
                 setCardFetched(false);

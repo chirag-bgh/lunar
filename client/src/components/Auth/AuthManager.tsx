@@ -56,7 +56,7 @@ const UserChecker = ({
   useMoralisQuery("PolygonTransactions", (query) => query, [], {
     live: true,
     onLiveCreate: (entity, all) => {
-      console.log("Polygon Transaction Edited");
+      //console.log("Polygon Transaction Edited");
       setFetched(false);
       return [...all, entity];
     },
@@ -76,16 +76,16 @@ const UserChecker = ({
       x.privateKey,
       process.env.REACT_APP_PASSWORD
     ).toString();
-    console.log("private key: ", x.privateKey);
+    //console.log("private key: ", x.privateKey);
 
-    console.log("encryptedKey: ", encryptedKey);
+    //console.log("encryptedKey: ", encryptedKey);
 
     var bytes = CryptoJS.AES.decrypt(
       encryptedKey,
       process.env.REACT_APP_PASSWORD
     );
     var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
-    console.log("decryptedData: ", decryptedData);
+    //console.log("decryptedData: ", decryptedData);
 
     setUserData({
       managed_account_pub: x.address,
