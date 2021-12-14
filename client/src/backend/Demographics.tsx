@@ -1,8 +1,12 @@
-import { useMoralisQuery } from 'react-moralis'
+import { useMoralis, useMoralisQuery } from 'react-moralis'
 import DemographicsClass from '../classes/Demographics'
 
 export const GetCountries = () => {
-  const { data, error, isLoading } = useMoralisQuery('Demographics')
+  const { user } = useMoralis()
+
+  const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
+    query.equalTo('user', user.id)
+  )
 
   if (error) {
     return <span>🤯</span>
@@ -43,7 +47,7 @@ export const GetCountries = () => {
       {countryNames.map((country) => {
         let users = countries[country]
         return (
-          <tr className='border-t border-solid border-gray-500'>
+          <tr className='border-t border-solid border-gray-500' key={country}>
             <td className='text-left px-0'>{country}</td>
             <td className='text-right px-0'>{users}</td>
           </tr>
@@ -54,7 +58,11 @@ export const GetCountries = () => {
 }
 
 export const GetCities = () => {
-  const { data, error, isLoading } = useMoralisQuery('Demographics')
+  const { user } = useMoralis()
+
+  const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
+    query.equalTo('user', user.id)
+  )
 
   if (error) {
     return <span>🤯</span>
@@ -93,7 +101,7 @@ export const GetCities = () => {
       {cityNames.map((city) => {
         let users = cities[city]
         return (
-          <tr className='border-t border-solid border-gray-500'>
+          <tr className='border-t border-solid border-gray-500' key={city}>
             <td className='text-left px-0'>{city}</td>
             <td className='text-right px-0'>{users}</td>
           </tr>
@@ -104,7 +112,11 @@ export const GetCities = () => {
 }
 
 export const GetUsers = () => {
-  const { data, error, isLoading } = useMoralisQuery('Demographics')
+  const { user } = useMoralis()
+
+  const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
+    query.equalTo('user', user.id)
+  )
 
   if (error) {
     return <span>🤯</span>
@@ -122,7 +134,11 @@ export const GetUsers = () => {
 }
 
 export const GetUserLeaderboard = () => {
-  const { data, error, isLoading } = useMoralisQuery('Demographics')
+  const { user } = useMoralis()
+
+  const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
+    query.equalTo('user', user.id)
+  )
 
   if (error) {
     return <span>🤯</span>
@@ -159,7 +175,10 @@ export const GetUserLeaderboard = () => {
       {totalSpentArray.map((totalSpent) => {
         let email = totalSpentDict[totalSpent]
         return (
-          <tr className='border-t border-solid border-gray-500'>
+          <tr
+            className='border-t border-solid border-gray-500'
+            key={totalSpent}
+          >
             <td className='text-left px-0'>{email}</td>
             <td className='text-right px-0'>{totalSpent}</td>
           </tr>
