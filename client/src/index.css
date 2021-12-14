@@ -53,7 +53,13 @@ td {
   padding: 0.7rem;
 }
 
-text {
+.donutchart-innertext-label {
+  fill: white;
+  font-family: 'Montserrat';
+  font-size: 1.8rem;
+}
+
+.donutchart-innertext-value {
   fill: white;
   font-family: 'Montserrat';
   font-size: 1.8rem;
