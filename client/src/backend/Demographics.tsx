@@ -1,6 +1,7 @@
 import { useMoralis, useMoralisQuery } from "react-moralis";
 import DemographicsClass from "../classes/Demographics";
 
+//Queries Moralis DB for countries and returns a table of countries for the demographics tab
 export const GetCountries = () => {
   const { user } = useMoralis();
 
@@ -57,6 +58,7 @@ export const GetCountries = () => {
   );
 };
 
+//Queries Moralis DB for cities and returns a table of cities for the demographics tab
 export const GetCities = () => {
   const { user } = useMoralis();
 
@@ -111,6 +113,8 @@ export const GetCities = () => {
   );
 };
 
+
+//Queries Moralis DB for users and returns a table of users (email addresses) for the demographics tab
 export const GetUsers = () => {
   const { user } = useMoralis();
 
@@ -133,6 +137,7 @@ export const GetUsers = () => {
   return <h1 className="text-4xl font-semibold">{demographics.length}</h1>;
 };
 
+// Returns the leaderboard of the top ten users 
 export const GetUserLeaderboard = () => {
   const { user } = useMoralis();
 
