@@ -38,6 +38,7 @@ enum SortingType {
   Descending,
 }
 
+// Deletes product from the Moralis DB where objectID == obejectID
 const DeleteProduct = ({ objectId }: { objectId: string }) => {
   const [destroy, setDestroy] = useState(false);
 
@@ -82,6 +83,7 @@ const DeleteProduct = ({ objectId }: { objectId: string }) => {
   );
 };
 
+//Creates product by taking in name, price, recurrence as input
 const CreateProduct = ({
   name,
   price,
@@ -119,6 +121,8 @@ const CreateProduct = ({
     </div>
   );
 };
+
+// Takes query as input and returns sorted product array
 const FetchProduct = ({ query }: { query: string }) => {
   const { user } = useMoralis();
 
@@ -265,7 +269,6 @@ const FetchProduct = ({ query }: { query: string }) => {
   );
 };
 
-//           <td className="flex justify-center items-center h-full"><TransferProduct objectId={product.objectId}recurrence={product.recurrence}price={product.price} name={product.name} /> </td>
 
 export { CreateProduct, FetchProduct };
 
