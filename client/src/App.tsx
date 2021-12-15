@@ -23,12 +23,7 @@ function App() {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [walletModalIsOpen, setWalletModalIsOpen] = useState(false);
 
-  //console.log('Web3: ' + isWeb3Enabled)
-  // if (!isWeb3Enabled) {
-  //   enableWeb3()
-  // }
-  // // Moralis
-  //console.log("Is Authenticated: " + isAuthenticated);
+  //Redirect to landing page if not authenticated
   if (!isAuthenticated) {
     return <Landingv2 />;
   }

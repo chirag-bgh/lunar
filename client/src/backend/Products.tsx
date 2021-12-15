@@ -269,9 +269,9 @@ const FetchProduct = ({ query }: { query: string }) => {
   );
 };
 
-
 export { CreateProduct, FetchProduct };
 
+//ITEM Display sorter
 interface SortableHeaderProps {
   sortBy: (string: keyof TableData) => void;
   sortConfig: SortingConfiguration[];
