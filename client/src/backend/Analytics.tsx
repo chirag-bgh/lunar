@@ -12,6 +12,7 @@ import {
   YAxis,
 } from 'recharts'
 
+// Fetches user revenue from Moralis DB
 export const GetRevenue = () => {
   const { user } = useMoralis()
 
@@ -39,6 +40,7 @@ export const GetRevenue = () => {
   return <div>{revenue.toString().substring(0, 4)} MATIC</div>
 }
 
+// Fetches all user transactions from Moralis DB
 export const GetTransactions = () => {
   const { user } = useMoralis()
 
@@ -55,6 +57,7 @@ export const GetTransactions = () => {
   return <div>{transactions.length}</div>
 }
 
+//fetches revenue data and returns chart. 
 export const DisplayChart = () => {
   const { user } = useMoralis()
 
