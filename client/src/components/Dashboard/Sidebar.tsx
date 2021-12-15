@@ -32,7 +32,7 @@ const Sidebar = ({
   fetched: boolean
   setFetched: (arg: boolean) => void
 }) => {
-  const { logout } = useMoralis()
+  const { logout,user } = useMoralis()
 
   return (
     <div className='w-80 h-screen shadow-sidebar flex flex-col justify-between items-center gap-6'>
@@ -53,8 +53,8 @@ const Sidebar = ({
           })
         }
       >
-        <h1 className='font-semibold font-display text-md text-black'>
-          Donate
+        <h1 className='font-semibold font-display text-md text-black'>  <a> 
+          Donate <a href="http://app.lunarpay.in/donation/{user.id}"   >Donate</a> 
         </h1>
       </div>
       <div
