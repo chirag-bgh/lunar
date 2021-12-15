@@ -265,7 +265,7 @@ const Landingv2 = () => {
       <section className=' h-80 w-screen bg-background flex justify-center items-center'>
         <h1 className=' font-display font-bold md:text-xl text-lg p-4 text-center'>
           A project proudly made{' '}
-          <a href='https://github.com/tisbganggangdapp' className=' underline'>
+          <a href='https://github.com/lunarpay' className=' underline'>
             open-source
           </a>{' '}
           by{' '}
