@@ -38,6 +38,7 @@ enum SortingType {
   Descending,
 }
 
+// Deletes product from the Moralis DB where objectID == obejectID
 const DeleteProduct = ({ objectId }: { objectId: string }) => {
   const [destroy, setDestroy] = useState(false);
 
@@ -48,7 +49,7 @@ const DeleteProduct = ({ objectId }: { objectId: string }) => {
   useEffect(() => {
     if (destroy) {
       if (data !== undefined) {
-        console.log("data: ", data);
+        //console.log("data: ", data);
 
         // Destroy Object
         if (data[0] !== undefined) {
@@ -64,7 +65,7 @@ const DeleteProduct = ({ objectId }: { objectId: string }) => {
     <div>
       <button
         onClick={() => {
-          console.log("Removing Product");
+          //console.log("Removing Product");
           setDestroy(true);
         }}
         className="h-7 text-sm rounded-sm text-black font-display px-2 flex justify-center items-center cursor-pointer"
@@ -82,6 +83,7 @@ const DeleteProduct = ({ objectId }: { objectId: string }) => {
   );
 };
 
+//Creates product by taking in name, price, recurrence as input
 const CreateProduct = ({
   name,
   price,
@@ -119,6 +121,8 @@ const CreateProduct = ({
     </div>
   );
 };
+
+// Takes query as input and returns sorted product array
 const FetchProduct = ({ query }: { query: string }) => {
   const { user } = useMoralis();
 
@@ -127,7 +131,7 @@ const FetchProduct = ({ query }: { query: string }) => {
   ]);
 
   useEffect(() => {
-    // console.log("sort config: ", sortConfig);
+    // //console.log("sort config: ", sortConfig);
   }, [sortConfig]);
 
   const sortBy = useCallback(
@@ -265,10 +269,9 @@ const FetchProduct = ({ query }: { query: string }) => {
   );
 };
 
-//           <td className="flex justify-center items-center h-full"><TransferProduct objectId={product.objectId}recurrence={product.recurrence}price={product.price} name={product.name} /> </td>
-
 export { CreateProduct, FetchProduct };
 
+//ITEM Display sorter
 interface SortableHeaderProps {
   sortBy: (string: keyof TableData) => void;
   sortConfig: SortingConfiguration[];

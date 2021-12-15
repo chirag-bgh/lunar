@@ -36,7 +36,6 @@ const Sidebar = ({
 
   return (
     <div className='w-80 h-screen shadow-sidebar flex flex-col justify-between items-center gap-6'>
-      {/* <div className='w-full flex flex-col justify-center items-center'> */}
       <UserAccount />
       <Balance
         balance={balance}
@@ -45,9 +44,7 @@ const Sidebar = ({
         setFetched={setFetched}
       />
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-      {/* </div> */}
       {/* Sign Out Button */}
-      {/* <div className='w-full flex flex-col justify-center items-center'> */}
       <div
         className=' bg-primary mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'
         onClick={() =>
@@ -217,7 +214,7 @@ const Balance = ({
   useEffect(() => {
     if (data !== null) {
       setBalance(web3.utils.fromWei(data.balance) + ' MATIC')
-      console.log('balance: ', balance)
+      //console.log('balance: ', balance)
     }
     if (!fetched) {
       fetch()
