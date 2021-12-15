@@ -35,7 +35,8 @@ const Sidebar = ({
   const { logout } = useMoralis()
 
   return (
-    <div className='w-80 h-screen shadow-sidebar flex flex-col justify-start items-center gap-6'>
+    <div className='w-80 h-screen shadow-sidebar flex flex-col justify-between items-center gap-6'>
+      {/* <div className='w-full flex flex-col justify-center items-center'> */}
       <UserAccount />
       <Balance
         balance={balance}
@@ -44,9 +45,23 @@ const Sidebar = ({
         setFetched={setFetched}
       />
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+      {/* </div> */}
       {/* Sign Out Button */}
+      {/* <div className='w-full flex flex-col justify-center items-center'> */}
       <div
-        className=' bg-red-500 mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'
+        className=' bg-primary mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'
+        onClick={() =>
+          logout().then(() => {
+            alert('Wallet Disconnected')
+          })
+        }
+      >
+        <h1 className='font-semibold font-display text-md text-black'>
+          Donate
+        </h1>
+      </div>
+      <div
+        className=' bg-red-500 -mt-4 mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'
         onClick={() =>
           logout().then(() => {
             alert('Wallet Disconnected')
@@ -56,6 +71,7 @@ const Sidebar = ({
         <h1 className='font-semibold font-display text-md'>Sign Out</h1>
       </div>
     </div>
+    // </div>
   )
 }
 
