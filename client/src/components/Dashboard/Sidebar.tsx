@@ -53,8 +53,8 @@ const Sidebar = ({
           })
         }
       >
-        <h1 className='font-semibold font-display text-md text-black'>  <a> 
-          Donate <a href="http://app.lunarpay.in/donation/{user.id}"   >Donate</a> 
+        <h1 className='font-semibold font-display text-md text-black'>
+           <a href={`http://app.lunarpay.in/donation/${user.id}`} target="_blank">Donate</a> 
         </h1>
       </div>
       <div

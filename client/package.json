@@ -25,7 +25,7 @@
     "web3": "^1.5.0"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "PORT=80 craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
