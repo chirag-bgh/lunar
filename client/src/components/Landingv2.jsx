@@ -24,7 +24,7 @@ import { useEffect } from 'react'
 // import React from "react";
 // import {gsap} from "gsap"
 
-const Landingv2 = () => {
+const Landingv2 = ({ alertUser = false }) => {
   //     // store a reference to the box div
   //   const boxRef = useRef();
   //   const card1 = useRef();
@@ -102,7 +102,7 @@ const Landingv2 = () => {
         stagger: 0.1,
       }
     )
-  }, [])
+  }, [alertUser])
 
   return (
     <div>
@@ -119,6 +119,15 @@ const Landingv2 = () => {
               className='block md:hidden w-16 absolute ml-6 pt-2'
               alt='Logo2'
             />
+          </div>
+          <div
+            className={`absolute top-5 ${
+              alertUser ? 'flex' : 'hidden'
+            } justify-center items-center w-full`}
+          >
+            <div className=' py-3 text-red-300 rounded-lg font-display text-xl font-semibold'>
+              Please install MetaMask!
+            </div>
           </div>
           <div className='flex justify-center items-center'>
             <div className='text-white text-lg cursor-pointer z-10 mr-7'>
@@ -137,7 +146,7 @@ const Landingv2 = () => {
           </div>
         </div>
         <div className='flex flex-col w-screen h-1/2 justify-center items-center font-display p-4 z-10'>
-          <h1 className='text-bold text-3xl md:text-3xl md:mt-12 mt-48 mb-2 text-white align-middle text-center mb-7'>
+          <h1 className='text-bold text-3xl md:text-3xl md:mt-12 mt-48 text-white align-middle text-center mb-7'>
             Accepting payments with crypto, now easier than ever
           </h1>
           <a

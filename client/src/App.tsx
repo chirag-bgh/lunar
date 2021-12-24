@@ -35,12 +35,7 @@ function App() {
       }
     } else {
       console.log('Please install MetaMask!')
-      return (
-        // TODO: Update design for this
-        <div className='flex w-screen h-screen bg-black justify-center items-center text-4xl'>
-          <h1>Please install MetaMask!</h1>
-        </div>
-      )
+      return <Landingv2 alertUser={true} />
     }
   } else {
     //Redirect to landing page if not authenticated
