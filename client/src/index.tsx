@@ -7,17 +7,17 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import './index.css'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <MoralisProvider
-      // Polygon Mumbai
-      appId={process.env.REACT_APP_APP_ID}
-      serverUrl={process.env.REACT_APP_SERVER_URL}
-    >
-      <Router>
-        <App />
-      </Router>
-    </MoralisProvider>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <MoralisProvider
+    // Polygon Mumbai
+    appId={process.env.REACT_APP_APP_ID}
+    serverUrl={process.env.REACT_APP_SERVER_URL}
+  >
+    <Router>
+      <App />
+    </Router>
+  </MoralisProvider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 )
 

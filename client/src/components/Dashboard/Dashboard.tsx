@@ -6,14 +6,15 @@ import Products from './Tabs/Products'
 import Subscriptions from './Tabs/Subscriptions'
 import Payouts from './Tabs/Payouts'
 import Settings from './Tabs/Settings'
-import { UserChecker } from '../Auth/AuthManager'
+import CryptoJS from 'crypto-js'
 
 // Icons
 import { IoMdMoon } from 'react-icons/io'
 
 // Hooks
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import Demographics from './Tabs/Demographics'
+import { useChain, useMoralis, useMoralisQuery } from 'react-moralis'
 
 const Dashboard = ({
   openModal,
@@ -22,9 +23,39 @@ const Dashboard = ({
   openModal: () => void
   openWalletModal: () => void
 }) => {
+  const { user, setUserData, web3 } = useMoralis()
+  const { switchNetwork, chainId } = useChain()
+
   const [selectedTab, setSelectedTab] = useState('Overview')
   const [balance, setBalance] = useState('Loading..')
   const [fetched, setFetched] = useState(false)
+
+  useMoralisQuery('PolygonTransactions', (query) => query, [], {
+    live: true,
+    onLiveCreate: (entity, all) => {
+      setFetched(false)
+      return [...all, entity]
+    },
+  })
+
+  useEffect(() => {
+    if (chainId !== '0x13881') {
+      switchNetwork('0x13881')
+    }
+
+    if (user.get('encryptedKey') === undefined) {
+      let x = web3.eth.accounts.create()
+
+      let encryptedKey = CryptoJS.AES.encrypt(
+        x.privateKey,
+        process.env.REACT_APP_PASSWORD
+      ).toString()
+      setUserData({
+        managed_account_pub: x.address,
+        encryptedKey: encryptedKey,
+      })
+    }
+  }, [chainId, user, setUserData, web3, switchNetwork])
 
   function GetTab({
     selectedTab,
@@ -57,7 +88,6 @@ const Dashboard = ({
 
   return (
     <div className='w-screen h-screen bg-background flex justify-center items-center'>
-      <UserChecker setBalance={setBalance} setFetched={setFetched} />
       <Sidebar
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}

@@ -19,7 +19,7 @@ export const GetRevenue = () => {
 
   const userAddress = user.get('managed_account_pub')
 
-  const { data } = useMoralisQuery('Transactions', (query) =>
+  const { data, error, isLoading } = useMoralisQuery('Transactions', (query) =>
     query.equalTo('to_address', userAddress)
   )
 
@@ -31,6 +31,14 @@ export const GetRevenue = () => {
       setRevenue(0)
     }
   }, [data])
+
+  if (error) {
+    return <span>🤯</span>
+  }
+
+  if (isLoading) {
+    return <span>🙄</span>
+  }
 
   const getRev = (data) => {
     let json = JSON.stringify(data, null, 2)
@@ -54,6 +62,8 @@ export const GetTransactions = () => {
 
   const userAddress = user.get('managed_account_pub')
 
+  // console.log('querying transactions')
+
   const { data } = useMoralisQuery('Transactions', (query) =>
     query.equalTo('to_address', userAddress)
   )
@@ -61,6 +71,8 @@ export const GetTransactions = () => {
   const [transactions, setTransactions] = useState<TransactionClass[]>([])
 
   useEffect(() => {
+    // console.log('fetching transactions')
+
     getTrans(data)
     return () => {
       setTransactions([])

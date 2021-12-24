@@ -4,8 +4,6 @@ import { useMoralis } from 'react-moralis'
 // Components
 import Dashboard from './components/Dashboard/Dashboard'
 // import Landing from './components/Landing'
-import Login from './components/Auth/Login'
-import Signup from './components/Auth/Signup'
 import ProductModal from './components/ProductModal'
 import WalletModal from './components/WalletModal'
 import Landingv2 from './components/Landingv2'
@@ -27,6 +25,8 @@ function App() {
 
   const [alertUser, setAlertUser] = useState(false)
 
+  console.log('rendering dashboard')
+
   useEffect(() => {
     // Check if Metamask is installed
     if (window.ethereum && window.ethereum.isMetaMask) {
@@ -44,6 +44,10 @@ function App() {
       enableWeb3()
     }
   }, [enableWeb3, isWeb3Enabled, isAuthenticated])
+
+  useEffect(() => {
+    console.log('alertUser', alertUser)
+  }, [alertUser])
 
   function openModal() {
     setIsOpen(true)
@@ -69,8 +73,6 @@ function App() {
             )
           }
         ></Route>
-        <Route path='/login' element={<Login />}></Route>
-        <Route path='/signup' element={<Signup />}></Route>\{' '}
         <Route path='customer/:id' element={<CustomerPage />} />
         <Route
           path='/'
