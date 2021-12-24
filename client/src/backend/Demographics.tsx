@@ -1,194 +1,199 @@
-import { useMoralis, useMoralisQuery } from "react-moralis";
-import DemographicsClass from "../classes/Demographics";
+import { useMoralis, useMoralisQuery } from 'react-moralis'
+import DemographicsClass from '../classes/Demographics'
 
 //Queries Moralis DB for countries and returns a table of countries for the demographics tab
 export const GetCountries = () => {
-  const { user } = useMoralis();
+  const { user } = useMoralis()
 
-  const { data, error, isLoading } = useMoralisQuery("Demographics", (query) =>
-    query.equalTo("user", user.id)
-  );
+  const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
+    query.equalTo('user', user.id)
+  )
 
   if (error) {
-    return <span>🤯</span>;
+    return <span>🤯</span>
   }
 
   if (isLoading) {
-    return <span>🙄</span>;
+    return <span>🙄</span>
   }
 
-  let json = JSON.stringify(data, null, 2);
+  let json = JSON.stringify(data, null, 2)
 
-  let demographics: DemographicsClass[] = JSON.parse(json);
+  let demographics: DemographicsClass[] = JSON.parse(json)
 
-  let countries = {};
+  let countries = {}
 
   demographics.forEach((demographic) => {
     //console.log('demographic country: ', countries[demographic.country])
 
     if (countries[demographic.country] !== undefined) {
-      countries[demographic.country] += 1;
+      countries[demographic.country] += 1
     } else {
-      countries[demographic.country] = 1;
+      countries[demographic.country] = 1
     }
-  });
+  })
 
   //console.log("countries:", countries);
 
-  let countryNames = Object.keys(countries);
+  let countryNames = Object.keys(countries)
 
-  countryNames = countryNames.splice(0, 4);
+  countryNames = countryNames.splice(0, 4)
 
   return (
-    <table className="text-white w-3/4 font-display">
-      <tr>
-        <th className="text-left font-light px-0">COUNTRY</th>
-        <th className="text-right font-light px-0">USERS</th>
-      </tr>
-      {countryNames.map((country) => {
-        let users = countries[country];
-        return (
-          <tr className="border-t border-solid border-gray-500" key={country}>
-            <td className="text-left px-0">{country}</td>
-            <td className="text-right px-0">{users}</td>
-          </tr>
-        );
-      })}
+    <table className='text-white w-3/4 font-display'>
+      <tbody>
+        <tr>
+          <th className='text-left font-light px-0'>COUNTRY</th>
+          <th className='text-right font-light px-0'>USERS</th>
+        </tr>
+        {countryNames.map((country) => {
+          let users = countries[country]
+          return (
+            <tr className='border-t border-solid border-gray-500' key={country}>
+              <td className='text-left px-0'>{country}</td>
+              <td className='text-right px-0'>{users}</td>
+            </tr>
+          )
+        })}
+      </tbody>
     </table>
-  );
-};
+  )
+}
 
 //Queries Moralis DB for cities and returns a table of cities for the demographics tab
 export const GetCities = () => {
-  const { user } = useMoralis();
+  const { user } = useMoralis()
 
-  const { data, error, isLoading } = useMoralisQuery("Demographics", (query) =>
-    query.equalTo("user", user.id)
-  );
+  const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
+    query.equalTo('user', user.id)
+  )
 
   if (error) {
-    return <span>🤯</span>;
+    return <span>🤯</span>
   }
 
   if (isLoading) {
-    return <span>🙄</span>;
+    return <span>🙄</span>
   }
 
-  let json = JSON.stringify(data, null, 2);
+  let json = JSON.stringify(data, null, 2)
 
-  let demographics: DemographicsClass[] = JSON.parse(json);
+  let demographics: DemographicsClass[] = JSON.parse(json)
 
-  let cities = {};
+  let cities = {}
 
   demographics.forEach((demographic) => {
     if (cities[demographic.city] !== undefined) {
-      cities[demographic.city] += 1;
+      cities[demographic.city] += 1
     } else {
-      cities[demographic.city] = 1;
+      cities[demographic.city] = 1
     }
-  });
+  })
 
-  let cityNames = Object.keys(cities);
+  let cityNames = Object.keys(cities)
 
-  cityNames = cityNames.splice(0, 4);
+  cityNames = cityNames.splice(0, 4)
 
   // console.log('cityNames:', cityNames)
 
   return (
-    <table className="text-white w-3/4 font-display">
-      <tr>
-        <th className="text-left font-light px-0">CITY</th>
-        <th className="text-right font-light px-0">USERS</th>
-      </tr>
-      {cityNames.map((city) => {
-        let users = cities[city];
-        return (
-          <tr className="border-t border-solid border-gray-500" key={city}>
-            <td className="text-left px-0">{city}</td>
-            <td className="text-right px-0">{users}</td>
-          </tr>
-        );
-      })}
+    <table className='text-white w-3/4 font-display'>
+      <tbody>
+        <tr>
+          <th className='text-left font-light px-0'>CITY</th>
+          <th className='text-right font-light px-0'>USERS</th>
+        </tr>
+        {cityNames.map((city) => {
+          let users = cities[city]
+          return (
+            <tr className='border-t border-solid border-gray-500' key={city}>
+              <td className='text-left px-0'>{city}</td>
+              <td className='text-right px-0'>{users}</td>
+            </tr>
+          )
+        })}
+      </tbody>
     </table>
-  );
-};
-
+  )
+}
 
 //Queries Moralis DB for users and returns a table of users (email addresses) for the demographics tab
 export const GetUsers = () => {
-  const { user } = useMoralis();
+  const { user } = useMoralis()
 
-  const { data, error, isLoading } = useMoralisQuery("Demographics", (query) =>
-    query.equalTo("user", user.id)
-  );
+  const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
+    query.equalTo('user', user.id)
+  )
 
   if (error) {
-    return <span>🤯</span>;
+    return <span>🤯</span>
   }
 
   if (isLoading) {
-    return <span>🙄</span>;
+    return <span>🙄</span>
   }
 
-  let json = JSON.stringify(data, null, 2);
+  let json = JSON.stringify(data, null, 2)
 
-  let demographics: DemographicsClass[] = JSON.parse(json);
+  let demographics: DemographicsClass[] = JSON.parse(json)
 
-  return <h1 className="text-4xl font-semibold">{demographics.length}</h1>;
-};
+  return <h1 className='text-4xl font-semibold'>{demographics.length}</h1>
+}
 
-// Returns the leaderboard of the top ten users 
+// Returns the leaderboard of the top ten users
 export const GetUserLeaderboard = () => {
-  const { user } = useMoralis();
+  const { user } = useMoralis()
 
-  const { data, error, isLoading } = useMoralisQuery("Demographics", (query) =>
-    query.equalTo("user", user.id)
-  );
+  const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
+    query.equalTo('user', user.id)
+  )
 
   if (error) {
-    return <span>🤯</span>;
+    return <span>🤯</span>
   }
 
   if (isLoading) {
-    return <span>🙄</span>;
+    return <span>🙄</span>
   }
 
-  let json = JSON.stringify(data, null, 2);
+  let json = JSON.stringify(data, null, 2)
 
-  let demographics: DemographicsClass[] = JSON.parse(json);
+  let demographics: DemographicsClass[] = JSON.parse(json)
 
-  let totalSpentDict = {};
+  let totalSpentDict = {}
 
   demographics.forEach((demographic) => {
-    totalSpentDict[demographic.totalSpent] = demographic.email;
-  });
+    totalSpentDict[demographic.totalSpent] = demographic.email
+  })
 
-  let totalSpentArray: any[] = Object.keys(totalSpentDict);
+  let totalSpentArray: any[] = Object.keys(totalSpentDict)
 
   totalSpentArray.sort((a, b) => {
-    return b - a;
-  });
+    return b - a
+  })
 
-  totalSpentArray = totalSpentArray.splice(0, 10);
+  totalSpentArray = totalSpentArray.splice(0, 10)
 
   return (
-    <table className="text-white w-3/4 font-display">
-      <tr>
-        <th className="text-left font-light px-0">USER</th>
-        <th className="text-right font-light px-0">TOTAL SPENT</th>
-      </tr>
-      {totalSpentArray.map((totalSpent) => {
-        let email = totalSpentDict[totalSpent];
-        return (
-          <tr
-            className="border-t border-solid border-gray-500"
-            key={totalSpent}
-          >
-            <td className="text-left px-0">{email}</td>
-            <td className="text-right px-0">{totalSpent}</td>
-          </tr>
-        );
-      })}
+    <table className='text-white w-3/4 font-display'>
+      <tbody>
+        <tr>
+          <th className='text-left font-light px-0'>USER</th>
+          <th className='text-right font-light px-0'>TOTAL SPENT</th>
+        </tr>
+        {totalSpentArray.map((totalSpent) => {
+          let email = totalSpentDict[totalSpent]
+          return (
+            <tr
+              className='border-t border-solid border-gray-500'
+              key={totalSpent}
+            >
+              <td className='text-left px-0'>{email}</td>
+              <td className='text-right px-0'>{totalSpent}</td>
+            </tr>
+          )
+        })}
+      </tbody>
     </table>
-  );
-};
+  )
+}

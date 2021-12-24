@@ -155,20 +155,22 @@ export const FetchTransaction = ({ query }: { query: string }) => {
 
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
-      <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
-      {sortedRows.map((transaction) => {
-        let newDate = new Date(transaction.createdAt)
-        return (
-          <tr key={transaction.objectId}>
-            <td>{transaction.product}</td>
-            <td>{transaction.objectId}</td>
-            <td>{transaction.amount} MATIC</td>
-            <td>{transaction.Type}</td>
-            <td>{transaction.email_address}</td>
-            <td>{newDate.toString()}</td>
-          </tr>
-        )
-      })}
+      <tbody>
+        <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
+        {sortedRows.map((transaction) => {
+          let newDate = new Date(transaction.createdAt)
+          return (
+            <tr key={transaction.objectId}>
+              <td>{transaction.product}</td>
+              <td>{transaction.objectId}</td>
+              <td>{transaction.amount} MATIC</td>
+              <td>{transaction.Type}</td>
+              <td>{transaction.email_address}</td>
+              <td>{newDate.toString()}</td>
+            </tr>
+          )
+        })}
+      </tbody>
     </table>
   )
 }

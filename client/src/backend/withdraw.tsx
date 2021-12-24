@@ -228,20 +228,23 @@ export const FetchWithdrawals = () => {
 
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
-      <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
-      {sortedRows.map((withdrawal) => {
-        let newDate = new Date(withdrawal.createdAt)
-        return (
-          <tr key={withdrawal.objectId}>
-            <td>{withdrawal.objectId}</td>
-            <td>{withdrawal.ethAddress}</td>
-            <td>
-              {web3.utils.fromWei(withdrawal.balance.toString(), 'ether')} MATIC
-            </td>
-            <td>{newDate.toString()}</td>
-          </tr>
-        )
-      })}
+      <tbody>
+        <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
+        {sortedRows.map((withdrawal) => {
+          let newDate = new Date(withdrawal.createdAt)
+          return (
+            <tr key={withdrawal.objectId}>
+              <td>{withdrawal.objectId}</td>
+              <td>{withdrawal.ethAddress}</td>
+              <td>
+                {web3.utils.fromWei(withdrawal.balance.toString(), 'ether')}{' '}
+                MATIC
+              </td>
+              <td>{newDate.toString()}</td>
+            </tr>
+          )
+        })}
+      </tbody>
     </table>
   )
 }

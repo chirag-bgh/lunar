@@ -37,6 +37,7 @@ const Payouts = ({
           {accounts.map((accountAdr) => {
             return (
               <Card
+                key={accountAdr}
                 address={accountAdr}
                 ethAddress={address}
                 selected={selected === accountAdr ? true : false}

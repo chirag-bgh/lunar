@@ -232,36 +232,38 @@ const FetchProduct = ({ query }: { query: string }) => {
 
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
-      <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
-      {sortedRows.map((product) => {
-        let newDate = new Date(product.createdAt)
-        return (
-          // <a href={`https://app.lunarpay.in/product/${product.objectId}`}
-          // className="w-full" //onclick="location.href='pageurl.html';" on the tr element
-          // target='_blank'
-          // rel='noreferrer'>
-          <tr
-            key={product.objectId}
-            className='cursor-pointer hover:bg-primary hover:text-dark transition-colors'
-            onClick={() =>
-              window.open(
-                `http://app.lunarpay.in/product/${product.objectId}`,
-                '_blank'
-              )
-            }
-          >
-            <td>{product.name}</td>
-            <td>{product.objectId}</td>
-            <td>{product.price} MATIC</td>
-            <td>{product.recurrence}</td>
-            <td>{newDate.toString()}</td>
-            <td>
-              <DeleteProduct objectId={product.objectId} />
-            </td>
-          </tr>
-          // </a>
-        )
-      })}
+      <tbody>
+        <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
+        {sortedRows.map((product) => {
+          let newDate = new Date(product.createdAt)
+          return (
+            // <a href={`https://app.lunarpay.in/product/${product.objectId}`}
+            // className="w-full" //onclick="location.href='pageurl.html';" on the tr element
+            // target='_blank'
+            // rel='noreferrer'>
+            <tr
+              key={product.objectId}
+              className='cursor-pointer hover:bg-primary hover:text-dark transition-colors'
+              onClick={() =>
+                window.open(
+                  `http://app.lunarpay.in/product/${product.objectId}`,
+                  '_blank'
+                )
+              }
+            >
+              <td>{product.name}</td>
+              <td>{product.objectId}</td>
+              <td>{product.price} MATIC</td>
+              <td>{product.recurrence}</td>
+              <td>{newDate.toString()}</td>
+              <td>
+                <DeleteProduct objectId={product.objectId} />
+              </td>
+            </tr>
+            // </a>
+          )
+        })}
+      </tbody>
     </table>
   )
 }

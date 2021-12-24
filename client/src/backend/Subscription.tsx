@@ -165,20 +165,22 @@ const FetchSubscription = ({ query }: { query: string }) => {
 
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
-      <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
-      {sortedRows.map((subscription) => {
-        let newDate = new Date(subscription.createdAt)
-        return (
-          <tr key={subscription.objectId}>
-            <td>{subscription.name}</td>
-            <td>{subscription.objectId}</td>
-            <td>{subscription.price} MATIC</td>
-            <td>{subscription.recurrence}</td>
-            <td>{subscription.email_address}</td>
-            <td>{newDate.toString()}</td>
-          </tr>
-        )
-      })}
+      <tbody>
+        <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
+        {sortedRows.map((subscription) => {
+          let newDate = new Date(subscription.createdAt)
+          return (
+            <tr key={subscription.objectId}>
+              <td>{subscription.name}</td>
+              <td>{subscription.objectId}</td>
+              <td>{subscription.price} MATIC</td>
+              <td>{subscription.recurrence}</td>
+              <td>{subscription.email_address}</td>
+              <td>{newDate.toString()}</td>
+            </tr>
+          )
+        })}
+      </tbody>
     </table>
   )
 }
