@@ -12,7 +12,7 @@ import { UserChecker } from '../Auth/AuthManager'
 import { IoMdMoon } from 'react-icons/io'
 
 // Hooks
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import Demographics from './Tabs/Demographics'
 
 const Dashboard = ({
@@ -74,7 +74,7 @@ const Dashboard = ({
   )
 }
 
-export default Dashboard
+export default memo(Dashboard)
 
 export const Logo = ({ className }: { className: string }) => {
   return (

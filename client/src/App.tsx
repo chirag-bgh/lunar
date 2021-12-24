@@ -12,7 +12,7 @@ import Landingv2 from './components/Landingv2'
 
 // React
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, memo, useEffect } from 'react'
 import CustomerPage from './components/CustomerPage'
 
 declare const window: any
@@ -25,24 +25,25 @@ function App() {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [walletModalIsOpen, setWalletModalIsOpen] = useState(false)
 
-  if (!isWeb3Enabled) {
+  const [alertUser, setAlertUser] = useState(false)
+
+  useEffect(() => {
     // Check if Metamask is installed
     if (window.ethereum && window.ethereum.isMetaMask) {
-      enableWeb3()
-      console.log('Enabling web3\nAuthenticated is now: ', isAuthenticated)
-      if (!isAuthenticated) {
-        return <Landingv2 />
-      }
+      // Metamask is installed
+      console.log('Metamask is installed')
     } else {
+      // Metamask is not installed
       console.log('Please install MetaMask!')
-      return <Landingv2 alertUser={true} />
+      setAlertUser(true)
     }
-  } else {
-    //Redirect to landing page if not authenticated
-    if (!isAuthenticated) {
-      return <Landingv2 />
+
+    // Check if web3 is enabled
+    if (!isWeb3Enabled) {
+      // Enable web3
+      enableWeb3()
     }
-  }
+  }, [enableWeb3, isWeb3Enabled, isAuthenticated])
 
   function openModal() {
     setIsOpen(true)
@@ -58,10 +59,14 @@ function App() {
         <Route
           path='/dashboard'
           element={
-            <Dashboard
-              openModal={openModal}
-              openWalletModal={openWalletModal}
-            />
+            isAuthenticated ? (
+              <Dashboard
+                openModal={openModal}
+                openWalletModal={openWalletModal}
+              />
+            ) : (
+              <Navigate to='/' state={{ from: location }} />
+            )
           }
         ></Route>
         <Route path='/login' element={<Login />}></Route>
@@ -73,7 +78,7 @@ function App() {
             isAuthenticated ? (
               <Navigate to='/dashboard' state={{ from: location }} />
             ) : (
-              <Landingv2 />
+              <Landingv2 alertUser={alertUser} />
             )
           }
         ></Route>
@@ -87,4 +92,4 @@ function App() {
   )
 }
 
-export default App
+export default memo(App)
