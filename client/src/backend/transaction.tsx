@@ -1,7 +1,7 @@
 import { useMoralis, useMoralisQuery } from 'react-moralis'
 
 // Icons
-import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/all'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import TransactionClass from '../classes/TransactionClass'
 
 // Sorting Library

@@ -1,5 +1,6 @@
 // Icons
-import { IoMdMoon, BsArrowLeftShort } from 'react-icons/all'
+import { IoMdMoon } from 'react-icons/io'
+import { BsArrowLeftShort } from 'react-icons/bs'
 
 // Components
 import { Link } from 'react-router-dom'

@@ -1,5 +1,6 @@
 // Icons
-import { BsArrowLeftShort, IoMdMoon } from 'react-icons/all'
+import { BsArrowLeftShort } from 'react-icons/bs'
+import { IoMdMoon } from 'react-icons/io'
 import { Link } from 'react-router-dom'
 
 const Signup = () => {

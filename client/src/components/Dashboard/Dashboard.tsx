@@ -9,7 +9,7 @@ import Settings from './Tabs/Settings'
 import { UserChecker } from '../Auth/AuthManager'
 
 // Icons
-import { IoMdMoon } from 'react-icons/all'
+import { IoMdMoon } from 'react-icons/io'
 
 // Hooks
 import { useState } from 'react'

@@ -5,15 +5,10 @@ import {
 } from 'react-moralis'
 
 // Icons
-import {
-  BsFileText,
-  BsCash,
-  BsArchive,
-  IoReload,
-  BiDollar,
-  BsPeopleFill,
-  RiSettingsFill,
-} from 'react-icons/all'
+import { BsFileText, BsCash, BsArchive, BsPeopleFill } from 'react-icons/bs'
+import { BiDollar } from 'react-icons/bi'
+import { RiSettingsFill } from 'react-icons/ri'
+import { IoReload } from 'react-icons/io5'
 import CountUp from 'react-countup'
 import React, { useEffect, useRef } from 'react'
 
@@ -32,7 +27,7 @@ const Sidebar = ({
   fetched: boolean
   setFetched: (arg: boolean) => void
 }) => {
-  const { logout,user } = useMoralis()
+  const { logout, user } = useMoralis()
 
   return (
     <div className='w-80 h-screen shadow-sidebar flex flex-col justify-between items-center gap-6'>
@@ -54,7 +49,13 @@ const Sidebar = ({
         }
       >
         <h1 className='font-semibold font-display text-md text-black'>
-           <a href={`http://app.lunarpay.in/donation/${user.id}`} target="_blank">Donate</a> 
+          <a
+            href={`http://app.lunarpay.in/donation/${user.id}`}
+            target='_blank'
+            rel='noreferrer'
+          >
+            Donate
+          </a>
         </h1>
       </div>
       <div

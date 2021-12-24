@@ -2,7 +2,7 @@
 import Billing from './Billing'
 
 // Icons
-import { BsCalendarEvent } from 'react-icons/all'
+import { BsCalendarEvent } from 'react-icons/bs'
 
 // Hooks
 import { useState } from 'react'

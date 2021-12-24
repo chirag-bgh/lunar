@@ -8,7 +8,7 @@ import SubscriptionClass from '../classes/SubscriptionClass'
 import { useCallback, useMemo, useState } from 'react'
 
 // Icons
-import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/all'
+import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 
 // Sorting Library
 import linq from 'linq'
