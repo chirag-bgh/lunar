@@ -39,7 +39,7 @@ const UserChecker = ({
   setFetched: (arg: boolean) => void
 }) => {
   const { user, setUserData, web3, isWeb3Enabled, enableWeb3 } = useMoralis()
-  const { switchNetwork, chainId, chain, account } = useChain()
+  const { switchNetwork, chainId } = useChain()
 
   if (!isWeb3Enabled) {
     enableWeb3()
@@ -76,11 +76,11 @@ const UserChecker = ({
 
     //console.log("encryptedKey: ", encryptedKey);
 
-    var bytes = CryptoJS.AES.decrypt(
-      encryptedKey,
-      process.env.REACT_APP_PASSWORD
-    )
-    var decryptedData = bytes.toString(CryptoJS.enc.Utf8)
+    // var bytes = CryptoJS.AES.decrypt(
+    //   encryptedKey,
+    //   process.env.REACT_APP_PASSWORD
+    // )
+    // var decryptedData = bytes.toString(CryptoJS.enc.Utf8)
     //console.log("decryptedData: ", decryptedData);
 
     setUserData({
