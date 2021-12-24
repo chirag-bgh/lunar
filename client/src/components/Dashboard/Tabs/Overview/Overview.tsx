@@ -5,12 +5,9 @@ import Billing from './Billing'
 import { BsCalendarEvent } from 'react-icons/bs'
 
 // Hooks
-import { useState } from 'react'
 import { DisplayChart } from '../../../../backend/Analytics'
 
 const Overview = () => {
-  const [selectedTab, setSelectedTab] = useState('Products')
-
   return (
     <div className='w-full h-full'>
       <div className='w-full flex justify-between items-center'>

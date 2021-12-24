@@ -11,6 +11,7 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+import { useEffect, useState } from 'react'
 
 // Fetches user revenue from Moralis DB
 export const GetRevenue = () => {
@@ -22,18 +23,25 @@ export const GetRevenue = () => {
     query.equalTo('to_address', userAddress)
   )
 
-  let json = JSON.stringify(data, null, 2)
+  const [revenue, setRevenue] = useState(0)
 
-  const transactions: TransactionClass[] = JSON.parse(json)
+  useEffect(() => {
+    getRev(data)
+    return () => {
+      setRevenue(0)
+    }
+  }, [data])
 
-  //   console.log('transactions', json)
+  const getRev = (data) => {
+    let json = JSON.stringify(data, null, 2)
 
-  let prices: number[] = transactions.map((transaction) => transaction.amount)
+    const transactions: TransactionClass[] = JSON.parse(json)
 
-  let revenue = 0
+    let prices: number[] = transactions.map((transaction) => transaction.amount)
 
-  if (prices.length > 0) {
-    revenue = prices.reduce((prev, next) => prev + next, 0)
+    if (prices.length > 0) {
+      setRevenue(prices.reduce((prev, next) => prev + next, 0))
+    }
   }
 
   // console.log('revenue', revenue)
@@ -50,14 +58,25 @@ export const GetTransactions = () => {
     query.equalTo('to_address', userAddress)
   )
 
-  let json = JSON.stringify(data, null, 2)
+  const [transactions, setTransactions] = useState<TransactionClass[]>([])
 
-  const transactions: TransactionClass[] = JSON.parse(json)
+  useEffect(() => {
+    getTrans(data)
+    return () => {
+      setTransactions([])
+    }
+  }, [data])
+
+  const getTrans = (data) => {
+    let json = JSON.stringify(data, null, 2)
+
+    setTransactions(JSON.parse(json))
+  }
 
   return <div>{transactions.length}</div>
 }
 
-//fetches revenue data and returns chart. 
+// Fetches revenue data and returns chart.
 export const DisplayChart = () => {
   const { user } = useMoralis()
 
@@ -67,46 +86,59 @@ export const DisplayChart = () => {
     query.equalTo('to_address', userAddress)
   )
 
-  let json = JSON.stringify(data, null, 2)
+  const [chartData, setChartData] = useState<any[]>([])
 
-  let dateObj = new Date()
-
-  let chartData = []
-
-  const transactions: TransactionClass[] = JSON.parse(json)
-
-  let dates: Date[] = transactions.map((transaction) => transaction.createdAt)
-
-  for (let i = 0; i < 7; i++) {
-    dateObj.setDate(dateObj.getDate() - 1)
-
-    let date =
-      dateObj.getFullYear() +
-      '-' +
-      (dateObj.getMonth() + 1) +
-      '-' +
-      (dateObj.getDate() + 1)
-
-    let revenue = 0
-
-    let transactionCount = 0
-
-    for (let index = 0; index < dates.length; index++) {
-      const transactionDate = dates[index]
-
-      if (transactionDate.toString().startsWith(date)) {
-        if (transactions[index] !== undefined) {
-          revenue += transactions[index].amount
-        }
-        transactionCount += 1
-      }
+  useEffect(() => {
+    getChartData(data)
+    return () => {
+      setChartData([])
     }
+  }, [data])
 
-    chartData.unshift({
-      name: date,
-      revenue: revenue,
-      transactions: transactionCount,
-    })
+  const getChartData = (data) => {
+    let tempData = []
+
+    let json = JSON.stringify(data, null, 2)
+
+    let dateObj = new Date()
+
+    const transactions: TransactionClass[] = JSON.parse(json)
+
+    let dates: Date[] = transactions.map((transaction) => transaction.createdAt)
+
+    for (let i = 0; i < 7; i++) {
+      dateObj.setDate(dateObj.getDate() - 1)
+
+      let date =
+        dateObj.getFullYear() +
+        '-' +
+        (dateObj.getMonth() + 1) +
+        '-' +
+        (dateObj.getDate() + 1)
+
+      let revenue = 0
+
+      let transactionCount = 0
+
+      for (let index = 0; index < dates.length; index++) {
+        const transactionDate = dates[index]
+
+        if (transactionDate.toString().startsWith(date)) {
+          if (transactions[index] !== undefined) {
+            revenue += transactions[index].amount
+          }
+          transactionCount += 1
+        }
+      }
+
+      tempData.unshift({
+        name: date,
+        revenue: revenue,
+        transactions: transactionCount,
+      })
+
+      setChartData(tempData)
+    }
   }
 
   return (
