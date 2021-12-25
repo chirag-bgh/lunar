@@ -2,6 +2,9 @@ module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
+    './backend/**/*.{js,ts,jsx,tsx}',
+    './classes/**/*.{js,ts,jsx,tsx}',
+    './cloud/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     fontFamily: {
