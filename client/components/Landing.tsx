@@ -2,18 +2,17 @@ import React from 'react'
 import { gsap } from 'gsap'
 import { IoMdMoon } from 'react-icons/io'
 import { AuthenticateButton } from './Auth/AuthManager'
-import Image from 'next/image'
-
-import styles from './Landing.module.css'
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 import { useEffect } from 'react'
 
+import { useRouter } from 'next/router'
+
 // import React from "react";
 // import {gsap} from "gsap"
 
-const Landing = ({ alertUser = false }) => {
+const Landing = ({ alertUser = false, redirect = false }) => {
   //     // store a reference to the box div
   //   const boxRef = useRef();
   //   const card1 = useRef();
@@ -24,9 +23,15 @@ const Landing = ({ alertUser = false }) => {
   //     gsap.to(boxRef.current, { rotation: "+=360" });
   //   });
 
+  const router = useRouter()
+
   gsap.registerPlugin(ScrollTrigger)
 
   useEffect(() => {
+    if (redirect) {
+      router.push('/')
+    }
+
     //CARD ANIMATION
     gsap.fromTo(
       '.fade',
@@ -91,7 +96,7 @@ const Landing = ({ alertUser = false }) => {
         stagger: 0.1,
       }
     )
-  }, [alertUser])
+  }, [alertUser, redirect])
 
   return (
     <div>
@@ -333,7 +338,7 @@ const Card = ({ imageSrc, price, classname }: any) => {
         backdropFilter: 'blur(10px)',
       }}
       className={
-        'flex flex-col w-3/12 justify-center items-center p-6 rounded-lg' +
+        'card flex flex-col w-3/12 justify-center items-center p-6 rounded-lg' +
         classname
       }
     >

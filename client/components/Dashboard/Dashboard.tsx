@@ -23,7 +23,14 @@ const Dashboard = ({
   openModal: () => void
   openWalletModal: () => void
 }) => {
-  const { user, setUserData, web3 } = useMoralis()
+  const {
+    user,
+    setUserData,
+    web3,
+    isAuthenticated,
+    isWeb3Enabled,
+    enableWeb3,
+  } = useMoralis()
   const { switchNetwork, chainId } = useChain()
 
   const [selectedTab, setSelectedTab] = useState('Overview')
@@ -39,23 +46,25 @@ const Dashboard = ({
   })
 
   useEffect(() => {
+    console.log('web3 enabled is ', isWeb3Enabled)
     if (chainId !== '0x13881') {
       switchNetwork('0x13881')
     }
-
-    if (user.get('encryptedKey') === undefined) {
-      let x = web3.eth.accounts.create()
-
+    if (user?.get('encryptedKey') === undefined) {
+      let x = web3?.eth.accounts.create()
       let encryptedKey = CryptoJS.AES.encrypt(
-        x.privateKey,
-        process.env.REACT_APP_PASSWORD
+        x?.privateKey,
+        process.env.NEXT_PUBLIC_PASSWORD
       ).toString()
-      setUserData({
-        managed_account_pub: x.address,
-        encryptedKey: encryptedKey,
-      })
+      if (user && isAuthenticated) {
+        console.log('Saving user data')
+        setUserData({
+          managed_account_pub: x?.address,
+          encryptedKey: encryptedKey,
+        })
+      }
     }
-  }, [chainId, user, setUserData, web3, switchNetwork])
+  }, [chainId, user, setUserData, web3, switchNetwork, isWeb3Enabled])
 
   function GetTab({
     selectedTab,

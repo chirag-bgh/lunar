@@ -3,6 +3,7 @@ import { useState } from 'react'
 // Spinner
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import Loader from 'react-loader-spinner'
+import router from 'next/router'
 
 const AuthenticateButton = () => {
   const { authenticate } = useMoralis()
@@ -11,8 +12,9 @@ const AuthenticateButton = () => {
   return (
     <div>
       <button
-        onClick={() => {
-          authenticate()
+        onClick={async () => {
+          await authenticate()
+          router.push('/dashboard')
           setcalled(true)
         }}
         className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md'

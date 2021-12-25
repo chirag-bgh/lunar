@@ -29,6 +29,12 @@ const Sidebar = ({
 }) => {
   const { logout, user } = useMoralis()
 
+  useEffect(() => {
+    if (user == null) {
+      console.log('User is null')
+    }
+  }, [])
+
   return (
     <div className='w-80 h-screen shadow-sidebar flex flex-col justify-between items-center gap-6'>
       <UserAccount />
@@ -50,7 +56,7 @@ const Sidebar = ({
       >
         <h1 className='font-semibold font-display text-md text-black'>
           <a
-            href={`http://app.lunarpay.in/donation/${user.id}`}
+            href={`http://app.lunarpay.in/donation/${user?.id}`}
             target='_blank'
             rel='noreferrer'
           >
@@ -69,7 +75,6 @@ const Sidebar = ({
         <h1 className='font-semibold font-display text-md'>Sign Out</h1>
       </div>
     </div>
-    // </div>
   )
 }
 
@@ -165,7 +170,11 @@ const Tab = ({
 }
 
 const truncate = (phrase: string, n: number) => {
-  return phrase.length > n ? phrase.substr(0, n - 1) + '...' : phrase
+  return phrase !== undefined
+    ? phrase.length > n
+      ? phrase.substr(0, n - 1) + '...'
+      : phrase
+    : null
 }
 
 const UserAccount = () => {
@@ -175,7 +184,7 @@ const UserAccount = () => {
     <div className='h-16 pt-4 flex justify-start items-center gap-4'>
       <div className='h-full flex justify-center items-center'>
         <img
-          src={`https://avatars.dicebear.com/api/jdenticon/${user.attributes.ethAddress}.svg`}
+          src={`https://avatars.dicebear.com/api/jdenticon/${user?.attributes.ethAddress}.svg`}
           alt='Profile'
           className='w-10 h-10'
         />
@@ -183,7 +192,7 @@ const UserAccount = () => {
       <div className='flex justify-center items-start flex-col h-full max-w-3/4 truncate'>
         <h2 className='text-2xl font-bold'>Dashboard</h2>
         <p className=' text-gray-400 text-sm font-display'>
-          {truncate(user.attributes.ethAddress, 19)}
+          {truncate(user?.attributes.ethAddress, 19)}
         </p>
       </div>
     </div>
@@ -207,21 +216,29 @@ const Balance = ({
   const { fetch, data } = useMoralisWeb3ApiCall(
     Web3Api.account.getNativeBalance,
     {
-      address: user.get('managed_account_pub'),
+      address: user?.get('managed_account_pub'),
       chain: 'mumbai',
     }
   )
 
   useEffect(() => {
     if (data !== null) {
-      setBalance(web3.utils.fromWei(data.balance) + ' MATIC')
+      setBalance(web3?.utils.fromWei(data.balance) + ' MATIC')
       //console.log('balance: ', balance)
     }
     if (!fetched) {
       fetch()
       setFetched(true)
     }
-  }, [data, fetch, fetched, balance, web3.utils, setBalance, setFetched])
+  }, [
+    data,
+    fetch,
+    fetched,
+    balance,
+    web3?.utils,
+    setBalance,
+    setFetched,
+  ])
 
   return (
     <div className='w-5/6 h-24 rounded-lg bg-dark flex flex-col justify-center items-center'>
@@ -242,7 +259,7 @@ const Balance = ({
   )
 }
 
-const CountUpMemo = (props) => {
+const CountUpMemo = (props: any) => {
   const prevValueRef = useRef()
   useEffect(() => {
     prevValueRef.current = props.end

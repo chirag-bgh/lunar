@@ -18,13 +18,13 @@ const Payouts = ({
 }) => {
   const { user } = useMoralis()
 
-  let address = user.get('ethAddress')
+  let address = user?.get('ethAddress')
 
   const [selected, setSelected] = useState(address)
 
   const [cardFetched, setCardFetched] = useState(false)
 
-  const accounts: string[] = user.get('accounts')
+  const accounts: string[] = user?.get('accounts')
 
   return (
     <div className='w-full'>
@@ -123,13 +123,13 @@ const Card = ({
 
   useEffect(() => {
     if (data !== null) {
-      setBalance(web3.utils.fromWei(data.balance).toString().substring(0, 4))
+      setBalance(web3?.utils.fromWei(data.balance).toString().substring(0, 4))
     }
     if (!fetched) {
       fetch()
       setFetched(true)
     }
-  }, [data, fetch, setFetched, fetched, web3.utils])
+  }, [data, fetch, setFetched, fetched, web3?.utils])
 
   return (
     <div
@@ -155,7 +155,7 @@ const Card = ({
             className='text-primary transform rotate-45 text-3xl'
             onClick={() => {
               // Remove wallet
-              let accounts: string[] = user.get('accounts')
+              let accounts: string[] = user?.get('accounts')
               //console.log("accounts: ", accounts);
 
               const index = accounts.indexOf(address)
@@ -163,7 +163,7 @@ const Card = ({
                 accounts.splice(index, 1)
               }
 
-              user.save('accounts', accounts)
+              user?.save('accounts', accounts)
               //console.log("new accounts: ", accounts);
             }}
           />
