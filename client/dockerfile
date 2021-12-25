@@ -8,11 +8,10 @@ RUN yarn
 
 COPY . ./
 
-ENV PORT=80
 ENV REACT_APP_SERVER_URL=https://r47tjbluhryp.usemoralis.com:2053/server
 ENV REACT_APP_APP_ID=Vk9IAsLtoeT73S4sofxMWAS0e8M79CEfKTrDPdBX
 ENV REACT_APP_PASSWORD=g>p?ANnY+p8Z&Mg+
 
-EXPOSE 80
+EXPOSE 3000
 
 CMD ["yarn", "start"]
