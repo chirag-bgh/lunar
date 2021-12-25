@@ -56,26 +56,26 @@ export const Withdraw = ({
 
   return (
     <div className='flex flex-col justify-center items-center bg-primary w-48 h-14 mt-5 rounded-lg cursor-pointer hover:shadow-primary transition-all ease-in-out'>
-      {web3EnableError && <h1>{web3EnableError}</h1>}
-      {error && <h1>{error}</h1>}
+      {/* {web3EnableError && <h1>{web3EnableError}</h1>} */}
+      {/* {error && <h1>{error}</h1>} */}
       <button
-        className={`text-xl py-5 text-black text-center font-semibold ${
+        className={`text-xl py-3 text-black text-center font-semibold ${
           !loadingWithdrawal ? (isBroke ? 'hidden' : 'flex') : 'hidden'
-        } justify-center items-center w-full h-full font-display gap-3`}
+        } justify-center items-center font-display gap-3`}
         disabled={isWeb3EnableLoading}
         onClick={async () => {
-          let accountAddress = user.get('managed_account_pub')
-          let encryptedKey = user.get('encryptedKey')
+          let accountAddress = user?.get('managed_account_pub')
+          let encryptedKey = user?.get('encryptedKey')
           var bytes = CryptoJS.AES.decrypt(
             encryptedKey,
-            process.env.REACT_APP_PASSWORD
+            process.env.NEXT_PUBLIC_PASSWORD as string
           )
           var privateKeyOG = bytes.toString(CryptoJS.enc.Utf8)
           // let ethAddress = user.get('ethAddress')
 
-          let balance: any = await web3.eth.getBalance(accountAddress)
+          let balance: any = await web3?.eth.getBalance(accountAddress)
 
-          let gasPrice: any = await web3.eth.getGasPrice()
+          let gasPrice: any = await web3?.eth.getGasPrice()
           var txFee: any = gasPrice * 21000
 
           let valueToBeSent: any = balance - txFee
@@ -92,16 +92,16 @@ export const Withdraw = ({
 
             const txParams = {
               to: ethAddress,
-              gas: web3.utils.toHex(gasPrice * 21000),
-              gasPrice: web3.utils.toHex(gasPrice),
-              gasLimit: web3.utils.toHex('21000'),
-              value: web3.utils.toHex(valueToBeSent),
+              gas: web3?.utils.toHex(gasPrice * 21000),
+              gasPrice: web3?.utils.toHex(gasPrice),
+              gasLimit: web3?.utils.toHex('21000'),
+              value: web3?.utils.toHex(valueToBeSent),
             }
-            var account = web3.eth.accounts.wallet.add(privateKeyOG)
+            var account = web3?.eth.accounts.wallet.add(privateKeyOG)
 
             //console.log("Signing Transaction");
 
-            let signedTx = account.signTransaction(txParams)
+            let signedTx = account?.signTransaction(txParams)
 
             //console.log("Succesfully Signed Transaction");
 
@@ -109,12 +109,12 @@ export const Withdraw = ({
 
             //console.log("Withdawing Balance");
 
-            web3.eth
-              .sendSignedTransaction((await signedTx).rawTransaction)
+            web3?.eth
+              .sendSignedTransaction((await signedTx)?.rawTransaction as string)
               .then(() => {
                 setIsLoadingWithdrawal(false)
                 //console.log("Successfully Withdrew", balance, " WEI");
-                save({ ethAddress, balance, user: user.id })
+                save({ ethAddress, balance, user: user?.id })
                 setFetched(false)
                 setCardFetched(false)
               })
@@ -134,12 +134,12 @@ export const Withdraw = ({
           !loadingWithdrawal ? 'hidden' : 'flex'
         } justify-center items-center transition-all ease-in-out`}
       >
-        <h1 className=' text-black font-display text-semibold text-sm pr-2'>
+        <h1 className='py-3 text-black font-display text-semibold text-sm pr-2'>
           Withdrawing
         </h1>
         <Loader type='Puff' color='black' height={30} width={30} />
       </div>
-      <h1 className={!isBroke ? 'hidden' : 'text-black font-display'}>
+      <h1 className={!isBroke ? 'hidden' : 'py-3 text-black font-display'}>
         Nothing to Withdraw!
       </h1>
     </div>
@@ -187,7 +187,7 @@ export const FetchWithdrawals = () => {
   )
 
   const { data } = useMoralisQuery('Withdrawals', (query) =>
-    query.equalTo('user', user.id)
+    query.equalTo('user', user?.id)
   )
 
   let json = JSON.stringify(data, null, 2)
@@ -237,7 +237,7 @@ export const FetchWithdrawals = () => {
               <td>{withdrawal.objectId}</td>
               <td>{withdrawal.ethAddress}</td>
               <td>
-                {web3.utils.fromWei(withdrawal.balance.toString(), 'ether')}{' '}
+                {web3?.utils.fromWei(withdrawal.balance.toString(), 'ether')}{' '}
                 MATIC
               </td>
               <td>{newDate.toString()}</td>

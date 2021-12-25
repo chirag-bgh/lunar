@@ -6,7 +6,7 @@ export const GetCountries = () => {
   const { user } = useMoralis()
 
   const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
-    query.equalTo('user', user.id)
+    query.equalTo('user', user?.id)
   )
 
   if (error) {
@@ -21,9 +21,9 @@ export const GetCountries = () => {
 
   let demographics: DemographicsClass[] = JSON.parse(json)
 
-  let countries = {}
+  let countries: any = {}
 
-  demographics.forEach((demographic) => {
+  demographics.forEach((demographic: any) => {
     //console.log('demographic country: ', countries[demographic.country])
 
     if (countries[demographic.country] !== undefined) {
@@ -65,7 +65,7 @@ export const GetCities = () => {
   const { user } = useMoralis()
 
   const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
-    query.equalTo('user', user.id)
+    query.equalTo('user', user?.id)
   )
 
   if (error) {
@@ -80,9 +80,9 @@ export const GetCities = () => {
 
   let demographics: DemographicsClass[] = JSON.parse(json)
 
-  let cities = {}
+  let cities: any = {}
 
-  demographics.forEach((demographic) => {
+  demographics.forEach((demographic: any) => {
     if (cities[demographic.city] !== undefined) {
       cities[demographic.city] += 1
     } else {
@@ -122,7 +122,7 @@ export const GetUsers = () => {
   const { user } = useMoralis()
 
   const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
-    query.equalTo('user', user.id)
+    query.equalTo('user', user?.id)
   )
 
   if (error) {
@@ -145,7 +145,7 @@ export const GetUserLeaderboard = () => {
   const { user } = useMoralis()
 
   const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
-    query.equalTo('user', user.id)
+    query.equalTo('user', user?.id)
   )
 
   if (error) {
@@ -160,9 +160,9 @@ export const GetUserLeaderboard = () => {
 
   let demographics: DemographicsClass[] = JSON.parse(json)
 
-  let totalSpentDict = {}
+  let totalSpentDict: any = {}
 
-  demographics.forEach((demographic) => {
+  demographics.forEach((demographic: any) => {
     totalSpentDict[demographic.totalSpent] = demographic.email
   })
 
@@ -181,7 +181,7 @@ export const GetUserLeaderboard = () => {
           <th className='text-left font-light px-0'>USER</th>
           <th className='text-right font-light px-0'>TOTAL SPENT</th>
         </tr>
-        {totalSpentArray.map((totalSpent) => {
+        {totalSpentArray.map((totalSpent: any) => {
           let email = totalSpentDict[totalSpent]
           return (
             <tr

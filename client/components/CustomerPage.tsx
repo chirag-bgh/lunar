@@ -1,4 +1,5 @@
-import { useParams } from 'react-router-dom'
+// import { useParams } from 'react-router-dom'
+import { useRouter } from 'next/router'
 
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { useMoralisQuery } from 'react-moralis'
@@ -29,8 +30,8 @@ enum SortingType {
 }
 
 const CustomerPage = () => {
-  let params = useParams()
-  const customerId = params.id
+  const router = useRouter()
+  const { id: customerId } = router.query
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
     { propertyName: 'createdAt', sortType: SortingType.Descending },
@@ -120,7 +121,7 @@ const CustomerPage = () => {
         <table className='text-white bg-dark mt-5 rounded-lg w-full'>
           <tbody>
             <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
-            {sortedRows.map((transaction) => {
+            {sortedRows.map((transaction: any) => {
               let newDate = new Date(transaction.createdAt)
               return (
                 <tr key={transaction.objectId}>

@@ -1,11 +1,8 @@
 // Modal
 import { useState } from 'react'
-// import { useMoralis } from 'react-moralis'
 import { SettingBackend } from '../../../backend/settings'
 
 const Settings = () => {
-  // const { user, setUserData } = useMoralis()
-
   const [callback, setcallback] = useState('')
   const [webhook, setwebhook] = useState('')
 

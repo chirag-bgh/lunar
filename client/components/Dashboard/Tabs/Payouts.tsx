@@ -1,4 +1,3 @@
-import metamask from '../../../assets/metamask.svg'
 import { BsFillArrowDownCircleFill } from 'react-icons/bs'
 import { HiPlusSm } from 'react-icons/hi'
 import { useEffect, useState } from 'react'
@@ -123,7 +122,7 @@ const Card = ({
 
   useEffect(() => {
     if (data !== null) {
-      setBalance(web3?.utils.fromWei(data.balance).toString().substring(0, 4))
+      setBalance(web3?.utils.fromWei(data.balance).toString().substring(0, 4) as string)
     }
     if (!fetched) {
       fetch()
@@ -134,6 +133,7 @@ const Card = ({
   return (
     <div
       onClick={() => setSelected(address)}
+      style={{outline: selected ? '2px solid #2196f3' : 'none'}}
       onMouseOver={() => setShowRemove(true)}
       onMouseLeave={() => setShowRemove(false)}
       className={
@@ -145,8 +145,8 @@ const Card = ({
         <div></div>
         <img
           className={`h-20 mt-3 ${address === ethAddress ? 'ml-0' : 'ml-7'}`}
-          src={metamask}
-          alt=''
+          src='/metamask.svg'
+          alt='MetaMask'
         />
         {address === ethAddress ? (
           <div></div>

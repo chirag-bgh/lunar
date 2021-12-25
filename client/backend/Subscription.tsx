@@ -47,7 +47,7 @@ const CreateSubscription = ({
     <div>
       {error}
       <button
-        onClick={() => save({ name, price, user: user.get('id'), recurrence })}
+        onClick={() => save({ name, price, user: user?.get('id'), recurrence })}
         disabled={isSaving}
       >
         Create Subscription
@@ -96,7 +96,7 @@ const FetchSubscription = ({ query }: { query: string }) => {
   )
 
   const { data } = useMoralisQuery('Subscription', (query) =>
-    query.equalTo('user', user.id)
+    query.equalTo('user', user?.id)
   )
   // console.log("User: ", user.id);
 

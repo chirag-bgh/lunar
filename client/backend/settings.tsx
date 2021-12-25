@@ -14,7 +14,7 @@ export const SettingBackend = ({
     query.equalTo("user", user)
   );
   const { data: inv } = useMoralisQuery("Invoices", (query) =>
-    query.equalTo("user", user.id)
+    query.equalTo("user", user?.id)
   );
 
   return (

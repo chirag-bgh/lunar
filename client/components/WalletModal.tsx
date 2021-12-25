@@ -62,11 +62,11 @@ const WalletModal = ({
               closeModal()
               // TODO: add wallet
 
-              let accounts: string[] = user.get('accounts')
+              let accounts: string[] = user?.get('accounts')
               //console.log('accounts: ', accounts)
 
               accounts.push(address)
-              user.save('accounts', accounts)
+              user?.save('accounts', accounts)
               //console.log("new accounts: ", accounts);
             }}
             className='px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer'

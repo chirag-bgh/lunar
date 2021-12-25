@@ -5,6 +5,7 @@ import {
   GetUsers,
 } from '../../../backend/Demographics'
 
+// @ts-ignore
 import DonutChart from 'react-donut-chart'
 import { useMoralis, useMoralisQuery } from 'react-moralis'
 import DemographicsClass from '../../../classes/Demographics'
@@ -13,7 +14,7 @@ const Demographics = () => {
   const { user } = useMoralis()
 
   const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
-    query.equalTo('user', user.id)
+    query.equalTo('user', user?.id)
   )
 
   if (error) {
@@ -35,7 +36,7 @@ const Demographics = () => {
     (demographic) => demographic.purchases
   )
 
-  function add(accumulator, a) {
+  function add(accumulator: any, a: any) {
     return accumulator + a
   }
 
@@ -84,11 +85,11 @@ const Demographics = () => {
             colors={colors}
             width={500}
             data={chartData}
-            onMouseEnter={(item) => {
+            onMouseEnter={(item: any) => {
               //console.log(`mousing over: ${item.label}`)
               return item
             }}
-            onClick={(item, toggled) => {
+            onClick={(item: any, toggled: any) => {
               if (toggled) {
                 console.log(`selecting: ${item.label}`)
               } else {

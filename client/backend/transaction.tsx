@@ -86,7 +86,7 @@ export const FetchTransaction = ({ query }: { query: string }) => {
     [sortConfig]
   )
 
-  const userAddress = user.get('managed_account_pub')
+  const userAddress = user?.get('managed_account_pub')
 
   const { data } = useMoralisQuery('Transactions', (query) =>
     query.equalTo('to_address', userAddress)

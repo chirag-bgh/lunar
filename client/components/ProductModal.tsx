@@ -25,7 +25,8 @@ const customStyles = {
 
 ReactModal.setAppElement('body')
 
-ReactModal.defaultStyles.overlay.backgroundColor = 'transparent'
+let modalElementOverlay = ReactModal.defaultStyles.overlay
+modalElementOverlay ? modalElementOverlay.backgroundColor = 'transparent' : null
 
 const ProductModal = ({
   modalIsOpen,

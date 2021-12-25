@@ -53,8 +53,8 @@ const Dashboard = ({
     if (user?.get('encryptedKey') === undefined) {
       let x = web3?.eth.accounts.create()
       let encryptedKey = CryptoJS.AES.encrypt(
-        x?.privateKey,
-        process.env.NEXT_PUBLIC_PASSWORD
+        x?.privateKey as string,
+        process.env.NEXT_PUBLIC_PASSWORD as string
       ).toString()
       if (user && isAuthenticated) {
         console.log('Saving user data')
