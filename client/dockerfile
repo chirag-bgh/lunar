@@ -1,38 +1,18 @@
-# FROM node:10 as build-deps
-# WORKDIR /usr/src/app
-# COPY package.json yarn.lock ./
-# RUN yarn
-# COPY . ./
-# RUN yarn build
+FROM node:12 
 
-# FROM nginx:1.12-alpine
-# COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
-# EXPOSE 80
-# CMD ["nginx", "-g", "daemon off;"]
-
-# pull the base image
-FROM node:alpine
-
-# set the working direction
 WORKDIR /app
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
-
-# install app dependencies
 COPY package.json ./
 
-COPY package-lock.json ./
+RUN yarn
 
-RUN npm install
-
-# add app
 COPY . ./
 
-# FROM nginx:1.12-alpine
-# COPY --from=build-deps /usr/src/app/build /usr/share/nginx/html
-# EXPOSE 80
-# CMD ["nginx", "-g", "daemon off;"]
+ENV PORT=80
+ENV REACT_APP_SERVER_URL=https://r47tjbluhryp.usemoralis.com:2053/server
+ENV REACT_APP_APP_ID=Vk9IAsLtoeT73S4sofxMWAS0e8M79CEfKTrDPdBX
+ENV REACT_APP_PASSWORD=g>p?ANnY+p8Z&Mg+
 
-# start app
-CMD ["npm", "start"]
+EXPOSE 80
+
+CMD ["yarn", "start"]
