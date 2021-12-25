@@ -1,21 +1,10 @@
-import shoe2 from './LandingAssets/shoe2.png'
-import xbox from './LandingAssets/xbox.png'
 import React from 'react'
 import { gsap } from 'gsap'
-import blob1 from './LandingAssets/blob1.svg'
-import blob2 from './LandingAssets/blob2.svg'
-import { ReactComponent as Logo1 } from './LandingAssets/ad1.svg'
-import { ReactComponent as Logo2 } from './LandingAssets/ad2.svg'
-import { ReactComponent as Logo3 } from './LandingAssets/ad3.svg'
-import { ReactComponent as Logo4 } from './LandingAssets/ad4.svg'
-import polygon from './LandingAssets/polygon.svg'
-import background from './LandingAssets/screen.png'
 import { IoMdMoon } from 'react-icons/io'
-import logo from './LandingAssets/logo.png'
-import logo2 from './LandingAssets/logo2.png'
 import { AuthenticateButton } from './Auth/AuthManager'
+import Image from 'next/image'
 
-import './extended.css'
+import styles from './Landing.module.css'
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -24,7 +13,7 @@ import { useEffect } from 'react'
 // import React from "react";
 // import {gsap} from "gsap"
 
-const Landingv2 = ({ alertUser = false }) => {
+const Landing = ({ alertUser = false }) => {
   //     // store a reference to the box div
   //   const boxRef = useRef();
   //   const card1 = useRef();
@@ -106,16 +95,16 @@ const Landingv2 = ({ alertUser = false }) => {
 
   return (
     <div>
-      <section className='top w-screen h-screen bg-dark flex flex-col'>
+      <section className='top w-screen h-screen bg-dark flex flex-col overflow-x-hidden'>
         <div className='flex justify-between items-center h-16 w-full mt-3 px-7'>
           <div className='flex justify-center items-center gap-1 mb-1 z-10'>
             <img
-              src={logo}
-              className=' hidden md:block w-24 absolute ml-12 pt-2'
+              src='/LandingAssets/logo.png'
+              className='hidden md:block w-24 absolute ml-12 pt-2'
               alt='Logo'
             />
             <img
-              src={logo2}
+              src='/LandingAssets/logo2.png'
               className='block md:hidden w-16 absolute ml-6 pt-2'
               alt='Logo2'
             />
@@ -160,19 +149,35 @@ const Landingv2 = ({ alertUser = false }) => {
             </h1>
           </a>
         </div>
-        <img src={blob1} alt='glow' className='absolute bottom-0 right-1' />
-        <img src={blob2} alt='glow' className='absolute top-0 -left-12' />
+        <img
+          src='/LandingAssets/blob1.svg'
+          alt='glow'
+          className='absolute bottom-0 right-1'
+        />
+        <img
+          src='/LandingAssets/blob2.svg'
+          alt='glow'
+          className='absolute top-0 -left-12'
+        />
         <div className='absolute flex w-screen h-screen justify-center items-center'>
           <img
-            src={background}
+            src='/LandingAssets/screen.png'
             alt='background'
-            className='screen mt-56 md:w-1/2 w-128 absolute'
+            className='mt-56 md:w-1/2 w-128 absolute mix-blend-screen rounded-md overflow-x-hidden p-2'
           />
         </div>
         {/* TODO: Fix card alignment issues on smaller width screens */}
         <div className='w-full flex justify-around items-center absolute bottom-0 mb-24'>
-          <Card imageSrc={shoe2} price={55.042} classname=' hidden md:block' />
-          <Card imageSrc={xbox} price={64.174} classname=' hidden md:block' />
+          <Card
+            imageSrc='/LandingAssets/shoe2.png'
+            price={55.042}
+            classname=' hidden md:block'
+          />
+          <Card
+            imageSrc='/LandingAssets/xbox.png'
+            price={64.174}
+            classname=' hidden md:block'
+          />
         </div>
       </section>
       <section className='w-screen h-full bg-dark p-12 pb-24 first-trigger flex flex-col justify-center gap-16 items-center'>
@@ -181,7 +186,11 @@ const Landingv2 = ({ alertUser = false }) => {
         </h1>
         <div className=' flex justify-center items-start flex-wrap gap-12'>
           <div className=' fade w-52 flex flex-col'>
-            <Logo1 alt='Fast' className=' w-12 mb-2' />
+            <img
+              src='/LandingAssets/ad1.svg'
+              alt='Fast'
+              className='w-12 mb-2'
+            />
             <h1 className='h1 font-display font-bold italic text-xl mb-4'>
               <span className='font-medium not-italic'>Get setup: </span>{' '}
               Lightning fast
@@ -193,7 +202,11 @@ const Landingv2 = ({ alertUser = false }) => {
             <p>No emails. No spam. Forever.</p>
           </div>
           <div className=' fade w-52 flex flex-col'>
-            <Logo4 alt='Fast' className='w-12 mb-2' />
+            <img
+              src='/LandingAssets/ad4.svg'
+              alt='Fast'
+              className='w-12 mb-2'
+            />
             <h1 className='h1 font-display font-bold  text-xl mb-4'>
               Recurring Payments: Yes, with crypto.
             </h1>
@@ -204,7 +217,11 @@ const Landingv2 = ({ alertUser = false }) => {
             </p>
           </div>
           <div className='fade  w-52 flex flex-col'>
-            <Logo2 alt='Fast' className='w-12 mb-2' />
+            <img
+              src='/LandingAssets/ad2.svg'
+              alt='Fast'
+              className='w-12 mb-2'
+            />
             <h1 className='h1 font-display font-bold  text-xl mb-4'>
               Withdrawals to Metamask
             </h1>
@@ -214,7 +231,11 @@ const Landingv2 = ({ alertUser = false }) => {
             </p>
           </div>
           <div className=' fade w-52 flex flex-col'>
-            <Logo3 alt='Fast' className='w-12 mb-2' />
+            <img
+              src='/LandingAssets/ad3.svg'
+              alt='Fast'
+              className='w-12 mb-2'
+            />
             <h1 className='h1 font-display font-bold  text-xl mb-4'>
               One click deployment: Couldn’t get easier{' '}
             </h1>
@@ -261,7 +282,11 @@ const Landingv2 = ({ alertUser = false }) => {
       </section>
       <section className='w-screen h-screen bg-dark relative m-0'>
         <div className='div w-screen h-screen flex flex-col justify-start items-center'>
-          <img src={polygon} alt='PolygonLogo' className='w-1/5 mt-24 pb-5' />
+          <img
+            src='/LandingAssets/polygon.svg'
+            alt='PolygonLogo'
+            className='w-1/5 mt-24 pb-5'
+          />
           <h1 className='font-display md:text-7xl text-2xl font-bold mb-24'>
             Powered by Polygon.
           </h1>
@@ -272,7 +297,7 @@ const Landingv2 = ({ alertUser = false }) => {
         </div>
       </section>
       <section className=' h-80 w-screen bg-background flex justify-center items-center'>
-        <h1 className=' font-display font-bold md:text-xl text-lg p-4 text-center'>
+        <h1 className=' font-display font-medium tracking-wide md:text-xl text-lg p-4 text-center'>
           A project proudly made{' '}
           <a href='https://github.com/lunarpay' className=' underline'>
             open-source
@@ -295,18 +320,36 @@ const Landingv2 = ({ alertUser = false }) => {
   )
 }
 
-const Card = ({ imageSrc, price, classname }) => {
+const Card = ({ imageSrc, price, classname }: any) => {
   return (
     <div
+      style={{
+        transformStyle: 'preserve-3d',
+        boxShadow:
+          '0 20px 20px rgba(0, 0, 0, 0.2), 0px 0px 50px rgba(0, 0, 0, 0.2)',
+        background:
+          'linear-gradient(148.68deg,rgba(255, 255, 255, 0.37) -84.95%,rgba(255, 255, 255, 0) 87.71%)',
+        WebkitBackdropFilter: 'blur(10px)',
+        backdropFilter: 'blur(10px)',
+      }}
       className={
-        'card flex flex-col w-3/12 justify-center items-center p-6 rounded-lg ' +
+        'flex flex-col w-3/12 justify-center items-center p-6 rounded-lg' +
         classname
       }
     >
       <h1 className='title font-display font-bold text-2xl mr-auto'>
         {price} <span className='text-primary'>MATIC</span>
       </h1>
-      <img src={imageSrc} alt='shoe' className='w-52 image' />
+      <img
+        src={imageSrc}
+        alt='shoe'
+        className='w-52'
+        style={{
+          zIndex: 2,
+          transition: 'all 0.75s ease-out',
+          filter: 'drop-shadow(5px 5px 5px #222)',
+        }}
+      />
       <div className='flex flex-col justify-center items-center bg-primary rounded-lg text-dark w-full h-24'>
         <h1 className='font-display text-dark text-xl font-bold mt-8'>
           Pay in crypto
@@ -320,4 +363,4 @@ const Card = ({ imageSrc, price, classname }) => {
   )
 }
 
-export default Landingv2
+export default Landing

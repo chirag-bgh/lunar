@@ -1,14 +1,15 @@
 module.exports = {
-  important: true,
-  purge: ['./src/**/*.{js,jsx,ts,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     fontFamily: {
       display: ['Montserrat'],
     },
     extend: {
       width: {
-        '128': '32rem',
+        128: '32rem',
       },
       outline: {
         primary: ['2px solid #87F1FF', '3px'],
@@ -25,9 +26,6 @@ module.exports = {
         login: '5px 12px 24px 5px rgba(0, 0, 0, 0.41)',
       },
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [],
 }
