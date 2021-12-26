@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ethereumjs/tx": "^3.4.0",
     "@walletconnect/web3-provider": "^1.7.0",
     "crypto-js": "^4.1.1",
     "ethers": "^5.5.2",
