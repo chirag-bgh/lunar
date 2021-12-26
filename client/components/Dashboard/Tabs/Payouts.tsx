@@ -116,13 +116,15 @@ const Card = ({
     Web3Api.account.getNativeBalance,
     {
       address: address,
-      chain: 'mumbai',
+      chain: 'ropsten',
     }
   )
 
   useEffect(() => {
     if (data !== null) {
-      setBalance(web3?.utils.fromWei(data.balance).toString().substring(0, 4) as string)
+      setBalance(
+        web3?.utils.fromWei(data.balance).toString().substring(0, 4) as string
+      )
     }
     if (!fetched) {
       fetch()
@@ -133,7 +135,7 @@ const Card = ({
   return (
     <div
       onClick={() => setSelected(address)}
-      style={{outline: selected ? '2px solid #2196f3' : 'none'}}
+      style={{ outline: selected ? '2px solid #2196f3' : 'none' }}
       onMouseOver={() => setShowRemove(true)}
       onMouseLeave={() => setShowRemove(false)}
       className={
@@ -178,7 +180,7 @@ const Card = ({
         </h3>
       </div>
 
-      <h1 className='text-3xl font-semibold mb-3'>{balance} MATIC</h1>
+      <h1 className='text-3xl font-semibold mb-3'>{balance} ETH</h1>
     </div>
   )
 }

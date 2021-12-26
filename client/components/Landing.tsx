@@ -343,7 +343,7 @@ const Card = ({ imageSrc, price, classname }: any) => {
       }
     >
       <h1 className='title font-display font-bold text-2xl mr-auto'>
-        {price} <span className='text-primary'>MATIC</span>
+        {price} <span className='text-primary'>ETH</span>
       </h1>
       <img
         src={imageSrc}

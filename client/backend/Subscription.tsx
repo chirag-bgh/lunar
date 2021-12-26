@@ -173,7 +173,7 @@ const FetchSubscription = ({ query }: { query: string }) => {
             <tr key={subscription.objectId}>
               <td>{subscription.name}</td>
               <td>{subscription.objectId}</td>
-              <td>{subscription.price} MATIC</td>
+              <td>{subscription.price} ETH</td>
               <td>{subscription.recurrence}</td>
               <td>{subscription.email_address}</td>
               <td>{newDate.toString()}</td>

@@ -11,6 +11,7 @@ import { RiSettingsFill } from 'react-icons/ri'
 import { IoReload } from 'react-icons/io5'
 import CountUp from 'react-countup'
 import React, { useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
 
 const Sidebar = ({
   selectedTab,
@@ -28,6 +29,7 @@ const Sidebar = ({
   setFetched: (arg: boolean) => void
 }) => {
   const { logout, user } = useMoralis()
+  const router = useRouter()
 
   useEffect(() => {
     if (user == null) {
@@ -68,7 +70,8 @@ const Sidebar = ({
         className=' bg-red-500 -mt-4 mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'
         onClick={() =>
           logout().then(() => {
-            alert('Wallet Disconnected')
+            router.push('/')
+            // alert('Wallet Disconnected')
           })
         }
       >
@@ -217,28 +220,20 @@ const Balance = ({
     Web3Api.account.getNativeBalance,
     {
       address: user?.get('managed_account_pub'),
-      chain: 'mumbai',
+      chain: 'ropsten',
     }
   )
 
   useEffect(() => {
     if (data !== null) {
-      setBalance(web3?.utils.fromWei(data.balance) + ' MATIC')
+      setBalance(web3?.utils.fromWei(data.balance) + ' ETH')
       //console.log('balance: ', balance)
     }
     if (!fetched) {
       fetch()
       setFetched(true)
     }
-  }, [
-    data,
-    fetch,
-    fetched,
-    balance,
-    web3?.utils,
-    setBalance,
-    setFetched,
-  ])
+  }, [data, fetch, fetched, balance, web3?.utils, setBalance, setFetched])
 
   return (
     <div className='w-5/6 h-24 rounded-lg bg-dark flex flex-col justify-center items-center'>
@@ -247,10 +242,10 @@ const Balance = ({
         <div className='flex justify-center items-center gap-2'>
           <pre id='balance'>
             <CountUpMemo
-              end={Number(balance.split(' MATIC')[0])}
+              end={Number(balance.split(' ETH')[0])}
               decimals={2}
               duration={1}
-              suffix=' MATIC'
+              suffix=' ETH'
             />
           </pre>
         </div>
