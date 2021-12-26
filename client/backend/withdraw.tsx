@@ -134,9 +134,10 @@ export const Withdraw = ({
           save({ ethAddress, balance, user: user?.id })
           setFetched(false)
           setCardFetched(false)
-        }).catch((error) => {
-              console.log('error: ', error)
-            })
+        })
+        .catch((error) => {
+          console.log('error: ', error)
+        })
 
       // await provider.waitForTransaction(hash)
 

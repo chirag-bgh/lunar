@@ -5,7 +5,7 @@ import Transactions from './Tabs/Transactions'
 import Products from './Tabs/Products'
 import Subscriptions from './Tabs/Subscriptions'
 import Payouts from './Tabs/Payouts'
-import Settings from './Tabs/Settings'
+import Settings from './Tabs/Settings/Settings'
 import CryptoJS from 'crypto-js'
 
 // Icons
@@ -23,14 +23,8 @@ const Dashboard = ({
   openModal: () => void
   openWalletModal: () => void
 }) => {
-  const {
-    user,
-    setUserData,
-    web3,
-    isAuthenticated,
-    isWeb3Enabled,
-    enableWeb3,
-  } = useMoralis()
+  const { user, setUserData, web3, isAuthenticated, isWeb3Enabled } =
+    useMoralis()
   const { switchNetwork, chainId } = useChain()
 
   const [selectedTab, setSelectedTab] = useState('Overview')
@@ -46,8 +40,6 @@ const Dashboard = ({
   })
 
   useEffect(() => {
-    console.log('web3 enabled is ', isWeb3Enabled)
-
     // For Polygon Mumbai
     // if (chainId !== '0x13881') {
     //   switchNetwork('0x13881')
