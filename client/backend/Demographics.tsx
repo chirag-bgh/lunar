@@ -189,7 +189,9 @@ export const GetUserLeaderboard = () => {
               key={totalSpent}
             >
               <td className='text-left px-0'>{email}</td>
-              <td className='text-right px-0'>{totalSpent}</td>
+              <td className='text-right px-0'>
+                {totalSpent.substring(0, 5)} ETH
+              </td>
             </tr>
           )
         })}

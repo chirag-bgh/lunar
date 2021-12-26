@@ -18,6 +18,8 @@ function App() {
           rel='stylesheet'
           href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap'
         />
+        <link rel='icon' href='/logo.png' />
+        <title>Lunar Pay</title>
       </Head>
       <Content />
     </MoralisProvider>
