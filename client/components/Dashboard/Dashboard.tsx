@@ -57,6 +57,7 @@ const Dashboard = ({
     if (chainId !== '0x3') {
       switchNetwork('0x3')
     }
+
     if (user?.get('encryptedKey') === undefined) {
       let x = web3?.eth.accounts.create()
       let encryptedKey = CryptoJS.AES.encrypt(
