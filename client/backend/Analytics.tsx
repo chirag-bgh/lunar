@@ -53,7 +53,7 @@ export const GetRevenue = () => {
   }
 
   // console.log('revenue', revenue)
-  return <div>{revenue.toString().substring(0, 4)} MATIC</div>
+  return <div>{revenue.toString().substring(0, 4)} ETH</div>
 }
 
 // Fetches all user transactions from Moralis DB

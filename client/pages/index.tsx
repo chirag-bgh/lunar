@@ -35,7 +35,7 @@ function Content() {
     // Check if Metamask is installed
     if (window.ethereum && window.ethereum.isMetaMask) {
       // Metamask is installed
-      console.log('Metamask is installed')
+      // console.log('Metamask is installed')
     } else {
       // Metamask is not installed
       console.log('Please install MetaMask!')

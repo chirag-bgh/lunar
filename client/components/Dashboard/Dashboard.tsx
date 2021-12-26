@@ -47,8 +47,15 @@ const Dashboard = ({
 
   useEffect(() => {
     console.log('web3 enabled is ', isWeb3Enabled)
-    if (chainId !== '0x13881') {
-      switchNetwork('0x13881')
+
+    // For Polygon Mumbai
+    // if (chainId !== '0x13881') {
+    //   switchNetwork('0x13881')
+    // }
+
+    // For Ropsten Testnet
+    if (chainId !== '0x3') {
+      switchNetwork('0x3')
     }
     if (user?.get('encryptedKey') === undefined) {
       let x = web3?.eth.accounts.create()

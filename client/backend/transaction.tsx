@@ -163,7 +163,7 @@ export const FetchTransaction = ({ query }: { query: string }) => {
             <tr key={transaction.objectId}>
               <td>{transaction.product}</td>
               <td>{transaction.objectId}</td>
-              <td>{transaction.amount} MATIC</td>
+              <td>{transaction.amount} ETH</td>
               <td>{transaction.Type}</td>
               <td>{transaction.email_address}</td>
               <td>{newDate.toString()}</td>

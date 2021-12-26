@@ -12,7 +12,7 @@ declare const window: any
 function Provider() {
   return (
     <MoralisProvider
-      // Polygon Mumbai
+      // Polygon Mumbai and Ropsten Network
       appId={process.env.NEXT_PUBLIC_APP_ID as string}
       serverUrl={process.env.NEXT_PUBLIC_SERVER_URL as string}
     >
@@ -35,8 +35,8 @@ const DashboardPage = () => {
   const router = useRouter()
 
   useEffect(() => {
-    console.log('isAuthenticated: ', isAuthenticated)
-    console.log('isWeb3Enabled: ', isWeb3Enabled)
+    // console.log('isAuthenticated: ', isAuthenticated)
+    // console.log('isWeb3Enabled: ', isWeb3Enabled)
 
     // Check if Metamask is installed
     if (!(window.ethereum && window.ethereum.isMetaMask)) {
@@ -50,7 +50,7 @@ const DashboardPage = () => {
     // Check if web3 is enabled
     if (!isWeb3Enabled) {
       // Enable web3
-      console.log('Enabling web3')
+      //   console.log('Enabling web3')
       enableWeb3()
     }
   }, [enableWeb3, isWeb3Enabled, isAuthenticated])
