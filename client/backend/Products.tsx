@@ -63,14 +63,14 @@ const DeleteProduct = ({ objectId }: { objectId: string }) => {
       <button
         onClick={(e) => {
           e.stopPropagation()
-          console.log("Removing Product");
+          console.log('Removing Product')
           setDestroy(true)
         }}
         className='h-7 text-sm rounded-sm text-black font-display px-2 flex justify-center items-center cursor-pointer z-50'
         style={{ marginLeft: '25%' }}
       >
         {!destroy ? (
-          <FaTrash style={{color: 'rgb(239 68 68)'}} />
+          <FaTrash style={{ color: 'rgb(239 68 68)' }} />
         ) : (
           <div className='flex justify-center items-center'>
             <Loader type='Puff' color='#87F1FF' height={20} width={30} />
@@ -87,21 +87,26 @@ const CreateProduct = ({
   price,
   recurrence,
   closeModal,
+  currency,
+  acceptedCurrencies,
 }: {
   price: number
   name: string
   recurrence: string
   closeModal: () => void
+  currency: string
+  acceptedCurrencies: string[]
 }) => {
   const { isSaving, error, save } = useNewMoralisObject('Products')
   const { user } = useMoralis()
+
   return (
     <div>
       {error}
       <button
-        onClick={() => {
+        onClick={async () => {
           closeModal()
-          save({
+          await save({
             name,
             price,
             recurrence,
@@ -109,6 +114,8 @@ const CreateProduct = ({
             managed_account: user?.get('managed_account_pub'),
             callback_url: user?.get('callbackURL'),
             webhook_url: user?.get('webhookURL'),
+            acceptedCurrencies: acceptedCurrencies,
+            defaultCurrency: currency,
           })
         }}
         disabled={isSaving}
@@ -252,13 +259,12 @@ const FetchProduct = ({ query }: { query: string }) => {
                 element ? (element.style.color = 'white') : null
               }}
               className='cursor-pointer hover:bg-sky-700 hover:text-dark transition-colors'
-              onClick={() => {                
+              onClick={() => {
                 window.open(
                   `http://app.lunarpay.in/product/${product.objectId}`,
                   '_blank'
                 )
-              }
-              }
+              }}
             >
               <td>{product.name}</td>
               <td>{product.objectId}</td>

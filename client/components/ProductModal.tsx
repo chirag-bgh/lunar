@@ -1,5 +1,5 @@
 // Modal
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import ReactModal from 'react-modal'
 
 // Dropdown
@@ -8,6 +8,7 @@ import 'react-dropdown/style.css'
 
 // Components
 import { CreateProduct } from '../backend/Products'
+import { useMoralis } from 'react-moralis'
 
 const customStyles = {
   content: {
@@ -26,7 +27,9 @@ const customStyles = {
 ReactModal.setAppElement('body')
 
 let modalElementOverlay = ReactModal.defaultStyles.overlay
-modalElementOverlay ? modalElementOverlay.backgroundColor = 'transparent' : null
+modalElementOverlay
+  ? (modalElementOverlay.backgroundColor = 'transparent')
+  : null
 
 const ProductModal = ({
   modalIsOpen,
@@ -35,13 +38,28 @@ const ProductModal = ({
   modalIsOpen: boolean
   setIsOpen: (arg: boolean) => void
 }) => {
+  const { user } = useMoralis()
+
   const [name, setName] = useState('')
   const [price, setPrice] = useState(0.0)
   const [recurrence, setRecurrence] = useState('One time')
+  const [currency, setCurrency] = useState('ETH')
 
   const dropdownOptions = ['One time', 'Monthly', 'Quarterly', 'Yearly']
-
   const defaultOption = dropdownOptions[0]
+
+  let acceptedCurrencies: string[] = useMemo(() => [], [])
+
+  useEffect(() => {
+    if (user?.get('maticEnabled')) {
+      acceptedCurrencies.push('MATIC')
+    }
+    if (user?.get('ethEnabled')) {
+      acceptedCurrencies.push('ETH')
+    }
+  }, [user, acceptedCurrencies])
+
+  const defaultCurrency = acceptedCurrencies[0]
 
   function closeModal() {
     setIsOpen(false)
@@ -83,6 +101,18 @@ const ProductModal = ({
           </div>
         </div>
         <div className='flex justify-center items-center gap-2'>
+          <p className='font-medium text-sm'>CURRENCY</p>
+          <Dropdown
+            menuClassName='single-select h-20'
+            options={acceptedCurrencies}
+            onChange={(e) => {
+              setCurrency(e.value)
+            }}
+            value={defaultCurrency}
+            placeholder='Select an option'
+          />
+        </div>
+        <div className='flex justify-center items-center gap-2'>
           <p className='font-medium text-sm'>RECURRENCE</p>
           <Dropdown
             menuClassName='single-select h-20'
@@ -99,6 +129,8 @@ const ProductModal = ({
           price={price}
           recurrence={recurrence}
           closeModal={closeModal}
+          currency={currency}
+          acceptedCurrencies={acceptedCurrencies}
         />
       </div>
     </ReactModal>
