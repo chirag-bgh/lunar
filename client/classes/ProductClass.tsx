@@ -10,4 +10,6 @@ export default interface ProductClass {
   createdAt: Date
   updatedAt: Date
   objectId: string
+  acceptedCurrencies: string[]
+  defaultCurrency: string
 }

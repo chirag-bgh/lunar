@@ -268,7 +268,9 @@ const FetchProduct = ({ query }: { query: string }) => {
             >
               <td>{product.name}</td>
               <td>{product.objectId}</td>
-              <td>{product.price} ETH</td>
+              <td>
+                {product.price} {product.defaultCurrency}
+              </td>
               <td>{product.recurrence}</td>
               <td>{newDate.toString()}</td>
               <td>

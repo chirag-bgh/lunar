@@ -94,13 +94,13 @@ export const Withdraw = ({
     if (valueToBeSent > 0) {
       setIsBroke(false)
 
-      console.log('balance: ', balance)
-      console.log('account address: ', accountAddress)
-      console.log('eth address: ', ethAddress)
-      console.log('privateKeyOG: ', privateKeyOG)
-      console.log('gasPrice: ', gasPrice)
-      console.log('valueToBeSent: ', valueToBeSent)
-      console.log('FINAL: ', valueToBeSent + txFee)
+      // console.log('balance: ', balance)
+      // console.log('account address: ', accountAddress)
+      // console.log('eth address: ', ethAddress)
+      // console.log('privateKeyOG: ', privateKeyOG)
+      // console.log('gasPrice: ', gasPrice)
+      // console.log('valueToBeSent: ', valueToBeSent)
+      // console.log('FINAL: ', valueToBeSent + txFee)
 
       const txParams = {
         to: ethAddress,
