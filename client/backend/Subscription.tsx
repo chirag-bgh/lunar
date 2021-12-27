@@ -163,6 +163,21 @@ const FetchSubscription = ({ query }: { query: string }) => {
     return sortedArray
   }, [sortConfig, subsriptions, query])
 
+  const monthNames = [
+    'Jan',
+    'Febr',
+    'Mar',
+    'Apr',
+    'May',
+    'June',
+    'July',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
+
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
       <tbody>
@@ -176,7 +191,19 @@ const FetchSubscription = ({ query }: { query: string }) => {
               <td>{subscription.price} ETH</td>
               <td>{subscription.recurrence}</td>
               <td>{subscription.email_address}</td>
-              <td>{newDate.toString()}</td>
+              <td>
+                {newDate.getDate() +
+                  ' ' +
+                  monthNames[newDate.getMonth()] +
+                  ' ' +
+                  newDate.getFullYear() +
+                  ' - ' +
+                  newDate.getHours() +
+                  ':' +
+                  (newDate.getMinutes().toString().length == 1
+                    ? '0' + newDate.getMinutes()
+                    : newDate.getMinutes())}
+              </td>
             </tr>
           )
         })}

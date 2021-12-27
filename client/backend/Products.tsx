@@ -135,10 +135,6 @@ const FetchProduct = ({ query }: { query: string }) => {
     { propertyName: 'createdAt', sortType: SortingType.Descending },
   ])
 
-  useEffect(() => {
-    // //console.log("sort config: ", sortConfig);
-  }, [sortConfig])
-
   const sortBy = useCallback(
     (propertyName: keyof TableData) => {
       let pendingChange = [...sortConfig]
@@ -238,12 +234,28 @@ const FetchProduct = ({ query }: { query: string }) => {
     return sortedArray
   }, [sortConfig, products, query])
 
+  const monthNames = [
+    'Jan',
+    'Febr',
+    'Mar',
+    'Apr',
+    'May',
+    'June',
+    'July',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ]
+
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
       <tbody>
         <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
         {sortedRows.map((product) => {
           let newDate = new Date(product.createdAt)
+          console.log('aASDASD', newDate.getMinutes().toString().length == 1)
           return (
             <tr
               key={product.objectId}
@@ -272,7 +284,19 @@ const FetchProduct = ({ query }: { query: string }) => {
                 {product.price} {product.defaultCurrency}
               </td>
               <td>{product.recurrence}</td>
-              <td>{newDate.toString()}</td>
+              <td>
+                {newDate.getDate() +
+                  ' ' +
+                  monthNames[newDate.getMonth()] +
+                  ' ' +
+                  newDate.getFullYear() +
+                  ' - ' +
+                  newDate.getHours() +
+                  ':' +
+                  (newDate.getMinutes().toString().length == 1
+                    ? '0' + newDate.getMinutes()
+                    : newDate.getMinutes())}
+              </td>
               <td>
                 <DeleteProduct objectId={product.objectId} />
               </td>
