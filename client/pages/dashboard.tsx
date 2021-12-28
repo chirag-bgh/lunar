@@ -5,8 +5,7 @@ import WalletModal from '../components/WalletModal'
 import { MoralisProvider, useMoralis } from 'react-moralis'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import Landing from '../components/Landing'
-import LoadingScreen from '../components/LoadingScreen'
+import { LoadingScreenAuthState } from '../components/LoadingScreen'
 
 declare const window: any
 
@@ -78,7 +77,7 @@ const DashboardPage = () => {
       {isAuthenticated === true && isWeb3Enabled ? (
         <Dashboard openModal={openModal} openWalletModal={openWalletModal} />
       ) : (
-        <LoadingScreen />
+        <LoadingScreenAuthState />
       )}
       <ProductModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
       <WalletModal
