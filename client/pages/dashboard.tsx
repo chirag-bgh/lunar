@@ -52,7 +52,6 @@ const DashboardPage = () => {
     // Check if web3 is enabled
     if (!isWeb3Enabled) {
       // Enable web3
-      //   console.log('Enabling web3')
       enableWeb3()
     }
   }, [enableWeb3, isWeb3Enabled, isAuthenticated])
@@ -64,6 +63,12 @@ const DashboardPage = () => {
   function openWalletModal() {
     setWalletModalIsOpen(true)
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      router.push('/')
+    }, 1500)
+  }, [])
 
   return (
     <div style={{ filter: modalIsOpen ? 'brightness(0.5) blur(5px)' : 'none' }}>

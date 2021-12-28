@@ -9,20 +9,7 @@ import { useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 
-// import React from "react";
-// import {gsap} from "gsap"
-
 const Landing = ({ alertUser = false, redirect = false }) => {
-  //     // store a reference to the box div
-  //   const boxRef = useRef();
-  //   const card1 = useRef();
-  //   const card2 = useRef();
-
-  //   // wait until DOM has been rendered
-  //   useEffect(() => {
-  //     gsap.to(boxRef.current, { rotation: "+=360" });
-  //   });
-
   const router = useRouter()
 
   gsap.registerPlugin(ScrollTrigger)
@@ -143,16 +130,18 @@ const Landing = ({ alertUser = false, redirect = false }) => {
           <h1 className='text-bold text-3xl md:text-3xl md:mt-12 mt-48 text-white align-middle text-center mb-7'>
             Accepting payments with crypto, now easier than ever
           </h1>
-          <a
-            href='https://docs.lunarpay.in/docs/intro'
-            target='_blank'
-            rel='noreferrer'
-            className='bg-primary p-2 rounded-lg mb-44 mt-4 z-10 cursor-pointer'
-          >
-            <h1 className='text-dark font-bold text-xs md:text-sm px-2 py-1 flex justify-center items-center mt-0.5'>
-              Get Started
-            </h1>
-          </a>
+          <div className='flex justify-center items-center gap-4'>
+            <a
+              href='https://docs.lunarpay.in/docs/intro'
+              target='_blank'
+              rel='noreferrer'
+              className='bg-primary p-2 rounded-lg mb-44 mt-4 z-10 cursor-pointer'
+            >
+              <h1 className='text-dark font-bold text-xs md:text-sm px-2 py-1 flex justify-center items-center mt-0.5'>
+                Explore Docs
+              </h1>
+            </a>
+          </div>
         </div>
         <img
           src='/LandingAssets/blob1.svg'
