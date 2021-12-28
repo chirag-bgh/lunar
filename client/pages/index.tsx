@@ -29,9 +29,11 @@ function App() {
 function Content() {
   const router = useRouter()
 
-  const { isAuthenticated, enableWeb3, isWeb3Enabled } = useMoralis()
+  const { enableWeb3, isWeb3Enabled, user } = useMoralis()
 
   const [alertUser, setAlertUser] = useState(false)
+
+  const isAuthenticated = user ? user.get('isAuthenticated') : false
 
   useEffect(() => {
     // Check if Metamask is installed
@@ -54,7 +56,7 @@ function Content() {
       router.push('/dashboard')
     }
     console.log('isAuthenticated: ', isAuthenticated)
-  }, [enableWeb3, isWeb3Enabled, isAuthenticated])
+  }, [enableWeb3, isWeb3Enabled])
 
   return <Landing alertUser={alertUser} />
 }

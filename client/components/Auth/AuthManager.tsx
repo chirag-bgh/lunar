@@ -12,10 +12,17 @@ const AuthenticateButton = () => {
   return (
     <div>
       <button
-        onClick={async () => {
-          await authenticate()
-          router.push('/dashboard')
-          setcalled(true)
+        onClick={() => {
+          authenticate({
+            onSuccess: async (user) => {
+              console.log('Authenticated User!: ', user)
+              setcalled(true)
+              router.push('/dashboard')
+            },
+            onError: (err) => {
+              console.log('Failed to Authenticate User ->', err)
+            },
+          })
         }}
         className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md'
       >
@@ -33,9 +40,17 @@ const AuthenticateButton = () => {
 }
 
 const LogoutButton = () => {
-  const { logout } = useMoralis()
+  const { logout, setUserData } = useMoralis()
 
-  return <button onClick={() => logout()}>Logout</button>
+  return (
+    <button
+      onClick={async () => {
+        await logout()
+      }}
+    >
+      Logout
+    </button>
+  )
 }
 
 export { AuthenticateButton, LogoutButton }

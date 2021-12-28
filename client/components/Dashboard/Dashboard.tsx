@@ -23,13 +23,14 @@ const Dashboard = ({
   openModal: () => void
   openWalletModal: () => void
 }) => {
-  const { user, setUserData, web3, isAuthenticated, isWeb3Enabled } =
-    useMoralis()
+  const { user, setUserData, web3, isWeb3Enabled } = useMoralis()
   const { switchNetwork, chainId } = useChain()
 
   const [selectedTab, setSelectedTab] = useState('Overview')
   const [balance, setBalance] = useState('Loading..')
   const [fetched, setFetched] = useState(false)
+
+  const isAuthenticated = user?.get('isAuthenticated')
 
   useMoralisQuery('PolygonTransactions', (query) => query, [], {
     live: true,

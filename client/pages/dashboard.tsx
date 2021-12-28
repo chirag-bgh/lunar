@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Dashboard from '../components/Dashboard/Dashboard'
 import ProductModal from '../components/ProductModal'
 import WalletModal from '../components/WalletModal'
@@ -6,6 +6,7 @@ import { MoralisProvider, useMoralis } from 'react-moralis'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Landing from '../components/Landing'
+import LoadingScreen from '../components/LoadingScreen'
 
 declare const window: any
 
@@ -32,7 +33,11 @@ function Provider() {
 const DashboardPage = () => {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [walletModalIsOpen, setWalletModalIsOpen] = useState(false)
-  const { isAuthenticated, enableWeb3, isWeb3Enabled } = useMoralis()
+  const { enableWeb3, isWeb3Enabled, user } = useMoralis()
+
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    user === null ? false : true
+  )
 
   const router = useRouter()
 
@@ -56,6 +61,10 @@ const DashboardPage = () => {
     }
   }, [enableWeb3, isWeb3Enabled, isAuthenticated])
 
+  useEffect(() => {
+    setIsAuthenticated(user === null ? false : true)
+  }, [user])
+
   function openModal() {
     setIsOpen(true)
   }
@@ -64,17 +73,13 @@ const DashboardPage = () => {
     setWalletModalIsOpen(true)
   }
 
-  useEffect(() => {
-    setTimeout(() => {
-      router.push('/')
-    }, 1500)
-  }, [])
-
   return (
     <div style={{ filter: modalIsOpen ? 'brightness(0.5) blur(5px)' : 'none' }}>
-      {isWeb3Enabled && isAuthenticated ? (
+      {isAuthenticated === true && isWeb3Enabled ? (
         <Dashboard openModal={openModal} openWalletModal={openWalletModal} />
-      ) : null}
+      ) : (
+        <LoadingScreen />
+      )}
       <ProductModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
       <WalletModal
         walletModalIsOpen={walletModalIsOpen}
