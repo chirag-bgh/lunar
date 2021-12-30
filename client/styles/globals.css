@@ -72,3 +72,12 @@ td {
   font-family: 'Montserrat';
   font-size: 1.8rem;
 }
+
+.recharts-default-tooltip {
+  background-color: #1e1e1f !important;
+  border-radius: 5px !important;
+}
+
+.recharts-default-legend {
+  margin-top: 1rem !important;
+}
