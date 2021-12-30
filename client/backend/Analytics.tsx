@@ -100,6 +100,48 @@ export const DisplayChart = () => {
 
   const [chartData, setChartData] = useState<any[]>([])
 
+  const [revenueLineOpacity, setRevenueLineOpacity] = useState(1)
+  const [revenueLineWidth, setRevenueLineWidth] = useState(1)
+
+  const [transactionLineWidth, setTransactionLineWidth] = useState(1)
+  const [transactionLineOpacity, setTransactionLineOpacity] = useState(1)
+
+  useEffect(() => {
+    let legend_revenue = document.getElementsByClassName('legend-item-0')[0]
+
+    if (legend_revenue !== undefined) {
+      legend_revenue.addEventListener('mouseover', () => {
+        setTransactionLineOpacity(0.5)
+        setRevenueLineWidth(2)
+        setRevenueLineOpacity(1)
+        setTransactionLineWidth(1)
+      })
+      legend_revenue.addEventListener('mouseout', () => {
+        setTransactionLineOpacity(1)
+        setRevenueLineWidth(1)
+        setRevenueLineOpacity(1)
+        setTransactionLineWidth(1)
+      })
+    }
+
+    let legend_transaction = document.getElementsByClassName('legend-item-1')[0]
+
+    if (legend_transaction !== undefined) {
+      legend_transaction.addEventListener('mouseover', () => {
+        setRevenueLineOpacity(0.5)
+        setTransactionLineWidth(2)
+        setTransactionLineOpacity(1)
+        setRevenueLineWidth(1)
+      })
+      legend_transaction.addEventListener('mouseout', () => {
+        setRevenueLineOpacity(1)
+        setTransactionLineWidth(1)
+        setTransactionLineOpacity(1)
+        setRevenueLineWidth(1)
+      })
+    }
+  })
+
   useEffect(() => {
     getChartData(data)
     return () => {
@@ -175,9 +217,20 @@ export const DisplayChart = () => {
           type='monotone'
           dataKey='revenue'
           stroke='#82ca9d'
-          activeDot={{ r: 8 }}
+          strokeOpacity={revenueLineOpacity}
+          strokeWidth={revenueLineWidth}
+          activeDot={{ r: 7, stroke: '#1E1E1F', strokeWidth: 3 }}
+          dot={false}
         />
-        <Line type='monotone' dataKey='transactions' stroke='#87F1FF' />
+        <Line
+          type='monotone'
+          dataKey='transactions'
+          stroke='#87F1FF'
+          strokeWidth={transactionLineWidth}
+          strokeOpacity={transactionLineOpacity}
+          activeDot={{ stroke: '#1E1E1F' }}
+          dot={false}
+        />
       </LineChart>
     </ResponsiveContainer>
   )

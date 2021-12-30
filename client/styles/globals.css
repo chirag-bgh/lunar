@@ -78,6 +78,10 @@ td {
   border-radius: 5px !important;
 }
 
-.recharts-default-legend {
-  margin-top: 1rem !important;
+.recharts-legend-wrapper {
+  position: relative !important;
+}
+
+.recharts-legend-item {
+  cursor: pointer !important;
 }
