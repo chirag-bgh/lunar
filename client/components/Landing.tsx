@@ -181,7 +181,7 @@ const Landing = ({ alertUser = false, redirect = false }) => {
         <div className=' flex justify-center items-start flex-wrap gap-12'>
           <div className=' fade w-52 flex flex-col'>
             <img
-              src='/LandingAssets/ad1.svg'
+              src='/LandingAssets/icon1.svg'
               alt='Fast'
               className='w-12 mb-2'
             />
@@ -197,7 +197,7 @@ const Landing = ({ alertUser = false, redirect = false }) => {
           </div>
           <div className=' fade w-52 flex flex-col'>
             <img
-              src='/LandingAssets/ad4.svg'
+              src='/LandingAssets/icon4.svg'
               alt='Fast'
               className='w-12 mb-2'
             />
@@ -212,7 +212,7 @@ const Landing = ({ alertUser = false, redirect = false }) => {
           </div>
           <div className='fade  w-52 flex flex-col'>
             <img
-              src='/LandingAssets/ad2.svg'
+              src='/LandingAssets/icon2.svg'
               alt='Fast'
               className='w-12 mb-2'
             />
@@ -226,7 +226,7 @@ const Landing = ({ alertUser = false, redirect = false }) => {
           </div>
           <div className=' fade w-52 flex flex-col'>
             <img
-              src='/LandingAssets/ad3.svg'
+              src='/LandingAssets/icon3.svg'
               alt='Fast'
               className='w-12 mb-2'
             />
