@@ -190,7 +190,7 @@ const Landing = ({ alertUser = false, redirect = false }) => {
               Lightning fast
             </h1>
             <p>
-              With lunar, all you need to get setup as a seller is a Metamask
+              With LunarPay, all you need to get setup as a seller is a Metamask
               wallet.{' '}
             </p>
             <p>No emails. No spam. Forever.</p>
@@ -234,7 +234,7 @@ const Landing = ({ alertUser = false, redirect = false }) => {
               One click deployment: Couldn’t get easier{' '}
             </h1>
             <p>
-              With every product that you enlist on lunar, you receive an HTTPS
+              With every product that you enlist on LunarPay, you receive an HTTPS
               endpoint. This re-directs customers directly to our payment
               portal.
             </p>
@@ -285,7 +285,7 @@ const Landing = ({ alertUser = false, redirect = false }) => {
             Powered by Polygon.
           </h1>
           <p className='w-3/5 font-display text-semibold text-md md:text-2xl font-medium flex-wrap'>
-            On release, lunar will be deployed on Polygon PoS blockchain, making
+            On release, <span className='font-bold'>Lunar</span>Pay will be deployed on Polygon PoS blockchain, making
             GAS fees cheap while also keeping your transactions secure
           </p>
         </div>
@@ -349,8 +349,8 @@ const Card = ({ imageSrc, price, classname }: any) => {
           Pay in crypto
         </h1>
         <div className='flex text-sm flex-shrink text-dark font-medium mb-1 mt-auto justify-center items-center'>
-          <IoMdMoon />
-          <h1 className='text-dark'>lunar</h1>
+          {/* <IoMdMoon /> */}
+          <h1 className='text-dark'><span className='font-bold'>Lunar</span>Pay</h1>
         </div>
       </div>
     </div>
