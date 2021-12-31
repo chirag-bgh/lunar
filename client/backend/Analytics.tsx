@@ -89,7 +89,7 @@ export const GetTransactions = () => {
 }
 
 // Fetches revenue data and returns chart.
-export const DisplayChart = () => {
+export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
   const { user } = useMoralis()
 
   const userAddress = user?.get('managed_account_pub')
@@ -99,6 +99,8 @@ export const DisplayChart = () => {
   )
 
   const [chartData, setChartData] = useState<any[]>([])
+
+  const [days, setDays] = useState(7)
 
   const [revenueLineOpacity, setRevenueLineOpacity] = useState(1)
   const [revenueLineWidth, setRevenueLineWidth] = useState(1)
@@ -143,13 +145,18 @@ export const DisplayChart = () => {
   })
 
   useEffect(() => {
-    getChartData(data)
+    setDays(getDaysFromTimeFrame(timeFrame))
+    console.log('days', days)
+  }, [timeFrame])
+
+  useEffect(() => {
+    getChartData(data, days)
     return () => {
       setChartData([])
     }
-  }, [data])
+  }, [data, days])
 
-  const getChartData = (data: any) => {
+  const getChartData = (data: any, days: number) => {
     let tempData = []
 
     let json = JSON.stringify(data, null, 2)
@@ -160,7 +167,7 @@ export const DisplayChart = () => {
 
     let dates: Date[] = transactions.map((transaction) => transaction.createdAt)
 
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < days; i++) {
       dateObj.setDate(dateObj.getDate() - 1)
 
       let date =
@@ -234,4 +241,28 @@ export const DisplayChart = () => {
       </LineChart>
     </ResponsiveContainer>
   )
+}
+
+const getDaysFromTimeFrame = (timeFrame: string) => {
+  let days = 7
+
+  switch (timeFrame) {
+    case 'Today':
+      days = 1
+      break
+    case 'Last Week':
+      days = 7
+      break
+    case 'Last Month':
+      days = 30
+      break
+    case 'Last Year':
+      days = 365
+      break
+    default:
+      days = 7
+      break
+  }
+
+  return days
 }
