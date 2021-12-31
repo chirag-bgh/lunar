@@ -12,6 +12,7 @@
     "@walletconnect/web3-provider": "^1.7.0",
     "crypto-js": "^4.1.1",
     "ethers": "^5.5.2",
+    "fetcher": "^0.3.0",
     "gsap": "^3.9.1",
     "linq": "^4.0.0",
     "moralis": "^0.0.176",
@@ -28,7 +29,8 @@
     "react-modal": "^3.14.4",
     "react-moralis": "^0.3.11",
     "recharts": "^2.1.8",
-    "sass": "^1.45.1"
+    "sass": "^1.45.1",
+    "swr": "^1.1.2"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.0.2",

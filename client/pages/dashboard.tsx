@@ -72,6 +72,7 @@ const DashboardPage = () => {
     setWalletModalIsOpen(true)
   }
 
+
   return (
     <div style={{ filter: modalIsOpen ? 'brightness(0.5) blur(5px)' : 'none' }}>
       {isAuthenticated === true && isWeb3Enabled ? (

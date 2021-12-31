@@ -10,7 +10,7 @@ import { BiDollar } from 'react-icons/bi'
 import { RiSettingsFill } from 'react-icons/ri'
 import { IoReload } from 'react-icons/io5'
 import CountUp from 'react-countup'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 
 const Sidebar = ({
@@ -179,10 +179,12 @@ const truncate = (phrase: string, n: number) => {
       : phrase
     : null
 }
+import { ensresolver } from '../Auth/AuthManager'
 
 const UserAccount = () => {
   const { user } = useMoralis()
-
+  const [addr, setAddr] = useState('')
+  ensresolver({address: user?.attributes.ethAddress,setAddr: setAddr})
   return (
     <div className='h-16 pt-4 flex justify-start items-center gap-4'>
       <div className='h-full flex justify-center items-center'>
@@ -195,7 +197,7 @@ const UserAccount = () => {
       <div className='flex justify-center items-start flex-col h-full max-w-3/4 truncate'>
         <h2 className='text-2xl font-bold'>Dashboard</h2>
         <p className=' text-gray-400 text-sm font-display'>
-          {truncate(user?.attributes.ethAddress, 19)}
+          {truncate(addr,19)}
         </p>
       </div>
     </div>

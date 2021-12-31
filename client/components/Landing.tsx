@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { gsap } from 'gsap'
 import { IoMdMoon } from 'react-icons/io'
 import { AuthenticateButton } from './Auth/AuthManager'
+import { WaitlistModal } from './WaitlistModal'
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -11,7 +12,11 @@ import { useRouter } from 'next/router'
 
 const Landing = ({ alertUser = false, redirect = false }) => {
   const router = useRouter()
-
+  const [waitlistModalIsOpen, setwaitlistModalIsOpen] = useState(false)
+  
+  function openWaitlistModal() {
+    setwaitlistModalIsOpen(true)
+  }
   gsap.registerPlugin(ScrollTrigger)
 
   useEffect(() => {
@@ -87,6 +92,10 @@ const Landing = ({ alertUser = false, redirect = false }) => {
 
   return (
     <div>
+      <WaitlistModal
+        waitlistModalIsOpen={waitlistModalIsOpen}
+        setwaitlistModalIsOpen={setwaitlistModalIsOpen}
+      />
       <section className='top w-screen h-screen bg-dark flex flex-col overflow-x-hidden'>
         <div className='flex justify-between items-center h-16 w-full mt-3 px-7'>
           <div className='flex justify-center items-center gap-1 mb-1 z-10'>
@@ -126,21 +135,22 @@ const Landing = ({ alertUser = false, redirect = false }) => {
             </div>
           </div>
         </div>
+        
         <div className='flex flex-col w-screen h-1/2 justify-center items-center font-display p-4 z-10'>
+        
           <h1 className='text-bold text-3xl md:text-3xl md:mt-12 mt-48 text-white align-middle text-center mb-7'>
             Accepting payments with crypto, now easier than ever
           </h1>
           <div className='flex justify-center items-center gap-4'>
-            <a
-              href='https://docs.lunarpay.in/docs/intro'
-              target='_blank'
-              rel='noreferrer'
-              className='bg-primary p-2 rounded-lg mb-44 mt-4 z-10 cursor-pointer'
-            >
-              <h1 className='text-dark font-bold text-xs md:text-sm px-2 py-1 flex justify-center items-center mt-0.5'>
-                Explore Docs
-              </h1>
-            </a>
+           
+            <button
+        onClick={(e) => {    openWaitlistModal()    }}
+        className='bg-primary p-2 rounded-lg mb-44 mt-4 z-10 cursor-pointer'
+        style={{ marginLeft: '25%' }}
+      >
+        Join Waitlist
+      </button>
+      
           </div>
         </div>
         <img
