@@ -121,8 +121,8 @@ export const Logo = ({ className }: { className: string }) => {
     <div
       className={`w-full flex justify-center items-center my-4 ${className}`}
     >
-      <IoMdMoon className='text-white text-3xl mr-2' />
-      <p className='font-medium text-xl pt-1'>lunar</p>
+      {/* <IoMdMoon className='text-white text-3xl mr-2' /> */}
+      <p className='font-medium text-xl pt-1'><span className='font-bold'>Lunar</span>Pay</p>
     </div>
   )
 }
