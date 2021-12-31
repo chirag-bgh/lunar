@@ -11,7 +11,7 @@ const AuthenticateButton = () => {
 
   return (
     <div>
-      <button
+      {/* <button
         onClick={() => {
           authenticate({
             onSuccess: async (user) => {
@@ -34,7 +34,7 @@ const AuthenticateButton = () => {
             <Loader type='Puff' color='white' height={20} width={30} />
           </div>
         )}
-      </button>
+      </button> */}
     </div>
   )
 }
