@@ -23,10 +23,13 @@ const WalletModal = ({
   setWalletModalIsOpen: (arg: boolean) => void
 }) => {
   const [address, setAddress] = useState('')
-  const { user } = useMoralis()
+  const { user,web3 } = useMoralis()
 
   function closeModal() {
     setWalletModalIsOpen(false)
+  }
+  function refreshPage() {
+    window.location.reload();
   }
 
   useEffect(() => {
@@ -58,15 +61,28 @@ const WalletModal = ({
             />
           </div>
           <button
-            onClick={() => {
+            onClick={async () => {
               closeModal()
               // TODO: add wallet
 
               let accounts: string[] = user?.get('accounts')
               //console.log('accounts: ', accounts)
+              if(address.includes('.eth')){
+                try {
+                  let x = address.includes(".eth") ? await web3?.eth.ens.getAddress(address) as string : address
+                  accounts.push(address)
+                  user?.save('accounts', accounts)
+                }
+                catch(err) {
+                  console.log(err)
+                  alert('Invalid Address')
+                }
+              }
 
-              accounts.push(address)
-              user?.save('accounts', accounts)
+              
+              
+              
+              
               //console.log("new accounts: ", accounts);
             }}
             className='px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer'

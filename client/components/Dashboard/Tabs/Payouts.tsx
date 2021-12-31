@@ -15,7 +15,7 @@ const Payouts = ({
   openWalletModal: () => void
   setFetched: (arg: boolean) => void
 }) => {
-  const { user } = useMoralis()
+  const { user,web3 } = useMoralis()
 
   let address = user?.get('ethAddress')
 
@@ -34,6 +34,7 @@ const Payouts = ({
       <div className='flex flex-wrap gap-8 items-center'>
         <div className='flex justify-center items-center gap-10'>
           {accounts.map((accountAdr) => {
+            console.log('Account: ',accountAdr)
             return (
               <Card
                 key={accountAdr}
@@ -108,24 +109,38 @@ const Card = ({
   const { user, web3 } = useMoralis()
 
   const [balance, setBalance] = useState('-')
-
+  const [ensfy, setensfy] = useState(false)
+  const [addr, setaddr] = useState(address)
   const [showRemove, setShowRemove] = useState(false)
+
 
   const Web3Api = useMoralisWeb3Api()
   const { fetch, data } = useMoralisWeb3ApiCall(
     Web3Api.account.getNativeBalance,
     {
-      address: address,
+      address: addr,
       chain: 'ropsten',
     }
   )
-
+  console.log('addr: ',addr)
   useEffect(() => {
     if (data !== null) {
       setBalance(
         web3?.utils.fromWei(data.balance).toString().substring(0, 4) as string
       )
     }
+    async function ensmaker() {
+      let response = await web3?.eth.ens.getAddress(address)
+      setaddr(response as string)
+      setFetched(false)
+    }
+    if(!ensfy){
+    if( addr.includes('.eth')){
+      ensmaker()
+      setensfy(true)
+    }}
+
+
     if (!fetched) {
       fetch()
       setFetched(true)

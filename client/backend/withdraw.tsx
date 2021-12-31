@@ -60,6 +60,8 @@ export const Withdraw = ({
 
   async function withdrawTransaction() {
     let accountAddress = user?.get('managed_account_pub')
+    accountAddress = accountAddress.includes(".eth") ? await web3?.eth.ens.getAddress(accountAddress) as string : accountAddress
+    console.log('Address: ',accountAddress)
     let encryptedKey = user?.get('encryptedKey')
     var bytes = CryptoJS.AES.decrypt(
       encryptedKey,
