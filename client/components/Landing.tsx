@@ -308,8 +308,8 @@ const Landing = ({ alertUser = false, redirect = false }) => {
             @aaryadoestech
           </a>
           ,{' '}
-          <a href='https://twitter.com/ZaphodElevated' className='text-primary'>
-            @ZaphodElevated
+          <a href='https://twitter.com/0xPranavDoshi' className='text-primary'>
+            @0xPranavDoshi
           </a>{' '}
           and{' '}
           <a href='https://twitter.com/RaghavSaraf17' className='text-primary'>
