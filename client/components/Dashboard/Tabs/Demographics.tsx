@@ -6,7 +6,7 @@ import {
 } from '../../../backend/Demographics'
 
 // @ts-ignore
-import DonutChart from 'react-donut-chart'
+// import DonutChart from 'react-donut-chart'
 import { useMoralis, useMoralisQuery } from 'react-moralis'
 import DemographicsClass from '../../../classes/Demographics'
 
@@ -79,8 +79,8 @@ const Demographics = () => {
             <div></div>
           </div>
         </div>
-        <div className='rounded-md border-2 border-gray-600 bg-dark w-full py-2 max-h-80  flex flex-col justify-between items-center'>
-          <DonutChart
+        {/* <div className='rounded-md border-2 border-gray-600 bg-dark w-full py-2 max-h-80  flex flex-col justify-between items-center'> */}
+        {/* <DonutChart
             legend={false}
             colors={colors}
             width={500}
@@ -97,8 +97,8 @@ const Demographics = () => {
               }
               return item
             }}
-          />
-        </div>
+          /> */}
+        {/* </div> */}
       </div>
     </div>
   )
