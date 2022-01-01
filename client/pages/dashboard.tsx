@@ -22,7 +22,11 @@ function Provider() {
           href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap'
         />
         <link rel='icon' href='/logo.png' />
-        <title>Lunar Pay</title>
+        <meta
+          name='description'
+          content='Crypto Payments Made Easy with LunarPay.'
+        />
+        <title>Lunar Dashboard</title>
       </Head>
       <DashboardPage />
     </MoralisProvider>
@@ -71,7 +75,6 @@ const DashboardPage = () => {
   function openWalletModal() {
     setWalletModalIsOpen(true)
   }
-
 
   return (
     <div style={{ filter: modalIsOpen ? 'brightness(0.5) blur(5px)' : 'none' }}>
