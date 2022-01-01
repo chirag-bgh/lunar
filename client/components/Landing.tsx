@@ -13,7 +13,7 @@ import { useRouter } from 'next/router'
 const Landing = ({ alertUser = false, redirect = false }) => {
   const router = useRouter()
   const [waitlistModalIsOpen, setwaitlistModalIsOpen] = useState(false)
-  
+
   function openWaitlistModal() {
     setwaitlistModalIsOpen(true)
   }
@@ -92,7 +92,6 @@ const Landing = ({ alertUser = false, redirect = false }) => {
 
   return (
     <div>
- 
       <section className='top w-screen h-screen bg-dark flex flex-col overflow-x-hidden'>
         <div className='flex justify-between items-center h-16 w-full mt-3 px-7'>
           <div className='flex justify-center items-center gap-1 mb-1 z-10'>
@@ -132,7 +131,7 @@ const Landing = ({ alertUser = false, redirect = false }) => {
             </div>
           </div>
         </div>
-        
+
         <div className='flex flex-col w-screen h-1/2 justify-center items-center font-display p-4 z-10'>
           <h1 className='text-bold text-3xl md:text-3xl md:mt-12 mt-48 text-white align-middle text-center mb-7'>
             Accepting payments with crypto, now easier than ever
@@ -241,8 +240,8 @@ const Landing = ({ alertUser = false, redirect = false }) => {
               One click deployment: Couldn’t get easier{' '}
             </h1>
             <p>
-              With every product that you enlist on LunarPay, you receive an HTTPS
-              endpoint. This re-directs customers directly to our payment
+              With every product that you enlist on LunarPay, you receive an
+              HTTPS endpoint. This re-directs customers directly to our payment
               portal.
             </p>
           </div>
@@ -292,8 +291,9 @@ const Landing = ({ alertUser = false, redirect = false }) => {
             Powered by Polygon.
           </h1>
           <p className='w-3/5 font-display text-semibold text-md md:text-2xl font-medium flex-wrap'>
-            On release, <span className='font-bold'>Lunar</span>Pay will be deployed on Polygon PoS blockchain, making
-            GAS fees cheap while also keeping your transactions secure
+            On release, <span className='font-bold'>Lunar</span>Pay will be
+            deployed on Polygon PoS blockchain, making GAS fees cheap while also
+            keeping your transactions secure
           </p>
         </div>
       </section>
@@ -357,7 +357,9 @@ const Card = ({ imageSrc, price, classname }: any) => {
         </h1>
         <div className='flex text-sm flex-shrink text-dark font-medium mb-1 mt-auto justify-center items-center'>
           {/* <IoMdMoon /> */}
-          <h1 className='text-dark'><span className='font-bold'>Lunar</span>Pay</h1>
+          <h1 className='text-dark'>
+            <span className='font-bold'>Lunar</span>Pay
+          </h1>
         </div>
       </div>
     </div>

@@ -13,22 +13,23 @@ const AuthenticateButton = () => {
   return (
     <div>
       <button
-        onClick={() => {
-          authenticate({
-            onSuccess: async (user) => {
-              console.log('Authenticated User!: ', user)
-              setcalled(true)
-              router.push('/dashboard')
-            },
-            onError: (err) => {
-              console.log('Failed to Authenticate User ->', err)
-            },
-          })
-        }}
-        className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md'
+        disabled
+        // onClick={() => {
+        //   authenticate({
+        //     onSuccess: async (user) => {
+        //       console.log('Authenticated User!: ', user)
+        //       setcalled(true)
+        //       router.push('/dashboard')
+        //     },
+        //     onError: (err) => {
+        //       console.log('Failed to Authenticate User ->', err)
+        //     },
+        //   })
+        // }}
+        className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md text-gray-500'
       >
         {!called ? (
-          <span>Authenticate</span>
+          <span>Authenticate (Coming Soon)</span>
         ) : (
           <div className='flex justify-center items-center '>
             <span>Authenticating </span>
@@ -54,32 +55,39 @@ const LogoutButton = () => {
   )
 }
 
-export function ensresolver({address,setAddr}:{address:string,setAddr: any}) {
+export function ensresolver({
+  address,
+  setAddr,
+}: {
+  address: string
+  setAddr: any
+}) {
   let url = `https://deep-index.moralis.io/api/v2/resolve/${address}/reverse`
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", url);
+  var xhr = new XMLHttpRequest()
+  xhr.open('GET', url)
 
-  xhr.setRequestHeader("X-API-Key", "d1ToAmJMpQUZTjrtN8CgbCTcwerAEKddXTY3qSUISeFZxjNfUKHZwDpVNAIM3w9I");
-  xhr.setRequestHeader("accept", "application/json");
+  xhr.setRequestHeader(
+    'X-API-Key',
+    'd1ToAmJMpQUZTjrtN8CgbCTcwerAEKddXTY3qSUISeFZxjNfUKHZwDpVNAIM3w9I'
+  )
+  xhr.setRequestHeader('accept', 'application/json')
 
   xhr.onreadystatechange = function () {
-   if (xhr.readyState === 4) {
-      console.log(xhr.status);
-      console.log(xhr.responseText);
+    if (xhr.readyState === 4) {
+      console.log(xhr.status)
+      console.log(xhr.responseText)
       let x = JSON.parse(xhr.responseText)
-      if(x.name == null){
+      if (x.name == null) {
         setAddr(address)
-      } else{
+      } else {
         setAddr(x.name as string)
       }
-      console.log('x: ',x)
-      
-   }};
+      console.log('x: ', x)
+    }
+  }
 
   xhr.send()
-  return "done"
+  return 'done'
 }
-
-
 
 export { AuthenticateButton, LogoutButton }
