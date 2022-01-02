@@ -13,23 +13,22 @@ const AuthenticateButton = () => {
   return (
     <div>
       <button
-        disabled
-        // onClick={() => {
-        //   authenticate({
-        //     onSuccess: async (user) => {
-        //       console.log('Authenticated User!: ', user)
-        //       setcalled(true)
-        //       router.push('/dashboard')
-        //     },
-        //     onError: (err) => {
-        //       console.log('Failed to Authenticate User ->', err)
-        //     },
-        //   })
-        // }}
+        onClick={() => {
+          authenticate({
+            onSuccess: async (user) => {
+              console.log('Authenticated User!: ', user)
+              setcalled(true)
+              router.push('/dashboard')
+            },
+            onError: (err) => {
+              console.log('Failed to Authenticate User ->', err)
+            },
+          })
+        }}
         className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md text-gray-500'
       >
         {!called ? (
-          <span>Authenticate (Coming Soon)</span>
+          <span>Authenticate</span>
         ) : (
           <div className='flex justify-center items-center '>
             <span>Authenticating </span>
