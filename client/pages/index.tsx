@@ -2,7 +2,7 @@ import { MoralisProvider, useMoralis } from 'react-moralis'
 import Landing from '../components/Landing'
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 
 declare const window: any
 
@@ -14,16 +14,18 @@ function App() {
       serverUrl={process.env.NEXT_PUBLIC_SERVER_URL as string}
     >
       <Head>
-        <link
-          rel='stylesheet'
-          href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap'
-        />
+        <title>Lunar Pay</title>
         <link rel='icon' href='/logo.png' />
-        <meta
+        {/* <meta
           name='description'
           content='Crypto Payments Made Easy with LunarPay.'
         />
-        <title>Lunar Pay</title>
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <link rel='icon' href='/logo.png' />
+        <link
+          rel='stylesheet'
+          href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap'
+        /> */}
       </Head>
       <Content />
     </MoralisProvider>
@@ -31,7 +33,7 @@ function App() {
 }
 
 function Content() {
-  const router = useRouter()
+  // const router = useRouter()
 
   const { enableWeb3, isWeb3Enabled, user } = useMoralis()
 
@@ -57,7 +59,8 @@ function Content() {
     }
 
     if (isAuthenticated) {
-      router.push('/dashboard')
+      // Disabled Until Launch
+      // router.push('/dashboard')
     }
     console.log('isAuthenticated: ', isAuthenticated)
   }, [enableWeb3, isWeb3Enabled])

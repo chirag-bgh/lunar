@@ -17,16 +17,17 @@ function Provider() {
       serverUrl={process.env.NEXT_PUBLIC_SERVER_URL as string}
     >
       <Head>
-        <link
-          rel='stylesheet'
-          href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap'
-        />
+        <title>Lunar Dashboard</title>
         <link rel='icon' href='/logo.png' />
+        {/* <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <meta
           name='description'
           content='Crypto Payments Made Easy with LunarPay.'
         />
-        <title>Lunar Dashboard</title>
+        <link
+          rel='stylesheet'
+          href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap'
+        /> */}
       </Head>
       <DashboardPage />
     </MoralisProvider>
