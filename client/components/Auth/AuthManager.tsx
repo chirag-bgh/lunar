@@ -4,7 +4,7 @@ import { useState } from 'react'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import Loader from 'react-loader-spinner'
 import router from 'next/router'
-import { json } from 'stream/consumers'
+// import { json } from 'stream/consumers
 
 const AuthenticateButton = () => {
   const { authenticate } = useMoralis()
@@ -14,6 +14,8 @@ const AuthenticateButton = () => {
     <div>
       <button
         onClick={() => {
+          console.log('Authenticating User')
+
           authenticate({
             onSuccess: async (user) => {
               console.log('Authenticated User!: ', user)
@@ -25,7 +27,7 @@ const AuthenticateButton = () => {
             },
           })
         }}
-        className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md text-gray-500'
+        className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md'
       >
         {!called ? (
           <span>Authenticate</span>
@@ -41,7 +43,7 @@ const AuthenticateButton = () => {
 }
 
 const LogoutButton = () => {
-  const { logout, setUserData } = useMoralis()
+  const { logout } = useMoralis()
 
   return (
     <button

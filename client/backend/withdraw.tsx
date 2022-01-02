@@ -16,6 +16,7 @@ import { ethers } from 'ethers'
 declare const window: any
 
 import Loader from 'react-loader-spinner'
+import { monthNames } from './Utils'
 
 require('react/package.json') // react is a peer dependency.
 
@@ -60,8 +61,10 @@ export const Withdraw = ({
 
   async function withdrawTransaction() {
     let accountAddress = user?.get('managed_account_pub')
-    accountAddress = accountAddress.includes(".eth") ? await web3?.eth.ens.getAddress(accountAddress) as string : accountAddress
-    console.log('Address: ',accountAddress)
+    accountAddress = accountAddress.includes('.eth')
+      ? ((await web3?.eth.ens.getAddress(accountAddress)) as string)
+      : accountAddress
+    console.log('Address: ', accountAddress)
     let encryptedKey = user?.get('encryptedKey')
     var bytes = CryptoJS.AES.decrypt(
       encryptedKey,
@@ -285,7 +288,19 @@ export const FetchWithdrawals = () => {
                 {web3?.utils.fromWei(withdrawal.balance.toString(), 'ether')}{' '}
                 ETH
               </td>
-              <td>{newDate.toString()}</td>
+              <td>
+                {newDate.getDate() +
+                  ' ' +
+                  monthNames[newDate.getMonth()] +
+                  ' ' +
+                  newDate.getFullYear() +
+                  ' - ' +
+                  newDate.getHours() +
+                  ':' +
+                  (newDate.getMinutes().toString().length == 1
+                    ? '0' + newDate.getMinutes()
+                    : newDate.getMinutes())}
+              </td>
             </tr>
           )
         })}

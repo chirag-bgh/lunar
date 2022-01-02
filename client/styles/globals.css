@@ -61,18 +61,6 @@ td {
   padding: 0.7rem;
 }
 
-.donutchart-innertext-label {
-  fill: white;
-  font-family: 'Montserrat';
-  font-size: 1.8rem;
-}
-
-.donutchart-innertext-value {
-  fill: white;
-  font-family: 'Montserrat';
-  font-size: 1.8rem;
-}
-
 .recharts-default-tooltip {
   background-color: #1e1e1f !important;
   border-radius: 5px !important;

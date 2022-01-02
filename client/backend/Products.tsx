@@ -14,6 +14,7 @@ import { FaTrash } from 'react-icons/fa'
 // Sorting Library
 import linq from 'linq'
 import Loader from 'react-loader-spinner'
+import { monthNames } from './Utils'
 
 interface TableData {
   product: string
@@ -233,21 +234,6 @@ const FetchProduct = ({ query }: { query: string }) => {
 
     return sortedArray
   }, [sortConfig, products, query])
-
-  const monthNames = [
-    'Jan',
-    'Febr',
-    'Mar',
-    'Apr',
-    'May',
-    'June',
-    'July',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ]
 
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>

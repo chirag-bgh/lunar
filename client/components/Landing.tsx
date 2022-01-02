@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { gsap } from 'gsap'
-import { IoMdMoon } from 'react-icons/io'
 import { AuthenticateButton } from './Auth/AuthManager'
-import { WaitlistModal } from './WaitlistModal'
+// import { WaitlistModal } from './Modals/WaitlistModal'
 
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -12,11 +11,7 @@ import { useRouter } from 'next/router'
 
 const Landing = ({ alertUser = false, redirect = false }) => {
   const router = useRouter()
-  const [waitlistModalIsOpen, setwaitlistModalIsOpen] = useState(false)
 
-  function openWaitlistModal() {
-    setwaitlistModalIsOpen(true)
-  }
   gsap.registerPlugin(ScrollTrigger)
 
   useEffect(() => {
