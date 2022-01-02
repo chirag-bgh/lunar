@@ -34,20 +34,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <link rel='manifest' href='/manifest.json' />
-        <link rel='preconnect' href='https://d1tdbbzd1y2er2.cloudfront.net' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-        <meta name='mobile-web-app-capable' content='yes' />
-        <meta name='apple-mobile-web-app-capable' content='yes' />
-        <meta name='application-name' content='Lunar Pay' />
-        <meta name='twitter:title' content='Lunar Pay' />
         <meta
-          name='twitter:description'
+          name='description'
           content='Crypto Payments Made Easy with LunarPay.'
         />
-        <meta property='og:site_name' content='Lunar Pay' />
-        <meta property='og:type' content='website' />
-        <meta property='og:locale' content='en_IN' />
         <link rel='icon' href='/logo.png' />
         <link
           rel='stylesheet'
