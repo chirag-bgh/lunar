@@ -64,42 +64,17 @@ export async function ensresolver({
   setAddr: any
   setavtr: any
 }) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
+  const provider = ethers.getDefaultProvider()
   let ensname = await provider.lookupAddress(address);
-  if(ensname != null){
-    let resolver:any = await provider.getResolver(ensname as string);
-    let avatar = await resolver.getText("avatar");
-    console.log("Avatar: ", avatar)
+  if (ensname == null) {
+    setAddr(address)
+  } else {
+    setAddr(ensname as string)
+    let avatar = await provider.getAvatar(ensname);
     if(avatar != null){
       setavtr(avatar)
     }
-    
   }
-  
-  let url = `https://deep-index.moralis.io/api/v2/resolve/${address}/reverse`
-  var xhr = new XMLHttpRequest()
-  xhr.open('GET', url)
-
-  xhr.setRequestHeader(
-    'X-API-Key',
-    'd1ToAmJMpQUZTjrtN8CgbCTcwerAEKddXTY3qSUISeFZxjNfUKHZwDpVNAIM3w9I'
-  )
-  xhr.setRequestHeader('accept', 'application/json')
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      console.log(xhr.status)
-      console.log(xhr.responseText)
-      let x = JSON.parse(xhr.responseText)
-      if (x.name == null) {
-        setAddr(address)
-      } else {
-        setAddr(x.name as string)
-      }
-    }
-  }
-
-  xhr.send()
   return 'done'
 }
 
