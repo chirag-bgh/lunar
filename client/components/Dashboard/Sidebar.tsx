@@ -164,12 +164,11 @@ const truncate = (phrase: string, n: number) => {
     : null
 }
 //0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3
-//user?.attributes.ethAddress
 const UserAccount = () => {
   const { user } = useMoralis()
   const [addr, setAddr] = useState('')
   const [avtr,setavtr] = useState(`https://avatars.dicebear.com/api/jdenticon/${user?.attributes.ethAddress}.svg`)
-  ensresolver({ address: '0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3', setAddr: setAddr, setavtr: setavtr })
+  ensresolver({ address: user?.attributes.ethAddress, setAddr: setAddr, setavtr: setavtr })
   return (
     <div className='h-16 pt-4 flex justify-start items-center gap-4'>
       <div className='h-full flex justify-center items-center'>
