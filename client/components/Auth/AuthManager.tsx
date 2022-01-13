@@ -4,6 +4,7 @@ import { useState } from 'react'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import Loader from 'react-loader-spinner'
 import router from 'next/router'
+import { ethers } from "ethers";
 // import { json } from 'stream/consumers
 
 const AuthenticateButton = () => {
@@ -14,11 +15,9 @@ const AuthenticateButton = () => {
     <div>
       <button
         onClick={() => {
-          console.log('Authenticating User')
 
           authenticate({
             onSuccess: async (user) => {
-              console.log('Authenticated User!: ', user)
               setcalled(true)
               router.push('/dashboard')
             },
@@ -56,13 +55,27 @@ const LogoutButton = () => {
   )
 }
 
-export function ensresolver({
+export async function ensresolver({
   address,
   setAddr,
+  setavtr,
 }: {
   address: string
   setAddr: any
+  setavtr: any
 }) {
+  const provider = new ethers.providers.Web3Provider(window.ethereum)
+  let ensname = await provider.lookupAddress(address);
+  if(ensname != null){
+    let resolver:any = await provider.getResolver(ensname as string);
+    let avatar = await resolver.getText("avatar");
+    console.log("Avatar: ", avatar)
+    if(avatar != null){
+      setavtr(avatar)
+    }
+    
+  }
+  
   let url = `https://deep-index.moralis.io/api/v2/resolve/${address}/reverse`
   var xhr = new XMLHttpRequest()
   xhr.open('GET', url)
@@ -83,7 +96,6 @@ export function ensresolver({
       } else {
         setAddr(x.name as string)
       }
-      console.log('x: ', x)
     }
   }
 

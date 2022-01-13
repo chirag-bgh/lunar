@@ -122,7 +122,7 @@ const Card = ({
       chain: 'ropsten',
     }
   )
-  console.log('addr: ',addr)
+
   useEffect(() => {
     if (data !== null) {
       setBalance(
@@ -131,6 +131,7 @@ const Card = ({
     }
     async function ensmaker() {
       let response = await web3?.eth.ens.getAddress(address)
+      console.log("Address: ", response)
       setaddr(response as string)
       setFetched(false)
     }
