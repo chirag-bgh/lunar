@@ -7,6 +7,7 @@ import TransactionClass from '../classes/TransactionClass'
 // Sorting Library
 import linq from 'linq'
 import { useCallback, useMemo, useState } from 'react'
+import { monthNames } from './Utils'
 
 interface TableData {
   product: string
@@ -152,21 +153,6 @@ export const FetchTransaction = ({ query }: { query: string }) => {
 
     return sortedArray
   }, [sortConfig, transactions, query])
-
-  const monthNames = [
-    'Jan',
-    'Febr',
-    'Mar',
-    'Apr',
-    'May',
-    'June',
-    'July',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ]
 
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>

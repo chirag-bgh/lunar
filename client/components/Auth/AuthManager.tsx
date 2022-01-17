@@ -4,7 +4,8 @@ import { useState } from 'react'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import Loader from 'react-loader-spinner'
 import router from 'next/router'
-import { json } from 'stream/consumers'
+import { ethers } from 'ethers'
+// import { json } from 'stream/consumers
 
 const AuthenticateButton = () => {
   const { authenticate } = useMoralis()
@@ -13,7 +14,6 @@ const AuthenticateButton = () => {
   return (
     <div>
       <button
-        disabled
         // onClick={() => {
         //   authenticate({
         //     onSuccess: async (user) => {
@@ -29,7 +29,10 @@ const AuthenticateButton = () => {
         className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md text-gray-500'
       >
         {!called ? (
-          <span>Authenticate (Coming Soon)</span>
+          <div>
+            <span>Authenticate</span>
+            <br className='block md:hidden' /> <span>(Coming Soon)</span>
+          </div>
         ) : (
           <div className='flex justify-center items-center '>
             <span>Authenticating </span>
@@ -42,7 +45,7 @@ const AuthenticateButton = () => {
 }
 
 const LogoutButton = () => {
-  const { logout, setUserData } = useMoralis()
+  const { logout } = useMoralis()
 
   return (
     <button
@@ -55,38 +58,26 @@ const LogoutButton = () => {
   )
 }
 
-export function ensresolver({
+export async function ensresolver({
   address,
   setAddr,
+  setavtr,
 }: {
   address: string
   setAddr: any
+  setavtr: any
 }) {
-  let url = `https://deep-index.moralis.io/api/v2/resolve/${address}/reverse`
-  var xhr = new XMLHttpRequest()
-  xhr.open('GET', url)
-
-  xhr.setRequestHeader(
-    'X-API-Key',
-    'd1ToAmJMpQUZTjrtN8CgbCTcwerAEKddXTY3qSUISeFZxjNfUKHZwDpVNAIM3w9I'
-  )
-  xhr.setRequestHeader('accept', 'application/json')
-
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4) {
-      console.log(xhr.status)
-      console.log(xhr.responseText)
-      let x = JSON.parse(xhr.responseText)
-      if (x.name == null) {
-        setAddr(address)
-      } else {
-        setAddr(x.name as string)
-      }
-      console.log('x: ', x)
+  const provider = ethers.getDefaultProvider()
+  let ensname = await provider.lookupAddress(address)
+  if (ensname == null) {
+    setAddr(address)
+  } else {
+    setAddr(ensname as string)
+    let avatar = await provider.getAvatar(ensname)
+    if (avatar != null) {
+      setavtr(avatar)
     }
   }
-
-  xhr.send()
   return 'done'
 }
 

@@ -12,6 +12,7 @@ import { IoReload } from 'react-icons/io5'
 import CountUp from 'react-countup'
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
+import { ensresolver } from '../Auth/AuthManager'
 
 const Sidebar = ({
   selectedTab,
@@ -49,25 +50,7 @@ const Sidebar = ({
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
       {/* Sign Out Button */}
       <div
-        className=' bg-primary mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'
-        onClick={() =>
-          logout().then(() => {
-            alert('Wallet Disconnected')
-          })
-        }
-      >
-        <h1 className='font-semibold font-display text-md text-black'>
-          <a
-            href={`http://app.lunarpay.in/donation/${user?.id}`}
-            target='_blank'
-            rel='noreferrer'
-          >
-            Donate
-          </a>
-        </h1>
-      </div>
-      <div
-        className=' bg-red-500 -mt-4 mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'
+        className=' bg-red-500 mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'
         onClick={() =>
           logout().then(() => {
             router.push('/')
@@ -77,6 +60,7 @@ const Sidebar = ({
       >
         <h1 className='font-semibold font-display text-md'>Sign Out</h1>
       </div>
+      
     </div>
   )
 }
@@ -179,17 +163,17 @@ const truncate = (phrase: string, n: number) => {
       : phrase
     : null
 }
-import { ensresolver } from '../Auth/AuthManager'
-
+//0x3A5bd1E37b099aE3386D13947b6a90d97675e5e3
 const UserAccount = () => {
   const { user } = useMoralis()
   const [addr, setAddr] = useState('')
-  ensresolver({address: user?.attributes.ethAddress,setAddr: setAddr})
+  const [avtr,setavtr] = useState(`https://avatars.dicebear.com/api/jdenticon/${user?.attributes.ethAddress}.svg`)
+  ensresolver({ address: user?.attributes.ethAddress, setAddr: setAddr, setavtr: setavtr })
   return (
     <div className='h-16 pt-4 flex justify-start items-center gap-4'>
       <div className='h-full flex justify-center items-center'>
         <img
-          src={`https://avatars.dicebear.com/api/jdenticon/${user?.attributes.ethAddress}.svg`}
+          src={avtr}
           alt='Profile'
           className='w-10 h-10'
         />
@@ -197,7 +181,7 @@ const UserAccount = () => {
       <div className='flex justify-center items-start flex-col h-full max-w-3/4 truncate'>
         <h2 className='text-2xl font-bold'>Dashboard</h2>
         <p className=' text-gray-400 text-sm font-display'>
-          {truncate(addr,19)}
+          {truncate(addr, 19)}
         </p>
       </div>
     </div>

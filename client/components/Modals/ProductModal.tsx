@@ -7,7 +7,7 @@ import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
 
 // Components
-import { CreateProduct } from '../backend/Products'
+import { CreateProduct } from '../../backend/Products'
 import { useMoralis } from 'react-moralis'
 
 const customStyles = {
