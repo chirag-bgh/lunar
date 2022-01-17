@@ -98,7 +98,7 @@ const Landing = ({ alertUser = false, redirect = false }) => {
         className='top w-screen h-screen bg-dark flex flex-col overflow-x-hidden'
         id='section1'
       >
-        <div className='flex justify-between items-center h-16 w-full mt-3 px-7'>
+        <div className='flex justify-between items-center h-16 w-full mt-3 px-4 md:px-7'>
           <div className='flex justify-center items-center gap-1 mb-1 z-10'>
             <img
               src='/LandingAssets/logo.png'
@@ -116,7 +116,7 @@ const Landing = ({ alertUser = false, redirect = false }) => {
               alertUser ? 'flex' : 'hidden'
             } justify-center items-center w-full`}
           >
-            <div className=' py-3 text-red-300 rounded-lg font-display text-xl font-semibold'>
+            <div className='hidden md:block py-3 text-red-300 rounded-lg font-display text-xl font-semibold'>
               Please install MetaMask!
             </div>
           </div>

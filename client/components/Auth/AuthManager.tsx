@@ -4,7 +4,7 @@ import { useState } from 'react'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import Loader from 'react-loader-spinner'
 import router from 'next/router'
-import { ethers } from "ethers";
+import { ethers } from 'ethers'
 // import { json } from 'stream/consumers
 
 const AuthenticateButton = () => {
@@ -14,22 +14,25 @@ const AuthenticateButton = () => {
   return (
     <div>
       <button
-        onClick={() => {
-
-          authenticate({
-            onSuccess: async (user) => {
-              setcalled(true)
-              router.push('/dashboard')
-            },
-            onError: (err) => {
-              console.log('Failed to Authenticate User ->', err)
-            },
-          })
-        }}
-        className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md'
+        // onClick={() => {
+        //   authenticate({
+        //     onSuccess: async (user) => {
+        //       console.log('Authenticated User!: ', user)
+        //       setcalled(true)
+        //       router.push('/dashboard')
+        //     },
+        //     onError: (err) => {
+        //       console.log('Failed to Authenticate User ->', err)
+        //     },
+        //   })
+        // }}
+        className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md text-gray-500'
       >
         {!called ? (
-          <span>Authenticate</span>
+          <div>
+            <span>Authenticate</span>
+            <br className='block md:hidden' /> <span>(Coming Soon)</span>
+          </div>
         ) : (
           <div className='flex justify-center items-center '>
             <span>Authenticating </span>
@@ -65,13 +68,13 @@ export async function ensresolver({
   setavtr: any
 }) {
   const provider = ethers.getDefaultProvider()
-  let ensname = await provider.lookupAddress(address);
+  let ensname = await provider.lookupAddress(address)
   if (ensname == null) {
     setAddr(address)
   } else {
     setAddr(ensname as string)
-    let avatar = await provider.getAvatar(ensname);
-    if(avatar != null){
+    let avatar = await provider.getAvatar(ensname)
+    if (avatar != null) {
       setavtr(avatar)
     }
   }
