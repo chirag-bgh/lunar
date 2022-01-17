@@ -48,6 +48,11 @@ h3 {
   color: white;
 }
 
+h4 {
+  font-family: 'Montserrat';
+  color: white;
+}
+
 .underline {
   text-decoration: underline solid #87f1ff !important;
 }
