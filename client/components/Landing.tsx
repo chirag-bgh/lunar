@@ -8,16 +8,19 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useEffect } from 'react'
 
 import { useRouter } from 'next/router'
+import useMobileDetect from '../backend/MobileDetect'
 
 const Landing = ({ alertUser = false, redirect = false }) => {
   const router = useRouter()
 
-  const [scrollState, setScrollState] = useState(0)
+  const currentDevice = useMobileDetect()
+
+  const isMobile = currentDevice.isMobile()
 
   gsap.registerPlugin(ScrollTrigger)
 
   useEffect(() => {
-    document.addEventListener('scroll', () => setScrollState(window.scrollY))
+    console.log(isMobile)
 
     if (redirect) {
       router.push('/')
@@ -44,24 +47,25 @@ const Landing = ({ alertUser = false, redirect = false }) => {
     )
 
     // ADVANTAGES ANIMATION
-    gsap
-      .timeline({
-        // yes, we can add it to an entire timeline!
-        scrollTrigger: {
-          trigger: '.trigger',
-          pin: true, // pin the trigger element while active
-          start: 'top top', // when the top of the trigger hits the top of the viewport
-          end: '+=1000', // end after scrolling 500px beyond the start
-          scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
-        },
-      })
-      .from('.fade-in', {
-        scale: 0.3,
-        y: 100,
-        opacity: 0,
-        autoAlpha: 0,
-        stagger: 0.1,
-      })
+    if (!isMobile)
+      gsap
+        .timeline({
+          // yes, we can add it to an entire timeline!
+          scrollTrigger: {
+            trigger: '.trigger',
+            pin: true, // pin the trigger element while active
+            start: 'top top', // when the top of the trigger hits the top of the viewport
+            end: '+=1000', // end after scrolling 500px beyond the start
+            scrub: 1, // smooth scrubbing, takes 1 second to "catch up" to the scrollbar
+          },
+        })
+        .from('.fade-in', {
+          scale: 0.3,
+          y: 100,
+          opacity: 0,
+          autoAlpha: 0,
+          stagger: 0.1,
+        })
 
     //BG SCREEN ANIMATION
     // gsap.timeline({
@@ -262,7 +266,7 @@ const Landing = ({ alertUser = false, redirect = false }) => {
           <h5 className='fade-in font-display font-semibold md:text-2xl text-sm text-gray-600 pl-10 md:pl-0'>
             Customer Management
           </h5>
-          <h5 className='fade-in font-display font-semibold md:text-2xl text-sm text-gray-600 '>
+          <h5 className='fade-in font-display font-semibold md:text-2xl text-sm text-gray-600'>
             One-time charges
           </h5>
           <h5 className='fade-in font-display font-semibold md:text-2xl text-sm text-gray-600'>
