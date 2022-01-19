@@ -38,7 +38,9 @@ const DashboardPage = () => {
   const [walletModalIsOpen, setWalletModalIsOpen] = useState(false)
   const { enableWeb3, isWeb3Enabled, user } = useMoralis()
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    user === null ? false : true
+  )
 
   const router = useRouter()
 
@@ -63,13 +65,8 @@ const DashboardPage = () => {
   }, [enableWeb3, isWeb3Enabled, isAuthenticated])
 
   useEffect(() => {
-    if(window.ethereum.isConnected()){
-      setIsAuthenticated(true)
-    } else {
-      setIsAuthenticated(false)
-    }
-
-  }, [isAuthenticated])
+    setIsAuthenticated(user === null ? false : true)
+  }, [user])
 
   function openModal() {
     setIsOpen(true)
