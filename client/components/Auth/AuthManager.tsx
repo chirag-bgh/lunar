@@ -22,7 +22,7 @@ const AuthenticateButton = () => {
     let _provider = new ethers.providers.Web3Provider(window.ethereum)
     // const signer = _provider?.getSigner()
     window.ethereum
-      .request({ method: 'eth_requestAccounts' })
+      .request({ method: 'eth_requestAccounts' }) 
       .then((accounts: any) => {
         console.log('accounts: ', accounts)
       })
