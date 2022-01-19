@@ -4,13 +4,12 @@ import { useMoralis } from 'react-moralis'
 
 export const LoadingScreenAuthState = () => {
   const router = useRouter()
-  const { user } = useMoralis()
 
   const [states, setStates] = useState<boolean[]>([])
 
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-    user === null ? false : true
-  )
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  console.log('IsAuthenticated: ',isAuthenticated)
 
   const timeoutRef = useRef<any>(null)
 
@@ -22,7 +21,6 @@ export const LoadingScreenAuthState = () => {
   useEffect(() => {
     if (states.length >= 2) {
       if (states[states.length - 1] === true) {
-        // console.log('AUTH IS TRUE: ', user)
         if (timeoutRef.current !== null) {
           clearTimeout(timeoutRef.current)
         }
@@ -40,8 +38,13 @@ export const LoadingScreenAuthState = () => {
   }, [states])
 
   useEffect(() => {
-    setIsAuthenticated(user === null ? false : true)
-  }, [user])
+    if(window.ethereum.isConnected()){
+      setIsAuthenticated(true)
+    } else {
+      setIsAuthenticated(false)
+    }
+
+  }, [isAuthenticated])
 
   return (
     <div className='h-screen w-screen bg-background flex justify-center items-center text-4xl font-display text-white'>

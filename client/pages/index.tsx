@@ -59,7 +59,7 @@ function Content() {
     if (isAuthenticated) {
       router.push('/dashboard')
     }
-    console.log('isAuthenticated: ', isAuthenticated)
+   //thenticated: ', isAuthenticated)
   }, [enableWeb3, isWeb3Enabled])
 
   return <Landing alertUser={alertUser} />

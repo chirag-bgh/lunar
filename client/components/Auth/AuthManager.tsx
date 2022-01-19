@@ -1,5 +1,5 @@
 import { useMoralis } from 'react-moralis'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 // Spinner
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 import Loader from 'react-loader-spinner'
@@ -7,25 +7,55 @@ import router from 'next/router'
 import { ethers } from 'ethers'
 // import { json } from 'stream/consumers
 
+
+export async function usergetter() {
+
+}
+
 const AuthenticateButton = () => {
   const { authenticate } = useMoralis()
+  const [provider, setProvider] = useState<any>(null)
   const [called, setcalled] = useState(false)
+  const [address,setaddress] = useState('')
+
+  useEffect(() => {
+    let _provider = new ethers.providers.Web3Provider(window.ethereum)
+    // const signer = _provider?.getSigner()
+    window.ethereum
+      .request({ method: 'eth_requestAccounts' })
+      .then((accounts: any) => {
+        console.log('accounts: ', accounts)
+      })
+    // if (signer) setAuthenticated(true)
+    setProvider(_provider)
+
+    // Reload page on chain change
+    window.ethereum.on('chainChanged', (chainId: any) => {
+      window.location.reload()
+    })
+  }, [])
+
+  const connectWithMetamask = async () => {
+    if (!provider || provider === undefined) return
+    await provider?.send('eth_requestAccounts', [])
+    const signer = provider?.getSigner()
+    console.log('Account:', await signer?.getAddress())
+    setaddress(await signer?.getAddress())
+    router.push('/dashboard')
+  }
 
   return (
     <div>
       <button
-        // onClick={() => {
-        //   authenticate({
-        //     onSuccess: async (user) => {
-        //       console.log('Authenticated User!: ', user)
-        //       setcalled(true)
-        //       router.push('/dashboard')
-        //     },
-        //     onError: (err) => {
-        //       console.log('Failed to Authenticate User ->', err)
-        //     },
-        //   })
-        // }}
+        onClick={() => {
+          if (!window.ethereum.isConnected()) {
+            connectWithMetamask()
+            setcalled(true)
+          } else {
+            setcalled(true)
+            router.push('/dashboard')
+          }
+        }}
         className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md text-gray-500'
       >
         {!called ? (
