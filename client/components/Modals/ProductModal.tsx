@@ -1,6 +1,7 @@
 // Modal
 import { useEffect, useMemo, useState } from 'react'
 import ReactModal from 'react-modal'
+import { productadder } from '../../API/products'
 
 // Dropdown
 import Dropdown from 'react-dropdown'
@@ -124,14 +125,31 @@ const ProductModal = ({
             placeholder='Select an option'
           />
         </div>
-        <CreateProduct
+        <div>
+      <button
+        onClick={async () => {
+          closeModal()
+          await productadder({
+            name,
+            price,
+            recurrence,
+            currency: currency,
+            token:user?.get('token')
+          })
+        }}
+        className='px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer'
+      >
+        Add
+      </button>
+    </div>
+        {/* <CreateProduct
           name={name}
           price={price}
           recurrence={recurrence}
           closeModal={closeModal}
           currency={currency}
           acceptedCurrencies={acceptedCurrencies}
-        />
+        /> */}
       </div>
     </ReactModal>
   )

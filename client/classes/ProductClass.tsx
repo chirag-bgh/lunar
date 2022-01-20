@@ -7,8 +7,7 @@ export default interface ProductClass {
   managed_account: string
   callback_url: string
   user: User
-  createdAt: Date
-  updatedAt: Date
+  created_at: Date
   objectId: string
   acceptedCurrencies: string[]
   defaultCurrency: string

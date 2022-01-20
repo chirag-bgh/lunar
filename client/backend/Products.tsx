@@ -10,6 +10,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 // Icons
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { FaTrash } from 'react-icons/fa'
+import { productgetter } from '../API/products'
 
 // Sorting Library
 import linq from 'linq'
@@ -20,7 +21,7 @@ interface TableData {
   product: string
   id: string
   price: number
-  createdAt: Date
+  created_at: Date
   purchaseButton: JSX.Element
   removeButton: JSX.Element
   //there is no column  no
@@ -133,7 +134,7 @@ const FetchProduct = ({ query }: { query: string }) => {
   const { user } = useMoralis()
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
-    { propertyName: 'createdAt', sortType: SortingType.Descending },
+    { propertyName: 'created_at', sortType: SortingType.Descending },
   ])
 
   const sortBy = useCallback(
@@ -169,9 +170,18 @@ const FetchProduct = ({ query }: { query: string }) => {
     [sortConfig]
   )
 
-  const { data } = useMoralisQuery('Products', (query) =>
-    query.equalTo('user', user?.id)
-  )
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
+
+  if(!accfetched){
+    console.log("Fetched")
+    productgetter({setAcc})
+    setaccfetched(true)
+  }
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
+    console.log("Set Account")
+  }
 
   let json = JSON.stringify(data, null, 2)
 
@@ -240,7 +250,7 @@ const FetchProduct = ({ query }: { query: string }) => {
       <tbody>
         <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
         {sortedRows.map((product) => {
-          let newDate = new Date(product.createdAt)
+          let newDate = new Date(product.created_at)
           console.log('aASDASD', newDate.getMinutes().toString().length == 1)
           return (
             <tr
@@ -308,7 +318,7 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
     { label: 'ID', property: 'id' as keyof TableData },
     { label: 'Price', property: 'price' as keyof TableData },
     { label: 'Recurrence', property: 'recurrence' as keyof TableData },
-    { label: 'Created At', property: 'createdAt' as keyof TableData },
+    { label: 'Created At', property: 'created_at' as keyof TableData },
     //  { label: "Purchase", property: "purchaseButton" as keyof TableData },
     { label: 'Remove', property: 'removeButton' as keyof TableData },
   ]

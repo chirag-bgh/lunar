@@ -11,7 +11,6 @@ export async function transactiongetter({setAcc}:{setAcc: ({z}:{z:any}) => void}
         let x = await user?.get('token')
 
         if(x !== null){
-            console.log("IN XHR")
             var xhr = new XMLHttpRequest()
             let endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
             let url = endpoint+ 'api/v1/transactions'
