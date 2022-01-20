@@ -52,15 +52,14 @@ const AuthenticateButton = () => {
             },
           })
         }}
-        className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md text-gray-500'
+        className='rounded-sm flex justify-center items-center font-medium font-display cursor-pointer text-lg md:text-md'
       >
         {!called ? (
           <div>
             <span>Authenticate</span>
-            <br className='block md:hidden' /> <span>(Coming Soon)</span>
           </div>
         ) : (
-          <div className='flex justify-center items-center '>
+          <div className='flex justify-center items-center'>
             <span>Authenticating </span>
             <Loader type='Puff' color='white' height={20} width={30} />
           </div>

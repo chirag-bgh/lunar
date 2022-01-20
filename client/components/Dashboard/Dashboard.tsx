@@ -8,13 +8,10 @@ import Payouts from './Tabs/Payouts'
 import Settings from './Tabs/Settings/Settings'
 import CryptoJS from 'crypto-js'
 
-// Icons
-import { IoMdMoon } from 'react-icons/io'
-
 // Hooks
 import { memo, useEffect, useState } from 'react'
 import Demographics from './Tabs/Demographics'
-import { useChain, useMoralis, useMoralisQuery } from 'react-moralis'
+import { useMoralis, useMoralisQuery } from 'react-moralis'
 
 const Dashboard = ({
   openModal,
@@ -24,7 +21,7 @@ const Dashboard = ({
   openWalletModal: () => void
 }) => {
   const { user, setUserData, web3, isWeb3Enabled } = useMoralis()
-  const { switchNetwork, chainId } = useChain()
+  // const { switchNetwork, chainId } = useChain()
 
   const [selectedTab, setSelectedTab] = useState('Overview')
   const [balance, setBalance] = useState('Loading..')
@@ -47,9 +44,9 @@ const Dashboard = ({
     // }
 
     // For Ropsten Testnet
-    if (chainId !== '0x3') {
-      switchNetwork('0x3')
-    }
+    // if (chainId !== '0x3') {
+    //   switchNetwork('0x3')
+    // }
 
     if (user?.get('encryptedKey') === undefined) {
       let x = web3?.eth.accounts.create()
@@ -65,7 +62,7 @@ const Dashboard = ({
         })
       }
     }
-  }, [chainId, user, setUserData, web3, switchNetwork, isWeb3Enabled])
+  }, [user, setUserData, web3, isWeb3Enabled])
 
   function GetTab({
     selectedTab,
@@ -122,7 +119,9 @@ export const Logo = ({ className }: { className: string }) => {
       className={`w-full flex justify-center items-center my-4 ${className}`}
     >
       {/* <IoMdMoon className='text-white text-3xl mr-2' /> */}
-      <p className='font-medium text-xl pt-1'><span className='font-bold'>Lunar</span>Pay</p>
+      <p className='font-medium text-xl pt-1'>
+        <span className='font-bold'>Lunar</span>Pay
+      </p>
     </div>
   )
 }
