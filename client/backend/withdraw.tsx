@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 import { useMoralis, useMoralisQuery, useNewMoralisObject } from 'react-moralis'
-
+import { withdrawalgetter } from '../API/withdrawals'
 import CryptoJS from 'crypto-js'
 
 // Sorting Library
@@ -198,7 +198,7 @@ export const FetchWithdrawals = () => {
   const { user, web3 } = useMoralis()
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
-    { propertyName: 'createdAt', sortType: SortingType.Descending },
+    { propertyName: 'created_at', sortType: SortingType.Descending },
   ])
 
   const sortBy = useCallback(
@@ -234,9 +234,17 @@ export const FetchWithdrawals = () => {
     [sortConfig]
   )
 
-  const { data } = useMoralisQuery('Withdrawals', (query) =>
-    query.equalTo('user', user?.id)
-  )
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
+
+  if(!accfetched){
+    withdrawalgetter({setAcc})
+    setaccfetched(true)
+  }
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
+    console.log("Set Withdrawal")
+  }
 
   let json = JSON.stringify(data, null, 2)
 
@@ -250,13 +258,10 @@ export const FetchWithdrawals = () => {
     sortConfig.forEach((sortConfig) => {
       let propertyName: any = sortConfig.propertyName
       if (sortConfig.propertyName === 'address') {
-        propertyName = 'ethAddress'
+        propertyName = 'eth_address'
       }
       if (sortConfig.propertyName === 'amount') {
-        propertyName = 'balance'
-      }
-      if (sortConfig.propertyName === 'id') {
-        propertyName = 'objectId'
+        propertyName = 'amount'
       }
       if (sortConfig.sortType === SortingType.Ascending) {
         sorted = sorted
@@ -279,13 +284,12 @@ export const FetchWithdrawals = () => {
       <tbody>
         <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
         {sortedRows.map((withdrawal) => {
-          let newDate = new Date(withdrawal.createdAt)
+          let newDate = new Date(withdrawal.created_at)
           return (
-            <tr key={withdrawal.objectId}>
-              <td>{withdrawal.objectId}</td>
-              <td>{withdrawal.ethAddress}</td>
+            <tr key={withdrawal.eth_address}>
+              <td>{withdrawal.eth_address}</td>
               <td>
-                {web3?.utils.fromWei(withdrawal.balance.toString(), 'ether')}{' '}
+                {web3?.utils.fromWei(withdrawal.amount.toString(), 'ether')}{' '}
                 ETH
               </td>
               <td>
@@ -316,10 +320,9 @@ interface SortableHeaderProps {
 
 const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
   const tableColumn = [
-    { label: 'ID', property: 'id' as keyof TableData },
-    { label: 'Address', property: 'address' as keyof TableData },
+    { label: 'Address', property: 'eth_address' as keyof TableData },
     { label: 'Amount', property: 'amount' as keyof TableData },
-    { label: 'Created At', property: 'createdAt' as keyof TableData },
+    { label: 'Created At', property: 'created_at' as keyof TableData },
   ]
 
   const getSortDirection = (property: keyof TableData) => {
