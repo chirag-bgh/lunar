@@ -6,10 +6,8 @@ export default interface TransactionClass {
   amount: number
   to_address: string
   from_address: string
-  Type: string
+  type: string
   user: User
-  email_address: string
-  createdAt: Date
-  updatedAt: Date
-  objectId: string
+  email: string
+  created_at: Date
 }

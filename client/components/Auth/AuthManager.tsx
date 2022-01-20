@@ -6,9 +6,10 @@ import Loader from 'react-loader-spinner'
 import router from 'next/router'
 import { ethers } from 'ethers'
 // import { json } from 'stream/consumers
+import { tokengetter } from '../../API/tokengetter'
 
 const AuthenticateButton = () => {
-  const { authenticate } = useMoralis()
+  const { authenticate,setUserData } = useMoralis()
   const [called, setcalled] = useState(false)
 
   return (
@@ -17,10 +18,35 @@ const AuthenticateButton = () => {
         onClick={() => {
           authenticate({
             onSuccess: async (user) => {
+              user?.save({token:null})
+              let endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
               console.log('Authenticated User!: ', user)
+              var xhr = new XMLHttpRequest()
+              let url = endpoint + 'api/v1/users/add'
+              xhr.open('POST', url)
+              xhr.setRequestHeader('Content-Type', 'application/json')
+              xhr.onreadystatechange = async function () {
+              if (xhr.readyState === 4) {
+                  console.log(xhr.status)
+                  console.log(xhr.responseText)
+                  let x:any = await tokengetter({ethAddress:user?.get('ethAddress')}).then((x) => {
+                    console.log('Token: ',x)
+                    user?.save({token:x})
+                  })
+                     }
+                }
+
+              var data = {eth_address:user?.get('ethAddress')}
+              xhr.send(JSON.stringify(data))
+              xhr.onloadend = function () {
+              console.log('User Created')
+              }
+              
+              
               setcalled(true)
               router.push('/dashboard')
             },
+            
             onError: (err) => {
               console.log('Failed to Authenticate User ->', err)
             },
@@ -79,6 +105,7 @@ export async function ensresolver({
     }
   }
   return 'done'
+  
 }
 
 export { AuthenticateButton, LogoutButton }

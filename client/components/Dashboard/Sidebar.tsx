@@ -13,7 +13,7 @@ import CountUp from 'react-countup'
 import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import { ensresolver } from '../Auth/AuthManager'
-
+import { walletgetter } from '../../API/wallet'
 const Sidebar = ({
   selectedTab,
   setSelectedTab,
@@ -51,12 +51,15 @@ const Sidebar = ({
       {/* Sign Out Button */}
       <div
         className=' bg-red-500 mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'
-        onClick={() =>
-          logout().then(() => {
-            router.push('/')
-            // alert('Wallet Disconnected')
-          })
-        }
+        onClick={() => {
+          user?.save({token:'null'}).then(() => {
+            logout().then(() => {
+              router.push('/')
+              // alert('Wallet Disconnected')
+            })
+          }
+          )
+           }}
       >
         <h1 className='font-semibold font-display text-md'>Sign Out</h1>
       </div>
@@ -205,13 +208,13 @@ const Balance = ({
   const { fetch, data } = useMoralisWeb3ApiCall(
     Web3Api.account.getNativeBalance,
     {
-      address: user?.get('managed_account_pub'),
+      address: '',
       chain: 'ropsten',
     }
   )
-
   useEffect(() => {
     if (data !== null) {
+      console.log("Data: ",data)
       setBalance(web3?.utils.fromWei(data.balance) + ' ETH')
       //console.log('balance: ', balance)
     }

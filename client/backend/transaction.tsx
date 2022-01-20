@@ -1,4 +1,5 @@
 import { useMoralis, useMoralisQuery } from 'react-moralis'
+import { transactiongetter } from '../API/transactions'
 
 // Icons
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
@@ -11,11 +12,10 @@ import { monthNames } from './Utils'
 
 interface TableData {
   product: string
-  objectId: string
   email_address: string
   amount: number
   type: string
-  createdAt: Date
+  created_at: Date
 }
 
 interface SortingConfiguration {
@@ -51,7 +51,7 @@ export const FetchTransaction = ({ query }: { query: string }) => {
   const { user } = useMoralis()
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
-    { propertyName: 'createdAt', sortType: SortingType.Descending },
+    { propertyName: 'created_at', sortType: SortingType.Descending },
   ])
 
   const sortBy = useCallback(
@@ -88,17 +88,26 @@ export const FetchTransaction = ({ query }: { query: string }) => {
   )
 
   const userAddress = user?.get('managed_account_pub')
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
 
-  const { data } = useMoralisQuery('Transactions', (query) =>
-    query.equalTo('to_address', userAddress)
-  )
+  if(!accfetched){
+    console.log("Fetched")
+    transactiongetter({setAcc})
+    setaccfetched(true)
+  }
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
+    console.log("Set Account")
+  }
+  
 
   let json = JSON.stringify(data, null, 2)
 
-  // console.log('json: ', json)
+  console.log('json: ', data)
 
   const transactions: TransactionClass[] = JSON.parse(json)
-
+  console.log("transactions: ",transactions)
   const sortedRows = useMemo(() => {
     //Set up default ordering
     let sorted = linq.from(transactions).orderBy(() => 1)
@@ -159,14 +168,13 @@ export const FetchTransaction = ({ query }: { query: string }) => {
       <tbody>
         <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
         {sortedRows.map((transaction) => {
-          let newDate = new Date(transaction.createdAt)
+          let newDate = new Date(transaction.created_at)
           return (
-            <tr key={transaction.objectId}>
+            <tr key={transaction.product}>
               <td>{transaction.product}</td>
-              <td>{transaction.objectId}</td>
               <td>{transaction.amount} ETH</td>
-              <td>{transaction.Type}</td>
-              <td>{transaction.email_address}</td>
+              <td>{transaction.type}</td>
+              <td>{transaction.email}</td>
               <td>
                 {newDate.getDate() +
                   ' ' +
@@ -196,11 +204,10 @@ interface SortableHeaderProps {
 const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
   const tableColumn = [
     { label: 'Product', property: 'product' as keyof TableData },
-    { label: 'ID', property: 'objectId' as keyof TableData },
     { label: 'Price', property: 'amount' as keyof TableData },
     { label: 'Type', property: 'type' as keyof TableData },
     { label: 'Email', property: 'email_address' as keyof TableData },
-    { label: 'Created At', property: 'createdAt' as keyof TableData },
+    { label: 'Date', property: 'created_at' as keyof TableData },
   ]
 
   const getSortDirection = (property: keyof TableData) => {

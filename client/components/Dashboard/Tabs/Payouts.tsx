@@ -2,6 +2,7 @@ import { BsFillArrowDownCircleFill } from 'react-icons/bs'
 import { HiPlusSm } from 'react-icons/hi'
 import { useEffect, useState } from 'react'
 import { FetchWithdrawals, Withdraw } from '../../../backend/withdraw'
+import { walletgetter } from '../../../API/wallet'
 import {
   useMoralis,
   useMoralisWeb3ApiCall,
@@ -22,8 +23,18 @@ const Payouts = ({
   const [selected, setSelected] = useState(address)
 
   const [cardFetched, setCardFetched] = useState(false)
+  const [accounts, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
 
-  const accounts: string[] = user?.get('accounts')
+  if(!accfetched){
+    console.log("Fetched")
+    walletgetter({setAcc})
+    setaccfetched(true)
+  }
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
+  }
+  
 
   return (
     <div className='w-full'>
@@ -34,7 +45,6 @@ const Payouts = ({
       <div className='flex flex-wrap gap-8 items-center'>
         <div className='flex justify-center items-center gap-10'>
           {accounts.map((accountAdr) => {
-            console.log('Account: ',accountAdr)
             return (
               <Card
                 key={accountAdr}
