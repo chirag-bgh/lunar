@@ -35,6 +35,11 @@ const Settings = () => {
             onChange={setMaticEnabled}
             text='MATIC'
           />
+          <Checkbox
+            state={maticEnabled}
+            onChange={setMaticEnabled}
+            text='USDT'
+          />
           <SaveCurrencyConfig
             ethEnabled={ethEnabled}
             maticEnabled={maticEnabled}
