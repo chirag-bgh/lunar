@@ -1,5 +1,6 @@
-import { useMoralisQuery, useMoralis } from 'react-moralis'
+import { useMoralis } from 'react-moralis'
 import TransactionClass from '../classes/TransactionClass'
+import { transactiongetter } from '../API/transactions'
 
 import {
   CartesianGrid,
@@ -19,9 +20,18 @@ export const GetRevenue = () => {
 
   const userAddress = user?.get('managed_account_pub')
 
-  const { data, error, isLoading } = useMoralisQuery('Transactions', (query) =>
-    query.equalTo('to_address', userAddress)
-  )
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
+
+  if(!accfetched){
+    console.log("Fetched")
+    transactiongetter({setAcc})
+    setaccfetched(true)
+  }
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
+    console.log("Set Account")
+  }
 
   const [revenue, setRevenue] = useState(0)
 
@@ -32,13 +42,6 @@ export const GetRevenue = () => {
     }
   }, [data])
 
-  if (error) {
-    return <span>🤯</span>
-  }
-
-  if (isLoading) {
-    return <span>🙄</span>
-  }
 
   const getRev = (data: any) => {
     let json = JSON.stringify(data, null, 2)
@@ -64,9 +67,19 @@ export const GetTransactions = () => {
 
   // console.log('querying transactions')
 
-  const { data } = useMoralisQuery('Transactions', (query) =>
-    query.equalTo('to_address', userAddress)
-  )
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
+
+  if(!accfetched){
+    console.log("Fetched")
+    transactiongetter({setAcc})
+    setaccfetched(true)
+  }
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
+    console.log("Set Account")
+  }
+  
 
   const [transactions, setTransactions] = useState<TransactionClass[]>([])
 
@@ -94,9 +107,18 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
 
   const userAddress = user?.get('managed_account_pub')
 
-  const { data } = useMoralisQuery('Transactions', (query) =>
-    query.equalTo('to_address', userAddress)
-  )
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
+
+  if(!accfetched){
+    console.log("Fetched")
+    transactiongetter({setAcc})
+    setaccfetched(true)
+  }
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
+    console.log("Set Account")
+  }
 
   const [chartData, setChartData] = useState<any[]>([])
 
@@ -165,7 +187,8 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
 
     const transactions: TransactionClass[] = JSON.parse(json)
 
-    let dates: Date[] = transactions.map((transaction) => transaction.createdAt)
+    let dates: Date[] = transactions.map((transaction) => transaction.created_at)
+    console.log("Dates: ",dates)
 
     for (let i = 0; i < days; i++) {
       dateObj.setDate(dateObj.getDate() - 1)
@@ -183,10 +206,13 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
 
       for (let index = 0; index < dates.length; index++) {
         const transactionDate = dates[index]
-
-        if (transactionDate.toString().startsWith(date)) {
+        console.log("Checker ",transactionDate.toString())
+        console.log('Date: ',date)
+        console.log("Bool: ",transactionDate.toString().startsWith(date))
+        if (transactionDate.toString().includes(date)) {
           if (transactions[index] !== undefined) {
             revenue += transactions[index].amount
+            console.log("Revenue: ",revenue)
           }
           transactionCount += 1
         }
