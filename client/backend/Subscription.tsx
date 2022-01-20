@@ -1,5 +1,6 @@
 import { useNewMoralisObject, useMoralis, useMoralisQuery } from 'react-moralis'
 // import Moralis from 'moralis'
+import { subscriptiongetter } from '../API/subscription'
 
 // Classes
 import SubscriptionClass from '../classes/SubscriptionClass'
@@ -16,11 +17,10 @@ import { monthNames } from './Utils'
 
 interface TableData {
   product: string
-  id: string
   price: number
   recurrence: string
-  createdAt: Date
-  email_address: string
+  created_at: Date
+  email: string
 }
 
 interface SortingConfiguration {
@@ -33,29 +33,6 @@ enum SortingType {
   Descending,
 }
 
-const CreateSubscription = ({
-  name,
-  price,
-  recurrence,
-}: {
-  price: number
-  name: string
-  recurrence: string
-}) => {
-  const { isSaving, error, save } = useNewMoralisObject('Subscription')
-  const { user } = useMoralis()
-  return (
-    <div>
-      {error}
-      <button
-        onClick={() => save({ name, price, user: user?.get('id'), recurrence })}
-        disabled={isSaving}
-      >
-        Create Subscription
-      </button>
-    </div>
-  )
-}
 const FetchSubscription = ({ query }: { query: string }) => {
   const { user } = useMoralis()
 
@@ -96,11 +73,17 @@ const FetchSubscription = ({ query }: { query: string }) => {
     [sortConfig]
   )
 
-  const { data } = useMoralisQuery('Subscription', (query) =>
-    query.equalTo('user', user?.id)
-  )
-  // console.log("User: ", user.id);
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
 
+  if(!accfetched){
+    subscriptiongetter({setAcc})
+    setaccfetched(true)
+  }
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
+  }
+  console.log("SData: ",data)
   let json = JSON.stringify(data, null, 2)
   // console.log("json: ", json);
 
@@ -132,7 +115,8 @@ const FetchSubscription = ({ query }: { query: string }) => {
       }
     })
 
-    let names = subsriptions.map((a) => a.name)
+    let names = subsriptions.map((a) => a.product)
+    console.log("Names: ",names)
 
     // console.log("names", names);
 
@@ -150,7 +134,7 @@ const FetchSubscription = ({ query }: { query: string }) => {
 
     for (let i = 0; i < sortedArray.length; i++) {
       const dataRow = sortedArray[i]
-      const name = dataRow.name
+      const name = dataRow.product
       for (let j = 0; j < filteredNames.length; j++) {
         let filteredName = filteredNames[j]
         if (!name.startsWith(filteredName) && query !== '') {
@@ -169,14 +153,13 @@ const FetchSubscription = ({ query }: { query: string }) => {
       <tbody>
         <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
         {sortedRows.map((subscription) => {
-          let newDate = new Date(subscription.createdAt)
+          let newDate = new Date(subscription.created_at)
           return (
-            <tr key={subscription.objectId}>
-              <td>{subscription.name}</td>
-              <td>{subscription.objectId}</td>
+            <tr key={subscription.product}>
+              <td>{subscription.product}</td>
               <td>{subscription.price} ETH</td>
               <td>{subscription.recurrence}</td>
-              <td>{subscription.email_address}</td>
+              <td>{subscription.email}</td>
               <td>
                 {newDate.getDate() +
                   ' ' +
@@ -198,7 +181,7 @@ const FetchSubscription = ({ query }: { query: string }) => {
   )
 }
 
-export { CreateSubscription, FetchSubscription }
+export {FetchSubscription }
 
 interface SortableHeaderProps {
   sortBy: (string: keyof TableData) => void
@@ -207,12 +190,11 @@ interface SortableHeaderProps {
 
 const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
   const tableColumn = [
-    { label: 'Subscription', property: 'product' as keyof TableData },
-    { label: 'ID', property: 'id' as keyof TableData },
+    { label: 'Product', property: 'product' as keyof TableData },
     { label: 'Price', property: 'price' as keyof TableData },
     { label: 'Recurrence', property: 'recurrence' as keyof TableData },
-    { label: 'Email', property: 'email_address' as keyof TableData },
-    { label: 'Created At', property: 'createdAt' as keyof TableData },
+    { label: 'Email', property: 'email' as keyof TableData },
+    { label: 'Created At', property: 'created_at' as keyof TableData },
   ]
 
   const getSortDirection = (property: keyof TableData) => {
