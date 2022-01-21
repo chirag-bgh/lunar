@@ -18,6 +18,8 @@ export const SettingBackend = ({
     query.equalTo('user', user?.id)
   )
 
+
+
   return (
     <button
       onClick={() => {

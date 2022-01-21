@@ -7,6 +7,7 @@ import {
 } from '../../../../backend/settings'
 
 import { Checkbox } from './Utils'
+import { currencygetter } from '../../../../API/accepted_currencies'
 
 const Settings = () => {
   const [callback, setcallback] = useState('')
@@ -14,13 +15,40 @@ const Settings = () => {
 
   const { user } = useMoralis()
 
-  const [ethEnabled, setEthEnabled] = useState(user?.get('ethEnabled'))
-  const [maticEnabled, setMaticEnabled] = useState(user?.get('maticEnabled'))
+  const [ethEnabled, setEthEnabled] = useState(false)
+  const [maticEnabled, setMaticEnabled] = useState(false)
+  const [accounts, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
+  const [setting, setsetting] = useState(false)
+
+  if(!accfetched){
+    currencygetter({setAcc})
+    setaccfetched(true)
+  }
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
+  }
+
+  console.log("Currency Settings: ",accounts)
+  if(accfetched && !setting){
+    if(accounts.includes('ETH')){
+      setEthEnabled(true)
+      setsetting(true)
+    }
+    if(accounts.includes('MATIC')){
+      setMaticEnabled(true)
+      setsetting(true)
+    }
+  }
+
+console.log("Eth Enabled",ethEnabled)
+console.log("Matic Enabled",maticEnabled)
+console.log("Setting",setting)
+
 
   return (
     <div className='w-full h-full mb-14'>
       <h1 className='text-3xl underline font-medium'>Settings</h1>
-
       {/* Supported Currencies */}
       <div className='flex flex-col w-full justify-start items-start mt-10'>
         <h1 className='text-2xl'>Supported Currencies</h1>
@@ -46,7 +74,6 @@ const Settings = () => {
           />
         </div>
       </div>
-
       {/* Setup Webhook and Callbacks */}
       <div className='flex flex-col w-full justify-start items-start mt-10'>
         <h1 className='text-2xl'>Setup Webhook and Callbacks</h1>

@@ -84,10 +84,10 @@ const Payouts = ({
 
       <FetchWithdrawals />
 
-      <div className='bg-primary p-5 flex justify-center items-center w-32 h-12 gap-1 rounded-lg cursor-pointer mt-10'>
+      {/* <div className='bg-primary p-5 flex justify-center items-center w-32 h-12 gap-1 rounded-lg cursor-pointer mt-10'>
         <h1 className='text-dark font-display font-semibold'>Invoice</h1>
         <BsFillArrowDownCircleFill className='text-dark text-xl' />
-      </div>
+      </div> */}
       <div className='flex mt-7 mb-7 justify-center items-center'>
         <h1 className='text-white font-display font-semibold'>
           Need help? Contact us at{' '}
