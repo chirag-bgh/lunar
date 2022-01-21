@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 
 
 
-export async function productgetter({setAcc}:{setAcc: ({z}:{z:any}) => void}){
+export async function demographicsgetter({setAcc}:{setAcc: ({z}:{z:any}) => void}){
 
     const{user} = useMoralis()
  
@@ -13,7 +13,7 @@ export async function productgetter({setAcc}:{setAcc: ({z}:{z:any}) => void}){
         if(x !== null){
             var xhr = new XMLHttpRequest()
             let endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
-            let url = endpoint+ 'api/v1/products'
+            let url = endpoint+ 'api/v1/demographics'
             xhr.open('GET', url)
             xhr.setRequestHeader('Authorization', `Token ${x}`)
             xhr.setRequestHeader('Content-Type', 'application/json')
@@ -27,24 +27,11 @@ export async function productgetter({setAcc}:{setAcc: ({z}:{z:any}) => void}){
             var data = { Address:user?.get('ethAddress') }
             var t = JSON.stringify(data)
             xhr.send(JSON.stringify(t))
+            xhr.onloadend = function () {
+                console.log('Fetched Demographics')
+                }
         }
     
 }
 
 
-export async function productadder({name,price,currency,recurrence,token}:{name:string,price:any,currency:any,recurrence:string,token:string}){
-
-
-
-  if(token !== null){
-      var xhr = new XMLHttpRequest()
-      let endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
-      let url = endpoint+ 'api/v1/products/add'
-      xhr.open('POST', url)
-      xhr.setRequestHeader('Authorization', `Token ${token}`)
-      xhr.setRequestHeader('Content-Type', 'application/json')
-      var z = JSON.stringify({'name':name,'price':price,'default_currency':currency,'recurrence':recurrence})
-      xhr.send(z)
-  }
-
-}

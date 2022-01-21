@@ -20,17 +20,15 @@ const AuthenticateButton = () => {
             onSuccess: async (user) => {
               user?.save({token:null})
               let endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
-              console.log('Authenticated User!: ', user)
               var xhr = new XMLHttpRequest()
               let url = endpoint + 'api/v1/users/add'
               xhr.open('POST', url)
               xhr.setRequestHeader('Content-Type', 'application/json')
               xhr.onreadystatechange = async function () {
               if (xhr.readyState === 4) {
-                  console.log(xhr.status)
-                  console.log(xhr.responseText)
+                  // console.log(xhr.status)
+                  // console.log(xhr.responseText)
                   let x:any = await tokengetter({ethAddress:user?.get('ethAddress')}).then((x) => {
-                    console.log('Token: ',x)
                     user?.save({token:x})
                   })
                      }
@@ -39,7 +37,6 @@ const AuthenticateButton = () => {
               var data = {eth_address:user?.get('ethAddress')}
               xhr.send(JSON.stringify(data))
               xhr.onloadend = function () {
-              console.log('User Created')
               }
               
               

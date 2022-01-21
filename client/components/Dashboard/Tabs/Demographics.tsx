@@ -9,20 +9,21 @@ import {
 import DonutChart from '../../../components/DonutChart/DonutChart'
 import { useMoralis, useMoralisQuery } from 'react-moralis'
 import DemographicsClass from '../../../classes/Demographics'
+import { useState } from 'react'
+import { demographicsgetter } from '../../../API/demographics'
 
 const Demographics = () => {
   const { user } = useMoralis()
 
-  const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
-    query.equalTo('user', user?.id)
-  )
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
 
-  if (error) {
-    return <span>🤯</span>
+  if(!accfetched){
+    demographicsgetter({setAcc})
+    setaccfetched(true)
   }
-
-  if (isLoading) {
-    return <span>🙄</span>
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
   }
 
   let json = JSON.stringify(data, null, 2)
@@ -90,11 +91,11 @@ const Demographics = () => {
               return item
             }}
             onClick={(item: any, toggled: any) => {
-              if (toggled) {
-                console.log(`selecting: ${item.label}`)
-              } else {
-                console.log(`unselecting: ${item.label}`)
-              }
+              // if (toggled) {
+              //   console.log(`selecting: ${item.label}`)
+              // } else {
+              //   console.log(`unselecting: ${item.label}`)
+              // }
               return item
             }}
           />

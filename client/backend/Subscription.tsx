@@ -83,7 +83,6 @@ const FetchSubscription = ({ query }: { query: string }) => {
   function setAcc({z}:{z:any}) {
     setAccounts(z)
   }
-  console.log("SData: ",data)
   let json = JSON.stringify(data, null, 2)
   // console.log("json: ", json);
 
@@ -116,7 +115,6 @@ const FetchSubscription = ({ query }: { query: string }) => {
     })
 
     let names = subsriptions.map((a) => a.product)
-    console.log("Names: ",names)
 
     // console.log("names", names);
 

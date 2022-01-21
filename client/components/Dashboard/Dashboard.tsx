@@ -55,7 +55,6 @@ const Dashboard = ({
         process.env.NEXT_PUBLIC_PASSWORD as string
       ).toString()
       if (user && isAuthenticated) {
-        console.log('Saving user data')
         setUserData({
           managed_account_pub: x?.address,
           encryptedKey: encryptedKey,

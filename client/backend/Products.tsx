@@ -65,7 +65,6 @@ const DeleteProduct = ({ objectId }: { objectId: string }) => {
       <button
         onClick={(e) => {
           e.stopPropagation()
-          console.log('Removing Product')
           setDestroy(true)
         }}
         className='h-7 text-sm rounded-sm text-black font-display px-2 flex justify-center items-center cursor-pointer z-50'
@@ -174,13 +173,11 @@ const FetchProduct = ({ query }: { query: string }) => {
   const [accfetched, setaccfetched] = useState(false)
 
   if(!accfetched){
-    console.log("Fetched")
     productgetter({setAcc})
     setaccfetched(true)
   }
   function setAcc({z}:{z:any}) {
     setAccounts(z)
-    console.log("Set Account")
   }
 
   let json = JSON.stringify(data, null, 2)
@@ -251,7 +248,6 @@ const FetchProduct = ({ query }: { query: string }) => {
         <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
         {sortedRows.map((product) => {
           let newDate = new Date(product.created_at)
-          console.log('aASDASD', newDate.getMinutes().toString().length == 1)
           return (
             <tr
               key={product.objectId}

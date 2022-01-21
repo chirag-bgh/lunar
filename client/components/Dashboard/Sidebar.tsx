@@ -214,7 +214,6 @@ const Balance = ({
   )
   useEffect(() => {
     if (data !== null) {
-      console.log("Data: ",data)
       setBalance(web3?.utils.fromWei(data.balance) + ' ETH')
       //console.log('balance: ', balance)
     }

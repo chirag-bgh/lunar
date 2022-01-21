@@ -64,7 +64,6 @@ export const Withdraw = ({
     accountAddress = accountAddress.includes('.eth')
       ? ((await web3?.eth.ens.getAddress(accountAddress)) as string)
       : accountAddress
-    console.log('Address: ', accountAddress)
     let encryptedKey = user?.get('encryptedKey')
     var bytes = CryptoJS.AES.decrypt(
       encryptedKey,
@@ -120,20 +119,15 @@ export const Withdraw = ({
 
       var account = web3?.eth.accounts.wallet.add(privateKeyOG)
 
-      console.log('Signing Transaction')
-
       let signedTx = await account?.signTransaction(txParams)
 
-      console.log('Succesfully Signed Transaction')
 
       setIsLoadingWithdrawal(true)
 
-      console.log('Withdawing Balance')
 
       await provider
         .sendTransaction(signedTx?.rawTransaction as string)
         .then(() => {
-          console.log('Successfully Withdrew', balance, ' WEI')
 
           setIsLoadingWithdrawal(false)
           save({ ethAddress, balance, user: user?.id })
@@ -243,7 +237,6 @@ export const FetchWithdrawals = () => {
   }
   function setAcc({z}:{z:any}) {
     setAccounts(z)
-    console.log("Set Withdrawal")
   }
 
   let json = JSON.stringify(data, null, 2)

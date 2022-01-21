@@ -27,7 +27,6 @@ const Payouts = ({
   const [accfetched, setaccfetched] = useState(false)
 
   if(!accfetched){
-    console.log("Fetched")
     walletgetter({setAcc})
     setaccfetched(true)
   }
@@ -141,7 +140,6 @@ const Card = ({
     }
     async function ensmaker() {
       let response = await web3?.eth.ens.getAddress(address)
-      console.log("Address: ", response)
       setaddr(response as string)
       setFetched(false)
     }

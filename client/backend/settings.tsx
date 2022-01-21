@@ -64,14 +64,11 @@ export const SaveCurrencyConfig = ({
     <button
       onClick={async () => {
         if (user) {
-          console.log('Saving user data')
           setUserData({
             ethEnabled: ethEnabled,
             maticEnabled: maticEnabled,
           })
             .then(() => {
-              console.log('saved user data')
-
               setCurrenciesSaved(true)
             })
             .catch((err) => {

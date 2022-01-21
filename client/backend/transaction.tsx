@@ -12,7 +12,7 @@ import { monthNames } from './Utils'
 
 interface TableData {
   product: string
-  email_address: string
+  email: string
   amount: number
   type: string
   created_at: Date
@@ -92,22 +92,17 @@ export const FetchTransaction = ({ query }: { query: string }) => {
   const [accfetched, setaccfetched] = useState(false)
 
   if(!accfetched){
-    console.log("Fetched")
     transactiongetter({setAcc})
     setaccfetched(true)
   }
   function setAcc({z}:{z:any}) {
     setAccounts(z)
-    console.log("Set Account")
   }
   
 
   let json = JSON.stringify(data, null, 2)
 
-  console.log('json: ', data)
-
   const transactions: TransactionClass[] = JSON.parse(json)
-  console.log("transactions: ",transactions)
   const sortedRows = useMemo(() => {
     //Set up default ordering
     let sorted = linq.from(transactions).orderBy(() => 1)
@@ -206,7 +201,7 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
     { label: 'Product', property: 'product' as keyof TableData },
     { label: 'Price', property: 'amount' as keyof TableData },
     { label: 'Type', property: 'type' as keyof TableData },
-    { label: 'Email', property: 'email_address' as keyof TableData },
+    { label: 'Email', property: 'email' as keyof TableData },
     { label: 'Date', property: 'created_at' as keyof TableData },
   ]
 

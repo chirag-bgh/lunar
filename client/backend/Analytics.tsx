@@ -24,13 +24,11 @@ export const GetRevenue = () => {
   const [accfetched, setaccfetched] = useState(false)
 
   if(!accfetched){
-    console.log("Fetched")
     transactiongetter({setAcc})
     setaccfetched(true)
   }
   function setAcc({z}:{z:any}) {
     setAccounts(z)
-    console.log("Set Account")
   }
 
   const [revenue, setRevenue] = useState(0)
@@ -55,7 +53,6 @@ export const GetRevenue = () => {
     }
   }
 
-  // console.log('revenue', revenue)
   return <div>{revenue.toString().substring(0, 4)} ETH</div>
 }
 
@@ -71,13 +68,11 @@ export const GetTransactions = () => {
   const [accfetched, setaccfetched] = useState(false)
 
   if(!accfetched){
-    console.log("Fetched")
     transactiongetter({setAcc})
     setaccfetched(true)
   }
   function setAcc({z}:{z:any}) {
     setAccounts(z)
-    console.log("Set Account")
   }
   
 
@@ -111,13 +106,11 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
   const [accfetched, setaccfetched] = useState(false)
 
   if(!accfetched){
-    console.log("Fetched")
     transactiongetter({setAcc})
     setaccfetched(true)
   }
   function setAcc({z}:{z:any}) {
     setAccounts(z)
-    console.log("Set Account")
   }
 
   const [chartData, setChartData] = useState<any[]>([])
@@ -168,7 +161,6 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
 
   useEffect(() => {
     setDays(getDaysFromTimeFrame(timeFrame))
-    console.log('days', days)
   }, [timeFrame])
 
   useEffect(() => {
@@ -188,7 +180,6 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
     const transactions: TransactionClass[] = JSON.parse(json)
 
     let dates: Date[] = transactions.map((transaction) => transaction.created_at)
-    console.log("Dates: ",dates)
 
     for (let i = 0; i < days; i++) {
       dateObj.setDate(dateObj.getDate() - 1)
@@ -206,13 +197,12 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
 
       for (let index = 0; index < dates.length; index++) {
         const transactionDate = dates[index]
-        console.log("Checker ",transactionDate.toString())
-        console.log('Date: ',date)
-        console.log("Bool: ",transactionDate.toString().startsWith(date))
+        // console.log("Checker ",transactionDate.toString())
+        // console.log('Date: ',date)
+        // console.log("Bool: ",transactionDate.toString().startsWith(date))
         if (transactionDate.toString().includes(date)) {
           if (transactions[index] !== undefined) {
             revenue += transactions[index].amount
-            console.log("Revenue: ",revenue)
           }
           transactionCount += 1
         }

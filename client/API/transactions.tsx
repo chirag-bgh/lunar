@@ -27,9 +27,6 @@ export async function transactiongetter({setAcc}:{setAcc: ({z}:{z:any}) => void}
             var data = { Address:user?.get('ethAddress') }
             var t = JSON.stringify(data)
             xhr.send(JSON.stringify(t))
-            xhr.onloadend = function () {
-                console.log('Fetched Transactions')
-                }
         }
     
 }

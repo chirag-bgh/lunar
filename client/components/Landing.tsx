@@ -20,8 +20,6 @@ const Landing = ({ alertUser = false, redirect = false }) => {
   gsap.registerPlugin(ScrollTrigger)
 
   useEffect(() => {
-    console.log(isMobile)
-
     if (redirect) {
       router.push('/')
     }
