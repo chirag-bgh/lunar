@@ -129,6 +129,14 @@ const ProductModal = ({
         <div>
       <button
         onClick={async () => {
+          if (name === ""){
+            alert("Product name cannot be empty")
+            return
+          }
+          if (price === 0){
+            alert("Price of the product cannot be 0")
+            return
+          }
           closeModal()
           await productadder({
             name,
