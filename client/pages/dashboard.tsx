@@ -6,6 +6,7 @@ import { MoralisProvider, useMoralis } from 'react-moralis'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { LoadingScreenAuthState } from '../components/LoadingScreen'
+import { currencygetter } from '../API/accepted_currencies'
 
 declare const window: any
 
@@ -38,9 +39,31 @@ const DashboardPage = () => {
   const [walletModalIsOpen, setWalletModalIsOpen] = useState(false)
   const { enableWeb3, isWeb3Enabled, user } = useMoralis()
 
+  const [acceptedCurrencies, setAcceptedCurrencies] = useState<string[]>([])
+
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
     user === null ? false : true
   )
+
+  let token = user?.get('token')
+
+  const setAcc = ({ z }: { z: any }) => {
+    console.log('setting accounts to ', z)
+
+    setAcceptedCurrencies(z)
+  }
+
+  useEffect(() => {
+    if (modalIsOpen) {
+      currencygetter({
+        setAcc: setAcc,
+        // token: '5ae62fdb6cb531e4f5fd3869b88bc1c547901cb3',
+        token: token,
+      })
+
+      console.log('accepted currencies: ', acceptedCurrencies)
+    }
+  }, [modalIsOpen])
 
   const router = useRouter()
 
@@ -83,7 +106,11 @@ const DashboardPage = () => {
       ) : (
         <LoadingScreenAuthState />
       )}
-      <ProductModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
+      <ProductModal
+        modalIsOpen={modalIsOpen}
+        setIsOpen={setIsOpen}
+        acceptedCurrencies={acceptedCurrencies}
+      />
       <WalletModal
         walletModalIsOpen={walletModalIsOpen}
         setWalletModalIsOpen={setWalletModalIsOpen}

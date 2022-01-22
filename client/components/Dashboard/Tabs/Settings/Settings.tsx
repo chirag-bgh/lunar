@@ -17,12 +17,14 @@ const Settings = () => {
 
   const [ethEnabled, setEthEnabled] = useState(false)
   const [maticEnabled, setMaticEnabled] = useState(false)
-  const [accounts, setAccounts] = useState([])
+  const [accounts, setAccounts] = useState<string[]>([])
   const [accfetched, setaccfetched] = useState(false)
   const [setting, setsetting] = useState(false)
 
+  let token = user?.get('token')
+
   if(!accfetched){
-    currencygetter({setAcc})
+    currencygetter({setAcc, token})
     setaccfetched(true)
   }
   function setAcc({z}:{z:any}) {
