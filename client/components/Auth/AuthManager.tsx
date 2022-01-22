@@ -10,7 +10,7 @@ import { tokengetter } from '../../API/tokengetter'
 import { usergetter } from '../../API/users'
 
 const AuthenticateButton = () => {
-  const { authenticate,setUserData } = useMoralis()
+  const { authenticate, setUserData } = useMoralis()
   const [called, setcalled] = useState(false)
 
   return (
@@ -19,42 +19,41 @@ const AuthenticateButton = () => {
         onClick={() => {
           authenticate({
             onSuccess: async (user) => {
-              user?.save({token:null})
+              user?.save({ token: null })
               let endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
-              var xhr = new XMLHttpRequest()
+              let xhr = new XMLHttpRequest()
               let url = endpoint + 'api/v1/users/add'
               xhr.open('POST', url)
               xhr.setRequestHeader('Content-Type', 'application/json')
               xhr.onreadystatechange = async function () {
-              if (xhr.readyState === 4) {
+                if (xhr.readyState === 4) {
                   // console.log(xhr.status)
                   // console.log(xhr.responseText)
-                  let x:any = await tokengetter({ethAddress:user?.get('ethAddress')}).then((x) => {
-                    user?.save({token:x})
-                    if(x !== undefined){
-                      console.log("X: ",x)
-                      let y:any =  usergetter({token:x}).then((y) => {
-                        console.log("Y: ",y)
-                        user?.save({managed_account_pub:y['managed_account_pub']})
+                  let x: any = await tokengetter({
+                    ethAddress: user?.get('ethAddress'),
+                  }).then((x) => {
+                    user?.save({ token: x })
+                    if (x !== undefined) {
+                      console.log('X: ', x)
+                      let y: any = usergetter({ token: x }).then((y) => {
+                        console.log('Y: ', y)
+                        user?.save({
+                          managed_account_pub: y['managed_account_pub'],
+                        })
                       })
                     }
-                  
                   })
-
-                  
-                     }
                 }
-
-              var data = {eth_address:user?.get('ethAddress')}
-              xhr.send(JSON.stringify(data))
-              xhr.onloadend = function () {
               }
-              
-              
+
+              let data = { eth_address: user?.get('ethAddress') }
+              xhr.send(JSON.stringify(data))
+              xhr.onloadend = function () {}
+
               setcalled(true)
               router.push('/dashboard')
             },
-            
+
             onError: (err) => {
               console.log('Failed to Authenticate User ->', err)
             },
@@ -112,7 +111,6 @@ export async function ensresolver({
     }
   }
   return 'done'
-  
 }
 
 export { AuthenticateButton, LogoutButton }

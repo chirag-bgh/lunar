@@ -136,6 +136,9 @@ const FetchProduct = ({ query }: { query: string }) => {
     { propertyName: 'created_at', sortType: SortingType.Descending },
   ])
 
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
+
   const sortBy = useCallback(
     (propertyName: keyof TableData) => {
       let pendingChange = [...sortConfig]
@@ -144,7 +147,7 @@ const FetchProduct = ({ query }: { query: string }) => {
       )
       if (index > -1) {
         //Save the sortType
-        var currentSortType = pendingChange[index].sortType
+        let currentSortType = pendingChange[index].sortType
         //Remove existing config
         pendingChange.splice(index, 1)
         //check if the sort type we saved is descending
@@ -169,14 +172,11 @@ const FetchProduct = ({ query }: { query: string }) => {
     [sortConfig]
   )
 
-  const [data, setAccounts] = useState([])
-  const [accfetched, setaccfetched] = useState(false)
-
-  if(!accfetched){
-    productgetter({setAcc})
+  if (!accfetched) {
+    productgetter({ setAcc })
     setaccfetched(true)
   }
-  function setAcc({z}:{z:any}) {
+  function setAcc({ z }: { z: any }) {
     setAccounts(z)
   }
 
@@ -320,7 +320,7 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
   ]
 
   const getSortDirection = (property: keyof TableData) => {
-    var config = sortConfig.find(
+    let config = sortConfig.find(
       (sortConfig) => sortConfig.propertyName === property
     )
     return config ? (

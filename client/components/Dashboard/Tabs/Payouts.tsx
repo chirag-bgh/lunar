@@ -16,7 +16,7 @@ const Payouts = ({
   openWalletModal: () => void
   setFetched: (arg: boolean) => void
 }) => {
-  const { user,web3 } = useMoralis()
+  const { user, web3 } = useMoralis()
 
   let address = user?.get('ethAddress')
 
@@ -26,14 +26,13 @@ const Payouts = ({
   const [accounts, setAccounts] = useState([])
   const [accfetched, setaccfetched] = useState(false)
 
-  if(!accfetched){
-    walletgetter({setAcc})
+  if (!accfetched) {
+    walletgetter({ setAcc })
     setaccfetched(true)
   }
-  function setAcc({z}:{z:any}) {
+  function setAcc({ z }: { z: any }) {
     setAccounts(z)
   }
-  
 
   return (
     <div className='w-full'>
@@ -122,7 +121,6 @@ const Card = ({
   const [addr, setaddr] = useState(address)
   const [showRemove, setShowRemove] = useState(false)
 
-
   const Web3Api = useMoralisWeb3Api()
   const { fetch, data } = useMoralisWeb3ApiCall(
     Web3Api.account.getNativeBalance,
@@ -143,12 +141,12 @@ const Card = ({
       setaddr(response as string)
       setFetched(false)
     }
-    if(!ensfy){
-    if( addr.includes('.eth')){
-      ensmaker()
-      setensfy(true)
-    }}
-
+    if (!ensfy) {
+      if (addr.includes('.eth')) {
+        ensmaker()
+        setensfy(true)
+      }
+    }
 
     if (!fetched) {
       fetch()

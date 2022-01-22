@@ -48,7 +48,7 @@ const FetchSubscription = ({ query }: { query: string }) => {
       )
       if (index > -1) {
         //Save the sortType
-        var currentSortType = pendingChange[index].sortType
+        let currentSortType = pendingChange[index].sortType
         //Remove existing config
         pendingChange.splice(index, 1)
         //check if the sort type we saved is descending
@@ -76,11 +76,11 @@ const FetchSubscription = ({ query }: { query: string }) => {
   const [data, setAccounts] = useState([])
   const [accfetched, setaccfetched] = useState(false)
 
-  if(!accfetched){
-    subscriptiongetter({setAcc})
+  if (!accfetched) {
+    subscriptiongetter({ setAcc })
     setaccfetched(true)
   }
-  function setAcc({z}:{z:any}) {
+  function setAcc({ z }: { z: any }) {
     setAccounts(z)
   }
   let json = JSON.stringify(data, null, 2)
@@ -179,7 +179,7 @@ const FetchSubscription = ({ query }: { query: string }) => {
   )
 }
 
-export {FetchSubscription }
+export { FetchSubscription }
 
 interface SortableHeaderProps {
   sortBy: (string: keyof TableData) => void
@@ -196,7 +196,7 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
   ]
 
   const getSortDirection = (property: keyof TableData) => {
-    var config = sortConfig.find(
+    let config = sortConfig.find(
       (sortConfig) => sortConfig.propertyName === property
     )
     return config ? (
