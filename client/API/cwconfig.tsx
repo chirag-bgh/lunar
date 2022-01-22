@@ -1,7 +1,7 @@
 import { useMoralis } from 'react-moralis'
 import { useState, useEffect } from 'react'
 
-export async function currencygetter({
+export async function cwgetter({
   setAcc,
   token,
 }: {
@@ -11,20 +11,18 @@ export async function currencygetter({
   // const { user } = useMoralis()
 
   // let x = await user?.get('token')
-  console.log('SDFSHDFHGDHFJDF')
 
   if (token !== null) {
     let xhr = new XMLHttpRequest()
     let endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
-    let url = endpoint + 'api/v1/accepted_currencies'
+    let url = endpoint + 'api/v1/cwconfig'
     xhr.open('GET', url)
     xhr.setRequestHeader('Authorization', `Token ${token}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
-        let z: any = JSON.parse(xhr.responseText)['items']
-        console.log('response:', xhr.responseText)
-
+        //   console.log("Response ",xhr.responseText)
+        let z: any = JSON.parse(xhr.responseText)
         setAcc({ z })
       }
     }
@@ -37,26 +35,27 @@ export async function currencygetter({
   }
 }
 
-export async function currencysave({
+export async function cwsave({
   address,
   token,
 }: {
-  address: string[]
+  address: any
   token: string
 }) {
   if (token !== null) {
     let xhr = new XMLHttpRequest()
     let endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
-    let url = endpoint + 'api/v1/accepted_currencies/save'
+    let url = endpoint + 'api/v1/cwconfig/save'
     xhr.open('POST', url)
     xhr.setRequestHeader('Authorization', `Token ${token}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.onreadystatechange = () => {
-    if (xhr.readyState === 4) {
-      //   console.log(xhr.status)
-      }
+    // if (xhr.readyState === 4) {
+    //   //   console.log(xhr.status)
+    //      console.log('Response: ',xhr.responseText)
+    //   }
     }
-    let z = JSON.stringify({ Currency: address })
+    let z = JSON.stringify(address)
     xhr.send(z)
     // xhr.onloadend = function () {
     //     console.log('Added wallet')

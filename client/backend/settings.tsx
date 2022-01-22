@@ -2,6 +2,7 @@
 // import { useState } from "react";
 import { useEffect, useState } from 'react'
 import { useMoralis, useMoralisQuery } from 'react-moralis'
+import { cwsave } from '../API/cwconfig'
 
 export const SettingBackend = ({
   callback,
@@ -10,29 +11,18 @@ export const SettingBackend = ({
   callback: string
   webhook: string
 }) => {
-  const { user, setUserData } = useMoralis()
-  const { data } = useMoralisQuery('Products', (query) =>
-    query.equalTo('user', user)
-  )
-  const { data: inv } = useMoralisQuery('Invoices', (query) =>
-    query.equalTo('user', user?.id)
-  )
-
+  const { user } = useMoralis()
+  
+  let address = {'callback_url':callback,"webhook_url":webhook}
 
 
   return (
     <button
       onClick={() => {
-        setUserData({
-          callbackURL: callback,
-          webhookURL: webhook,
+        cwsave({
+          address: address,
+          token: user?.get('token'),
         })
-        for (let i = 0, len = data.length; i < len; i++) {
-          data[i].save({ callback_url: callback, webhook_url: webhook })
-        }
-        for (let i = 0, len = inv.length; i < len; i++) {
-          inv[i].save({ callback_url: callback, webhook_url: webhook })
-        }
         ////console.log('Data Saved: ', data)
         //console.log("Inv Saved: ", inv);
       }}

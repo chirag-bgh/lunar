@@ -16,7 +16,7 @@ export async function walletgetter({
     let url = endpoint + 'api/v1/withdrawal_accounts'
     xhr.open('GET', url)
     xhr.setRequestHeader('Authorization', `Token ${x}`)
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+    xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4) {
         let z: any = JSON.parse(xhr.responseText)['items']
