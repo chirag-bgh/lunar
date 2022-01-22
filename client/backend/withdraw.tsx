@@ -65,11 +65,11 @@ export const Withdraw = ({
       ? ((await web3?.eth.ens.getAddress(accountAddress)) as string)
       : accountAddress
     let encryptedKey = user?.get('encryptedKey')
-    var bytes = CryptoJS.AES.decrypt(
+    let bytes = CryptoJS.AES.decrypt(
       encryptedKey,
       process.env.NEXT_PUBLIC_PASSWORD as string
     )
-    var privateKeyOG = bytes.toString(CryptoJS.enc.Utf8)
+    let privateKeyOG = bytes.toString(CryptoJS.enc.Utf8)
     // let ethAddress = user.get('ethAddress')
 
     // await window.ethereum.enable();
@@ -91,7 +91,7 @@ export const Withdraw = ({
     let balance: any = await web3?.eth.getBalance(accountAddress)
 
     let gasPrice: any = await web3?.eth.getGasPrice()
-    var txFee: any = gasPrice * 21000
+    let txFee: any = gasPrice * 21000
 
     let valueToBeSent: any = balance - txFee
 
@@ -117,18 +117,15 @@ export const Withdraw = ({
 
       const provider = ethers.providers.getDefaultProvider(3)
 
-      var account = web3?.eth.accounts.wallet.add(privateKeyOG)
+      let account = web3?.eth.accounts.wallet.add(privateKeyOG)
 
       let signedTx = await account?.signTransaction(txParams)
 
-
       setIsLoadingWithdrawal(true)
-
 
       await provider
         .sendTransaction(signedTx?.rawTransaction as string)
         .then(() => {
-
           setIsLoadingWithdrawal(false)
           save({ ethAddress, balance, user: user?.id })
           setFetched(false)
@@ -192,7 +189,7 @@ export const FetchWithdrawals = () => {
   const { user, web3 } = useMoralis()
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
-    { propertyName: 'created_at', sortType: SortingType.Descending },
+    { propertyName: 'createdAt', sortType: SortingType.Descending },
   ])
 
   const sortBy = useCallback(
@@ -203,7 +200,7 @@ export const FetchWithdrawals = () => {
       )
       if (index > -1) {
         //Save the sortType
-        var currentSortType = pendingChange[index].sortType
+        let currentSortType = pendingChange[index].sortType
         //Remove existing config
         pendingChange.splice(index, 1)
         //check if the sort type we saved is descending
@@ -231,11 +228,11 @@ export const FetchWithdrawals = () => {
   const [data, setAccounts] = useState([])
   const [accfetched, setaccfetched] = useState(false)
 
-  if(!accfetched){
-    withdrawalgetter({setAcc})
+  if (!accfetched) {
+    withdrawalgetter({ setAcc })
     setaccfetched(true)
   }
-  function setAcc({z}:{z:any}) {
+  function setAcc({ z }: { z: any }) {
     setAccounts(z)
   }
 
@@ -282,8 +279,7 @@ export const FetchWithdrawals = () => {
             <tr key={withdrawal.eth_address}>
               <td>{withdrawal.eth_address}</td>
               <td>
-                {web3?.utils.fromWei(withdrawal.amount.toString(), 'ether')}{' '}
-                ETH
+                {web3?.utils.fromWei(withdrawal.amount.toString(), 'ether')} ETH
               </td>
               <td>
                 {newDate.getDate() +
@@ -319,7 +315,7 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
   ]
 
   const getSortDirection = (property: keyof TableData) => {
-    var config = sortConfig.find(
+    let config = sortConfig.find(
       (sortConfig) => sortConfig.propertyName === property
     )
     return config ? (

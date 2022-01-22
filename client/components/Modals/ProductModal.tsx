@@ -10,6 +10,7 @@ import 'react-dropdown/style.css'
 // Components
 import { CreateProduct } from '../../backend/Products'
 import { useMoralis } from 'react-moralis'
+import { currencygetter } from '../../API/accepted_currencies'
 
 const customStyles = {
   content: {
@@ -38,9 +39,11 @@ modalElementOverlay
 const ProductModal = ({
   modalIsOpen,
   setIsOpen,
+  acceptedCurrencies,
 }: {
   modalIsOpen: boolean
   setIsOpen: (arg: boolean) => void
+  acceptedCurrencies: string[]
 }) => {
   const { user } = useMoralis()
 
@@ -48,20 +51,49 @@ const ProductModal = ({
   const [price, setPrice] = useState(0.0)
   const [recurrence, setRecurrence] = useState('One time')
   const [currency, setCurrency] = useState('MATIC')
+  // const [accounts, setAccounts] = useState<string[]>([])
+  // const [accfetched, setaccfetched] = useState(false)
+
+  // let token = user?.get('token')
+
+  console.log('acceptedCurrencies', acceptedCurrencies)
+
+  // function setAcc({ z }: { z: any }) {
+  //   console.log('setting accounts to ', z)
+
+  //   setAccounts(z)
+  // }
+
+  // useEffect(() => {
+  //   console.log('account fetcehd', accfetched)
+
+  // if (!accfetched) {
+  //   console.log('fetching accepted currencie')
+
+  //   currencygetter({ setAcc, token })
+  //   setaccfetched(true)
+  // }
+
+  // console.log('accounts: ', accounts)
+
+  // if (accfetched && accounts !== undefined) {
+  //   if (accounts.includes('ETH')) {
+  //     acceptedCurrencies.push('ETH')
+  //   }
+  //   if (accounts.includes('MATIC')) {
+  //     acceptedCurrencies.push('MATIC')
+  //   }
+  // }
+  // }, [])
 
   const dropdownOptions = ['One time', 'Monthly', 'Quarterly', 'Yearly']
   const defaultOption = dropdownOptions[0]
 
-  let acceptedCurrencies: string[] = useMemo(() => [], [])
+  // let acceptedCurrencies: string[] = useMemo(() => [], [])
 
-  useEffect(() => {
-    if (user?.get('maticEnabled')) {
-      acceptedCurrencies.push('MATIC')
-    }
-    if (user?.get('ethEnabled')) {
-      acceptedCurrencies.push('ETH')
-    }
-  }, [user, acceptedCurrencies])
+  // useEffect(() => {
+
+  // }, [acceptedCurrencies, accounts])
 
   const defaultCurrency = acceptedCurrencies[0]
 
@@ -134,30 +166,30 @@ const ProductModal = ({
           />
         </div>
         <div>
-      <button
-        onClick={async () => {
-          if (name === ""){
-            alert("Product name cannot be empty")
-            return
-          }
-          if (price === 0){
-            alert("Price of the product cannot be 0")
-            return
-          }
-          closeModal()
-          await productadder({
-            name,
-            price,
-            recurrence,
-            currency: currency,
-            token:user?.get('token')
-          })
-        }}
-        className='px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer'
-      >
-        Add
-      </button>
-    </div>
+          <button
+            onClick={async () => {
+              if (name === '') {
+                alert('Product name cannot be empty')
+                return
+              }
+              if (price === 0) {
+                alert('Price of the product cannot be 0')
+                return
+              }
+              closeModal()
+              await productadder({
+                name,
+                price,
+                recurrence,
+                currency: currency,
+                token: user?.get('token'),
+              })
+            }}
+            className='px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer'
+          >
+            Add
+          </button>
+        </div>
         {/* <CreateProduct
           name={name}
           price={price}

@@ -20,36 +20,37 @@ const Settings = () => {
 
   const { user } = useMoralis()
 
-  const [ethEnabled, setEthEnabled] = useState(null)
+  const [ethEnabled, setEthEnabled] = useState<any>(null)
   const [maticEnabled, setMaticEnabled] = useState(false)
-  const [accounts, setAccounts] = useState([])
+  const [accounts, setAccounts] = useState<string[]>([])
   const [accfetched, setaccfetched] = useState(false)
   const [setting, setsetting] = useState(false)
 
-  if(!accfetched){
-    currencygetter({setAcc})
+  let token = user?.get('token')
+
+  if (!accfetched) {
+    currencygetter({ setAcc, token })
     setaccfetched(true)
   }
-  function setAcc({z}:{z:any}) {
+  function setAcc({ z }: { z: any }) {
     setAccounts(z)
   }
 
-  console.log("Currency Settings: ",accounts)
-  if(accfetched && !setting){
-    if(accounts.includes('ETH')){
+  console.log('Currency Settings: ', accounts)
+  if (accfetched && !setting) {
+    if (accounts.includes('ETH')) {
       setEthEnabled(true)
       setsetting(true)
     }
-    if(accounts.includes('MATIC')){
+    if (accounts.includes('MATIC')) {
       setMaticEnabled(true)
       setsetting(true)
     }
   }
 
-console.log("Eth Enabled",ethEnabled)
-console.log("Matic Enabled",maticEnabled)
-console.log("Setting",setting)
-
+  console.log('Eth Enabled', ethEnabled)
+  console.log('Matic Enabled', maticEnabled)
+  console.log('Setting', setting)
 
   return (
     <div className='w-full h-full mb-14'>
@@ -104,11 +105,29 @@ console.log("Setting",setting)
       </div>
       <div className='flex flex-col w-full justify-center items-center mt-16 pb-24'>
         <div className='flex h-6'>
-        <button className={"w-72 h-9 bg-red-500 flex justify-center items-center font-semibold cursor-pointer text-white"} onClick={()=>toggleApiVisible()}>{apiVisible ? 'Hide API Key' : "Show API Key"}</button>
-        <h1 onClick={() => navigator.clipboard.writeText(user?.get('token')).then(alert('API Key has been copied to clipboard'))} className={apiVisible ? 'block bg-dark px-2  h-9 flex justify-center items-center rounded-r-lg cursor-pointer transition-all text-white font-code' : 'hidden'}>{user.get('token')}</h1>
-        
+          <button
+            className={
+              'w-72 h-9 bg-red-500 flex justify-center items-center font-semibold cursor-pointer text-white'
+            }
+            onClick={() => toggleApiVisible()}
+          >
+            {apiVisible ? 'Hide API Key' : 'Show API Key'}
+          </button>
+          <h1
+            onClick={() =>
+              navigator.clipboard
+                .writeText(user?.get('token'))
+                .then(() => alert('API Key has been copied to clipboard'))
+            }
+            className={
+              apiVisible
+                ? 'bg-dark px-2  h-9 flex justify-center items-center rounded-r-lg cursor-pointer transition-all text-white font-code'
+                : 'hidden'
+            }
+          >
+            {user?.get('token')}
+          </h1>
         </div>
-        
       </div>
     </div>
   )

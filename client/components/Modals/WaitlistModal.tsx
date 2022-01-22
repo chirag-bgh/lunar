@@ -90,7 +90,7 @@ const handler = async ({ email }: { email: string }) => {
   return new Promise((res, rej) => {
     try {
       const API_KEY = process.env.NEXT_PUBLIC_REVUE_API_KEY
-      var xhr = new XMLHttpRequest()
+      let xhr = new XMLHttpRequest()
       let url = 'https://www.getrevue.co/api/v2/subscribers'
       xhr.open('POST', url)
       xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
@@ -103,7 +103,7 @@ const handler = async ({ email }: { email: string }) => {
       //   }
       // }
 
-      var data = { email: email, double_opt_in: false }
+      let data = { email: email, double_opt_in: false }
       xhr.send(JSON.stringify(data))
       // xhr.onloadend = function () {
       //   console.log('Request Sent')
