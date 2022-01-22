@@ -82,12 +82,12 @@ const ProductModal = ({
 
         <div className='flex flex-col justify-between items-center gap-8 w-full '>
           <div className='flex justify-between items-center gap-2 w-full px-16'>
-            <p className='font-medium text-sm'>NAME</p>
+            <p className='font-medium text-sm '>NAME</p>
             <input
               type='text'
               name='name'
               id='name'
-              className='rounded-sm outline-none pl-2 font-display h-10 w-60'
+              className='rounded-sm outline-none pl-2 font-display h-10 w-60 bg-background text-white'
               value={name}
               onChange={(event) => setName(event.target.value)}
             />
@@ -98,16 +98,17 @@ const ProductModal = ({
               type='number'
               name='price'
               id='price'
-              className='rounded-sm outline-none pl-2 font-display h-10 w-60'
+              className='rounded-sm outline-none pl-2 font-display h-10 w-60 bg-background text-white'
               value={price}
               onChange={(event) => setPrice(parseFloat(event.target.value))}
             />
           </div>
         </div>
-        <div className='flex justify-between items-center gap-2 mr-auto w-full px-16'>
+        <div className='flex justify-between items-center gap-2 mr-auto w-full px-16 '>
           <p className='font-medium text-sm'>CURRENCY</p>
           <Dropdown
           className=' w-60'
+          controlClassName='bg-background border-none'
             menuClassName='single-select bg-dark'
             options={acceptedCurrencies}
             onChange={(e) => {
@@ -120,6 +121,8 @@ const ProductModal = ({
         <div className='flex justify-between items-center gap-2  mr-auto w-full px-16 '>
           <p className='font-medium text-sm'>RECURRENCE</p>
           <Dropdown
+          
+          controlClassName='bg-background border-none'
           className='w-60'
             menuClassName='single-select h-20 bg-dark transition-all'
             options={dropdownOptions}
