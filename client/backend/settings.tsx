@@ -43,6 +43,8 @@ export const SettingBackend = ({
   )
 }
 
+import { currencysave } from '../API/accepted_currencies'
+
 export const SaveCurrencyConfig = ({
   ethEnabled,
   maticEnabled,
@@ -54,6 +56,9 @@ export const SaveCurrencyConfig = ({
 
   const [currenciesSaved, setCurrenciesSaved] = useState(false)
   const [error, setError] = useState(null)
+  
+  
+
 
   useEffect(() => {
     return () => {
@@ -65,11 +70,20 @@ export const SaveCurrencyConfig = ({
   return (
     <button
       onClick={async () => {
+        let x = []
+        if(ethEnabled){
+          x.push('ETH')
+        }
+      
+        if(maticEnabled){
+          x.push("MATIC")
+        }
+        // setUserData({
+        //   ethEnabled: ethEnabled,
+        //   maticEnabled: maticEnabled,
+        // })
         if (user) {
-          setUserData({
-            ethEnabled: ethEnabled,
-            maticEnabled: maticEnabled,
-          })
+          currencysave({address:x,token:user?.get('token')})
             .then(() => {
               setCurrenciesSaved(true)
             })
