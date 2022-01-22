@@ -13,6 +13,7 @@ import {
   YAxis,
 } from 'recharts'
 import { useEffect, useState } from 'react'
+import { parse } from 'path/posix'
 
 // Fetches user revenue from Moralis DB
 export const GetRevenue = () => {
@@ -197,10 +198,15 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
 
       for (let index = 0; index < dates.length; index++) {
         const transactionDate = dates[index]
-        console.log("Checker ",transactionDate.toString())
+        var parsedDate = new Date(transactionDate.toString())
+        let month = ["1", "2", "3", "4", "5", "6",
+        "7", "8", "9", "10", "11", "12"][parsedDate.getMonth()];
+        let pd = parsedDate.getFullYear() + '-' + month + '-'+ parsedDate.getDate() 
+        //pd is the final parsed date. do not question the shit code.
+        console.log("Checker ",pd)
         console.log('Date: ',date)
-        console.log("Bool: ",transactionDate.toString().startsWith(date))
-        if (transactionDate.toString().includes(date)) {
+        console.log("Bool: ",pd.includes(date))
+        if (pd.includes(date)) {
           if (transactions[index] !== undefined) {
             revenue += transactions[index].amount
           }
