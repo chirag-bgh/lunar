@@ -191,6 +191,8 @@ const UserAccount = () => {
   )
 }
 
+import { usergetter } from '../../API/users'
+
 const Balance = ({
   balance,
   setBalance,
@@ -202,19 +204,24 @@ const Balance = ({
   fetched: boolean
   setFetched: (arg: boolean) => void
 }) => {
-  const { user, web3 } = useMoralis()
+  const { web3 } = useMoralis()
   const Web3Api = useMoralisWeb3Api()
+
+  const {user} = useMoralis()
 
   const { fetch, data } = useMoralisWeb3ApiCall(
     Web3Api.account.getNativeBalance,
     {
-      address: '',
+      address: user?.get('managed_account_pub'),
       chain: 'ropsten',
     }
   )
+
+  console.log("Address: ",user?.get('managed_account_pub'))
+
   useEffect(() => {
     if (data !== null) {
-      setBalance(web3?.utils.fromWei(data.balance) + ' ETH')
+      setBalance(web3?.utils.fromWei(data.balance)+'')
       //console.log('balance: ', balance)
     }
     if (!fetched) {
@@ -229,12 +236,13 @@ const Balance = ({
       <h2 className='text-3xl font-semibold'>
         <div className='flex justify-center items-center gap-2'>
           <pre id='balance'>
-            <CountUpMemo
+            {balance.substring(0,4) + ' ETH'}
+            {/* <CountUpMemo
               end={Number(balance.split(' ETH')[0])}
               decimals={2}
               duration={1}
               suffix=' ETH'
-            />
+            /> */}
           </pre>
         </div>
       </h2>

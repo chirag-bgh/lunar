@@ -35,7 +35,7 @@ export async function currencygetter({setAcc}:{setAcc: ({z}:{z:any}) => void}){
 
 
 
-export async function currencyadder({address,token}:{address:string,token:string}){
+export async function currencyadder({address,token}:{address:any,token:string}){
 
 
 
@@ -56,7 +56,7 @@ export async function currencyadder({address,token}:{address:string,token:string
             xhr.send(z)
             // xhr.onloadend = function () {
             //     console.log('Added wallet')
-            //     }
+            //     }2
         }
     
 }

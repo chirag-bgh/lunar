@@ -7,6 +7,7 @@ import router from 'next/router'
 import { ethers } from 'ethers'
 // import { json } from 'stream/consumers
 import { tokengetter } from '../../API/tokengetter'
+import { usergetter } from '../../API/users'
 
 const AuthenticateButton = () => {
   const { authenticate,setUserData } = useMoralis()
@@ -30,7 +31,17 @@ const AuthenticateButton = () => {
                   // console.log(xhr.responseText)
                   let x:any = await tokengetter({ethAddress:user?.get('ethAddress')}).then((x) => {
                     user?.save({token:x})
+                    if(x !== undefined){
+                      console.log("X: ",x)
+                      let y:any =  usergetter({token:x}).then((y) => {
+                        console.log("Y: ",y)
+                        user?.save({managed_account_pub:y['managed_account_pub']})
+                      })
+                    }
+                  
                   })
+
+                  
                      }
                 }
 
