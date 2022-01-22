@@ -19,9 +19,12 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    height: '36%',
+    // height: '36%',
+    height: '55%',
     backgroundColor: '#1E1E1F',
-    width: '30%',
+    width: '40%',
+    border: 'none',
+    overflow: "hidden",
   },
 }
 
@@ -77,35 +80,35 @@ const ProductModal = ({
       <div className='w-full h-full flex flex-col justify-between items-center'>
         <h1 className='underline text-xl'>Add New Product</h1>
 
-        <div className='flex flex-col justify-center items-center gap-5'>
-          <div className='flex justify-center items-center gap-2'>
+        <div className='flex flex-col justify-between items-center gap-8 w-full '>
+          <div className='flex justify-between items-center gap-2 w-full px-16'>
             <p className='font-medium text-sm'>NAME</p>
             <input
               type='text'
               name='name'
               id='name'
-              className='rounded-sm outline-none pl-2 font-display'
+              className='rounded-sm outline-none pl-2 font-display h-10 w-60'
               value={name}
               onChange={(event) => setName(event.target.value)}
             />
           </div>
-          <div className='flex justify-center items-center gap-2'>
+          <div className='flex justify-between items-center gap-2 w-full px-16'>
             <p className='font-medium text-sm'>PRICE</p>
             <input
               type='number'
               name='price'
               id='price'
-              className='rounded-sm outline-none pl-2 font-display'
+              className='rounded-sm outline-none pl-2 font-display h-10 w-60'
               value={price}
               onChange={(event) => setPrice(parseFloat(event.target.value))}
             />
           </div>
         </div>
-        <div className='flex justify-center items-center gap-2'>
+        <div className='flex justify-between items-center gap-2 mr-auto w-full px-16'>
           <p className='font-medium text-sm'>CURRENCY</p>
           <Dropdown
-          className=''
-            menuClassName='single-select bg-dark '
+          className=' w-60'
+            menuClassName='single-select bg-dark'
             options={acceptedCurrencies}
             onChange={(e) => {
               setCurrency(e.value)
@@ -114,10 +117,11 @@ const ProductModal = ({
             placeholder='Select an option'
           />
         </div>
-        <div className='flex justify-center items-center gap-2'>
+        <div className='flex justify-between items-center gap-2  mr-auto w-full px-16 '>
           <p className='font-medium text-sm'>RECURRENCE</p>
           <Dropdown
-            menuClassName='single-select h-20 bg-dark'
+          className='w-60'
+            menuClassName='single-select h-20 bg-dark transition-all'
             options={dropdownOptions}
             onChange={(e) => {
               setRecurrence(e.value)
