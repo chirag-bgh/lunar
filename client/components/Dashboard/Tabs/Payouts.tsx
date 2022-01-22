@@ -99,6 +99,8 @@ const Payouts = ({
   )
 }
 
+import { walletdestroy } from '../../../API/wallet'
+
 const Card = ({
   address,
   ethAddress,
@@ -178,16 +180,7 @@ const Card = ({
           <HiPlusSm
             className='text-primary transform rotate-45 text-3xl'
             onClick={() => {
-              // Remove wallet
-              let accounts: string[] = user?.get('accounts')
-              //console.log("accounts: ", accounts);
-
-              const index = accounts.indexOf(address)
-              if (index > -1) {
-                accounts.splice(index, 1)
-              }
-
-              user?.save('accounts', accounts)
+              walletdestroy({address:address,token: user?.get('token')})
               //console.log("new accounts: ", accounts);
             }}
           />

@@ -59,3 +59,31 @@ export async function productadder({
     xhr.send(z)
   }
 }
+
+export async function productdestroy({
+  address,
+  token,
+}: {
+  address: any
+  token: string
+}) {
+  if (token !== null) {
+    let xhr = new XMLHttpRequest()
+    let endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
+    let url = endpoint + 'api/v1/products/delete'
+    xhr.open('POST', url)
+    xhr.setRequestHeader('Authorization', `Token ${token}`)
+    xhr.setRequestHeader('Content-Type', 'application/json')
+    xhr.onreadystatechange = () => {
+    // if (xhr.readyState === 4) {
+    //   //   console.log(xhr.status)
+    //      console.log('Response: ',xhr.responseText)
+    //   }
+    }
+    let z = JSON.stringify({'objectId':address})
+    xhr.send(z)
+    // xhr.onloadend = function () {
+    //     console.log('Added wallet')
+    //     }2
+  }
+}

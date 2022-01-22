@@ -37,28 +37,20 @@ enum SortingType {
   Descending,
 }
 
+import { productdestroy } from '../API/products'
 // Deletes product from the Moralis DB where objectID == obejectID
 const DeleteProduct = ({ objectId }: { objectId: string }) => {
   const [destroy, setDestroy] = useState(false)
 
-  const { data } = useMoralisQuery('Products', (query) =>
-    query.equalTo('objectId', objectId)
-  )
+  const{user} = useMoralis()
 
   useEffect(() => {
     if (destroy) {
-      if (data !== undefined) {
-        //console.log("data: ", data);
+      productdestroy({address:objectId,token:user?.get('token')})
+      setDestroy(false)
 
-        // Destroy Object
-        if (data[0] !== undefined) {
-          data[0].destroy().then(() => {
-            setDestroy(false)
-          })
-        }
-      }
     }
-  }, [destroy, data])
+  }, [destroy])
 
   return (
     <div>
