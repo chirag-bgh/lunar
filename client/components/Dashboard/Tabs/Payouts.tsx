@@ -171,7 +171,7 @@ const Card = ({
         <div></div>
         <img
           className={`h-20 mt-3 ${address === ethAddress ? 'ml-0' : 'ml-7'}`}
-          src='/metamask.svg'
+          src='/metamask.png'
           alt='MetaMask'
         />
         {address === ethAddress ? (

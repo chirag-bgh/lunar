@@ -12,10 +12,15 @@ import { currencygetter } from '../../../../API/accepted_currencies'
 const Settings = () => {
   const [callback, setcallback] = useState('')
   const [webhook, setwebhook] = useState('')
+  const [apiVisible, setApiVisible] = useState(false)
+
+  const toggleApiVisible = () => {
+    setApiVisible(!apiVisible)
+  }
 
   const { user } = useMoralis()
 
-  const [ethEnabled, setEthEnabled] = useState(false)
+  const [ethEnabled, setEthEnabled] = useState(null)
   const [maticEnabled, setMaticEnabled] = useState(false)
   const [accounts, setAccounts] = useState([])
   const [accfetched, setaccfetched] = useState(false)
@@ -96,6 +101,14 @@ console.log("Setting",setting)
           ></input>
           <SettingBackend callback={callback} webhook={webhook} />
         </div>
+      </div>
+      <div className='flex flex-col w-full justify-center items-center mt-16 pb-24'>
+        <div className='flex h-6'>
+        <button className={"w-72 h-9 bg-red-500 flex justify-center items-center font-semibold cursor-pointer text-white"} onClick={()=>toggleApiVisible()}>{apiVisible ? 'Hide API Key' : "Show API Key"}</button>
+        <h1 onClick={() => navigator.clipboard.writeText(user?.get('token')).then(alert('API Key has been copied to clipboard'))} className={apiVisible ? 'block bg-dark px-2  h-9 flex justify-center items-center rounded-r-lg cursor-pointer transition-all text-white font-code' : 'hidden'}>{user.get('token')}</h1>
+        
+        </div>
+        
       </div>
     </div>
   )
