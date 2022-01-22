@@ -203,9 +203,6 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
         "7", "8", "9", "10", "11", "12"][parsedDate.getMonth()];
         let pd = parsedDate.getFullYear() + '-' + month + '-'+ parsedDate.getDate() 
         //pd is the final parsed date. do not question the shit code.
-        console.log("Checker ",pd)
-        console.log('Date: ',date)
-        console.log("Bool: ",pd.includes(date))
         if (pd.includes(date)) {
           if (transactions[index] !== undefined) {
             revenue += transactions[index].amount

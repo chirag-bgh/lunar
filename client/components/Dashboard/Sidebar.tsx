@@ -217,7 +217,7 @@ const Balance = ({
     }
   )
 
-  console.log("Address: ",user?.get('managed_account_pub'))
+
 
   useEffect(() => {
     if (data !== null) {
