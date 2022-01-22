@@ -189,7 +189,7 @@ export const FetchWithdrawals = () => {
   const { user, web3 } = useMoralis()
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
-    { propertyName: 'created_at', sortType: SortingType.Descending },
+    { propertyName: 'createdAt', sortType: SortingType.Descending },
   ])
 
   const sortBy = useCallback(

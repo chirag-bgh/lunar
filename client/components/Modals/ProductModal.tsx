@@ -136,7 +136,8 @@ const ProductModal = ({
         <div className='flex justify-center items-center gap-2'>
           <p className='font-medium text-sm'>CURRENCY</p>
           <Dropdown
-            menuClassName='single-select h-20'
+            className=''
+            menuClassName='single-select bg-dark '
             options={acceptedCurrencies}
             onChange={(e) => {
               setCurrency(e.value)
@@ -148,7 +149,7 @@ const ProductModal = ({
         <div className='flex justify-center items-center gap-2'>
           <p className='font-medium text-sm'>RECURRENCE</p>
           <Dropdown
-            menuClassName='single-select h-20'
+            menuClassName='single-select h-20 bg-dark'
             options={dropdownOptions}
             onChange={(e) => {
               setRecurrence(e.value)
@@ -160,6 +161,14 @@ const ProductModal = ({
         <div>
           <button
             onClick={async () => {
+              if (name === '') {
+                alert('Product name cannot be empty')
+                return
+              }
+              if (price === 0) {
+                alert('Price of the product cannot be 0')
+                return
+              }
               closeModal()
               await productadder({
                 name,
