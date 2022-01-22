@@ -49,7 +49,7 @@ const Demographics = () => {
     { label: 'Product Purchases', value: purchases },
   ]
 
-  const colors = ['#82ca9d', '#a7FdFF']
+  const colors = ['#87f1ff', '#a7FdFF']
 
   return (
     <div className='w-full'>

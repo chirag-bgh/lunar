@@ -10,6 +10,7 @@ module.exports = {
   theme: {
     fontFamily: {
       display: ['Montserrat'],
+      code: ['Consolas'],
     },
     extend: {
       width: {

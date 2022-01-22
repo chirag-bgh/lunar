@@ -197,9 +197,9 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
 
       for (let index = 0; index < dates.length; index++) {
         const transactionDate = dates[index]
-        // console.log("Checker ",transactionDate.toString())
-        // console.log('Date: ',date)
-        // console.log("Bool: ",transactionDate.toString().startsWith(date))
+        console.log("Checker ",transactionDate.toString())
+        console.log('Date: ',date)
+        console.log("Bool: ",transactionDate.toString().startsWith(date))
         if (transactionDate.toString().includes(date)) {
           if (transactions[index] !== undefined) {
             revenue += transactions[index].amount
