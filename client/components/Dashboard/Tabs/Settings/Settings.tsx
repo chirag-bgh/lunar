@@ -8,6 +8,8 @@ import {
 
 import { Checkbox } from './Utils'
 import { currencygetter } from '../../../../API/accepted_currencies'
+import { cwgetter } from '../../../../API/cwconfig'
+import { cwsave } from '../../../../API/cwconfig'
 
 const Settings = () => {
   const [callback, setcallback] = useState('')
@@ -25,6 +27,11 @@ const Settings = () => {
   const [accounts, setAccounts] = useState<string[]>([])
   const [accfetched, setaccfetched] = useState(false)
   const [setting, setsetting] = useState(false)
+  //WEBHOOK CONFIG
+  const [cwfetched, setcwfetched] = useState(false)
+  const [cwconfig, setcwconfig] = useState<any>({})
+  const [cwset, setcwset] = useState(false)
+  const [cwgot, setcwgot] = useState(false)
 
   let token = user?.get('token')
 
@@ -36,7 +43,6 @@ const Settings = () => {
     setAccounts(z)
   }
 
-  console.log('Currency Settings: ', accounts)
   if (accfetched && !setting) {
     if (accounts.includes('ETH')) {
       setEthEnabled(true)
@@ -48,9 +54,30 @@ const Settings = () => {
     }
   }
 
-  console.log('Eth Enabled', ethEnabled)
-  console.log('Matic Enabled', maticEnabled)
-  console.log('Setting', setting)
+  if (!cwfetched) {
+    cwgetter({ setAcc:setCW, token })
+    setcwfetched(true)
+  }
+  function setCW({ z }: { z: any }) {
+    setcwconfig(z)
+    setcwgot(true)
+  }
+
+
+  if (cwgot && !cwset) {
+    if (cwconfig['callback_url'] != 'null') {
+      setcallback(cwconfig['callback_url'])
+      setcwset(true)
+    }
+    if (cwconfig['webhook_url'] != 'null') {
+      setwebhook(cwconfig['webhook_url'])
+      setcwset(true)
+    }
+  }
+
+
+
+
 
   return (
     <div className='w-full h-full mb-14'>
@@ -90,6 +117,7 @@ const Settings = () => {
           <input
             className='h-9 w-72 bg-white rounded-md text-black text-base pl-2 outline-none mb-3'
             type='text'
+            value={callback}
             placeholder='Enter Callback URL here'
             onChange={(e) => setcallback(e.target.value)}
           ></input>
@@ -98,6 +126,7 @@ const Settings = () => {
             className='h-9 w-72 bg-white rounded-md text-black text-base pl-2 outline-none mb-10'
             type='text'
             placeholder='Enter Webhook URL here'
+            value={webhook}
             onChange={(e) => setwebhook(e.target.value)}
           ></input>
           <SettingBackend callback={callback} webhook={webhook} />
