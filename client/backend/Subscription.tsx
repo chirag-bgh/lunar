@@ -6,7 +6,7 @@ import { subscriptiongetter } from '../API/subscription'
 import SubscriptionClass from '../classes/SubscriptionClass'
 
 // Hooks
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 // Icons
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
@@ -35,6 +35,8 @@ enum SortingType {
 
 const FetchSubscription = ({ query }: { query: string }) => {
   const { user } = useMoralis()
+
+  let token = user?.get('token')
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
     { propertyName: 'price', sortType: SortingType.Ascending },
@@ -76,13 +78,17 @@ const FetchSubscription = ({ query }: { query: string }) => {
   const [data, setAccounts] = useState([])
   const [accfetched, setaccfetched] = useState(false)
 
-  if (!accfetched) {
-    subscriptiongetter({ setAcc })
-    setaccfetched(true)
-  }
-  function setAcc({ z }: { z: any }) {
+  useEffect(() => {
+    if (!accfetched) {
+      subscriptiongetter({ setAcc, token })
+      setaccfetched(true)
+    }
+  }, [])
+
+  const setAcc = ({ z }: { z: any }) => {
     setAccounts(z)
   }
+
   let json = JSON.stringify(data, null, 2)
   // console.log("json: ", json);
 
