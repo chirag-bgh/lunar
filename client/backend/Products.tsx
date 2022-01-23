@@ -234,6 +234,10 @@ const FetchProduct = ({ query }: { query: string }) => {
     return sortedArray
   }, [sortConfig, products, query])
 
+  if (products.length === 0){
+    return(<h3>Nothing to see here</h3>)
+  }
+
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
       <tbody>
@@ -254,7 +258,7 @@ const FetchProduct = ({ query }: { query: string }) => {
                 element ? (element.style.backgroundColor = '#1E1E1F') : null
                 element ? (element.style.color = 'white') : null
               }}
-              className='cursor-pointer hover:bg-sky-700 hover:text-dark transition-colors'
+              className='cursor-pointer hover:bg-white hover:text-dark transition-colors'
               onClick={() => {
                 window.open(
                   `http://app.lunarpay.in/product/${product.objectId}`,
