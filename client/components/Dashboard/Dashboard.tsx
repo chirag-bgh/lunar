@@ -16,9 +16,11 @@ import { useMoralis, useMoralisQuery } from 'react-moralis'
 const Dashboard = ({
   openModal,
   openWalletModal,
+  openAlert,
 }: {
   openModal: () => void
   openWalletModal: () => void
+  openAlert: () => void
 }) => {
   const { user, setUserData, web3, isWeb3Enabled } = useMoralis()
   // const { switchNetwork, chainId } = useChain()
@@ -76,7 +78,7 @@ const Dashboard = ({
       case 'Transactions':
         return <Transactions />
       case 'Products':
-        return <Products openModal={openModal} />
+        return <Products openModal={openModal}/>
       case 'Subscription Plans':
         return <Subscriptions />
       case 'Payouts':
@@ -108,7 +110,7 @@ const Dashboard = ({
       />
       <div className='w-4/5 h-full flex flex-col justify-start items-start px-10 overflow-y-auto'>
         <Logo className='' />
-        <GetTab selectedTab={selectedTab} openModal={openModal} />
+        <GetTab selectedTab={selectedTab} openModal={openModal}/>
       </div>
     </div>
   )

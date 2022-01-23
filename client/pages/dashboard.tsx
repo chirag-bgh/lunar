@@ -27,7 +27,7 @@ function Provider() {
           name='description'
           content='Crypto Payments Made Easy with LunarPay.'
         />
-        <title>Lunar Dashboard</title>
+        <title>LunarPay Dashboard</title>
       </Head>
       <DashboardPage />
     </MoralisProvider>

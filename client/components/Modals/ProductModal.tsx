@@ -183,7 +183,7 @@ const ProductModal = ({
                 recurrence,
                 currency: currency,
                 token: user?.get('token'),
-              })
+              }).then(() => alert("Product created successfully"))
             }}
             className='px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer'
           >
