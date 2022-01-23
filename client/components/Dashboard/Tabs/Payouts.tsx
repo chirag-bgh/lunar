@@ -89,9 +89,11 @@ const Payouts = ({
       </div> */}
       <div className='flex mt-7 mb-7 justify-center items-center'>
         <h1 className='text-white font-display font-semibold'>
-          Need help? Contact us at{' '}
+          Need help? Send us a DM on Twitter at{' '}
           <span className='text-bold text-primary cursor-pointer'>
-            teamlunar@protonmail.com
+            <a href="https://www.twitter.com/PayLunar" target="_blank">
+            @PayLunar
+            </a>
           </span>
         </h1>
       </div>
