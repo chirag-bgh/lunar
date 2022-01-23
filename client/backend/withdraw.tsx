@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useMoralis, useMoralisQuery, useNewMoralisObject } from 'react-moralis'
 import { withdrawalgetter } from '../API/withdrawals'
 import CryptoJS from 'crypto-js'
@@ -188,6 +188,8 @@ export const Withdraw = ({
 export const FetchWithdrawals = () => {
   const { user, web3 } = useMoralis()
 
+  let token = user?.get('token')
+
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
     { propertyName: 'createdAt', sortType: SortingType.Descending },
   ])
@@ -228,11 +230,14 @@ export const FetchWithdrawals = () => {
   const [data, setAccounts] = useState([])
   const [accfetched, setaccfetched] = useState(false)
 
-  if (!accfetched) {
-    withdrawalgetter({ setAcc })
-    setaccfetched(true)
-  }
-  function setAcc({ z }: { z: any }) {
+  useEffect(() => {
+    if (!accfetched) {
+      withdrawalgetter({ setAcc, token })
+      setaccfetched(true)
+    }
+  }, [])
+
+  const setAcc = ({ z }: { z: any }) => {
     setAccounts(z)
   }
 
