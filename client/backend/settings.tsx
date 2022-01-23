@@ -38,9 +38,11 @@ import { currencysave } from '../API/accepted_currencies'
 export const SaveCurrencyConfig = ({
   ethEnabled,
   maticEnabled,
+  usdtEnabled
 }: {
   ethEnabled: boolean
   maticEnabled: boolean
+  usdtEnabled: boolean
 }) => {
   const { user, setUserData } = useMoralis()
 
@@ -67,6 +69,10 @@ export const SaveCurrencyConfig = ({
       
         if(maticEnabled){
           x.push("MATIC")
+        }
+
+        if(usdtEnabled){
+          x.push("USDT")
         }
         // setUserData({
         //   ethEnabled: ethEnabled,
