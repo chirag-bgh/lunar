@@ -187,9 +187,9 @@ const Card = ({
       <div className='flex justify-between items-start'>
         <div></div>
         <img
-          className={`h-20 mt-3 ${address === ethAddress ? 'ml-0' : 'ml-7'}`}
+          className={`h-20 mt-3 rounded-full ${address === ethAddress ? 'ml-0' : 'ml-7'}`}
           src={avtr}
-          alt='MetaMask'
+          alt='Avatar'
         />
         {address === ethAddress ? (
           <div></div>
