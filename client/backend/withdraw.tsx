@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useMoralis, useMoralisQuery, useNewMoralisObject } from 'react-moralis'
 import { withdrawalgetter } from '../API/withdrawals'
 import CryptoJS from 'crypto-js'
-
+import { withdrawadder } from '../API/withdraw'
 // Sorting Library
 import linq from 'linq'
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
@@ -154,6 +154,20 @@ export const Withdraw = ({
     }
   }
 
+  async function withdrawAPI() {
+    let wbalance: any = await web3?.eth.getBalance(user?.get('managed_account_pub'))
+    let balance:any = web3?.utils.fromWei(wbalance)
+    let token: any = await user?.get('token')
+    setIsLoadingWithdrawal(true)
+    
+    withdrawadder({address:ethAddress,amount:balance.toString(),token}).then(()=>{
+      alert('Withdrawal Succesful')
+      setIsLoadingWithdrawal(false)
+    }
+    )
+
+  }
+
   return (
     <div className='flex flex-col justify-center items-center bg-primary w-48 h-14 mt-5 rounded-lg cursor-pointer hover:scale-105 transition-all ease-in-out'>
       {web3EnableError && <h1>{web3EnableError}</h1>}
@@ -163,7 +177,7 @@ export const Withdraw = ({
           !loadingWithdrawal ? (isBroke ? 'hidden' : 'flex') : 'hidden'
         } justify-center items-center font-display gap-3`}
         disabled={isWeb3EnableLoading}
-        onClick={withdrawTransaction}
+        onClick={withdrawAPI}
       >
         Withdraw
         <FiDownloadCloud />
@@ -188,7 +202,7 @@ export const Withdraw = ({
 export const FetchWithdrawals = () => {
   const { user, web3 } = useMoralis()
 
-  let token = user?.get('token')
+  
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
     { propertyName: 'createdAt', sortType: SortingType.Descending },
@@ -232,7 +246,7 @@ export const FetchWithdrawals = () => {
 
   useEffect(() => {
     if (!accfetched) {
-      withdrawalgetter({ setAcc, token })
+      withdrawalgetter({ setAcc, token:user?.get('token') })
       setaccfetched(true)
     }
   }, [])
@@ -289,7 +303,8 @@ export const FetchWithdrawals = () => {
         {sortedRows.map((withdrawal) => {
           let newDate = new Date(withdrawal.created_at)
           return (
-            <tr key={withdrawal.eth_address}>
+            <tr key={withdrawal.hash}>
+              <td>{withdrawal.hash}</td>
               <td>{withdrawal.eth_address}</td>
               <td>
                 {web3?.utils.fromWei(withdrawal.amount.toString(), 'ether')} ETH
@@ -322,6 +337,7 @@ interface SortableHeaderProps {
 
 const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
   const tableColumn = [
+    { label: 'Hash', property: 'Hash' as keyof TableData },
     { label: 'Address', property: 'eth_address' as keyof TableData },
     { label: 'Amount', property: 'amount' as keyof TableData },
     { label: 'Created At', property: 'created_at' as keyof TableData },

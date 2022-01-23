@@ -19,8 +19,8 @@ export async function withdrawalgetter({
       }
     }
 
-    // let data = { Address: user?.get('ethAddress') }
-    // let t = JSON.stringify(data)
+    let data = { Address: '0x' }
+    let t = JSON.stringify(data)
     xhr.send()
   }
 }

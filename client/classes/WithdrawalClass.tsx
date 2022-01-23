@@ -5,4 +5,5 @@ export interface WithdrawalClass {
   amount: string
   created_at: Date
   currency: Date
+  hash: string
 }

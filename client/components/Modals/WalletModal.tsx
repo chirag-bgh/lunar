@@ -63,7 +63,6 @@ const WalletModal = ({
               closeModal()
               // TODO: add wallet
 
-              let accounts: string[] = user?.get('accounts')
               let token: string = user?.get('token')
               //console.log('accounts: ', accounts)
               if (address.includes('.eth')) {
@@ -71,12 +70,21 @@ const WalletModal = ({
                   let x = address.includes('.eth')
                     ? ((await web3?.eth.ens.getAddress(address)) as string)
                     : address
-                  walletadder({address,token}).then(()=>alert('Wallet has been added'))
+                  console.log("X : ",x)
+                  walletadder({address,token}).then(()=>{
+                    console.log("X: ",x)
+                    alert('Wallet has been added')
+                  }
+                  )
                 //  user?.save('accounts', accounts)
                 } catch (err) {
                   console.log(err)
                   alert('Invalid Address')
                 }
+              } else {
+                walletadder({address,token})
+                
+                //.then(()=>alert('Wallet has been added'))
               }
 
               //console.log("new accounts: ", accounts);
