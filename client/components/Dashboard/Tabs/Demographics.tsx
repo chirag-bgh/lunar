@@ -56,6 +56,7 @@ const Demographics = () => {
       <div className='w-full flex flex-col justify-between items-start mb-20'>
         <h2 className='text-3xl underline font-medium'>Demographics</h2>
       </div>
+      <div className='w-full flex justify-center items-center'>
       <div className='flex flex-col justify-start items-start gap-4 mr-8 w-5/6'>
         <div className='flex justify-start items-stretch gap-4 w-full'>
           <div className='bg-dark w-1/3 py-4 min-h-fit rounded-md  border-gray-600 flex flex-col justify-evenly items-center'>
@@ -100,6 +101,7 @@ const Demographics = () => {
             }}
           />
         </div>
+      </div>
       </div>
     </div>
   )
