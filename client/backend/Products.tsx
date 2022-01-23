@@ -122,12 +122,25 @@ const CreateProduct = ({
 const FetchProduct = ({ query }: { query: string }) => {
   const { user } = useMoralis()
 
+  let token = user?.get('token')
+
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
     { propertyName: 'created_at', sortType: SortingType.Descending },
   ])
 
   const [data, setAccounts] = useState([])
   const [accfetched, setaccfetched] = useState(false)
+
+  useEffect(() => {
+    if (!accfetched) {
+      productgetter({ setAcc, token })
+      setaccfetched(true)
+    }
+  }, [])
+
+  const setAcc = ({ z }: { z: any }) => {
+    setAccounts(z)
+  }
 
   const sortBy = useCallback(
     (propertyName: keyof TableData) => {
@@ -161,14 +174,6 @@ const FetchProduct = ({ query }: { query: string }) => {
     },
     [sortConfig]
   )
-
-  if (!accfetched) {
-    productgetter({ setAcc })
-    setaccfetched(true)
-  }
-  function setAcc({ z }: { z: any }) {
-    setAccounts(z)
-  }
 
   let json = JSON.stringify(data, null, 2)
 
