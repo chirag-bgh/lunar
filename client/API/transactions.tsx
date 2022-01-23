@@ -1,21 +1,18 @@
 import { useMoralis } from 'react-moralis'
-import { useState, useEffect } from 'react'
 
 export async function transactiongetter({
   setAcc,
+  token,
 }: {
   setAcc: ({ z }: { z: any }) => void
+  token: string
 }) {
-  const { user } = useMoralis()
-
-  let x = await user?.get('token')
-
-  if (x !== null) {
+  if (token !== null) {
     let xhr = new XMLHttpRequest()
     let endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
     let url = endpoint + 'api/v1/transactions'
     xhr.open('GET', url)
-    xhr.setRequestHeader('Authorization', `Token ${x}`)
+    xhr.setRequestHeader('Authorization', `Token ${token}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4) {
@@ -24,8 +21,8 @@ export async function transactiongetter({
       }
     }
 
-    let data = { Address: user?.get('ethAddress') }
-    let t = JSON.stringify(data)
-    xhr.send(JSON.stringify(t))
+    // let data = { Address: user?.get('ethAddress') }
+    // let t = JSON.stringify(data)
+    xhr.send()
   }
 }

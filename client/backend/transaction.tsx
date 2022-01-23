@@ -7,7 +7,7 @@ import TransactionClass from '../classes/TransactionClass'
 
 // Sorting Library
 import linq from 'linq'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { monthNames } from './Utils'
 
 interface TableData {
@@ -50,6 +50,8 @@ enum SortingType {
 export const FetchTransaction = ({ query }: { query: string }) => {
   const { user } = useMoralis()
 
+  let token = user?.get('token')
+
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
     { propertyName: 'created_at', sortType: SortingType.Descending },
   ])
@@ -87,17 +89,19 @@ export const FetchTransaction = ({ query }: { query: string }) => {
     [sortConfig]
   )
 
-  const userAddress = user?.get('managed_account_pub')
   const [data, setAccounts] = useState([])
   const [accfetched, setaccfetched] = useState(false)
 
-  if (!accfetched) {
-    transactiongetter({ setAcc })
-    setaccfetched(true)
-  }
-  function setAcc({ z }: { z: any }) {
+  const setAcc = ({ z }: { z: any }) => {
     setAccounts(z)
   }
+
+  useEffect(() => {
+    if (!accfetched) {
+      transactiongetter({ setAcc, token })
+      setaccfetched(true)
+    }
+  }, [])
 
   let json = JSON.stringify(data, null, 2)
 

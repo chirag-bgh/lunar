@@ -13,26 +13,16 @@ import {
   YAxis,
 } from 'recharts'
 import { useEffect, useState } from 'react'
-import { parse } from 'path/posix'
 
 // Fetches user revenue from Moralis DB
 export const GetRevenue = () => {
-  const { user } = useMoralis()
-
-  const userAddress = user?.get('managed_account_pub')
-
   const [data, setAccounts] = useState([])
   const [accfetched, setaccfetched] = useState(false)
-
-  if(!accfetched){
-    transactiongetter({setAcc})
-    setaccfetched(true)
-  }
-  function setAcc({z}:{z:any}) {
-    setAccounts(z)
-  }
-
   const [revenue, setRevenue] = useState(0)
+
+  const { user } = useMoralis()
+
+  let token = user?.get('token')
 
   useEffect(() => {
     getRev(data)
@@ -41,6 +31,16 @@ export const GetRevenue = () => {
     }
   }, [data])
 
+  const setAcc = ({ z }: { z: any }) => {
+    setAccounts(z)
+  }
+
+  useEffect(() => {
+    if (!accfetched) {
+      transactiongetter({ setAcc, token })
+      setaccfetched(true)
+    }
+  }, [])
 
   const getRev = (data: any) => {
     let json = JSON.stringify(data, null, 2)
@@ -61,32 +61,30 @@ export const GetRevenue = () => {
 export const GetTransactions = () => {
   const { user } = useMoralis()
 
-  const userAddress = user ? user.get('managed_account_pub') : ''
-
-  // console.log('querying transactions')
+  let token = user?.get('token')
 
   const [data, setAccounts] = useState([])
   const [accfetched, setaccfetched] = useState(false)
 
-  if(!accfetched){
-    transactiongetter({setAcc})
-    setaccfetched(true)
-  }
-  function setAcc({z}:{z:any}) {
-    setAccounts(z)
-  }
-  
-
   const [transactions, setTransactions] = useState<TransactionClass[]>([])
 
   useEffect(() => {
-    // console.log('fetching transactions')
-
     getTrans(data)
     return () => {
       setTransactions([])
     }
   }, [data])
+
+  const setAcc = ({ z }: { z: any }) => {
+    setAccounts(z)
+  }
+
+  useEffect(() => {
+    if (!accfetched) {
+      transactiongetter({ setAcc, token })
+      setaccfetched(true)
+    }
+  }, [])
 
   const getTrans = (data: any) => {
     let json = JSON.stringify(data, null, 2)
@@ -101,18 +99,21 @@ export const GetTransactions = () => {
 export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
   const { user } = useMoralis()
 
-  const userAddress = user?.get('managed_account_pub')
+  let token = user?.get('token')
 
   const [data, setAccounts] = useState([])
   const [accfetched, setaccfetched] = useState(false)
 
-  if(!accfetched){
-    transactiongetter({setAcc})
-    setaccfetched(true)
-  }
-  function setAcc({z}:{z:any}) {
+  function setAcc({ z }: { z: any }) {
     setAccounts(z)
   }
+
+  useEffect(() => {
+    if (!accfetched) {
+      transactiongetter({ setAcc, token })
+      setaccfetched(true)
+    }
+  }, [])
 
   const [chartData, setChartData] = useState<any[]>([])
 
@@ -180,7 +181,9 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
 
     const transactions: TransactionClass[] = JSON.parse(json)
 
-    let dates: Date[] = transactions.map((transaction) => transaction.created_at)
+    let dates: Date[] = transactions.map(
+      (transaction) => transaction.created_at
+    )
 
     for (let i = 0; i < days; i++) {
       dateObj.setDate(dateObj.getDate() - 1)
@@ -199,9 +202,22 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
       for (let index = 0; index < dates.length; index++) {
         const transactionDate = dates[index]
         var parsedDate = new Date(transactionDate.toString())
-        let month = ["1", "2", "3", "4", "5", "6",
-        "7", "8", "9", "10", "11", "12"][parsedDate.getMonth()];
-        let pd = parsedDate.getFullYear() + '-' + month + '-'+ parsedDate.getDate() 
+        let month = [
+          '1',
+          '2',
+          '3',
+          '4',
+          '5',
+          '6',
+          '7',
+          '8',
+          '9',
+          '10',
+          '11',
+          '12',
+        ][parsedDate.getMonth()]
+        let pd =
+          parsedDate.getFullYear() + '-' + month + '-' + parsedDate.getDate()
         //pd is the final parsed date. do not question the shit code.
         if (pd.includes(date)) {
           if (transactions[index] !== undefined) {

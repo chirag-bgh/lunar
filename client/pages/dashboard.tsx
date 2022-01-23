@@ -57,7 +57,6 @@ const DashboardPage = () => {
     if (modalIsOpen) {
       currencygetter({
         setAcc: setAcc,
-        // token: '5ae62fdb6cb531e4f5fd3869b88bc1c547901cb3',
         token: token,
       })
 
