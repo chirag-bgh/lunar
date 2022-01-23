@@ -12,6 +12,7 @@ import CryptoJS from 'crypto-js'
 import { memo, useEffect, useState } from 'react'
 import Demographics from './Tabs/Demographics'
 import { useMoralis, useMoralisQuery } from 'react-moralis'
+import {MdOutlineErrorOutline } from 'react-icons/md'
 
 const Dashboard = ({
   openModal,
@@ -63,6 +64,7 @@ const Dashboard = ({
         })
       }
     }
+    document.getElementById('success-msg').style.opacity="0"
   }, [user, setUserData, web3, isWeb3Enabled])
 
   function GetTab({
@@ -124,9 +126,16 @@ export const Logo = ({ className }: { className: string }) => {
       className={`w-full flex justify-center items-center my-4 ${className}`}
     >
       {/* <IoMdMoon className='text-white text-3xl mr-2' /> */}
-      <p className='font-medium text-xl pt-1'>
+      <p  id='logo_top' className='font-medium text-xl pt-1'>
         <span className='font-bold'>Lunar</span>Pay
       </p>
+      <div className='absolute w-1/2 transition-all' id="success-msg">
+      <div className="success-msg justify-center items-center w-3/4 mt-12 top-0 transition-transform flex">
+        <MdOutlineErrorOutline className='mr-2'></MdOutlineErrorOutline>
+          Product created successfully
+      </div>
+      </div>
+      
     </div>
   )
 }

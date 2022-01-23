@@ -122,10 +122,9 @@ td {
 .error-msg {
   color: #D8000C;
   background-color: #FFBABA;
-  animation: fadeInAnimation ease-in-out .25s;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
+  transition: all 0.6s; /* 600ms to fade out */
 }
+
 
 .modal{
   animation: fadeInAnimation ease-in-out 0.5s;

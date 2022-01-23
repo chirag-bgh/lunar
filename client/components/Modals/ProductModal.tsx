@@ -183,7 +183,13 @@ const ProductModal = ({
                 recurrence,
                 currency: currency,
                 token: user?.get('token'),
-              }).then(() => alert("Product created successfully"))
+              }).then(() => {
+                let banner = document.getElementById('success-msg')
+                banner.style.opacity = "1"
+
+                // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+                setTimeout(function(){ banner.style.opacity = "0"; }, 2000);
+              })
             }}
             className='px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer'
           >
