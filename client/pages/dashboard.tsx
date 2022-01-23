@@ -100,7 +100,7 @@ const DashboardPage = () => {
   }
 
   return (
-    <div style={{ filter: modalIsOpen ? 'brightness(0.5) blur(5px)' : 'none' }}>
+    <div className="modal" style={{ transform: modalIsOpen ? 'scale(1.009)': 'none', filter: modalIsOpen ? 'brightness(0.5) blur(5px)' : 'none' }}>
       {isAuthenticated === true && isWeb3Enabled ? (
         <Dashboard openModal={openModal} openWalletModal={openWalletModal} />
       ) : (
