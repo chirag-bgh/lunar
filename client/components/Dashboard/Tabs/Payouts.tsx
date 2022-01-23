@@ -70,7 +70,7 @@ const Payouts = ({
             openWalletModal()
             //console.log('all accounts: ', accounts)
           }}
-          className='bg-primary rounded-full w-24 h-24 text-7xl font-display flex justify-center items-center cursor-pointer hover:shadow-primary transition ease-in-out duration-200'
+          className='bg-primary rounded-full w-24 h-24 text-7xl font-display flex justify-center items-center cursor-pointer hover:scale-110 transition ease-in-out duration-200'
         >
           <h1 className='text-dark'>+</h1>
         </button>

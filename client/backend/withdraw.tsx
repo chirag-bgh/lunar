@@ -155,7 +155,7 @@ export const Withdraw = ({
   }
 
   return (
-    <div className='flex flex-col justify-center items-center bg-primary w-48 h-14 mt-5 rounded-lg cursor-pointer hover:shadow-primary transition-all ease-in-out'>
+    <div className='flex flex-col justify-center items-center bg-primary w-48 h-14 mt-5 rounded-lg cursor-pointer hover:scale-105 transition-all ease-in-out'>
       {web3EnableError && <h1>{web3EnableError}</h1>}
       {error && <h1>{error}</h1>}
       <button
