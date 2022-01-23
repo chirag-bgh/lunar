@@ -269,12 +269,11 @@ export const FetchWithdrawals = () => {
     return sorted.toArray()
   }, [sortConfig, withdrawals])
 
-  if (sortedRows.length === 0){
-    return(
-    <div className='w-full h-72 bg-dark flex justify-center items-center mt-2'>
-      <h3>No withdrawals have been made yet</h3>
-    </div>
-
+  if (sortedRows.length === 0) {
+    return (
+      <div className='w-full h-72 bg-dark flex justify-center items-center mt-6 text-xl font-display rounded-lg'>
+        <h3>No withdrawals have been made yet</h3>
+      </div>
     )
   }
 

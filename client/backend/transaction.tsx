@@ -157,12 +157,11 @@ export const FetchTransaction = ({ query }: { query: string }) => {
     return sortedArray
   }, [sortConfig, transactions, query])
 
-  if (transactions.length === 0){
-    return(
-    <div className='w-full h-96 bg-dark flex justify-center items-center mt-2'>
-      <h3>No transactions to display yet</h3>
-    </div>
-
+  if (transactions.length === 0) {
+    return (
+      <div className='w-full h-96 bg-dark flex justify-center items-center mt-6 text-xl font-display rounded-lg'>
+        <h3>No transactions to display yet</h3>
+      </div>
     )
   }
 
