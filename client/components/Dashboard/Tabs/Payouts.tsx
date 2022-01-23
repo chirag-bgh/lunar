@@ -21,11 +21,12 @@ const Payouts = ({
   let address = user?.get('ethAddress')
 
   const [selected, setSelected] = useState(address)
+  
 
   const [cardFetched, setCardFetched] = useState(false)
   const [accounts, setAccounts] = useState([])
   const [accfetched, setaccfetched] = useState(false)
-
+  
   if (!accfetched) {
     walletgetter({ setAcc })
     setaccfetched(true)
@@ -134,6 +135,7 @@ const Card = ({
   const [addr, setaddr] = useState(address)
   const [showRemove, setShowRemove] = useState(false)
 
+
   const Web3Api = useMoralisWeb3Api()
   const { fetch, data } = useMoralisWeb3ApiCall(
     Web3Api.account.getNativeBalance,
@@ -191,7 +193,9 @@ const Card = ({
           <HiPlusSm
             className='text-primary transform rotate-45 text-3xl'
             onClick={() => {
-              walletdestroy({address:address,token: user?.get('token')})
+              walletdestroy({address:address,token: user?.get('token')}).then(()=>{
+                alert("Wallet was removed")
+              })
               //console.log("new accounts: ", accounts);
             }}
           />

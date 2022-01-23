@@ -71,7 +71,7 @@ const WalletModal = ({
                   let x = address.includes('.eth')
                     ? ((await web3?.eth.ens.getAddress(address)) as string)
                     : address
-                  walletadder({address,token})
+                  walletadder({address,token}).then(()=>alert('Wallet has been added'))
                 //  user?.save('accounts', accounts)
                 } catch (err) {
                   console.log(err)
