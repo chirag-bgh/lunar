@@ -166,6 +166,7 @@ const FetchSubscription = ({ query }: { query: string }) => {
           return (
             <tr key={subscription.product}>
               <td>{subscription.product}</td>
+              <td>{subscription.status}</td>
               <td>{subscription.price} ETH</td>
               <td>{subscription.recurrence}</td>
               <td>{subscription.email}</td>
@@ -200,6 +201,7 @@ interface SortableHeaderProps {
 const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
   const tableColumn = [
     { label: 'Product', property: 'product' as keyof TableData },
+    { label: 'Status', property: 'status' as keyof TableData },
     { label: 'Price', property: 'price' as keyof TableData },
     { label: 'Recurrence', property: 'recurrence' as keyof TableData },
     { label: 'Email', property: 'email' as keyof TableData },

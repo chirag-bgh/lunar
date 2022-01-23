@@ -7,4 +7,5 @@ export default interface SubscriptionClass {
   created_at: Date
   currency: string
   email: string
+  status: string
 }

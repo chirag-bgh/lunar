@@ -28,13 +28,11 @@ export async function productgetter({
 export async function productadder({
   name,
   price,
-  currency,
   recurrence,
   token,
 }: {
   name: string
   price: any
-  currency: any
   recurrence: string
   token: string
 }) {
@@ -48,7 +46,6 @@ export async function productadder({
     let z = JSON.stringify({
       name: name,
       price: price,
-      default_currency: currency,
       recurrence: recurrence,
     })
     xhr.send(z)

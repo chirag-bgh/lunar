@@ -78,14 +78,12 @@ const CreateProduct = ({
   price,
   recurrence,
   closeModal,
-  currency,
   acceptedCurrencies,
 }: {
   price: number
   name: string
   recurrence: string
   closeModal: () => void
-  currency: string
   acceptedCurrencies: string[]
 }) => {
   const { isSaving, error, save } = useNewMoralisObject('Products')
@@ -106,7 +104,6 @@ const CreateProduct = ({
             callback_url: user?.get('callbackURL'),
             webhook_url: user?.get('webhookURL'),
             acceptedCurrencies: acceptedCurrencies,
-            defaultCurrency: currency,
           })
         }}
         disabled={isSaving}
@@ -176,7 +173,6 @@ const FetchProduct = ({ query }: { query: string }) => {
   )
 
   let json = JSON.stringify(data, null, 2)
-
   const products: ProductClass[] = JSON.parse(json)
 
   const sortedRows = useMemo(() => {
@@ -250,8 +246,6 @@ const FetchProduct = ({ query }: { query: string }) => {
       <tbody>
         <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
         {sortedRows.map((product: any) => {
-          console.log('PRODUCT: ', product)
-
           let newDate = new Date(product.created_at)
           return (
             <tr
@@ -278,7 +272,7 @@ const FetchProduct = ({ query }: { query: string }) => {
               <td>{product.name}</td>
               <td>{product.objectId}</td>
               <td>
-                {product.price} {product.default_currency}
+                {product.price} USD
               </td>
               <td>{product.recurrence}</td>
               <td>

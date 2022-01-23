@@ -90,7 +90,7 @@ const ProductModal = ({
             />
           </div>
           <div className='flex justify-between items-center gap-2 w-full px-16'>
-            <p className='font-medium text-sm'>PRICE</p>
+            <p className='font-medium text-sm'>PRICE (USD)</p>
             <input
               type='number'
               name='price'
@@ -98,21 +98,6 @@ const ProductModal = ({
               className='rounded-sm outline-none pl-2 font-display h-10 w-60 bg-background text-white'
               value={price}
               onChange={(event) => setPrice(parseFloat(event.target.value))}
-            />
-          </div>
-          <div className='flex justify-between items-center gap-2 mr-auto w-full px-16 '>
-            <p className='font-medium text-sm'>CURRENCY</p>
-            <Dropdown
-              className=' w-60'
-              controlClassName='bg-background border-none'
-              menuClassName='single-select bg-dark'
-              placeholderClassName='text-white'
-              options={acceptedCurrencies}
-              onChange={(e) => {
-                setCurrency(e.value)
-              }}
-              value={defaultCurrency}
-              placeholder='Select an option'
             />
           </div>
           <div className='flex justify-between items-center gap-2 mr-auto w-full px-16 '>
@@ -149,7 +134,6 @@ const ProductModal = ({
                 name,
                 price,
                 recurrence,
-                currency: currency,
                 token: user?.get('token'),
               }).then(() => {
                 let banner = document.getElementById('success-msg')
