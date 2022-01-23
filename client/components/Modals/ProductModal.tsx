@@ -51,9 +51,7 @@ const ProductModal = ({
   const [name, setName] = useState('')
   const [price, setPrice] = useState(0.0)
   const [recurrence, setRecurrence] = useState('One time')
-  const [currency, setCurrency] = useState('MATIC')
-
-  console.log('acceptedCurrencies', acceptedCurrencies)
+  const [currency, setCurrency] = useState(acceptedCurrencies[0])
 
   const dropdownOptions = ['One time', 'Monthly', 'Quarterly', 'Yearly']
   const defaultOption = dropdownOptions[0]

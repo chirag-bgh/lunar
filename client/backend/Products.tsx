@@ -52,14 +52,13 @@ const DeleteProduct = ({ objectId }: { objectId: string }) => {
   }, [destroy])
 
   return (
-    <div>
+    <div className='flex justify-center items-center'>
       <button
         onClick={(e) => {
           e.stopPropagation()
           setDestroy(true)
         }}
         className='h-7 text-sm rounded-sm text-black font-display px-2 flex justify-center items-center cursor-pointer z-50'
-        style={{ marginLeft: '25%' }}
       >
         {!destroy ? (
           <FaTrash style={{ color: 'rgb(239 68 68)' }} />
@@ -245,7 +244,9 @@ const FetchProduct = ({ query }: { query: string }) => {
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
       <tbody>
         <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
-        {sortedRows.map((product) => {
+        {sortedRows.map((product: any) => {
+          console.log('PRODUCT: ', product)
+
           let newDate = new Date(product.created_at)
           return (
             <tr
@@ -261,7 +262,7 @@ const FetchProduct = ({ query }: { query: string }) => {
                 element ? (element.style.backgroundColor = '#1E1E1F') : null
                 element ? (element.style.color = 'white') : null
               }}
-              className='cursor-pointer hover:bg-white hover:text-dark transition-colors'
+              className='cursor-pointer hover:bg-slate-300 hover:text-dark transition-colors'
               onClick={() => {
                 window.open(
                   `http://app.lunarpay.in/product/${product.objectId}`,
@@ -272,7 +273,7 @@ const FetchProduct = ({ query }: { query: string }) => {
               <td>{product.name}</td>
               <td>{product.objectId}</td>
               <td>
-                {product.price} {product.defaultCurrency}
+                {product.price} {product.default_currency}
               </td>
               <td>{product.recurrence}</td>
               <td>

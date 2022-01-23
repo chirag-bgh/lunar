@@ -1,5 +1,4 @@
 import { useMoralis } from 'react-moralis'
-import { useState, useEffect } from 'react'
 
 export async function productgetter({
   setAcc,
@@ -75,12 +74,12 @@ export async function productdestroy({
     xhr.setRequestHeader('Authorization', `Token ${token}`)
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.onreadystatechange = () => {
-    // if (xhr.readyState === 4) {
-    //   //   console.log(xhr.status)
-    //      console.log('Response: ',xhr.responseText)
-    //   }
+      // if (xhr.readyState === 4) {
+      //   //   console.log(xhr.status)
+      //      console.log('Response: ',xhr.responseText)
+      //   }
     }
-    let z = JSON.stringify({'objectId':address})
+    let z = JSON.stringify({ objectId: address })
     xhr.send(z)
     // xhr.onloadend = function () {
     //     console.log('Added wallet')

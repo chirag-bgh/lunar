@@ -60,14 +60,13 @@ const Settings = () => {
   }
 
   if (!cwfetched) {
-    cwgetter({ setAcc:setCW, token })
+    cwgetter({ setAcc: setCW, token })
     setcwfetched(true)
   }
   function setCW({ z }: { z: any }) {
     setcwconfig(z)
     setcwgot(true)
   }
-
 
   if (cwgot && !cwset) {
     if (cwconfig['callback_url'] != 'null') {
@@ -79,10 +78,6 @@ const Settings = () => {
       setcwset(true)
     }
   }
-
-
-
-
 
   return (
     <div className='w-full h-full mb-14'>
@@ -101,11 +96,7 @@ const Settings = () => {
             onChange={setMaticEnabled}
             text='MATIC'
           />
-          <Checkbox
-            state={usdtEnabled}
-            onChange={setusdtEnabled}
-            text='USDT'
-          />
+          <Checkbox state={usdtEnabled} onChange={setusdtEnabled} text='USDT' />
           <SaveCurrencyConfig
             ethEnabled={ethEnabled}
             maticEnabled={maticEnabled}
@@ -142,7 +133,7 @@ const Settings = () => {
         <div className='flex h-6'>
           <button
             className={
-              'w-72 h-9 bg-red-500 flex justify-center items-center font-semibold cursor-pointer text-white'
+              'w-72 h-9 bg-red-500 flex justify-center items-center font-semibold cursor-pointer text-white rounded'
             }
             onClick={() => toggleApiVisible()}
           >
