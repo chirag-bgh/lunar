@@ -112,6 +112,7 @@ const Payouts = ({
 }
 
 import { walletdestroy } from '../../../API/wallet'
+import { avatarresolver } from '../../Auth/AuthManager'
 
 const Card = ({
   address,
@@ -134,6 +135,8 @@ const Card = ({
   const [ensfy, setensfy] = useState(false)
   const [addr, setaddr] = useState(address)
   const [showRemove, setShowRemove] = useState(false)
+  const [avtr, setavtr] = useState('/metamask.png')
+  const [enswallet, setenswallet] = useState('Your Metamask Wallet')
 
 
   const Web3Api = useMoralisWeb3Api()
@@ -157,8 +160,9 @@ const Card = ({
       setFetched(false)
     }
     if (!ensfy) {
-      if (addr.includes('.eth')) {
+      if (addr.includes('.eth')) { 
         ensmaker()
+        avatarresolver({ address: addr, setavtr: setavtr,setenswallet:setenswallet })
         setensfy(true)
       }
     }
@@ -184,7 +188,7 @@ const Card = ({
         <div></div>
         <img
           className={`h-20 mt-3 ${address === ethAddress ? 'ml-0' : 'ml-7'}`}
-          src='/metamask.png'
+          src={avtr}
           alt='MetaMask'
         />
         {address === ethAddress ? (
@@ -204,7 +208,7 @@ const Card = ({
         )}
       </div>
       <div>
-        <h1>Your Metamask wallet</h1>
+        <h1>{enswallet}</h1>
         <h3 className='text-gray-400 text-sm font-display truncate'>
           {address}
         </h3>

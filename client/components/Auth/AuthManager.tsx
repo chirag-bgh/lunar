@@ -113,4 +113,27 @@ export async function ensresolver({
   return 'done'
 }
 
+
+export async function avatarresolver({
+  address,
+  setavtr,
+  setenswallet,
+}: {
+  address: string
+  setavtr: any
+  setenswallet:any
+}) {
+  const provider = ethers.getDefaultProvider()
+    let avatar = await provider.getAvatar(address)
+    console.log("Avatar: ",avatar)
+    if (avatar != null) {
+      setavtr(avatar)
+      setenswallet("Your ENS Wallet")
+    }
+  
+  return 'done'
+}
+
+
+
 export { AuthenticateButton, LogoutButton }
