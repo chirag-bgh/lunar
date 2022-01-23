@@ -26,7 +26,7 @@ export const SettingBackend = ({
         ////console.log('Data Saved: ', data)
         //console.log("Inv Saved: ", inv);
       }}
-      className='w-72 h-9 bg-primary rounded-md flex justify-center items-center font-semibold cursor-pointer'
+      className='w-72 h-9 bg-primary rounded-md flex justify-center items-center font-semibold hover:scale-105 transition-scale transition-all ease-in-out cursor-pointer'
     >
       Set Configuration
     </button>
@@ -84,7 +84,7 @@ export const SaveCurrencyConfig = ({
           console.log('user is null')
         }
       }}
-      className='w-72 h-9 mt-5 bg-primary rounded-md flex justify-center items-center font-semibold cursor-pointer'
+      className='w-72 h-9 mt-5 bg-primary rounded-md flex justify-center items-center font-semibold cursor-pointer hover:scale-105 transition ease-in-out'
     >
       {!currenciesSaved ? 'Save' : error ? 'An Error Occured!' : 'Saved Data!'}
     </button>
