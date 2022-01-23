@@ -23,7 +23,8 @@ const Settings = () => {
   const { user } = useMoralis()
 
   const [ethEnabled, setEthEnabled] = useState<any>(null)
-  const [maticEnabled, setMaticEnabled] = useState(false)
+  const [maticEnabled, setMaticEnabled] = useState<any>(null)
+  const [usdtEnabled, setusdtEnabled] = useState<any>(null)
   const [accounts, setAccounts] = useState<string[]>([])
   const [accfetched, setaccfetched] = useState(false)
   const [setting, setsetting] = useState(false)
@@ -50,6 +51,10 @@ const Settings = () => {
     }
     if (accounts.includes('MATIC')) {
       setMaticEnabled(true)
+      setsetting(true)
+    }
+    if (accounts.includes('USDT')) {
+      setusdtEnabled(true)
       setsetting(true)
     }
   }
@@ -97,13 +102,14 @@ const Settings = () => {
             text='MATIC'
           />
           <Checkbox
-            state={maticEnabled}
-            onChange={setMaticEnabled}
+            state={usdtEnabled}
+            onChange={setusdtEnabled}
             text='USDT'
           />
           <SaveCurrencyConfig
             ethEnabled={ethEnabled}
             maticEnabled={maticEnabled}
+            usdtEnabled={usdtEnabled}
           />
         </div>
       </div>
