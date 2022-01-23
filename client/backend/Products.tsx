@@ -235,7 +235,12 @@ const FetchProduct = ({ query }: { query: string }) => {
   }, [sortConfig, products, query])
 
   if (products.length === 0){
-    return(<h3>Nothing to see here</h3>)
+    return(
+    <div className='w-full h-96 bg-dark flex justify-center items-center mt-2'>
+      <h3>Create a product to get started</h3>
+    </div>
+
+    )
   }
 
   return (
