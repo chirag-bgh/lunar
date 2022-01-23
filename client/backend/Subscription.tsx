@@ -146,6 +146,15 @@ const FetchSubscription = ({ query }: { query: string }) => {
     return sortedArray
   }, [sortConfig, subsriptions, query])
 
+  if (sortedRows.length === 0){
+    return(
+    <div className='w-full h-96 bg-dark flex justify-center items-center mt-2'>
+      <h3>No transactions to display yet</h3>
+    </div>
+
+    )
+  }
+
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
       <tbody>
