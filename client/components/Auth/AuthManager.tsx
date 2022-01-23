@@ -125,7 +125,6 @@ export async function avatarresolver({
 }) {
   const provider = ethers.getDefaultProvider()
     let avatar = await provider.getAvatar(address)
-    console.log("Avatar: ",avatar)
     if (avatar != null) {
       setavtr(avatar)
       setenswallet("Your ENS Wallet")
