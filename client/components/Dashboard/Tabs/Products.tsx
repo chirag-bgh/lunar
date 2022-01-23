@@ -15,7 +15,7 @@ const Products = ({ openModal }: { openModal: () => void }) => {
           onClick={() => {
             openModal()
           }}
-          className='px-5 h-full rounded-sm bg-primary flex justify-center items-center cursor-pointer'
+          className='px-5 h-full rounded-sm bg-primary flex justify-center items-center font-semibold cursor-pointer transition ease-in-out hover:scale-105'
         >
           Create Product
         </div>
