@@ -13,6 +13,9 @@ module.exports = {
       code: ['Consolas'],
     },
     extend: {
+      height: {
+        '15/2': '7.5rem',
+      },
       width: {
         128: '32rem',
       },

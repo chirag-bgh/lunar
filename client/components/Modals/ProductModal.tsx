@@ -23,6 +23,7 @@ const customStyles = {
     // height: '36%',
     height: '55%',
     backgroundColor: '#1E1E1F',
+    borderRadius: '7px',
     width: '40%',
     border: 'none',
     overflow: 'hidden',
@@ -51,49 +52,11 @@ const ProductModal = ({
   const [price, setPrice] = useState(0.0)
   const [recurrence, setRecurrence] = useState('One time')
   const [currency, setCurrency] = useState('MATIC')
-  // const [accounts, setAccounts] = useState<string[]>([])
-  // const [accfetched, setaccfetched] = useState(false)
-
-  // let token = user?.get('token')
 
   console.log('acceptedCurrencies', acceptedCurrencies)
 
-  // function setAcc({ z }: { z: any }) {
-  //   console.log('setting accounts to ', z)
-
-  //   setAccounts(z)
-  // }
-
-  // useEffect(() => {
-  //   console.log('account fetcehd', accfetched)
-
-  // if (!accfetched) {
-  //   console.log('fetching accepted currencie')
-
-  //   currencygetter({ setAcc, token })
-  //   setaccfetched(true)
-  // }
-
-  // console.log('accounts: ', accounts)
-
-  // if (accfetched && accounts !== undefined) {
-  //   if (accounts.includes('ETH')) {
-  //     acceptedCurrencies.push('ETH')
-  //   }
-  //   if (accounts.includes('MATIC')) {
-  //     acceptedCurrencies.push('MATIC')
-  //   }
-  // }
-  // }, [])
-
   const dropdownOptions = ['One time', 'Monthly', 'Quarterly', 'Yearly']
   const defaultOption = dropdownOptions[0]
-
-  // let acceptedCurrencies: string[] = useMemo(() => [], [])
-
-  // useEffect(() => {
-
-  // }, [acceptedCurrencies, accounts])
 
   const defaultCurrency = acceptedCurrencies[0]
 
@@ -110,11 +73,15 @@ const ProductModal = ({
       contentLabel='Create Product Modal'
     >
       <div className='w-full h-full flex flex-col justify-between items-center'>
-        <h1 className='underline text-xl'>Add New Product</h1>
+        {/* Header */}
+        <h1 className='text-2xl font-medium font-display mt-7'>
+          Add New Product
+        </h1>
 
-        <div className='flex flex-col justify-between items-center gap-8 w-full '>
+        {/* Middle (Fields) */}
+        <div className='flex flex-col justify-center items-center gap-5 w-full '>
           <div className='flex justify-between items-center gap-2 w-full px-16'>
-            <p className='font-medium text-sm '>NAME</p>
+            <p className='font-medium text-sm'>NAME</p>
             <input
               type='text'
               name='name'
@@ -135,35 +102,39 @@ const ProductModal = ({
               onChange={(event) => setPrice(parseFloat(event.target.value))}
             />
           </div>
+          <div className='flex justify-between items-center gap-2 mr-auto w-full px-16 '>
+            <p className='font-medium text-sm'>CURRENCY</p>
+            <Dropdown
+              className=' w-60'
+              controlClassName='bg-background border-none'
+              menuClassName='single-select bg-dark'
+              placeholderClassName='text-white'
+              options={acceptedCurrencies}
+              onChange={(e) => {
+                setCurrency(e.value)
+              }}
+              value={defaultCurrency}
+              placeholder='Select an option'
+            />
+          </div>
+          <div className='flex justify-between items-center gap-2 mr-auto w-full px-16 '>
+            <p className='font-medium text-sm'>RECURRENCE</p>
+            <Dropdown
+              controlClassName='bg-background border-none'
+              placeholderClassName='text-white'
+              className='w-60'
+              menuClassName='single-select h-15/2 bg-dark transition-all'
+              options={dropdownOptions}
+              onChange={(e) => {
+                setRecurrence(e.value)
+              }}
+              value={defaultOption}
+              placeholder='Select an option'
+            />
+          </div>
         </div>
-        <div className='flex justify-between items-center gap-2 mr-auto w-full px-16 '>
-          <p className='font-medium text-sm'>CURRENCY</p>
-          <Dropdown
-            className=' w-60'
-            controlClassName='bg-background border-none'
-            menuClassName='single-select bg-dark'
-            options={acceptedCurrencies}
-            onChange={(e) => {
-              setCurrency(e.value)
-            }}
-            value={defaultCurrency}
-            placeholder='Select an option'
-          />
-        </div>
-        <div className='flex justify-between items-center gap-2  mr-auto w-full px-16 '>
-          <p className='font-medium text-sm'>RECURRENCE</p>
-          <Dropdown
-            controlClassName='bg-background border-none'
-            className='w-60'
-            menuClassName='single-select h-20 bg-dark transition-all'
-            options={dropdownOptions}
-            onChange={(e) => {
-              setRecurrence(e.value)
-            }}
-            value={defaultOption}
-            placeholder='Select an option'
-          />
-        </div>
+
+        {/* Footer - Add Button */}
         <div>
           <button
             onClick={async () => {
@@ -192,19 +163,11 @@ const ProductModal = ({
                 }, 2000)
               })
             }}
-            className='px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer'
+            className='px-20 py-1.5 bg-primary rounded flex justify-center items-center font-semibold cursor-pointer mb-7'
           >
             Add
           </button>
         </div>
-        {/* <CreateProduct
-          name={name}
-          price={price}
-          recurrence={recurrence}
-          closeModal={closeModal}
-          currency={currency}
-          acceptedCurrencies={acceptedCurrencies}
-        /> */}
       </div>
     </ReactModal>
   )

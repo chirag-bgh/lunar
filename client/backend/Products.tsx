@@ -42,13 +42,12 @@ import { productdestroy } from '../API/products'
 const DeleteProduct = ({ objectId }: { objectId: string }) => {
   const [destroy, setDestroy] = useState(false)
 
-  const{user} = useMoralis()
+  const { user } = useMoralis()
 
   useEffect(() => {
     if (destroy) {
-      productdestroy({address:objectId,token:user?.get('token')})
+      productdestroy({ address: objectId, token: user?.get('token') })
       setDestroy(false)
-
     }
   }, [destroy])
 
@@ -234,12 +233,11 @@ const FetchProduct = ({ query }: { query: string }) => {
     return sortedArray
   }, [sortConfig, products, query])
 
-  if (products.length === 0){
-    return(
-    <div className='w-full h-96 bg-dark flex justify-center items-center mt-2'>
-      <h3>Create a product to get started</h3>
-    </div>
-
+  if (products.length === 0) {
+    return (
+      <div className='w-full h-96 bg-dark flex justify-center items-center mt-6 text-xl font-display rounded-lg'>
+        <h3>Create a product to get started.</h3>
+      </div>
     )
   }
 
