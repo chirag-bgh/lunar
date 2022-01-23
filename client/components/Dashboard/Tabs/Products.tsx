@@ -27,7 +27,7 @@ const Products = ({ openModal }: { openModal: () => void }) => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <div className='w-16 h-full rounded-sm bg-primary flex justify-center items-center'>
+          <div className='w-16 h-full rounded-sm bg-primary flex justify-center font-semibold cursor-pointer items-center'>
             Search
           </div>
         </div>

@@ -17,7 +17,7 @@ const Transactions = () => {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
-        <div className="w-16 h-full rounded-sm bg-primary flex justify-center items-center">
+        <div className="w-16 h-full rounded-sm bg-primary flex font-semibold cursor-pointer justify-center items-center">
           Search
         </div>
       </div>
