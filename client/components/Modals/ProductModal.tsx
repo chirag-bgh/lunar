@@ -25,7 +25,7 @@ const customStyles = {
     backgroundColor: '#1E1E1F',
     width: '40%',
     border: 'none',
-    overflow: "hidden",
+    overflow: 'hidden',
   },
 }
 
@@ -139,8 +139,8 @@ const ProductModal = ({
         <div className='flex justify-between items-center gap-2 mr-auto w-full px-16 '>
           <p className='font-medium text-sm'>CURRENCY</p>
           <Dropdown
-          className=' w-60'
-          controlClassName='bg-background border-none'
+            className=' w-60'
+            controlClassName='bg-background border-none'
             menuClassName='single-select bg-dark'
             options={acceptedCurrencies}
             onChange={(e) => {
@@ -153,9 +153,8 @@ const ProductModal = ({
         <div className='flex justify-between items-center gap-2  mr-auto w-full px-16 '>
           <p className='font-medium text-sm'>RECURRENCE</p>
           <Dropdown
-          
-          controlClassName='bg-background border-none'
-          className='w-60'
+            controlClassName='bg-background border-none'
+            className='w-60'
             menuClassName='single-select h-20 bg-dark transition-all'
             options={dropdownOptions}
             onChange={(e) => {
@@ -185,10 +184,12 @@ const ProductModal = ({
                 token: user?.get('token'),
               }).then(() => {
                 let banner = document.getElementById('success-msg')
-                banner.style.opacity = "1"
+                banner !== null ? (banner.style.opacity = '1') : null
 
                 // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
-                setTimeout(function(){ banner.style.opacity = "0"; }, 2000);
+                setTimeout(function () {
+                  banner !== null ? (banner.style.opacity = '0') : null
+                }, 2000)
               })
             }}
             className='px-14 py-1 bg-primary rounded-sm flex justify-center items-center font-semibold cursor-pointer'

@@ -12,16 +12,14 @@ import CryptoJS from 'crypto-js'
 import { memo, useEffect, useState } from 'react'
 import Demographics from './Tabs/Demographics'
 import { useMoralis, useMoralisQuery } from 'react-moralis'
-import {MdOutlineErrorOutline } from 'react-icons/md'
+import { MdOutlineErrorOutline } from 'react-icons/md'
 
 const Dashboard = ({
   openModal,
   openWalletModal,
-  openAlert,
 }: {
   openModal: () => void
   openWalletModal: () => void
-  openAlert: () => void
 }) => {
   const { user, setUserData, web3, isWeb3Enabled } = useMoralis()
   // const { switchNetwork, chainId } = useChain()
@@ -64,7 +62,8 @@ const Dashboard = ({
         })
       }
     }
-    document.getElementById('success-msg').style.opacity="0"
+    let successMsgObj = document.getElementById('success-msg')
+    successMsgObj !== null ? (successMsgObj.style.opacity = '0') : null
   }, [user, setUserData, web3, isWeb3Enabled])
 
   function GetTab({
@@ -80,7 +79,7 @@ const Dashboard = ({
       case 'Transactions':
         return <Transactions />
       case 'Products':
-        return <Products openModal={openModal}/>
+        return <Products openModal={openModal} />
       case 'Subscription Plans':
         return <Subscriptions />
       case 'Payouts':
@@ -112,7 +111,7 @@ const Dashboard = ({
       />
       <div className='w-4/5 h-full flex flex-col justify-start items-start px-10 overflow-y-auto'>
         <Logo className='' />
-        <GetTab selectedTab={selectedTab} openModal={openModal}/>
+        <GetTab selectedTab={selectedTab} openModal={openModal} />
       </div>
     </div>
   )
@@ -126,16 +125,15 @@ export const Logo = ({ className }: { className: string }) => {
       className={`w-full flex justify-center items-center my-4 ${className}`}
     >
       {/* <IoMdMoon className='text-white text-3xl mr-2' /> */}
-      <p  id='logo_top' className='font-medium text-xl pt-1'>
+      <p id='logo_top' className='font-medium text-xl pt-1'>
         <span className='font-bold'>Lunar</span>Pay
       </p>
-      <div className='absolute w-1/2 transition-all' id="success-msg">
-      <div className="success-msg justify-center items-center w-3/4 mt-12 top-0 transition-transform flex">
-        <MdOutlineErrorOutline className='mr-2'></MdOutlineErrorOutline>
+      <div className='absolute w-1/2 transition-all' id='success-msg'>
+        <div className='success-msg justify-center items-center w-3/4 mt-12 top-0 transition-transform flex'>
+          <MdOutlineErrorOutline className='mr-2'></MdOutlineErrorOutline>
           Product created successfully
+        </div>
       </div>
-      </div>
-      
     </div>
   )
 }
