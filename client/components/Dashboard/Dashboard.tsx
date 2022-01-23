@@ -24,7 +24,7 @@ const Dashboard = ({
   // const { switchNetwork, chainId } = useChain()
 
   const [selectedTab, setSelectedTab] = useState('Overview')
-  const [balance, setBalance] = useState('Loading..')
+  const [balance, setBalance] = useState('Loading')
   const [fetched, setFetched] = useState(false)
 
   const isAuthenticated = user?.get('isAuthenticated')
@@ -91,6 +91,10 @@ const Dashboard = ({
         return <Overview />
     }
   }
+
+  // if(!fetched){
+  //   return(<h3>sdf;lakj;dclvKAJ</h3>)
+  // }
 
   return (
     <div className='w-screen h-screen bg-background flex justify-center items-center'>

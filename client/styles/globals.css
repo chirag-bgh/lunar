@@ -128,7 +128,7 @@ td {
 }
 
 .modal{
-  animation: fadeInAnimation ease-in-out 1s;
+  animation: fadeInAnimation ease-in-out 0.5s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }

@@ -50,7 +50,7 @@ export const LoadingScreenAuthState = () => {
 
   return (
     <div className='h-screen w-screen bg-background flex justify-center items-center text-4xl font-display text-white'>
-      Loading...
+      <h3> <span className='font-bold'>Lunar</span>Pay</h3>
     </div>
   )
 }
@@ -58,7 +58,7 @@ export const LoadingScreenAuthState = () => {
 export const LoadingScreen = () => {
   return (
     <div className='h-screen w-screen bg-background flex justify-center items-center text-4xl font-display text-white'>
-      Loading...
+      <h3> <span className='font-bold'>Lunar</span>Pay</h3>
     </div>
   )
 }
