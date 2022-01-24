@@ -167,7 +167,7 @@ const FetchSubscription = ({ query }: { query: string }) => {
             <tr key={subscription.product}>
               <td>{subscription.product}</td>
               <td>{subscription.status}</td>
-              <td>{subscription.price} ETH</td>
+              <td>{subscription.price} USD</td>
               <td>{subscription.recurrence}</td>
               <td>{subscription.email}</td>
               <td>

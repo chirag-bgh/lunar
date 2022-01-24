@@ -10,9 +10,11 @@ import { FiDownloadCloud } from 'react-icons/fi'
 import { WithdrawalClass } from '../classes/WithdrawalClass'
 
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
-
+import {
+  useMoralisWeb3Api,
+  useMoralisWeb3ApiCall,
+} from 'react-moralis'
 import { ethers } from 'ethers'
-
 declare const window: any
 
 import Loader from 'react-loader-spinner'
@@ -51,7 +53,7 @@ export const Withdraw = ({
   const { user, web3, isWeb3Enabled, isWeb3EnableLoading, web3EnableError } =
     useMoralis()
 
-  const { error, save } = useNewMoralisObject('Withdrawals')
+
   const [loadingWithdrawal, setIsLoadingWithdrawal] = useState(false)
   const [isBroke, setIsBroke] = useState(false)
 
@@ -59,119 +61,57 @@ export const Withdraw = ({
     return <h1>Web3 not enabled for some reason</h1>
   }
 
-  async function withdrawTransaction() {
-    let accountAddress = user?.get('managed_account_pub')
-    accountAddress = accountAddress.includes('.eth')
-      ? ((await web3?.eth.ens.getAddress(accountAddress)) as string)
-      : accountAddress
-    let encryptedKey = user?.get('encryptedKey')
-    let bytes = CryptoJS.AES.decrypt(
-      encryptedKey,
-      process.env.NEXT_PUBLIC_PASSWORD as string
-    )
-    let privateKeyOG = bytes.toString(CryptoJS.enc.Utf8)
-    // let ethAddress = user.get('ethAddress')
+  const Web3Api = useMoralisWeb3Api()
+    const [balance, setBalance] = useState<any>(null)
+    const [fetched, setfetched] = useState<any>(null)
 
-    // await window.ethereum.enable();
-    // if (window.ethereum) {
-    //   try {
-    //     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-    //     // setAccounts(accounts);
-    //   } catch (error) {
-    //     // if (error?.code === 4001) {
-    //       // User rejected requests
-    //     // }
-    // console.log("error: ", error)
-    //     // setError(error);
-    //   }
-    // }
 
-    // const provider = new ethers.providers.Web3Provider(window.ethereum)
-
-    let balance: any = await web3?.eth.getBalance(accountAddress)
-
-    let gasPrice: any = await web3?.eth.getGasPrice()
-    let txFee: any = gasPrice * 21000
-
-    let valueToBeSent: any = balance - txFee
-
-    if (valueToBeSent > 0) {
-      setIsBroke(false)
-
-      // console.log('balance: ', balance)
-      // console.log('account address: ', accountAddress)
-      // console.log('eth address: ', ethAddress)
-      // console.log('privateKeyOG: ', privateKeyOG)
-      // console.log('gasPrice: ', gasPrice)
-      // console.log('valueToBeSent: ', valueToBeSent)
-      // console.log('FINAL: ', valueToBeSent + txFee)
-
-      const txParams = {
-        to: ethAddress,
-        gas: web3?.utils.toHex(gasPrice * 21000),
-        gasPrice: web3?.utils.toHex(gasPrice),
-        gasLimit: web3?.utils.toHex('21000'),
-        value: web3?.utils.toHex(valueToBeSent),
-        // nonce: 0,
+    const { fetch, data } = useMoralisWeb3ApiCall(
+      Web3Api.account.getTokenBalances,
+      {
+        address: user?.get('managed_account_pub'),
+        chain: 'polygon',
       }
+    )
+  
 
-      const provider = ethers.providers.getDefaultProvider(3)
+    useEffect(() => {
+      if (data !== null && data.length !== 0) {
+        setBalance(web3?.utils.fromWei(data[0]['balance'],'mwei'))
+        //console.log('balance: ', balance)
+      }
+      if (data?.length == 0) {
+        setBalance(web3?.utils.fromWei("0")+'')
+        //console.log('balance: ', balance)
+      }
+      if (!fetched) {
+        fetch()
+        setFetched(true)
+      }
+    }, [data, fetch, fetched, balance, web3?.utils, setBalance, setFetched])
 
-      let account = web3?.eth.accounts.wallet.add(privateKeyOG)
+  
 
-      let signedTx = await account?.signTransaction(txParams)
-
-      setIsLoadingWithdrawal(true)
-
-      await provider
-        .sendTransaction(signedTx?.rawTransaction as string)
-        .then(() => {
-          setIsLoadingWithdrawal(false)
-          save({ ethAddress, balance, user: user?.id })
-          setFetched(false)
-          setCardFetched(false)
-        })
-        .catch((error) => {
-          console.log('error: ', error)
-        })
-
-      // await provider.waitForTransaction(hash)
-
-      // await web3?.eth
-      //   .sendSignedTransaction((await signedTx)?.rawTransaction as string)
-      //   .then(() => {
-      //     setIsLoadingWithdrawal(false)
-      //     console.log('Successfully Withdrew', balance, ' WEI')
-      //     save({ ethAddress, balance, user: user?.id })
-      //     setFetched(false)
-      //     setCardFetched(false)
-      //   })
-      //   .catch((error) => {
-      //     console.log('error: ', error)
-      //   })
-    } else {
-      setIsBroke(true)
-    }
-  }
+  
 
   async function withdrawAPI() {
-    let wbalance: any = await web3?.eth.getBalance(user?.get('managed_account_pub'))
-    let balance:any = web3?.utils.fromWei(wbalance)
+    
+
     let token: any = await user?.get('token')
     setIsLoadingWithdrawal(true)
+    console.log('Balance : ',balance)
     
-    withdrawadder({address:ethAddress,amount:balance.toString(),token}).then(()=>{
-      alert('Withdrawal Succesful')
-      setIsLoadingWithdrawal(false)
-    }
-    )
+     withdrawadder({address:ethAddress,amount:balance.toString(),token}).then(()=>{
+       alert('Withdrawal Succesful')
+       setIsLoadingWithdrawal(false)
+     }
+     )
 
   }
 
   return (
     <div className='flex flex-col justify-center items-center bg-primary w-48 h-14 mt-5 rounded-lg cursor-pointer hover:scale-105 transition-all ease-in-out'>
       {web3EnableError && <h1>{web3EnableError}</h1>}
-      {error && <h1>{error}</h1>}
       <button
         className={`text-xl py-3 text-black text-center font-semibold ${
           !loadingWithdrawal ? (isBroke ? 'hidden' : 'flex') : 'hidden'
@@ -375,3 +315,110 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
     </tr>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+// //ARCHIVE
+// async function withdrawTransaction() {
+//   let accountAddress = user?.get('managed_account_pub')
+//   accountAddress = accountAddress.includes('.eth')
+//     ? ((await web3?.eth.ens.getAddress(accountAddress)) as string)
+//     : accountAddress
+//   let encryptedKey = user?.get('encryptedKey')
+//   let bytes = CryptoJS.AES.decrypt(
+//     encryptedKey,
+//     process.env.NEXT_PUBLIC_PASSWORD as string
+//   )
+//   let privateKeyOG = bytes.toString(CryptoJS.enc.Utf8)
+//   // let ethAddress = user.get('ethAddress')
+
+//   // await window.ethereum.enable();
+//   // if (window.ethereum) {
+//   //   try {
+//   //     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+//   //     // setAccounts(accounts);
+//   //   } catch (error) {
+//   //     // if (error?.code === 4001) {
+//   //       // User rejected requests
+//   //     // }
+//   // console.log("error: ", error)
+//   //     // setError(error);
+//   //   }
+//   // }
+
+//   // const provider = new ethers.providers.Web3Provider(window.ethereum)
+
+//   let balance: any = await web3?.eth.getBalance(accountAddress)
+
+//   let gasPrice: any = await web3?.eth.getGasPrice()
+//   let txFee: any = gasPrice * 21000
+
+//   let valueToBeSent: any = balance - txFee
+
+//   if (valueToBeSent > 0) {
+//     setIsBroke(false)
+
+//     // console.log('balance: ', balance)
+//     // console.log('account address: ', accountAddress)
+//     // console.log('eth address: ', ethAddress)
+//     // console.log('privateKeyOG: ', privateKeyOG)
+//     // console.log('gasPrice: ', gasPrice)
+//     // console.log('valueToBeSent: ', valueToBeSent)
+//     // console.log('FINAL: ', valueToBeSent + txFee)
+
+//     const txParams = {
+//       to: ethAddress,
+//       gas: web3?.utils.toHex(gasPrice * 21000),
+//       gasPrice: web3?.utils.toHex(gasPrice),
+//       gasLimit: web3?.utils.toHex('21000'),
+//       value: web3?.utils.toHex(valueToBeSent),
+//       // nonce: 0,
+//     }
+
+//     const provider = ethers.providers.getDefaultProvider(3)
+
+//     let account = web3?.eth.accounts.wallet.add(privateKeyOG)
+
+//     let signedTx = await account?.signTransaction(txParams)
+
+//     setIsLoadingWithdrawal(true)
+
+//     await provider
+//       .sendTransaction(signedTx?.rawTransaction as string)
+//       .then(() => {
+//         setIsLoadingWithdrawal(false)
+//         save({ ethAddress, balance, user: user?.id })
+//         setFetched(false)
+//         setCardFetched(false)
+//       })
+//       .catch((error) => {
+//         console.log('error: ', error)
+//       })
+
+//     // await provider.waitForTransaction(hash)
+
+//     // await web3?.eth
+//     //   .sendSignedTransaction((await signedTx)?.rawTransaction as string)
+//     //   .then(() => {
+//     //     setIsLoadingWithdrawal(false)
+//     //     console.log('Successfully Withdrew', balance, ' WEI')
+//     //     save({ ethAddress, balance, user: user?.id })
+//     //     setFetched(false)
+//     //     setCardFetched(false)
+//     //   })
+//     //   .catch((error) => {
+//     //     console.log('error: ', error)
+//     //   })
+//   } else {
+//     setIsBroke(true)
+//   }
+// }

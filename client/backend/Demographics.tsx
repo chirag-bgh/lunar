@@ -188,7 +188,7 @@ export const GetUserLeaderboard = () => {
             >
               <td className='text-left px-0'>{email}</td>
               <td className='text-right px-0'>
-                {totalSpent.substring(0, 5)} ETH
+                {totalSpent.substring(0, 5)} USD
               </td>
             </tr>
           )
