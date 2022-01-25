@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import ReactModal from 'react-modal'
 import { useMoralis } from 'react-moralis'
+import { walletadder } from '../../API/wallet'
 
 const customStyles = {
   content: {
@@ -62,19 +63,26 @@ const WalletModal = ({
               closeModal()
               // TODO: add wallet
 
-              let accounts: string[] = user?.get('accounts')
+              let token: string = user?.get('token')
               //console.log('accounts: ', accounts)
               if (address.includes('.eth')) {
                 try {
                   let x = address.includes('.eth')
                     ? ((await web3?.eth.ens.getAddress(address)) as string)
                     : address
-                  accounts.push(address)
-                  user?.save('accounts', accounts)
+                  walletadder({address,token}).then(()=>{
+                    alert('Wallet has been added')
+                  }
+                  )
+                //  user?.save('accounts', accounts)
                 } catch (err) {
                   console.log(err)
                   alert('Invalid Address')
                 }
+              } else {
+                walletadder({address,token})
+                
+                //.then(()=>alert('Wallet has been added'))
               }
 
               //console.log("new accounts: ", accounts);

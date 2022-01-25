@@ -8,13 +8,11 @@ import Payouts from './Tabs/Payouts'
 import Settings from './Tabs/Settings/Settings'
 import CryptoJS from 'crypto-js'
 
-// Icons
-import { IoMdMoon } from 'react-icons/io'
-
 // Hooks
 import { memo, useEffect, useState } from 'react'
 import Demographics from './Tabs/Demographics'
-import { useChain, useMoralis, useMoralisQuery } from 'react-moralis'
+import { useMoralis, useMoralisQuery } from 'react-moralis'
+import { MdOutlineErrorOutline } from 'react-icons/md'
 
 const Dashboard = ({
   openModal,
@@ -24,10 +22,10 @@ const Dashboard = ({
   openWalletModal: () => void
 }) => {
   const { user, setUserData, web3, isWeb3Enabled } = useMoralis()
-  const { switchNetwork, chainId } = useChain()
+  // const { switchNetwork, chainId } = useChain()
 
   const [selectedTab, setSelectedTab] = useState('Overview')
-  const [balance, setBalance] = useState('Loading..')
+  const [balance, setBalance] = useState('Loading')
   const [fetched, setFetched] = useState(false)
 
   const isAuthenticated = user?.get('isAuthenticated')
@@ -47,9 +45,9 @@ const Dashboard = ({
     // }
 
     // For Ropsten Testnet
-    if (chainId !== '0x3') {
-      switchNetwork('0x3')
-    }
+    // if (chainId !== '0x3') {
+    //   switchNetwork('0x3')
+    // }
 
     if (user?.get('encryptedKey') === undefined) {
       let x = web3?.eth.accounts.create()
@@ -58,14 +56,15 @@ const Dashboard = ({
         process.env.NEXT_PUBLIC_PASSWORD as string
       ).toString()
       if (user && isAuthenticated) {
-        console.log('Saving user data')
         setUserData({
           managed_account_pub: x?.address,
           encryptedKey: encryptedKey,
         })
       }
     }
-  }, [chainId, user, setUserData, web3, switchNetwork, isWeb3Enabled])
+    let successMsgObj = document.getElementById('success-msg')
+    successMsgObj !== null ? (successMsgObj.style.opacity = '0') : null
+  }, [user, setUserData, web3, isWeb3Enabled])
 
   function GetTab({
     selectedTab,
@@ -96,6 +95,10 @@ const Dashboard = ({
     }
   }
 
+  // if(!fetched){
+  //   return(<h3>sdf;lakj;dclvKAJ</h3>)
+  // }
+
   return (
     <div className='w-screen h-screen bg-background flex justify-center items-center'>
       <Sidebar
@@ -122,7 +125,15 @@ export const Logo = ({ className }: { className: string }) => {
       className={`w-full flex justify-center items-center my-4 ${className}`}
     >
       {/* <IoMdMoon className='text-white text-3xl mr-2' /> */}
-      <p className='font-medium text-xl pt-1'><span className='font-bold'>Lunar</span>Pay</p>
+      <p id='logo_top' className='font-medium text-xl pt-1'>
+        <span className='font-bold'>Lunar</span>Pay
+      </p>
+      <div className='absolute w-1/2 transition-all' id='success-msg'>
+        <div className='success-msg justify-center items-center w-3/4 mt-12 top-0 transition-transform flex'>
+          <MdOutlineErrorOutline className='mr-2'></MdOutlineErrorOutline>
+          Product created successfully
+        </div>
+      </div>
     </div>
   )
 }

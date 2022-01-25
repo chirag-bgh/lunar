@@ -1,4 +1,5 @@
 import { useMoralis, useMoralisQuery } from 'react-moralis'
+import { transactiongetter } from '../API/transactions'
 
 // Icons
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
@@ -6,16 +7,15 @@ import TransactionClass from '../classes/TransactionClass'
 
 // Sorting Library
 import linq from 'linq'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { monthNames } from './Utils'
 
 interface TableData {
   product: string
-  objectId: string
-  email_address: string
+  email: string
   amount: number
   type: string
-  createdAt: Date
+  created_at: Date
 }
 
 interface SortingConfiguration {
@@ -50,8 +50,10 @@ enum SortingType {
 export const FetchTransaction = ({ query }: { query: string }) => {
   const { user } = useMoralis()
 
+  let token = user?.get('token')
+
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
-    { propertyName: 'createdAt', sortType: SortingType.Descending },
+    { propertyName: 'created_at', sortType: SortingType.Descending },
   ])
 
   const sortBy = useCallback(
@@ -62,7 +64,7 @@ export const FetchTransaction = ({ query }: { query: string }) => {
       )
       if (index > -1) {
         //Save the sortType
-        var currentSortType = pendingChange[index].sortType
+        let currentSortType = pendingChange[index].sortType
         //Remove existing config
         pendingChange.splice(index, 1)
         //check if the sort type we saved is descending
@@ -87,18 +89,23 @@ export const FetchTransaction = ({ query }: { query: string }) => {
     [sortConfig]
   )
 
-  const userAddress = user?.get('managed_account_pub')
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
 
-  const { data } = useMoralisQuery('Transactions', (query) =>
-    query.equalTo('to_address', userAddress)
-  )
+  const setAcc = ({ z }: { z: any }) => {
+    setAccounts(z)
+  }
+
+  useEffect(() => {
+    if (!accfetched) {
+      transactiongetter({ setAcc, token })
+      setaccfetched(true)
+    }
+  }, [])
 
   let json = JSON.stringify(data, null, 2)
 
-  // console.log('json: ', json)
-
   const transactions: TransactionClass[] = JSON.parse(json)
-
   const sortedRows = useMemo(() => {
     //Set up default ordering
     let sorted = linq.from(transactions).orderBy(() => 1)
@@ -154,19 +161,26 @@ export const FetchTransaction = ({ query }: { query: string }) => {
     return sortedArray
   }, [sortConfig, transactions, query])
 
+  if (transactions.length === 0) {
+    return (
+      <div className='w-full h-96 bg-dark flex justify-center items-center mt-6 text-xl font-display rounded-lg'>
+        <h3>No transactions to display yet</h3>
+      </div>
+    )
+  }
+
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
       <tbody>
         <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
         {sortedRows.map((transaction) => {
-          let newDate = new Date(transaction.createdAt)
+          let newDate = new Date(transaction.created_at)
           return (
-            <tr key={transaction.objectId}>
+            <tr key={transaction.product}>
               <td>{transaction.product}</td>
-              <td>{transaction.objectId}</td>
-              <td>{transaction.amount} ETH</td>
-              <td>{transaction.Type}</td>
-              <td>{transaction.email_address}</td>
+              <td>{transaction.amount} MATIC</td>
+              <td>{transaction.type}</td>
+              <td>{transaction.email}</td>
               <td>
                 {newDate.getDate() +
                   ' ' +
@@ -196,15 +210,14 @@ interface SortableHeaderProps {
 const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
   const tableColumn = [
     { label: 'Product', property: 'product' as keyof TableData },
-    { label: 'ID', property: 'objectId' as keyof TableData },
     { label: 'Price', property: 'amount' as keyof TableData },
     { label: 'Type', property: 'type' as keyof TableData },
-    { label: 'Email', property: 'email_address' as keyof TableData },
-    { label: 'Created At', property: 'createdAt' as keyof TableData },
+    { label: 'Email', property: 'email' as keyof TableData },
+    { label: 'Date', property: 'created_at' as keyof TableData },
   ]
 
   const getSortDirection = (property: keyof TableData) => {
-    var config = sortConfig.find(
+    let config = sortConfig.find(
       (sortConfig) => sortConfig.propertyName === property
     )
     return config ? (

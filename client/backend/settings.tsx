@@ -2,6 +2,7 @@
 // import { useState } from "react";
 import { useEffect, useState } from 'react'
 import { useMoralis, useMoralisQuery } from 'react-moralis'
+import { cwsave } from '../API/cwconfig'
 
 export const SettingBackend = ({
   callback,
@@ -10,48 +11,46 @@ export const SettingBackend = ({
   callback: string
   webhook: string
 }) => {
-  const { user, setUserData } = useMoralis()
-  const { data } = useMoralisQuery('Products', (query) =>
-    query.equalTo('user', user)
-  )
-  const { data: inv } = useMoralisQuery('Invoices', (query) =>
-    query.equalTo('user', user?.id)
-  )
+  const { user } = useMoralis()
+  
+  let address = {'callback_url':callback,"webhook_url":webhook}
+
 
   return (
     <button
       onClick={() => {
-        setUserData({
-          callbackURL: callback,
-          webhookURL: webhook,
+        cwsave({
+          address: address,
+          token: user?.get('token'),
         })
-        for (let i = 0, len = data.length; i < len; i++) {
-          data[i].save({ callback_url: callback, webhook_url: webhook })
-        }
-        for (let i = 0, len = inv.length; i < len; i++) {
-          inv[i].save({ callback_url: callback, webhook_url: webhook })
-        }
         ////console.log('Data Saved: ', data)
         //console.log("Inv Saved: ", inv);
       }}
-      className='w-72 h-9 bg-primary rounded-md flex justify-center items-center font-semibold cursor-pointer'
+      className='w-72 h-9 bg-primary rounded-md flex justify-center items-center font-semibold hover:scale-105 transition-scale transition-all ease-in-out cursor-pointer'
     >
       Set Configuration
     </button>
   )
 }
 
+import { currencysave } from '../API/accepted_currencies'
+
 export const SaveCurrencyConfig = ({
   ethEnabled,
   maticEnabled,
+  usdtEnabled
 }: {
   ethEnabled: boolean
   maticEnabled: boolean
+  usdtEnabled: boolean
 }) => {
   const { user, setUserData } = useMoralis()
 
   const [currenciesSaved, setCurrenciesSaved] = useState(false)
   const [error, setError] = useState(null)
+  
+  
+
 
   useEffect(() => {
     return () => {
@@ -63,15 +62,25 @@ export const SaveCurrencyConfig = ({
   return (
     <button
       onClick={async () => {
-        if (user) {
-          console.log('Saving user data')
-          setUserData({
-            ethEnabled: ethEnabled,
-            maticEnabled: maticEnabled,
-          })
-            .then(() => {
-              console.log('saved user data')
+        let x = []
+        if(ethEnabled){
+          x.push('ETH')
+        }
+      
+        if(maticEnabled){
+          x.push("MATIC")
+        }
 
+        if(usdtEnabled){
+          x.push("USDT")
+        }
+        // setUserData({
+        //   ethEnabled: ethEnabled,
+        //   maticEnabled: maticEnabled,
+        // })
+        if (user) {
+          currencysave({address:x,token:user?.get('token')})
+            .then(() => {
               setCurrenciesSaved(true)
             })
             .catch((err) => {
@@ -81,7 +90,7 @@ export const SaveCurrencyConfig = ({
           console.log('user is null')
         }
       }}
-      className='w-72 h-9 mt-5 bg-primary rounded-md flex justify-center items-center font-semibold cursor-pointer'
+      className='w-72 h-9 mt-5 bg-primary rounded-md flex justify-center items-center font-semibold cursor-pointer hover:scale-105 transition ease-in-out'
     >
       {!currenciesSaved ? 'Save' : error ? 'An Error Occured!' : 'Saved Data!'}
     </button>

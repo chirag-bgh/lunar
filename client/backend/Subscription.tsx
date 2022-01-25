@@ -1,11 +1,12 @@
 import { useNewMoralisObject, useMoralis, useMoralisQuery } from 'react-moralis'
 // import Moralis from 'moralis'
+import { subscriptiongetter } from '../API/subscription'
 
 // Classes
 import SubscriptionClass from '../classes/SubscriptionClass'
 
 // Hooks
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 // Icons
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
@@ -16,11 +17,10 @@ import { monthNames } from './Utils'
 
 interface TableData {
   product: string
-  id: string
   price: number
   recurrence: string
-  createdAt: Date
-  email_address: string
+  created_at: Date
+  email: string
 }
 
 interface SortingConfiguration {
@@ -33,31 +33,10 @@ enum SortingType {
   Descending,
 }
 
-const CreateSubscription = ({
-  name,
-  price,
-  recurrence,
-}: {
-  price: number
-  name: string
-  recurrence: string
-}) => {
-  const { isSaving, error, save } = useNewMoralisObject('Subscription')
-  const { user } = useMoralis()
-  return (
-    <div>
-      {error}
-      <button
-        onClick={() => save({ name, price, user: user?.get('id'), recurrence })}
-        disabled={isSaving}
-      >
-        Create Subscription
-      </button>
-    </div>
-  )
-}
 const FetchSubscription = ({ query }: { query: string }) => {
   const { user } = useMoralis()
+
+  let token = user?.get('token')
 
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
     { propertyName: 'price', sortType: SortingType.Ascending },
@@ -71,7 +50,7 @@ const FetchSubscription = ({ query }: { query: string }) => {
       )
       if (index > -1) {
         //Save the sortType
-        var currentSortType = pendingChange[index].sortType
+        let currentSortType = pendingChange[index].sortType
         //Remove existing config
         pendingChange.splice(index, 1)
         //check if the sort type we saved is descending
@@ -96,10 +75,19 @@ const FetchSubscription = ({ query }: { query: string }) => {
     [sortConfig]
   )
 
-  const { data } = useMoralisQuery('Subscription', (query) =>
-    query.equalTo('user', user?.id)
-  )
-  // console.log("User: ", user.id);
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
+
+  useEffect(() => {
+    if (!accfetched) {
+      subscriptiongetter({ setAcc, token })
+      setaccfetched(true)
+    }
+  }, [])
+
+  const setAcc = ({ z }: { z: any }) => {
+    setAccounts(z)
+  }
 
   let json = JSON.stringify(data, null, 2)
   // console.log("json: ", json);
@@ -116,9 +104,6 @@ const FetchSubscription = ({ query }: { query: string }) => {
       if (sortConfig.propertyName === 'product') {
         propertyName = 'name'
       }
-      if (sortConfig.propertyName === 'id') {
-        propertyName = 'objectId'
-      }
       if (sortConfig.sortType === SortingType.Ascending) {
         sorted = sorted
           .thenBy((dataRow: any) => (dataRow[propertyName] === null ? -1 : 1))
@@ -132,7 +117,7 @@ const FetchSubscription = ({ query }: { query: string }) => {
       }
     })
 
-    let names = subsriptions.map((a) => a.name)
+    let names = subsriptions.map((a) => a.product)
 
     // console.log("names", names);
 
@@ -150,7 +135,7 @@ const FetchSubscription = ({ query }: { query: string }) => {
 
     for (let i = 0; i < sortedArray.length; i++) {
       const dataRow = sortedArray[i]
-      const name = dataRow.name
+      const name = dataRow.product
       for (let j = 0; j < filteredNames.length; j++) {
         let filteredName = filteredNames[j]
         if (!name.startsWith(filteredName) && query !== '') {
@@ -164,19 +149,27 @@ const FetchSubscription = ({ query }: { query: string }) => {
     return sortedArray
   }, [sortConfig, subsriptions, query])
 
+  if (sortedRows.length === 0) {
+    return (
+      <div className='w-full h-96 bg-dark flex justify-center items-center mt-6 text-xl font-display rounded-lg'>
+        <h3>No subscription plans to display yet</h3>
+      </div>
+    )
+  }
+
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
       <tbody>
         <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
         {sortedRows.map((subscription) => {
-          let newDate = new Date(subscription.createdAt)
+          let newDate = new Date(subscription.created_at)
           return (
-            <tr key={subscription.objectId}>
-              <td>{subscription.name}</td>
-              <td>{subscription.objectId}</td>
-              <td>{subscription.price} ETH</td>
+            <tr key={subscription.product}>
+              <td>{subscription.product}</td>
+              <td>{subscription.status}</td>
+              <td>{subscription.price} MATIC</td>
               <td>{subscription.recurrence}</td>
-              <td>{subscription.email_address}</td>
+              <td>{subscription.email}</td>
               <td>
                 {newDate.getDate() +
                   ' ' +
@@ -198,7 +191,7 @@ const FetchSubscription = ({ query }: { query: string }) => {
   )
 }
 
-export { CreateSubscription, FetchSubscription }
+export { FetchSubscription }
 
 interface SortableHeaderProps {
   sortBy: (string: keyof TableData) => void
@@ -207,16 +200,16 @@ interface SortableHeaderProps {
 
 const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
   const tableColumn = [
-    { label: 'Subscription', property: 'product' as keyof TableData },
-    { label: 'ID', property: 'id' as keyof TableData },
+    { label: 'Product', property: 'product' as keyof TableData },
+    { label: 'Status', property: 'status' as keyof TableData },
     { label: 'Price', property: 'price' as keyof TableData },
     { label: 'Recurrence', property: 'recurrence' as keyof TableData },
-    { label: 'Email', property: 'email_address' as keyof TableData },
-    { label: 'Created At', property: 'createdAt' as keyof TableData },
+    { label: 'Email', property: 'email' as keyof TableData },
+    { label: 'Created At', property: 'created_at' as keyof TableData },
   ]
 
   const getSortDirection = (property: keyof TableData) => {
-    var config = sortConfig.find(
+    let config = sortConfig.find(
       (sortConfig) => sortConfig.propertyName === property
     )
     return config ? (

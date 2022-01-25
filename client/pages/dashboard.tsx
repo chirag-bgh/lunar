@@ -6,6 +6,7 @@ import { MoralisProvider, useMoralis } from 'react-moralis'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { LoadingScreenAuthState } from '../components/LoadingScreen'
+import { currencygetter } from '../API/accepted_currencies'
 
 declare const window: any
 
@@ -17,9 +18,9 @@ function Provider() {
       serverUrl={process.env.NEXT_PUBLIC_SERVER_URL as string}
     >
       <Head>
-        <title>Lunar Dashboard</title>
+        <title>LunarPay Dashboard</title>
         <link rel='icon' href='/logo.png' />
-        {/* <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <meta
           name='description'
           content='Crypto Payments Made Easy with LunarPay.'
@@ -27,7 +28,7 @@ function Provider() {
         <link
           rel='stylesheet'
           href='https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap'
-        /> */}
+        />
       </Head>
       <DashboardPage />
     </MoralisProvider>
@@ -39,9 +40,28 @@ const DashboardPage = () => {
   const [walletModalIsOpen, setWalletModalIsOpen] = useState(false)
   const { enableWeb3, isWeb3Enabled, user } = useMoralis()
 
+  const [acceptedCurrencies, setAcceptedCurrencies] = useState<string[]>([])
+
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
     user === null ? false : true
   )
+
+  let token = user?.get('token')
+
+  const setAcc = ({ z }: { z: any }) => {
+    setAcceptedCurrencies(z)
+  }
+
+  useEffect(() => {
+    if (modalIsOpen) {
+      currencygetter({
+        setAcc: setAcc,
+        token: token,
+      })
+
+      console.log('accepted currencies: ', acceptedCurrencies)
+    }
+  }, [modalIsOpen])
 
   const router = useRouter()
 
@@ -78,13 +98,23 @@ const DashboardPage = () => {
   }
 
   return (
-    <div style={{ filter: modalIsOpen ? 'brightness(0.5) blur(5px)' : 'none' }}>
+    <div
+      className='modal'
+      style={{
+        transform: modalIsOpen ? 'scale(1.009)' : 'none',
+        filter: modalIsOpen ? 'brightness(0.5) blur(5px)' : 'none',
+      }}
+    >
       {isAuthenticated === true && isWeb3Enabled ? (
         <Dashboard openModal={openModal} openWalletModal={openWalletModal} />
       ) : (
         <LoadingScreenAuthState />
       )}
-      <ProductModal modalIsOpen={modalIsOpen} setIsOpen={setIsOpen} />
+      <ProductModal
+        modalIsOpen={modalIsOpen}
+        setIsOpen={setIsOpen}
+        acceptedCurrencies={acceptedCurrencies}
+      />
       <WalletModal
         walletModalIsOpen={walletModalIsOpen}
         setWalletModalIsOpen={setWalletModalIsOpen}

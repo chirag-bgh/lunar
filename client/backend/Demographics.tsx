@@ -1,26 +1,26 @@
-import { useMoralis, useMoralisQuery } from 'react-moralis'
+import { useMoralis } from 'react-moralis'
 import DemographicsClass from '../classes/Demographics'
+import { useState } from 'react'
+import { demographicsgetter } from '../API/demographics'
 
 //Queries Moralis DB for countries and returns a table of countries for the demographics tab
 export const GetCountries = () => {
   const { user } = useMoralis()
 
-  const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
-    query.equalTo('user', user?.id)
-  )
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
 
-  if (error) {
-    return <span>🤯</span>
+  if(!accfetched){
+    demographicsgetter({setAcc})
+    setaccfetched(true)
   }
-
-  if (isLoading) {
-    return <span>🙄</span>
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
   }
-
+  
   let json = JSON.stringify(data, null, 2)
 
   let demographics: DemographicsClass[] = JSON.parse(json)
-
   let countries: any = {}
 
   demographics.forEach((demographic: any) => {
@@ -64,16 +64,15 @@ export const GetCountries = () => {
 export const GetCities = () => {
   const { user } = useMoralis()
 
-  const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
-    query.equalTo('user', user?.id)
-  )
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
 
-  if (error) {
-    return <span>🤯</span>
+  if(!accfetched){
+    demographicsgetter({setAcc})
+    setaccfetched(true)
   }
-
-  if (isLoading) {
-    return <span>🙄</span>
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
   }
 
   let json = JSON.stringify(data, null, 2)
@@ -121,17 +120,17 @@ export const GetCities = () => {
 export const GetUsers = () => {
   const { user } = useMoralis()
 
-  const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
-    query.equalTo('user', user?.id)
-  )
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
 
-  if (error) {
-    return <span>🤯</span>
+  if(!accfetched){
+    demographicsgetter({setAcc})
+    setaccfetched(true)
+  }
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
   }
 
-  if (isLoading) {
-    return <span>🙄</span>
-  }
 
   let json = JSON.stringify(data, null, 2)
 
@@ -144,16 +143,15 @@ export const GetUsers = () => {
 export const GetUserLeaderboard = () => {
   const { user } = useMoralis()
 
-  const { data, error, isLoading } = useMoralisQuery('Demographics', (query) =>
-    query.equalTo('user', user?.id)
-  )
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
 
-  if (error) {
-    return <span>🤯</span>
+  if(!accfetched){
+    demographicsgetter({setAcc})
+    setaccfetched(true)
   }
-
-  if (isLoading) {
-    return <span>🙄</span>
+  function setAcc({z}:{z:any}) {
+    setAccounts(z)
   }
 
   let json = JSON.stringify(data, null, 2)
@@ -190,7 +188,7 @@ export const GetUserLeaderboard = () => {
             >
               <td className='text-left px-0'>{email}</td>
               <td className='text-right px-0'>
-                {totalSpent.substring(0, 5)} ETH
+                {totalSpent.substring(0, 5)} MATIC
               </td>
             </tr>
           )

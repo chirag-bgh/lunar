@@ -11,7 +11,9 @@
   "dependencies": {
     "@walletconnect/web3-provider": "^1.7.0",
     "crypto-js": "^4.1.1",
+    "cryptojs": "^2.5.3",
     "ethers": "^5.5.2",
+    "fernet": "^0.4.0",
     "fetcher": "^0.3.0",
     "gsap": "^3.9.1",
     "linq": "^4.0.0",

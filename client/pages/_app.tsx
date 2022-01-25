@@ -13,7 +13,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     NProgress.configure({ showSpinner: false })
 
     const handleStart = (url: any) => {
-      console.log(`Loading: ${url}`)
       NProgress.start()
     }
     const handleStop = () => {

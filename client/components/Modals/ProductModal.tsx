@@ -1,6 +1,7 @@
 // Modal
 import { useEffect, useMemo, useState } from 'react'
 import ReactModal from 'react-modal'
+import { productadder } from '../../API/products'
 
 // Dropdown
 import Dropdown from 'react-dropdown'
@@ -9,6 +10,7 @@ import 'react-dropdown/style.css'
 // Components
 import { CreateProduct } from '../../backend/Products'
 import { useMoralis } from 'react-moralis'
+import { currencygetter } from '../../API/accepted_currencies'
 
 const customStyles = {
   content: {
@@ -18,9 +20,13 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    height: '36%',
+    // height: '36%',
+    height: '55%',
     backgroundColor: '#1E1E1F',
-    width: '30%',
+    borderRadius: '7px',
+    width: '40%',
+    border: 'none',
+    overflow: 'hidden',
   },
 }
 
@@ -34,30 +40,21 @@ modalElementOverlay
 const ProductModal = ({
   modalIsOpen,
   setIsOpen,
+  acceptedCurrencies,
 }: {
   modalIsOpen: boolean
   setIsOpen: (arg: boolean) => void
+  acceptedCurrencies: string[]
 }) => {
   const { user } = useMoralis()
 
   const [name, setName] = useState('')
   const [price, setPrice] = useState(0.0)
   const [recurrence, setRecurrence] = useState('One time')
-  const [currency, setCurrency] = useState('MATIC')
+  const [currency, setCurrency] = useState(acceptedCurrencies[0])
 
   const dropdownOptions = ['One time', 'Monthly', 'Quarterly', 'Yearly']
   const defaultOption = dropdownOptions[0]
-
-  let acceptedCurrencies: string[] = useMemo(() => [], [])
-
-  useEffect(() => {
-    if (user?.get('maticEnabled')) {
-      acceptedCurrencies.push('MATIC')
-    }
-    if (user?.get('ethEnabled')) {
-      acceptedCurrencies.push('ETH')
-    }
-  }, [user, acceptedCurrencies])
 
   const defaultCurrency = acceptedCurrencies[0]
 
@@ -74,64 +71,85 @@ const ProductModal = ({
       contentLabel='Create Product Modal'
     >
       <div className='w-full h-full flex flex-col justify-between items-center'>
-        <h1 className='underline text-xl'>Add New Product</h1>
+        {/* Header */}
+        <h1 className='text-2xl font-medium font-display mt-7'>
+          Add New Product
+        </h1>
 
-        <div className='flex flex-col justify-center items-center gap-5'>
-          <div className='flex justify-center items-center gap-2'>
+        {/* Middle (Fields) */}
+        <div className='flex flex-col justify-center items-center gap-5 w-full '>
+          <div className='flex justify-between items-center gap-2 w-full px-16'>
             <p className='font-medium text-sm'>NAME</p>
             <input
               type='text'
               name='name'
               id='name'
-              className='rounded-sm outline-none pl-2 font-display'
+              className='rounded-sm outline-none pl-2 font-display h-10 w-60 bg-background text-white'
               value={name}
               onChange={(event) => setName(event.target.value)}
             />
           </div>
-          <div className='flex justify-center items-center gap-2'>
-            <p className='font-medium text-sm'>PRICE</p>
+          <div className='flex justify-between items-center gap-2 w-full px-16'>
+            <p className='font-medium text-sm'>PRICE (MATIC)</p>
             <input
               type='number'
               name='price'
               id='price'
-              className='rounded-sm outline-none pl-2 font-display'
+              className='rounded-sm outline-none pl-2 font-display h-10 w-60 bg-background text-white'
               value={price}
               onChange={(event) => setPrice(parseFloat(event.target.value))}
             />
           </div>
+          <div className='flex justify-between items-center gap-2 mr-auto w-full px-16 '>
+            <p className='font-medium text-sm'>RECURRENCE</p>
+            <Dropdown
+              controlClassName='bg-background border-none'
+              placeholderClassName='text-white'
+              className='w-60'
+              menuClassName='single-select h-15/2 bg-dark transition-all'
+              options={dropdownOptions}
+              onChange={(e) => {
+                setRecurrence(e.value)
+              }}
+              value={defaultOption}
+              placeholder='Select an option'
+            />
+          </div>
         </div>
-        <div className='flex justify-center items-center gap-2'>
-          <p className='font-medium text-sm'>CURRENCY</p>
-          <Dropdown
-            menuClassName='single-select h-20'
-            options={acceptedCurrencies}
-            onChange={(e) => {
-              setCurrency(e.value)
+
+        {/* Footer - Add Button */}
+        <div>
+          <button
+            onClick={async () => {
+              if (name === '') {
+                alert('Product name cannot be empty')
+                return
+              }
+              if (price === 0) {
+                alert('Price of the product cannot be 0')
+                return
+              }
+              closeModal()
+              await productadder({
+                name,
+                price,
+                recurrence,
+                token: user?.get('token'),
+              }).then(() => {
+                let banner = document.getElementById('success-msg')
+                banner !== null ? (banner.style.opacity = '1') : null
+
+                // Hide the div after 600ms (the same amount of milliseconds it takes to fade out)
+                setTimeout(function () {
+                  banner !== null ? (banner.style.opacity = '0') : null
+                }, 2000)
+              })
             }}
-            value={defaultCurrency}
-            placeholder='Select an option'
-          />
+            className='px-20 py-1.5 bg-primary rounded flex justify-center items-center font-semibold cursor-pointer mb-7'
+          >
+            Add
+          </button>
         </div>
-        <div className='flex justify-center items-center gap-2'>
-          <p className='font-medium text-sm'>RECURRENCE</p>
-          <Dropdown
-            menuClassName='single-select h-20'
-            options={dropdownOptions}
-            onChange={(e) => {
-              setRecurrence(e.value)
-            }}
-            value={defaultOption}
-            placeholder='Select an option'
-          />
-        </div>
-        <CreateProduct
-          name={name}
-          price={price}
-          recurrence={recurrence}
-          closeModal={closeModal}
-          currency={currency}
-          acceptedCurrencies={acceptedCurrencies}
-        />
       </div>
     </ReactModal>
   )

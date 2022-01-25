@@ -1,5 +1,6 @@
-import { useMoralisQuery, useMoralis } from 'react-moralis'
+import { useMoralis } from 'react-moralis'
 import TransactionClass from '../classes/TransactionClass'
+import { transactiongetter } from '../API/transactions'
 
 import {
   CartesianGrid,
@@ -15,15 +16,13 @@ import { useEffect, useState } from 'react'
 
 // Fetches user revenue from Moralis DB
 export const GetRevenue = () => {
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
+  const [revenue, setRevenue] = useState(0)
+
   const { user } = useMoralis()
 
-  const userAddress = user?.get('managed_account_pub')
-
-  const { data, error, isLoading } = useMoralisQuery('Transactions', (query) =>
-    query.equalTo('to_address', userAddress)
-  )
-
-  const [revenue, setRevenue] = useState(0)
+  let token = user?.get('token')
 
   useEffect(() => {
     getRev(data)
@@ -32,13 +31,16 @@ export const GetRevenue = () => {
     }
   }, [data])
 
-  if (error) {
-    return <span>🤯</span>
+  const setAcc = ({ z }: { z: any }) => {
+    setAccounts(z)
   }
 
-  if (isLoading) {
-    return <span>🙄</span>
-  }
+  useEffect(() => {
+    if (!accfetched) {
+      transactiongetter({ setAcc, token })
+      setaccfetched(true)
+    }
+  }, [])
 
   const getRev = (data: any) => {
     let json = JSON.stringify(data, null, 2)
@@ -52,32 +54,37 @@ export const GetRevenue = () => {
     }
   }
 
-  // console.log('revenue', revenue)
-  return <div>{revenue.toString().substring(0, 4)} ETH</div>
+  return <div>{revenue.toString().substring(0, 4)} MATIC</div>
 }
 
 // Fetches all user transactions from Moralis DB
 export const GetTransactions = () => {
   const { user } = useMoralis()
 
-  const userAddress = user ? user.get('managed_account_pub') : ''
+  let token = user?.get('token')
 
-  // console.log('querying transactions')
-
-  const { data } = useMoralisQuery('Transactions', (query) =>
-    query.equalTo('to_address', userAddress)
-  )
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
 
   const [transactions, setTransactions] = useState<TransactionClass[]>([])
 
   useEffect(() => {
-    // console.log('fetching transactions')
-
     getTrans(data)
     return () => {
       setTransactions([])
     }
   }, [data])
+
+  const setAcc = ({ z }: { z: any }) => {
+    setAccounts(z)
+  }
+
+  useEffect(() => {
+    if (!accfetched) {
+      transactiongetter({ setAcc, token })
+      setaccfetched(true)
+    }
+  }, [])
 
   const getTrans = (data: any) => {
     let json = JSON.stringify(data, null, 2)
@@ -92,11 +99,21 @@ export const GetTransactions = () => {
 export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
   const { user } = useMoralis()
 
-  const userAddress = user?.get('managed_account_pub')
+  let token = user?.get('token')
 
-  const { data } = useMoralisQuery('Transactions', (query) =>
-    query.equalTo('to_address', userAddress)
-  )
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
+
+  function setAcc({ z }: { z: any }) {
+    setAccounts(z)
+  }
+
+  useEffect(() => {
+    if (!accfetched) {
+      transactiongetter({ setAcc, token })
+      setaccfetched(true)
+    }
+  }, [])
 
   const [chartData, setChartData] = useState<any[]>([])
 
@@ -146,7 +163,6 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
 
   useEffect(() => {
     setDays(getDaysFromTimeFrame(timeFrame))
-    console.log('days', days)
   }, [timeFrame])
 
   useEffect(() => {
@@ -165,7 +181,9 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
 
     const transactions: TransactionClass[] = JSON.parse(json)
 
-    let dates: Date[] = transactions.map((transaction) => transaction.createdAt)
+    let dates: Date[] = transactions.map(
+      (transaction) => transaction.created_at
+    )
 
     for (let i = 0; i < days; i++) {
       dateObj.setDate(dateObj.getDate() - 1)
@@ -183,8 +201,25 @@ export const DisplayChart = ({ timeFrame }: { timeFrame: string }) => {
 
       for (let index = 0; index < dates.length; index++) {
         const transactionDate = dates[index]
-
-        if (transactionDate.toString().startsWith(date)) {
+        var parsedDate = new Date(transactionDate.toString())
+        let month = [
+          '1',
+          '2',
+          '3',
+          '4',
+          '5',
+          '6',
+          '7',
+          '8',
+          '9',
+          '10',
+          '11',
+          '12',
+        ][parsedDate.getMonth()]
+        let pd =
+          parsedDate.getFullYear() + '-' + month + '-' + parsedDate.getDate()
+        //pd is the final parsed date. do not question the shit code.
+        if (pd.includes(date)) {
           if (transactions[index] !== undefined) {
             revenue += transactions[index].amount
           }

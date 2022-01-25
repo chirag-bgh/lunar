@@ -9,6 +9,7 @@ import { useEffect } from 'react'
 
 import { useRouter } from 'next/router'
 import useMobileDetect from '../backend/MobileDetect'
+import {MdOutlineErrorOutline} from 'react-icons/md'
 
 const Landing = ({ alertUser = false, redirect = false }) => {
   const router = useRouter()
@@ -20,8 +21,6 @@ const Landing = ({ alertUser = false, redirect = false }) => {
   gsap.registerPlugin(ScrollTrigger)
 
   useEffect(() => {
-    console.log(isMobile)
-
     if (redirect) {
       router.push('/')
     }
@@ -96,6 +95,7 @@ const Landing = ({ alertUser = false, redirect = false }) => {
     }, 200)
   }, [alertUser, redirect])
 
+  const [popupState, setPopupState] = useState(false)
   return (
     <div>
       <section
@@ -120,9 +120,10 @@ const Landing = ({ alertUser = false, redirect = false }) => {
               alertUser ? 'flex' : 'hidden'
             } justify-center items-center w-full`}
           >
-            <div className='hidden md:block py-3 text-red-300 rounded-lg font-display text-xl font-semibold'>
-              Please install MetaMask!
-            </div>
+            {(popupState === true) ? <div className="error-msg flex justify-center items-center w-fit top-9 transition-transform">
+              <MdOutlineErrorOutline className='mr-2'></MdOutlineErrorOutline>
+                LunarPay requires the Metamask extension in order to authenticate
+            </div> : <span></span>}
           </div>
           <div className='flex justify-center items-center'>
             <div className='text-white text-lg cursor-pointer z-10 mr-7'>
@@ -136,8 +137,9 @@ const Landing = ({ alertUser = false, redirect = false }) => {
               </a>
             </div>
             <div className='text-white text-lg cursor-pointer z-10 mr-5'>
-              <AuthenticateButton />
+              {alertUser ? <h1 onMouseOver={()=>setPopupState(true)} onMouseLeave={()=>setPopupState(false)} className='text-gray-500'>Authenticate</h1>  :<AuthenticateButton/>}
             </div>
+            
           </div>
         </div>
 

@@ -28,9 +28,9 @@ const Overview = () => {
           options={options}
           onChange={(e) => setTimeFrame(e.value)}
           value={defaultOption}
-          controlClassName='bg-dark text-white font-display rounded-t border-gray-500 w-56 flex justify-center items-center cursor-pointer'
+          controlClassName='bg-dark text-white font-display rounded-t border-none w-56 flex justify-center items-center cursor-pointer'
           arrowClassName='mt-1'
-          menuClassName='bg-dark text-white font-display border-gray-500 rounded-b cursor-pointer'
+          menuClassName='bg-dark text-white font-display border-none rounded-b cursor-pointer'
           placeholderClassName='ml-7'
         />
       </div>

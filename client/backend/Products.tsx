@@ -10,6 +10,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 // Icons
 import { MdArrowDropDown, MdArrowDropUp } from 'react-icons/md'
 import { FaTrash } from 'react-icons/fa'
+import { productgetter } from '../API/products'
 
 // Sorting Library
 import linq from 'linq'
@@ -20,7 +21,7 @@ interface TableData {
   product: string
   id: string
   price: number
-  createdAt: Date
+  created_at: Date
   purchaseButton: JSX.Element
   removeButton: JSX.Element
   //there is no column  no
@@ -36,39 +37,28 @@ enum SortingType {
   Descending,
 }
 
+import { productdestroy } from '../API/products'
 // Deletes product from the Moralis DB where objectID == obejectID
 const DeleteProduct = ({ objectId }: { objectId: string }) => {
   const [destroy, setDestroy] = useState(false)
 
-  const { data } = useMoralisQuery('Products', (query) =>
-    query.equalTo('objectId', objectId)
-  )
+  const { user } = useMoralis()
 
   useEffect(() => {
     if (destroy) {
-      if (data !== undefined) {
-        //console.log("data: ", data);
-
-        // Destroy Object
-        if (data[0] !== undefined) {
-          data[0].destroy().then(() => {
-            setDestroy(false)
-          })
-        }
-      }
+      productdestroy({ address: objectId, token: user?.get('token') })
+      setDestroy(false)
     }
-  }, [destroy, data])
+  }, [destroy])
 
   return (
-    <div>
+    <div className='flex justify-center items-center'>
       <button
         onClick={(e) => {
           e.stopPropagation()
-          console.log('Removing Product')
           setDestroy(true)
         }}
         className='h-7 text-sm rounded-sm text-black font-display px-2 flex justify-center items-center cursor-pointer z-50'
-        style={{ marginLeft: '25%' }}
       >
         {!destroy ? (
           <FaTrash style={{ color: 'rgb(239 68 68)' }} />
@@ -88,14 +78,12 @@ const CreateProduct = ({
   price,
   recurrence,
   closeModal,
-  currency,
   acceptedCurrencies,
 }: {
   price: number
   name: string
   recurrence: string
   closeModal: () => void
-  currency: string
   acceptedCurrencies: string[]
 }) => {
   const { isSaving, error, save } = useNewMoralisObject('Products')
@@ -116,7 +104,6 @@ const CreateProduct = ({
             callback_url: user?.get('callbackURL'),
             webhook_url: user?.get('webhookURL'),
             acceptedCurrencies: acceptedCurrencies,
-            defaultCurrency: currency,
           })
         }}
         disabled={isSaving}
@@ -132,9 +119,25 @@ const CreateProduct = ({
 const FetchProduct = ({ query }: { query: string }) => {
   const { user } = useMoralis()
 
+  let token = user?.get('token')
+
   const [sortConfig, updateSortConfig] = useState<SortingConfiguration[]>([
-    { propertyName: 'createdAt', sortType: SortingType.Descending },
+    { propertyName: 'created_at', sortType: SortingType.Descending },
   ])
+
+  const [data, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
+
+  useEffect(() => {
+    if (!accfetched) {
+      productgetter({ setAcc, token })
+      setaccfetched(true)
+    }
+  }, [])
+
+  const setAcc = ({ z }: { z: any }) => {
+    setAccounts(z)
+  }
 
   const sortBy = useCallback(
     (propertyName: keyof TableData) => {
@@ -144,7 +147,7 @@ const FetchProduct = ({ query }: { query: string }) => {
       )
       if (index > -1) {
         //Save the sortType
-        var currentSortType = pendingChange[index].sortType
+        let currentSortType = pendingChange[index].sortType
         //Remove existing config
         pendingChange.splice(index, 1)
         //check if the sort type we saved is descending
@@ -169,12 +172,7 @@ const FetchProduct = ({ query }: { query: string }) => {
     [sortConfig]
   )
 
-  const { data } = useMoralisQuery('Products', (query) =>
-    query.equalTo('user', user?.id)
-  )
-
   let json = JSON.stringify(data, null, 2)
-
   const products: ProductClass[] = JSON.parse(json)
 
   const sortedRows = useMemo(() => {
@@ -235,13 +233,20 @@ const FetchProduct = ({ query }: { query: string }) => {
     return sortedArray
   }, [sortConfig, products, query])
 
+  if (products.length === 0) {
+    return (
+      <div className='w-full h-96 bg-dark flex justify-center items-center mt-6 text-xl font-display rounded-lg'>
+        <h3>Create a product to get started.</h3>
+      </div>
+    )
+  }
+
   return (
     <table className='text-white bg-dark w-full mt-5 rounded-lg'>
       <tbody>
         <SortableHeader sortBy={sortBy} sortConfig={sortConfig} />
-        {sortedRows.map((product) => {
-          let newDate = new Date(product.createdAt)
-          console.log('aASDASD', newDate.getMinutes().toString().length == 1)
+        {sortedRows.map((product: any) => {
+          let newDate = new Date(product.created_at)
           return (
             <tr
               key={product.objectId}
@@ -256,7 +261,7 @@ const FetchProduct = ({ query }: { query: string }) => {
                 element ? (element.style.backgroundColor = '#1E1E1F') : null
                 element ? (element.style.color = 'white') : null
               }}
-              className='cursor-pointer hover:bg-sky-700 hover:text-dark transition-colors'
+              className='cursor-pointer hover:bg-slate-300 hover:text-dark transition-colors'
               onClick={() => {
                 window.open(
                   `http://app.lunarpay.in/product/${product.objectId}`,
@@ -267,7 +272,7 @@ const FetchProduct = ({ query }: { query: string }) => {
               <td>{product.name}</td>
               <td>{product.objectId}</td>
               <td>
-                {product.price} {product.defaultCurrency}
+                {product.price} MATIC
               </td>
               <td>{product.recurrence}</td>
               <td>
@@ -308,13 +313,13 @@ const SortableHeader = ({ sortBy, sortConfig }: SortableHeaderProps) => {
     { label: 'ID', property: 'id' as keyof TableData },
     { label: 'Price', property: 'price' as keyof TableData },
     { label: 'Recurrence', property: 'recurrence' as keyof TableData },
-    { label: 'Created At', property: 'createdAt' as keyof TableData },
+    { label: 'Created At', property: 'created_at' as keyof TableData },
     //  { label: "Purchase", property: "purchaseButton" as keyof TableData },
     { label: 'Remove', property: 'removeButton' as keyof TableData },
   ]
 
   const getSortDirection = (property: keyof TableData) => {
-    var config = sortConfig.find(
+    let config = sortConfig.find(
       (sortConfig) => sortConfig.propertyName === property
     )
     return config ? (

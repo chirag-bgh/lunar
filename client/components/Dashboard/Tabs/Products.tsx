@@ -15,7 +15,7 @@ const Products = ({ openModal }: { openModal: () => void }) => {
           onClick={() => {
             openModal()
           }}
-          className='px-5 h-full rounded-sm bg-primary flex justify-center items-center cursor-pointer'
+          className='px-5 h-full rounded-sm bg-primary flex justify-center items-center font-semibold cursor-pointer transition ease-in-out hover:scale-105'
         >
           Create Product
         </div>
@@ -27,7 +27,7 @@ const Products = ({ openModal }: { openModal: () => void }) => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <div className='w-16 h-full rounded-sm bg-primary flex justify-center items-center'>
+          <div className='w-16 h-full rounded-sm bg-primary flex justify-center font-semibold cursor-pointer items-center'>
             Search
           </div>
         </div>

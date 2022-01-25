@@ -35,7 +35,6 @@ export const WaitlistModal = ({
   const [success, setSuccess] = useState('')
 
   const subscribeMe = async () => {
-    console.log(email)
     const res = await fetch('/api/subscribe', {
       body: JSON.stringify({ email: email }),
       headers: { 'Content-Type': 'application/json' },
@@ -91,25 +90,24 @@ const handler = async ({ email }: { email: string }) => {
   return new Promise((res, rej) => {
     try {
       const API_KEY = process.env.NEXT_PUBLIC_REVUE_API_KEY
-      console.log('ApiKEY: ', API_KEY)
-      var xhr = new XMLHttpRequest()
+      let xhr = new XMLHttpRequest()
       let url = 'https://www.getrevue.co/api/v2/subscribers'
       xhr.open('POST', url)
       xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
       xhr.setRequestHeader('Authorization', `Token ${API_KEY}`)
       xhr.setRequestHeader('Content-Type', 'application/json')
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-          console.log(xhr.status)
-          console.log(xhr.responseText)
-        }
-      }
+      // xhr.onreadystatechange = function () {
+      //   if (xhr.readyState === 4) {
+      //     console.log(xhr.status)
+      //     console.log(xhr.responseText)
+      //   }
+      // }
 
-      var data = { email: email, double_opt_in: false }
+      let data = { email: email, double_opt_in: false }
       xhr.send(JSON.stringify(data))
-      xhr.onloadend = function () {
-        console.log('Request Sent')
-      }
+      // xhr.onloadend = function () {
+      //   console.log('Request Sent')
+      // }
       // 3. We check in the response if the status is 400
       // If so, consider it as error and return. Otherwise a 201
       // for create

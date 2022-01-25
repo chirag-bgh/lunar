@@ -2,6 +2,7 @@ import { BsFillArrowDownCircleFill } from 'react-icons/bs'
 import { HiPlusSm } from 'react-icons/hi'
 import { useEffect, useState } from 'react'
 import { FetchWithdrawals, Withdraw } from '../../../backend/withdraw'
+import { walletgetter } from '../../../API/wallet'
 import {
   useMoralis,
   useMoralisWeb3ApiCall,
@@ -15,26 +16,58 @@ const Payouts = ({
   openWalletModal: () => void
   setFetched: (arg: boolean) => void
 }) => {
-  const { user,web3 } = useMoralis()
+  const { user, web3 } = useMoralis()
 
   let address = user?.get('ethAddress')
 
   const [selected, setSelected] = useState(address)
 
   const [cardFetched, setCardFetched] = useState(false)
+  const [accounts, setAccounts] = useState([])
+  const [accfetched, setaccfetched] = useState(false)
+  const [balance,setbalance] = useState('')
 
-  const accounts: string[] = user?.get('accounts')
+  if (!accfetched) {
+    walletgetter({ setAcc })
+    setaccfetched(true)
+  }
+  function setAcc({ z }: { z: any }) {
+    setAccounts(z)
+  }
+  web3?.eth.getBalance(user?.get('managed_account_pub')).then((x) => {setbalance(x)
+  console.log("X ", x)
+  })
+
 
   return (
     <div className='w-full'>
-      <div className='flex flex-col justify-between items-start'>
+      <div className='flex items-center'>
         <h2 className='text-3xl underline font-medium'>Wallets</h2>
+        <div className='bg-transparent text-center py-4 lg:px-4 cursor-pointer'>
+          <a href='https://app.ens.domains' target='_blank'>
+            <div
+              className='p-2 bg-indigo-800 items-center text-indigo-100 leading-none rounded-full inline-flex'
+              role='alert'
+            >
+              <span className='flex rounded-full bg-indigo-500 uppercase px-2 py-2 text-xs font-bold mr-3'></span>
+              <span className='font-semibold mr-2 text-left flex-auto'>
+                We support ENS domains!{' '}
+              </span>
+              <svg
+                className='fill-current opacity-75 h-4 w-4'
+                xmlns='http://www.w3.org/2000/svg'
+                viewBox='0 0 20 20'
+              >
+                <path d='M12.95 10.707l.707-.707L8 4.343 6.586 5.757 10.828 10l-4.242 4.243L8 15.657l4.95-4.95z' />
+              </svg>
+            </div>
+          </a>
+        </div>
       </div>
 
       <div className='flex flex-wrap gap-8 items-center'>
         <div className='flex justify-center items-center gap-10'>
           {accounts.map((accountAdr) => {
-            console.log('Account: ',accountAdr)
             return (
               <Card
                 key={accountAdr}
@@ -53,7 +86,7 @@ const Payouts = ({
             openWalletModal()
             //console.log('all accounts: ', accounts)
           }}
-          className='bg-primary rounded-full w-24 h-24 text-7xl font-display flex justify-center items-center cursor-pointer hover:shadow-primary transition ease-in-out duration-200'
+          className='bg-primary rounded-full w-24 h-24 text-7xl font-display flex justify-center items-center cursor-pointer hover:scale-110 transition ease-in-out duration-200'
         >
           <h1 className='text-dark'>+</h1>
         </button>
@@ -67,6 +100,7 @@ const Payouts = ({
         ethAddress={selected}
         setFetched={setFetched}
         setCardFetched={setCardFetched}
+        balance={balance}
       />
 
       <div className='flex flex-col mt-12 justify-between items-start'>
@@ -75,21 +109,26 @@ const Payouts = ({
 
       <FetchWithdrawals />
 
-      <div className='bg-primary p-5 flex justify-center items-center w-32 h-12 gap-1 rounded-lg cursor-pointer mt-10'>
+      {/* <div className='bg-primary p-5 flex justify-center items-center w-32 h-12 gap-1 rounded-lg cursor-pointer mt-10'>
         <h1 className='text-dark font-display font-semibold'>Invoice</h1>
         <BsFillArrowDownCircleFill className='text-dark text-xl' />
-      </div>
+      </div> */}
       <div className='flex mt-7 mb-7 justify-center items-center'>
         <h1 className='text-white font-display font-semibold'>
-          Need help? Contact us at{' '}
+          Need help? Send us a DM on Twitter at{' '}
           <span className='text-bold text-primary cursor-pointer'>
-            teamlunar@protonmail.com
+            <a href='https://www.twitter.com/PayLunar' target='_blank'>
+              @PayLunar
+            </a>
           </span>
         </h1>
       </div>
     </div>
   )
 }
+
+import { walletdestroy } from '../../../API/wallet'
+import { avatarresolver } from '../../Auth/AuthManager'
 
 const Card = ({
   address,
@@ -112,14 +151,15 @@ const Card = ({
   const [ensfy, setensfy] = useState(false)
   const [addr, setaddr] = useState(address)
   const [showRemove, setShowRemove] = useState(false)
-
+  const [avtr, setavtr] = useState('/metamask.png')
+  const [enswallet, setenswallet] = useState('Your Metamask Wallet')
 
   const Web3Api = useMoralisWeb3Api()
   const { fetch, data } = useMoralisWeb3ApiCall(
     Web3Api.account.getNativeBalance,
     {
       address: addr,
-      chain: 'ropsten',
+      chain: 'polygon',
     }
   )
 
@@ -131,16 +171,20 @@ const Card = ({
     }
     async function ensmaker() {
       let response = await web3?.eth.ens.getAddress(address)
-      console.log("Address: ", response)
       setaddr(response as string)
       setFetched(false)
     }
-    if(!ensfy){
-    if( addr.includes('.eth')){
-      ensmaker()
-      setensfy(true)
-    }}
-
+    if (!ensfy) {
+      if (addr.includes('.eth')) {
+        ensmaker()
+        avatarresolver({
+          address: addr,
+          setavtr: setavtr,
+          setenswallet: setenswallet,
+        })
+        setensfy(true)
+      }
+    }
 
     if (!fetched) {
       fetch()
@@ -162,9 +206,9 @@ const Card = ({
       <div className='flex justify-between items-start'>
         <div></div>
         <img
-          className={`h-20 mt-3 ${address === ethAddress ? 'ml-0' : 'ml-7'}`}
-          src='/metamask.svg'
-          alt='MetaMask'
+          className={`h-20 mt-3 rounded-full ${address === ethAddress ? 'ml-0' : 'ml-7'}`}
+          src={avtr}
+          alt='Avatar'
         />
         {address === ethAddress ? (
           <div></div>
@@ -172,16 +216,12 @@ const Card = ({
           <HiPlusSm
             className='text-primary transform rotate-45 text-3xl'
             onClick={() => {
-              // Remove wallet
-              let accounts: string[] = user?.get('accounts')
-              //console.log("accounts: ", accounts);
-
-              const index = accounts.indexOf(address)
-              if (index > -1) {
-                accounts.splice(index, 1)
-              }
-
-              user?.save('accounts', accounts)
+              walletdestroy({
+                address: address,
+                token: user?.get('token'),
+              }).then(() => {
+                alert('Wallet was removed')
+              })
               //console.log("new accounts: ", accounts);
             }}
           />
@@ -190,13 +230,13 @@ const Card = ({
         )}
       </div>
       <div>
-        <h1>Your Metamask wallet</h1>
+        <h1>{enswallet}</h1>
         <h3 className='text-gray-400 text-sm font-display truncate'>
           {address}
         </h3>
       </div>
 
-      <h1 className='text-3xl font-semibold mb-3'>{balance} ETH</h1>
+      <h1 className='text-3xl font-semibold mb-3'>{balance} MATIC</h1>
     </div>
   )
 }

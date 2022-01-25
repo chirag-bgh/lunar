@@ -48,7 +48,6 @@ function Content() {
       // console.log('Metamask is installed')
     } else {
       // Metamask is not installed
-      console.log('Please install MetaMask!')
       setAlertUser(true)
     }
 
@@ -62,7 +61,6 @@ function Content() {
       // Disabled Until Launch
       // router.push('/dashboard')
     }
-    console.log('isAuthenticated: ', isAuthenticated)
   }, [enableWeb3, isWeb3Enabled])
 
   return <Landing alertUser={alertUser} />

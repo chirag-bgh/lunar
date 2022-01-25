@@ -10,9 +10,6 @@ const Subscriptions = () => {
         <h2 className="text-3xl underline font-medium">Subscription Plans</h2>
       </div>
       <div className="flex h-8 justify-between items-between gap-1 mt-12">
-        {/* <div className='px-5 h-full rounded-sm bg-primary flex justify-center items-center'>
-          <CreateSubscription name='Shoes' price={0.4} recurrence='Monthly' />
-        </div> */}
         <div></div>
         <div className="flex justify-center items-center">
           <input
@@ -22,7 +19,7 @@ const Subscriptions = () => {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <div className="w-16 h-full rounded-sm bg-primary flex justify-center items-center">
+          <div className="w-16 h-full rounded-sm bg-primary flex justify-center font-semibold cursor-pointer items-center">
             Search
           </div>
         </div>

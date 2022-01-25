@@ -1,16 +1,18 @@
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import { useMoralis } from 'react-moralis'
+import { tokengetter } from '../API/tokengetter'
 
 export const LoadingScreenAuthState = () => {
   const router = useRouter()
-  const { user } = useMoralis()
+  const { user, setUserData } = useMoralis()
 
   const [states, setStates] = useState<boolean[]>([])
 
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
     user === null ? false : true
   )
+  
 
   const timeoutRef = useRef<any>(null)
 
@@ -40,12 +42,15 @@ export const LoadingScreenAuthState = () => {
   }, [states])
 
   useEffect(() => {
+    
+   
+    
     setIsAuthenticated(user === null ? false : true)
   }, [user])
 
   return (
     <div className='h-screen w-screen bg-background flex justify-center items-center text-4xl font-display text-white'>
-      Loading...
+      <h3> <span className='font-bold'>Lunar</span>Pay</h3>
     </div>
   )
 }
@@ -53,7 +58,7 @@ export const LoadingScreenAuthState = () => {
 export const LoadingScreen = () => {
   return (
     <div className='h-screen w-screen bg-background flex justify-center items-center text-4xl font-display text-white'>
-      Loading...
+      <h3> <span className='font-bold'>Lunar</span>Pay</h3>
     </div>
   )
 }
