@@ -34,7 +34,7 @@ const AuthenticateButton = () => {
                   }).then((x) => {
                     user?.save({ token: x })
                     if (x !== undefined) {
-                      let y: any = usergetter({ token: x }).then((y) => {
+                      let y: any = usergetter({ token: x }).then((y: any) => {
                         user?.save({
                           managed_account_pub: y['managed_account_pub'],
                         })
@@ -111,7 +111,6 @@ export async function ensresolver({
   return 'done'
 }
 
-
 export async function avatarresolver({
   address,
   setavtr,
@@ -119,18 +118,16 @@ export async function avatarresolver({
 }: {
   address: string
   setavtr: any
-  setenswallet:any
+  setenswallet: any
 }) {
   const provider = ethers.getDefaultProvider()
-    let avatar = await provider.getAvatar(address)
-    if (avatar != null) {
-      setavtr(avatar)
-      setenswallet("Your ENS Wallet")
-    }
-  
+  let avatar = await provider.getAvatar(address)
+  if (avatar != null) {
+    setavtr(avatar)
+    setenswallet('Your ENS Wallet')
+  }
+
   return 'done'
 }
-
-
 
 export { AuthenticateButton, LogoutButton }
