@@ -126,7 +126,7 @@ export const Logo = ({ className }: { className: string }) => {
     >
       {/* <IoMdMoon className='text-white text-3xl mr-2' /> */}
       <p id='logo_top' className='font-medium text-xl pt-1'>
-        <span className='font-bold'>Lunar</span>Pay
+        <span className='font-bold'>Lunar</span>Pay Beta
       </p>
       <div className='absolute w-1/2 transition-all' id='success-msg'>
         <div className='success-msg justify-center items-center w-3/4 mt-12 top-0 transition-transform flex'>

@@ -23,7 +23,7 @@ const Settings = () => {
   const { user } = useMoralis()
 
   const [ethEnabled, setEthEnabled] = useState<any>(null)
-  const [maticEnabled, setMaticEnabled] = useState<any>(null)
+  const [maticEnabled, setMaticEnabled] = useState<any>(true)
   const [usdtEnabled, setusdtEnabled] = useState<any>(null)
   const [accounts, setAccounts] = useState<string[]>([])
   const [accfetched, setaccfetched] = useState(false)
@@ -84,19 +84,26 @@ const Settings = () => {
       <h1 className='text-3xl underline font-medium'>Settings</h1>
       {/* Supported Currencies */}
       <div className='flex flex-col w-full justify-start items-start mt-10'>
-        <h1 className='text-2xl'>Supported Currencies</h1>
+        <h1 className='text-2xl'>Supported Currencies (Coming Soon)</h1>
         <div className='urls flex flex-col justify-center items-start gap-4 mt-5 bg-dark p-10 rounded-lg'>
           <Checkbox
             state={ethEnabled}
             onChange={setEthEnabled}
             text='ETHEREUM'
+            disabled={true}
           />
           <Checkbox
             state={maticEnabled}
             onChange={setMaticEnabled}
             text='MATIC'
+            disabled={true}
           />
-          <Checkbox state={usdtEnabled} onChange={setusdtEnabled} text='USDT' />
+          <Checkbox
+            state={usdtEnabled}
+            onChange={setusdtEnabled}
+            text='USDT'
+            disabled={true}
+          />
           <SaveCurrencyConfig
             ethEnabled={ethEnabled}
             maticEnabled={maticEnabled}

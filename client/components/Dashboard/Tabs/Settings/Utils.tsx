@@ -4,12 +4,19 @@ interface CheckboxProps {
   state: boolean
   onChange: (state: boolean) => void
   text: string
+  disabled: boolean
 }
 
-export const Checkbox = ({ state, text, onChange }: CheckboxProps) => {
+export const Checkbox = ({
+  state,
+  text,
+  onChange,
+  disabled,
+}: CheckboxProps) => {
   return (
     <label className={styles.toggle}>
       <input
+        disabled
         type='checkbox'
         className={styles.toggle_input}
         defaultChecked={state}
