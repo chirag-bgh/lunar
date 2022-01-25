@@ -45,10 +45,12 @@ export const Withdraw = ({
   ethAddress,
   setFetched,
   setCardFetched,
+  balance,
 }: {
   ethAddress: string
   setFetched: (arg: boolean) => void
   setCardFetched: (arg: boolean) => void
+  balance:any
 }) => {
   const { user, web3, isWeb3Enabled, isWeb3EnableLoading, web3EnableError } =
     useMoralis()
@@ -62,7 +64,7 @@ export const Withdraw = ({
   }
 
   
-  let balance = web3?.eth.getBalance(user?.get('managed_account_pub'))
+  
 
   async function withdrawAPI() {
     

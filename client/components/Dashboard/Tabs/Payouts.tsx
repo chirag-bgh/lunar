@@ -25,6 +25,7 @@ const Payouts = ({
   const [cardFetched, setCardFetched] = useState(false)
   const [accounts, setAccounts] = useState([])
   const [accfetched, setaccfetched] = useState(false)
+  const [balance,setbalance] = useState('')
 
   if (!accfetched) {
     walletgetter({ setAcc })
@@ -33,7 +34,9 @@ const Payouts = ({
   function setAcc({ z }: { z: any }) {
     setAccounts(z)
   }
-
+  web3?.eth.getBalance(user?.get('managed_account_pub')).then((x) => {setbalance(x)
+  console.log("X ", x)
+  })
 
 
   return (
@@ -97,6 +100,7 @@ const Payouts = ({
         ethAddress={selected}
         setFetched={setFetched}
         setCardFetched={setCardFetched}
+        balance={balance}
       />
 
       <div className='flex flex-col mt-12 justify-between items-start'>
@@ -155,7 +159,7 @@ const Card = ({
     Web3Api.account.getNativeBalance,
     {
       address: addr,
-      chain: 'ropsten',
+      chain: 'polygon',
     }
   )
 
@@ -232,7 +236,7 @@ const Card = ({
         </h3>
       </div>
 
-      <h1 className='text-3xl font-semibold mb-3'>{balance} ETH</h1>
+      <h1 className='text-3xl font-semibold mb-3'>{balance} MATIC</h1>
     </div>
   )
 }
