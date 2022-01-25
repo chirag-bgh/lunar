@@ -34,9 +34,7 @@ const AuthenticateButton = () => {
                   }).then((x) => {
                     user?.save({ token: x })
                     if (x !== undefined) {
-                      console.log('X: ', x)
                       let y: any = usergetter({ token: x }).then((y) => {
-                        console.log('Y: ', y)
                         user?.save({
                           managed_account_pub: y['managed_account_pub'],
                         })

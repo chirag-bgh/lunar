@@ -70,9 +70,7 @@ const WalletModal = ({
                   let x = address.includes('.eth')
                     ? ((await web3?.eth.ens.getAddress(address)) as string)
                     : address
-                  console.log("X : ",x)
                   walletadder({address,token}).then(()=>{
-                    console.log("X: ",x)
                     alert('Wallet has been added')
                   }
                   )

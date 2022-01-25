@@ -76,8 +76,6 @@ export async function walletdestroy({
     xhr.setRequestHeader('Content-Type', 'application/json')
     xhr.onreadystatechange = () => {
      if (xhr.readyState === 4) {
-       //   console.log(xhr.status)
-          console.log('Response: ',xhr.responseText)
        }
     }
     let z = JSON.stringify({'address':address})
