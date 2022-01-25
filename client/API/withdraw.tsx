@@ -2,10 +2,12 @@ export async function withdrawadder({
     amount,
     token,
     address,
+    setIsLoadingWithdrawal
   }: {
     amount: any,
     token: string,
-    address:string
+    address:string,
+    setIsLoadingWithdrawal:any
   }) {
     if (token !== null) {
       let xhr = new XMLHttpRequest()
@@ -14,12 +16,12 @@ export async function withdrawadder({
       xhr.open('POST', url)
       xhr.setRequestHeader('Authorization', `Token ${token}`)
       xhr.setRequestHeader('Content-Type', 'application/json')
-    //   xhr.onreadystatechange = function () {
-    //     if (xhr.readyState === 4) {
-    //       let z: any = JSON.parse(xhr.responseText)['items']
-    //       setAcc({ z })
-    //     }
-    //   }
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          setIsLoadingWithdrawal(false)
+          alert('Withdrawal Succesful')
+        }
+      }
   
       let data = { 'to_address': address , "amount":amount}
       let t = JSON.stringify(data)

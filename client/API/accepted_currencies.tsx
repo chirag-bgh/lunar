@@ -11,7 +11,6 @@ export async function currencygetter({
   // const { user } = useMoralis()
 
   // let x = await user?.get('token')
-  console.log('SDFSHDFHGDHFJDF')
 
   if (token !== null) {
     let xhr = new XMLHttpRequest()
@@ -23,7 +22,6 @@ export async function currencygetter({
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
         let z: any = JSON.parse(xhr.responseText)['items']
-        console.log('response:', xhr.responseText)
 
         setAcc({ z })
       }

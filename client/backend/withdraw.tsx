@@ -71,11 +71,7 @@ export const Withdraw = ({
     setIsLoadingWithdrawal(true)
     console.log('Balance : ',balance)
     
-     withdrawadder({address:ethAddress,amount:balance?.toString(),token}).then(()=>{
-       alert('Withdrawal Succesful')
-       setIsLoadingWithdrawal(false)
-     }
-     )
+     withdrawadder({address:ethAddress,amount:balance?.toString(),token,setIsLoadingWithdrawal})
 
   }
 
