@@ -52,18 +52,16 @@ const Sidebar = ({
       <div
         className=' bg-red-500 mt-auto mb-4 cursor-pointer p-3 w-5/6 rounded-lg flex justify-center'
         onClick={() => {
-          user?.save({token:'null'}).then(() => {
+          user?.save({ token: 'null' }).then(() => {
             logout().then(() => {
               router.push('/')
               // alert('Wallet Disconnected')
             })
-          }
-          )
-           }}
+          })
+        }}
       >
         <h1 className='font-semibold font-display text-md'>Sign Out</h1>
       </div>
-      
     </div>
   )
 }
@@ -170,16 +168,18 @@ const truncate = (phrase: string, n: number) => {
 const UserAccount = () => {
   const { user } = useMoralis()
   const [addr, setAddr] = useState('')
-  const [avtr,setavtr] = useState(`https://avatars.dicebear.com/api/jdenticon/${user?.attributes.ethAddress}.svg`)
-  ensresolver({ address: user?.attributes.ethAddress, setAddr: setAddr, setavtr: setavtr })
+  const [avtr, setavtr] = useState(
+    `https://avatars.dicebear.com/api/jdenticon/${user?.attributes.ethAddress}.svg`
+  )
+  ensresolver({
+    address: user?.attributes.ethAddress,
+    setAddr: setAddr,
+    setavtr: setavtr,
+  })
   return (
     <div className='h-16 pt-4 flex justify-start items-center gap-4'>
       <div className='h-full flex justify-center items-center'>
-        <img
-          src={avtr}
-          alt='Profile'
-          className='w-10 h-10'
-        />
+        <img src={avtr} alt='Profile' className='w-10 h-10' />
       </div>
       <div className='flex justify-center items-start flex-col h-full max-w-3/4 truncate'>
         <h2 className='text-2xl font-bold'>Dashboard</h2>
@@ -207,7 +207,7 @@ const Balance = ({
   const { web3 } = useMoralis()
   const Web3Api = useMoralisWeb3Api()
 
-  const {user} = useMoralis()
+  const { user } = useMoralis()
 
   const { fetch, data } = useMoralisWeb3ApiCall(
     Web3Api.account.getNativeBalance,
@@ -217,18 +217,18 @@ const Balance = ({
     }
   )
 
-//
-//user?.get('managed_account_pub')
+  //
+  //user?.get('managed_account_pub')
 
-//console.log("Balance: ",data)
+  //console.log("Balance: ",data)
 
   useEffect(() => {
-    if (data !== null && data.length !== 0) {
-      setBalance(web3?.utils.fromWei(data.balance))
+    if (data !== null) {
+      setBalance(web3?.utils.fromWei(data.balance) as string)
       //console.log('balance: ', balance)
     }
-    if (data?.length == 0) {
-      setBalance(web3?.utils.fromWei("0")+'')
+    if (!data) {
+      setBalance(web3?.utils.fromWei('0') + '')
       //console.log('balance: ', balance)
     }
     if (!fetched) {
@@ -243,7 +243,7 @@ const Balance = ({
       <h2 className='text-3xl font-semibold'>
         <div className='flex justify-center items-center gap-2'>
           <pre id='balance'>
-            {balance.substring(0,4) + ' MATIC'}
+            {balance.substring(0, 4) + ' MATIC'}
             {/* <CountUpMemo
               end={Number(balance.split(' ETH')[0])}
               decimals={2}
