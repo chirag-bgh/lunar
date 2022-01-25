@@ -90,7 +90,7 @@ const ProductModal = ({
             />
           </div>
           <div className='flex justify-between items-center gap-2 w-full px-16'>
-            <p className='font-medium text-sm'>PRICE (USD)</p>
+            <p className='font-medium text-sm'>PRICE (MATIC)</p>
             <input
               type='number'
               name='price'

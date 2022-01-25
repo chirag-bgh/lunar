@@ -178,7 +178,7 @@ export const FetchTransaction = ({ query }: { query: string }) => {
           return (
             <tr key={transaction.product}>
               <td>{transaction.product}</td>
-              <td>{transaction.amount} USD</td>
+              <td>{transaction.amount} MATIC</td>
               <td>{transaction.type}</td>
               <td>{transaction.email}</td>
               <td>

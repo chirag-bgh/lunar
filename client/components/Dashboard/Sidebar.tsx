@@ -210,7 +210,7 @@ const Balance = ({
   const {user} = useMoralis()
 
   const { fetch, data } = useMoralisWeb3ApiCall(
-    Web3Api.account.getTokenBalances,
+    Web3Api.account.getNativeBalance,
     {
       address: user?.get('managed_account_pub'),
       chain: 'polygon',
@@ -224,7 +224,7 @@ const Balance = ({
 
   useEffect(() => {
     if (data !== null && data.length !== 0) {
-      setBalance(web3?.utils.fromWei(data[0]['balance'],'mwei'))
+      setBalance(web3?.utils.fromWei(data.balance))
       //console.log('balance: ', balance)
     }
     if (data?.length == 0) {
@@ -243,7 +243,7 @@ const Balance = ({
       <h2 className='text-3xl font-semibold'>
         <div className='flex justify-center items-center gap-2'>
           <pre id='balance'>
-            {balance.substring(0,4) + ' USDT'}
+            {balance.substring(0,4) + ' MATIC'}
             {/* <CountUpMemo
               end={Number(balance.split(' ETH')[0])}
               decimals={2}

@@ -3,7 +3,7 @@ export async function withdrawadder({
     token,
     address,
   }: {
-    amount: string,
+    amount: any,
     token: string,
     address:string
   }) {

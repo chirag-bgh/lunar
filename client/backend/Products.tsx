@@ -272,7 +272,7 @@ const FetchProduct = ({ query }: { query: string }) => {
               <td>{product.name}</td>
               <td>{product.objectId}</td>
               <td>
-                {product.price} USD
+                {product.price} MATIC
               </td>
               <td>{product.recurrence}</td>
               <td>

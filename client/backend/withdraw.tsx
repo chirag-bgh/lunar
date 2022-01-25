@@ -61,38 +61,8 @@ export const Withdraw = ({
     return <h1>Web3 not enabled for some reason</h1>
   }
 
-  const Web3Api = useMoralisWeb3Api()
-    const [balance, setBalance] = useState<any>(null)
-    const [fetched, setfetched] = useState<any>(null)
-
-
-    const { fetch, data } = useMoralisWeb3ApiCall(
-      Web3Api.account.getTokenBalances,
-      {
-        address: user?.get('managed_account_pub'),
-        chain: 'polygon',
-      }
-    )
   
-
-    useEffect(() => {
-      if (data !== null && data.length !== 0) {
-        setBalance(web3?.utils.fromWei(data[0]['balance'],'mwei'))
-        //console.log('balance: ', balance)
-      }
-      if (data?.length == 0) {
-        setBalance(web3?.utils.fromWei("0")+'')
-        //console.log('balance: ', balance)
-      }
-      if (!fetched) {
-        fetch()
-        setFetched(true)
-      }
-    }, [data, fetch, fetched, balance, web3?.utils, setBalance, setFetched])
-
-  
-
-  
+  let balance = web3?.eth.getBalance(user?.get('managed_account_pub'))
 
   async function withdrawAPI() {
     
@@ -101,7 +71,7 @@ export const Withdraw = ({
     setIsLoadingWithdrawal(true)
     console.log('Balance : ',balance)
     
-     withdrawadder({address:ethAddress,amount:balance.toString(),token}).then(()=>{
+     withdrawadder({address:ethAddress,amount:balance?.toString(),token}).then(()=>{
        alert('Withdrawal Succesful')
        setIsLoadingWithdrawal(false)
      }
