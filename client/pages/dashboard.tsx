@@ -48,8 +48,6 @@ const DashboardPage = () => {
   let token = user?.get('token')
 
   const setAcc = ({ z }: { z: any }) => {
-    console.log('setting accounts to ', z)
-
     setAcceptedCurrencies(z)
   }
 

@@ -5,7 +5,6 @@ import CryptoJS from 'crypto-js'
 export async function usergetter({ token }: { token: any }) {
   return new Promise((res, rej) => {
     if (token !== null) {
-      console.log('Token: ', token)
       let xhr = new XMLHttpRequest()
       let endpoint = process.env.NEXT_PUBLIC_API_ENDPOINT
       let url = endpoint + 'api/v1/users'
