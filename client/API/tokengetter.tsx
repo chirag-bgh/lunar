@@ -7,7 +7,7 @@ export async function tokengetter({ ethAddress }: { ethAddress: any }) {
     let username = ethAddress
     let encrypted = CryptoJS.AES.encrypt(
       username,
-      CryptoJS.enc.Utf8.parse(process.env.NEXT_PUBLIC_ENCRYPTION_KEY),
+      CryptoJS.enc.Utf8.parse(process.env.NEXT_PUBLIC_ENCRYPTION_KEY as string),
       { mode: CryptoJS.mode.ECB }
     )
 
